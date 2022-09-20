@@ -195,7 +195,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <input type="hidden" value="{{ $project->id }}" name="project_id">
+                                <input type="hidden" value="{{ $project->id }}" name="project_id" id="p_id">
+                                <input type="hidden" value="{{ $project->brand }}" name="brand_id" id="b_id"> {{-- ID brand จาก project--}}
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
                                         <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
@@ -367,9 +368,11 @@
                             html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
-                                if(value3.catagory_id == value.id){
-                                    html += '<option value="'+value3.id+'">'+value3.code+'</option>';
-                                }
+                                // if(){
+                                    if(value3.catagory_id == value.id){
+                                        html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                    }
+                                // }
                             });
 
                             html += '</select>';
@@ -381,10 +384,28 @@
                             // append งานย่อย
                             html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 w-full" placeholder="Please Select...">';
                             html2 += '<option selected value=""></option>';
+
                             jQuery.each(response.dataSub, function(key, value2){
-                                if(value2.catagory_id == value.id){
-                                    html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                if( value2.brand_id ){
+                                    let rows_tags = value2.brand_id.split(",");
+                                    jQuery.each(rows_tags, function(tkey, tvalue2){
+                                        console.log(rows_tags[0]);
+                                        if( value2.brand_id == 1 ){
+                                            if(value2.catagory_id == value.id){
+                                                html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                            }
+                                        }
+                                    });
                                 }
+                                // else{
+                                //     // jQuery.each(response.dataSub, function(key, value2){
+                                //         if( value2.brand_id == null ){
+                                //             if(value2.catagory_id == value.id){
+                                //                 html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                //             }
+                                //         }
+                                //     // });
+                                // }
                             });
                             html2 += '</select>';
                             $('#select_sub_id'+sub_num).append(html2);
