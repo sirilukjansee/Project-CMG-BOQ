@@ -21,7 +21,7 @@
         <script src="{{ asset('public/select2/select2.min.js') }}"></script>
 
         <!-- BEGIN: CSS Assets-->
-        <link rel="stylesheet" href="{{ asset('public/dist/css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/dist/css/_app.css') }}">
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
