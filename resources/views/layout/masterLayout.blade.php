@@ -7,7 +7,8 @@
         <meta name="description" content="Icewall admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
         <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="LEFT4CODE">
-        <title>Boq - </title>
+        <title>CMG-BOQ</title>
+        <link type="image/ico" rel="shortcut icon" href="{{asset('public/logo/logo-color1.jpg')}}">
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -209,6 +210,7 @@
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="{{ asset('public/dist/js/app.js')}}"></script>
+        <script src="{{ asset('public/tom-select/dist/js/tom-select.complete.js')}}"></script>
         <!-- END: JS Assets-->
     </body>
 </html>
