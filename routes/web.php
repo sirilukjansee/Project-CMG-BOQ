@@ -16,6 +16,7 @@ use App\Http\Controllers\VenderController;
 use App\Http\Controllers\MasterTORController;
 use App\Http\Controllers\ManagerController;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 // use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\DB;
 
@@ -219,3 +220,7 @@ Route::get('/clc', function() {
     return "Cache is cleared";
 });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
