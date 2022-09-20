@@ -134,7 +134,7 @@ Route::get('/masterTOR/detail/{id}', [MasterTORController::class, 'create_detail
 Route::post('/masterTOR/add_detail', [MasterTORController::class, 'store_detail'])->name('masterTOR/add_detail');
 Route::get('/masterTOR/edit_detail/{id}', [MasterTORController::class, 'edit_detail']);
 Route::post('/masterTOR/update_detail', [MasterTORController::class, 'update_detail']);
-// Route::get('/masterTOR/softdelete_detail/{id}',[VenderController::class,'softdelete_detail']);//
+// Route::get('/masterTOR/softdelete_detail/{id}',[VenderController::class,'softdelete_detail']);////
 Route::get('/masterTOR/changeStatus_detail/{id}',[MasterTORController::class,'changeStatus_detail']);
 Route::get('/masterTOR/chk_detail/{data}',[MasterTORController::class,'torDetailChk']);
 
