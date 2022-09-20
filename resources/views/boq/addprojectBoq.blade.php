@@ -188,6 +188,7 @@
                                                 IO number
                                             </label>
                                             <input id="validation-form-4" type="text" name="io" maxlength="8" class="form-control">
+                                            <p id="comment" class="text-danger"></p>
                                         </div>
                                     </div>
                                     <div class="col-span-12 xl:col-span-2 mt-3">
@@ -374,6 +375,34 @@
             //         $('#test').text('');
             //     });
 
+            jQuery(document).on('keyup', '#validation-form-4', function(){
+
+                var id = $('#validation-form-4').val();
+                var chk = $('#validation-form-1').val();
+
+                jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('/addprojectBoq/chk_io/"+id+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(response) {
+                    console.log(response.chk_io.length);
+                    if ( response.chk_io.length > 1 )
+                    {
+                        jQuery.each(response.chk_io, function(key, value){
+                            if (value.brand != chk) {
+                                $('#comment').text("'" + id + "' มีอยูในโครงการอื่นแล้วจ้าาาาาาาา !");
+                            }
+                        });
+                        console.log("Yay");
+                    }
+                    // $('#get_id').val(data.dataEdit.id);
+                    // $('#location_name').val(data.dataEdit.location_name);
+                    // $('#update_by').val(data.dataEdit.update_by);
+                    // jQuery('#Delete').children().remove().end();
+                }
+            });
+            });
         </script>
         <!-- END: JS Assets-->
     </body>

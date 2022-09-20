@@ -84,4 +84,16 @@ class ProjectController extends Controller
         // return $project->id;
         return redirect(route('allBoq', ['id' => $project->id]))->with('success', '!!! Add Project Complete !!!');
     }
+
+    public function chk_id($id)
+    {
+        return response()->json([
+            'chk_io' => Project::where('io', $id)
+                            ->select('brand', 'io')
+                            // ->groupBy('brand')
+                            ->get()
+
+
+        ]);
+    }
 }

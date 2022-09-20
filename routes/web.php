@@ -162,7 +162,7 @@ Route::get('/adminBoq', [ProjectController::class, 'adminView']);
 Route::get('/index', [ProjectController::class, 'index'])->name('index');
 Route::get('/addprojectBoq', [ProjectController::class, 'create'])->name('addprojectBoq');
 Route::post('/addprojectBoq/add', [ProjectController::class, 'store'])->name('/addprojectBoq/add');
-
+ROute::get('/addprojectBoq/chk_io/{id}', [ProjectController::class, 'chk_id']);
 //BOQ
 Route::get('/allBoq/{id}', [BoqController::class, 'index'])->name('allBoq');
 Route::post('/addBoq/add', [BoqController::class, 'store'])->name('add_Boq');
