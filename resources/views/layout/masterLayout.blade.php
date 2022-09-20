@@ -104,7 +104,13 @@
                                 <hr class="dropdown-divider border-white/[0.08]">
                             </li>
                             <li>
-                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                class="dropdown-item hover:bg-white/5"> <i data-lucide="toggle-right" class="w-4 h-4 mr-2"></i> Logout
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -189,6 +195,12 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="{{ url('users')}}" class="top-menu">
+                        <div class="top-menu__icon"> <i data-lucide="lock"></i> </div>
+                        <div class="top-menu__title"> User </div>
+                    </a>
                 </li>
             </ul>
         </nav>

@@ -17,8 +17,8 @@ use App\Http\Controllers\MasterTORController;
 use App\Http\Controllers\ManagerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
-// use App\Http\Controllers\ExcelController;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\UsersController;
+// use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,14 +32,14 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
-Route::get('/allBoq', function () {
-    return view('boq.allBoq');
-});
-Route::get('/loginBoq', function () {
-    return view('boq.loginBoq');
-});
+// Route::get('/allBoq', function () {
+//     return view('boq.allBoq');
+// });
+// Route::get('/loginBoq', function () {
+//     return view('boq.loginBoq');
+// });
 
 // Route::get('/addminorBoq', function () {
 //     return view('boq.formBoq.addminorBoq');
@@ -47,14 +47,15 @@ Route::get('/loginBoq', function () {
 // Route::get('/adminBoq', function () {
 //     return view('boq.adminBoq');
 // });
-Route::get('/addUser', function () {
-    return view('boq.formBoq.addUser');
-});
+// Route::get('/addUser', function () {
+//     return view('boq.formBoq.addUser');
+// });
 
 Route::get('test-select', function () {
     return view('boq.master.test-select');
 });
 
+Route::middleware(['auth'])->group(function () {
 //master
 Route::get('/masterBoq', [MasterController::class, 'index'])->name('masterBoq');
 Route::get('/sub_masterBoq/{id}', [MasterController::class, 'index_sub'])->name('sub_masterBoq');
@@ -184,6 +185,9 @@ Route::get('projects/export/{id}', [BoqController::class, 'export']);
 Route::get('/checkBoq', [ManagerController::class, 'index']);
 Route::post('/approve_store',[ManagerController::class, 'store']);
 
+// Users
+Route::get('users', [UsersController::class, 'index']);
+
 // Import File
 Route::post('/import-brand', [BrandController::class, 'uploadBrand']);
 Route::post('/import-location', [LocationController::class, 'uploadLocation']);
@@ -208,6 +212,8 @@ Route::get('/export-task-name', [TaskNameController::class, 'export']);
 Route::get('/export-task-type', [TaskTypeController::class, 'export']);
 Route::get('/export-unit', [UnitController::class, 'export']);
 Route::get('/export-tor', [MasterTORController::class, 'export']);
+
+});
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);
 // Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);
