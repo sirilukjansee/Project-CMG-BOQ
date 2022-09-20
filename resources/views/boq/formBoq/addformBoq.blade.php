@@ -368,11 +368,27 @@
                             html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
-                                // if(){
-                                    if(value3.catagory_id == value.id){
-                                        html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                if( value3.brand_id ){
+
+                                let rows_tags =  value3.brand_id.split(",");
+                                // console.log(rows_tags);
+                                jQuery.each(rows_tags, function(rkey, rvalue2){
+                                    if( rows_tags[rkey] == $('#b_id').val() )
+                                            {
+                                        if(value3.catagory_id == value.id){
+
+                                            html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                        }
+                                }
+
+                                });
+                                }else{
+                                    if( value3.brand_id == null ){
+                                        if(value3.catagory_id == value.id){
+                                            html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                        }
                                     }
-                                // }
+                                }
                             });
 
                             html += '</select>';
@@ -387,25 +403,26 @@
 
                             jQuery.each(response.dataSub, function(key, value2){
                                 if( value2.brand_id ){
-                                    let rows_tags = value2.brand_id.split(",");
-                                    jQuery.each(rows_tags, function(tkey, tvalue2){
-                                        console.log(rows_tags[0]);
-                                        if( value2.brand_id == 1 ){
+
+                                    let rows_tags =  value2.brand_id.split(",");
+                                    // console.log(rows_tags);
+                                    jQuery.each(rows_tags, function(rkey, rvalue2){
+                                        if( rows_tags[rkey] == $('#b_id').val() )
+                                                {
+                                            if(value2.catagory_id == value.id){
+
+                                                html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                            }
+                                }
+
+                                    });
+                                }else{
+                                        if( value2.brand_id == null ){
                                             if(value2.catagory_id == value.id){
                                                 html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
                                             }
                                         }
-                                    });
                                 }
-                                // else{
-                                //     // jQuery.each(response.dataSub, function(key, value2){
-                                //         if( value2.brand_id == null ){
-                                //             if(value2.catagory_id == value.id){
-                                //                 html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
-                                //             }
-                                //         }
-                                //     // });
-                                // }
                             });
                             html2 += '</select>';
                             $('#select_sub_id'+sub_num).append(html2);
@@ -424,8 +441,26 @@
                             html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 w-full" placeholder="Please Select...">';
                             html2 += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
-                                if(value2.catagory_id == value.id){
-                                    html2 += '<option value="'+value2.id+'">'+value2.name+'cc</option>';
+                                if( value2.brand_id ){
+
+                                    let rows_tags =  value2.brand_id.split(",");
+                                    // console.log(rows_tags);
+                                    jQuery.each(rows_tags, function(rkey, rvalue2){
+                                        if( rows_tags[rkey] == $('#b_id').val() )
+                                                {
+                                            if(value2.catagory_id == value.id){
+
+                                                html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                            }
+                                }
+
+                                    });
+                                }else{
+                                        if( value2.brand_id == null ){
+                                            if(value2.catagory_id == value.id){
+                                                html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                            }
+                                        }
                                 }
                             });
                             html2 += '</select>';
@@ -452,8 +487,26 @@
                             html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
-                                if(value3.catagory_id == value.id){
-                                    html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                if( value3.brand_id ){
+
+                                    let rows_tags =  value3.brand_id.split(",");
+                                    // console.log(rows_tags);
+                                    jQuery.each(rows_tags, function(rkey, rvalue2){
+                                        if( rows_tags[rkey] == $('#b_id').val() )
+                                                {
+                                            if(value3.catagory_id == value.id){
+
+                                                html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                            }
+                                }
+
+                                    });
+                                }else{
+                                        if( value3.brand_id == null ){
+                                            if(value3.catagory_id == value.id){
+                                                html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                            }
+                                        }
                                 }
                             });
                             html += '</select>';
@@ -502,17 +555,53 @@
                             html += '<select id="code_id_a'+x+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
-                                if(value3.catagory_id == value.id){
-                                    html += '<option value="'+value3.id+'">'+value3.code+'</option>';
-                                }
+                                if( value3.brand_id ){
+
+                                    let rows_tags =  value3.brand_id.split(",");
+                                    // console.log(rows_tags);
+                                    jQuery.each(rows_tags, function(rkey, rvalue2){
+                                        if( rows_tags[rkey] == $('#b_id').val() )
+                                                {
+                                            if(value3.catagory_id == value.id){
+
+                                                html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                            }
+                                    }
+
+                                    });
+                                    }else{
+                                        if( value3.brand_id == null ){
+                                            if(value3.catagory_id == value.id){
+                                                html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                            }
+                                        }
+                                    }
                             });
 
                             html += '</select>';
                             html += '<select id="sub_a'+x+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 w-full" placeholder="Please Select...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
-                                if(value2.catagory_id == value.id){
-                                    html += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                if( value2.brand_id ){
+
+                                    let rows_tags =  value2.brand_id.split(",");
+                                    // console.log(rows_tags);
+                                    jQuery.each(rows_tags, function(rkey, rvalue2){
+                                        if( rows_tags[rkey] == $('#b_id').val() )
+                                                {
+                                            if(value2.catagory_id == value.id){
+
+                                                html += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                            }
+                                }
+
+                                    });
+                                }else{
+                                        if( value2.brand_id == null ){
+                                            if(value2.catagory_id == value.id){
+                                                html += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                            }
+                                        }
                                 }
                             });
                             html += '</select>';

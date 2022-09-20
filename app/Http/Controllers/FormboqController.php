@@ -34,7 +34,8 @@ class FormboqController extends Controller
     {
         return response()->json([
             'data' => catagory::where('is_active', "1")->get(),
-            'dataSub' => catagory_sub::where('is_active', "1")->get()
+            'dataSub' => catagory_sub::where('is_active', "1")->get(),
+            'data_brands' => Brand::where('is_active', "1")->get()
         ]);
     }
 }
