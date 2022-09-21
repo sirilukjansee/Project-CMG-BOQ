@@ -394,7 +394,7 @@
                                 $('#comment').text("'" + id + "' มีอยูในโครงการอื่นแล้วจ้าาาาาาาา !");
                             }
                         });
-                        console.log("Yay");
+                        // console.log("Yay");
                     }
                     // $('#get_id').val(data.dataEdit.id);
                     // $('#location_name').val(data.dataEdit.location_name);
