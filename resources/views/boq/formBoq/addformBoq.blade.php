@@ -1,133 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" class="light">
-    <!-- BEGIN: Head -->
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Icewall admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
-        <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
-        <meta name="author" content="LEFT4CODE">
-        <title>Boq - </title>
+@extends('layout.masterLayout')
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link href="{{ asset('public/select2/select2.min.css') }}" rel="stylesheet" />
-        <script src="{{ asset('public/select2/select2.min.js') }}"></script>
-        <!-- BEGIN: CSS Assets-->
-        <link rel="stylesheet" href="{{ asset('public/dist/css/_app.css') }}" />
-        <!-- END: CSS Assets-->
-    </head>
-    <!-- END: Head -->
-    <body class="main">
-        <!-- BEGIN: Mobile Menu -->
-        <div class="mobile-menu md:hidden">
-            <div class="mobile-menu-bar">
-                <a href="{{ url('index') }}" class="flex mr-auto">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
-                </a>
-                <a href="javascript:;" id="mobile-menu-toggler"> <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
-            </div>
-            <ul class="border-t border-white/[0.08] py-5 hidden">
-                <li>
-                    <a href="javascript:;" class="menu">
-                        <div class="menu__icon"> <i data-lucide="home"></i> </div>
-                        <div class="menu__title"> Dashboard <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
-                    </a>
-                    <ul class="">
-                        <li>
-                            <a href="index.html" class="menu">
-                                <div class="menu__icon"> <i data-lucide="activity"></i> </div>
-                                <div class="menu__title"> Overview 1 </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="side-menu-light-dashboard-overview-2.html" class="menu">
-                                <div class="menu__icon"> <i data-lucide="activity"></i> </div>
-                                <div class="menu__title"> Overview 2 </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="side-menu-light-dashboard-overview-3.html" class="menu">
-                                <div class="menu__icon"> <i data-lucide="activity"></i> </div>
-                                <div class="menu__title"> Overview 3 </div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <!-- END: Mobile Menu -->
-        <!-- BEGIN: Top Bar -->
-        <div class="top-bar-boxed h-[70px] z-[51] relative border-b border-white/[0.08] -mt-7 md:-mt-5 -mx-3 sm:-mx-8 px-3 sm:px-8 md:pt-0 mb-12">
-            <div class="h-full flex items-center">
-                <!-- BEGIN: Logo -->
-                <a href="{{ url("index") }}" class="-intro-x hidden md:flex">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
-                    <span class="text-white text-lg ml-3">Test</span>
-                </a>
-                <!-- END: Logo -->
-                <!-- BEGIN: Breadcrumb -->
-                <nav aria-label="breadcrumb" class="-intro-x h-full mr-auto">
-                    <ol class="breadcrumb breadcrumb-light">
-                        <li class="breadcrumb-item"><a href="{{ url('index') }}">Project</a></li>
-                    </ol>
-                </nav>
-                <!-- END: Breadcrumb -->
-                <!-- BEGIN: Account Menu -->
-                <div class="intro-x dropdown w-8 h-8">
-                    <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                        <img alt="Midone - HTML Admin Template" src="{{ asset('public/dist/images/profile-8.jpg')}}">
-                    </div>
-                    <div class="dropdown-menu w-56">
-                        <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
-                            <li class="p-2">
-                                <div class="font-medium">Nicolas Cage</div>
-                                <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">Software Engineer</div>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider border-white/[0.08]">
-                            </li>
-                            <li>
-                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="user" class="w-4 h-4 mr-2"></i> Profile </a>
-                            </li>
-                            <li>
-                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Add Account </a>
-                            </li>
-                            <li>
-                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="lock" class="w-4 h-4 mr-2"></i> Reset Password </a>
-                            </li>
-                            <li>
-                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider border-white/[0.08]">
-                            </li>
-                            <li>
-                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- END: Account Menu -->
-            </div>
-        </div>
-        <!-- END: Top Bar -->
-        <!-- BEGIN: Top Menu -->
-        <nav class="top-nav">
-            <ul>
-                <li>
-                    <a href="javascript:;.html" class="top-menu top-menu--active">
-                        <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
-                        <div class="top-menu__title"> BOQ <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- END: Top Menu -->
-        <!-- BEGIN: Content -->
-        <div class="wrapper wrapper--top-nav">
-            <div class="wrapper-box">
-                <!-- BEGIN: Content -->
-                <div class="content">
+@section('content-data')
                     <div class="intro-y flex sm:flex-row items-center mt-3">
                         <h2 class="text-lg font-medium mr-auto">
                             <b>Create BOQ of {{ $project->brand_master->brand_name }} at {{ $project->location_master->location_name }}</b>
@@ -184,6 +57,7 @@
                     </div>
                     <!-- BEGIN: Validation Form -->
                         <div class="group_wrapper">
+                            <div class="intro-y input-form box p-5 mt-3">
                             <form action="{{ route('add_Boq') }}" method="post" id="form1" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-inline mb-3 mt-10">
@@ -288,11 +162,9 @@
                                 <a href="{{ url()->previous() }}" class="btn btn-dark-soft mt-5">Back</a>
                             </form>
                         </div>
+                        </div>
                     <!-- END: Validation Form -->
-                </div>
-                <!-- END: Content -->
-            </div>
-        </div>
+
         <!-- BEGIN: Modal Content -->
         <div id="delete-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
@@ -312,12 +184,7 @@
             </div>
         </div>
         <!-- END: Modal Content -->
-        <!-- END: Content -->
-        <!-- BEGIN: JS Assets-->
 
-        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
-        <script src="{{ asset('public/dist/js/app.js')}}"></script>
-        <script src="{{ asset('public/tom-select/dist/js/tom-select.complete.js')}}"></script>
         <script type="text/javascript">
 
             //
@@ -368,11 +235,27 @@
                             html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
-                                // if(){
-                                    if(value3.catagory_id == value.id){
-                                        html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                if( value3.brand_id ){
+
+                                let rows_tags =  value3.brand_id.split(",");
+                                // console.log(rows_tags);
+                                jQuery.each(rows_tags, function(rkey, rvalue2){
+                                    if( rows_tags[rkey] == $('#b_id').val() )
+                                            {
+                                        if(value3.catagory_id == value.id){
+
+                                            html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                        }
+                                }
+
+                                });
+                                }else{
+                                    if( value3.brand_id == null ){
+                                        if(value3.catagory_id == value.id){
+                                            html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                        }
                                     }
-                                // }
+                                }
                             });
 
                             html += '</select>';
@@ -387,25 +270,26 @@
 
                             jQuery.each(response.dataSub, function(key, value2){
                                 if( value2.brand_id ){
-                                    let rows_tags = value2.brand_id.split(",");
-                                    jQuery.each(rows_tags, function(tkey, tvalue2){
-                                        console.log(rows_tags[0]);
-                                        if( value2.brand_id == 1 ){
+
+                                    let rows_tags =  value2.brand_id.split(",");
+                                    // console.log(rows_tags);
+                                    jQuery.each(rows_tags, function(rkey, rvalue2){
+                                        if( rows_tags[rkey] == $('#b_id').val() )
+                                                {
+                                            if(value2.catagory_id == value.id){
+
+                                                html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                            }
+                                }
+
+                                    });
+                                }else{
+                                        if( value2.brand_id == null ){
                                             if(value2.catagory_id == value.id){
                                                 html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
                                             }
                                         }
-                                    });
                                 }
-                                // else{
-                                //     // jQuery.each(response.dataSub, function(key, value2){
-                                //         if( value2.brand_id == null ){
-                                //             if(value2.catagory_id == value.id){
-                                //                 html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
-                                //             }
-                                //         }
-                                //     // });
-                                // }
                             });
                             html2 += '</select>';
                             $('#select_sub_id'+sub_num).append(html2);
@@ -424,8 +308,26 @@
                             html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 w-full" placeholder="Please Select...">';
                             html2 += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
-                                if(value2.catagory_id == value.id){
-                                    html2 += '<option value="'+value2.id+'">'+value2.name+'cc</option>';
+                                if( value2.brand_id ){
+
+                                    let rows_tags =  value2.brand_id.split(",");
+                                    // console.log(rows_tags);
+                                    jQuery.each(rows_tags, function(rkey, rvalue2){
+                                        if( rows_tags[rkey] == $('#b_id').val() )
+                                                {
+                                            if(value2.catagory_id == value.id){
+
+                                                html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                            }
+                                }
+
+                                    });
+                                }else{
+                                        if( value2.brand_id == null ){
+                                            if(value2.catagory_id == value.id){
+                                                html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                            }
+                                        }
                                 }
                             });
                             html2 += '</select>';
@@ -452,8 +354,26 @@
                             html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
-                                if(value3.catagory_id == value.id){
-                                    html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                if( value3.brand_id ){
+
+                                    let rows_tags =  value3.brand_id.split(",");
+                                    // console.log(rows_tags);
+                                    jQuery.each(rows_tags, function(rkey, rvalue2){
+                                        if( rows_tags[rkey] == $('#b_id').val() )
+                                                {
+                                            if(value3.catagory_id == value.id){
+
+                                                html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                            }
+                                }
+
+                                    });
+                                }else{
+                                        if( value3.brand_id == null ){
+                                            if(value3.catagory_id == value.id){
+                                                html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                            }
+                                        }
                                 }
                             });
                             html += '</select>';
@@ -502,17 +422,53 @@
                             html += '<select id="code_id_a'+x+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
-                                if(value3.catagory_id == value.id){
-                                    html += '<option value="'+value3.id+'">'+value3.code+'</option>';
-                                }
+                                if( value3.brand_id ){
+
+                                    let rows_tags =  value3.brand_id.split(",");
+                                    // console.log(rows_tags);
+                                    jQuery.each(rows_tags, function(rkey, rvalue2){
+                                        if( rows_tags[rkey] == $('#b_id').val() )
+                                                {
+                                            if(value3.catagory_id == value.id){
+
+                                                html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                            }
+                                    }
+
+                                    });
+                                    }else{
+                                        if( value3.brand_id == null ){
+                                            if(value3.catagory_id == value.id){
+                                                html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                            }
+                                        }
+                                    }
                             });
 
                             html += '</select>';
                             html += '<select id="sub_a'+x+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 w-full" placeholder="Please Select...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
-                                if(value2.catagory_id == value.id){
-                                    html += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                if( value2.brand_id ){
+
+                                    let rows_tags =  value2.brand_id.split(",");
+                                    // console.log(rows_tags);
+                                    jQuery.each(rows_tags, function(rkey, rvalue2){
+                                        if( rows_tags[rkey] == $('#b_id').val() )
+                                                {
+                                            if(value2.catagory_id == value.id){
+
+                                                html += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                            }
+                                }
+
+                                    });
+                                }else{
+                                        if( value2.brand_id == null ){
+                                            if(value2.catagory_id == value.id){
+                                                html += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                            }
+                                        }
                                 }
                             });
                             html += '</select>';
@@ -543,5 +499,4 @@
 
         </script>
         <!-- END: JS Assets-->
-    </body>
-</html>
+@endsection

@@ -1,304 +1,175 @@
-<!DOCTYPE html>
-<html lang="en" class="light">
-    <!-- BEGIN: Head -->
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Icewall admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
-        <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
-        <meta name="author" content="LEFT4CODE">
-        <title>Boq - </title>
+@extends('layout.masterLayout')
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link href="{{ asset('public/select2/select2.min.css') }}" rel="stylesheet" />
-        <script src="{{ asset('public/select2/select2.min.js') }}"></script>
-        <!-- BEGIN: CSS Assets-->
-        <link rel="stylesheet" href="{{ asset('public/dist/css/_app.css') }}" />
-        <!-- END: CSS Assets-->
-    </head>
-    <!-- END: Head -->
-    <body class="main">
-        <!-- BEGIN: Mobile Menu -->
-        <div class="mobile-menu md:hidden">
-            <div class="mobile-menu-bar">
-                <a href="{{ url('index') }}" class="flex mr-auto">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
-                </a>
-                <a href="javascript:;" id="mobile-menu-toggler"> <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
-            </div>
-            <ul class="border-t border-white/[0.08] py-5 hidden">
-                <li>
-                    <a href="javascript:;" class="menu">
-                        <div class="menu__icon"> <i data-lucide="home"></i> </div>
-                        <div class="menu__title"> Dashboard <i data-lucide="chevron-down" class="menu__sub-icon "></i> </div>
-                    </a>
-                    <ul class="">
-                        <li>
-                            <a href="index.html" class="menu">
-                                <div class="menu__icon"> <i data-lucide="activity"></i> </div>
-                                <div class="menu__title"> Overview 1 </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="side-menu-light-dashboard-overview-2.html" class="menu">
-                                <div class="menu__icon"> <i data-lucide="activity"></i> </div>
-                                <div class="menu__title"> Overview 2 </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="side-menu-light-dashboard-overview-3.html" class="menu">
-                                <div class="menu__icon"> <i data-lucide="activity"></i> </div>
-                                <div class="menu__title"> Overview 3 </div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <!-- END: Mobile Menu -->
-        <!-- BEGIN: Top Bar -->
-        <div class="top-bar-boxed h-[70px] z-[51] relative border-b border-white/[0.08] -mt-7 md:-mt-5 -mx-3 sm:-mx-8 px-3 sm:px-8 md:pt-0 mb-12">
-            <div class="h-full flex items-center">
-                <!-- BEGIN: Logo -->
-                <a href="{{ url("index") }}" class="-intro-x hidden md:flex">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
-                    <span class="text-white text-lg ml-3">Test</span>
-                </a>
-                <!-- END: Logo -->
-                <!-- BEGIN: Breadcrumb -->
-                <nav aria-label="breadcrumb" class="-intro-x h-full mr-auto">
-                    <ol class="breadcrumb breadcrumb-light">
-                        <li class="breadcrumb-item"><a href="{{ url('index') }}">Project</a></li>
-                    </ol>
-                </nav>
-                <!-- END: Breadcrumb -->
-                <!-- BEGIN: Account Menu -->
-                <div class="intro-x dropdown w-8 h-8">
-                    <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                        <img alt="Midone - HTML Admin Template" src="{{ asset('public/dist/images/profile-8.jpg')}}">
-                    </div>
-                    <div class="dropdown-menu w-56">
-                        <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
-                            <li class="p-2">
-                                <div class="font-medium">Nicolas Cage</div>
-                                <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">Software Engineer</div>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider border-white/[0.08]">
-                            </li>
-                            <li>
-                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="user" class="w-4 h-4 mr-2"></i> Profile </a>
-                            </li>
-                            <li>
-                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Add Account </a>
-                            </li>
-                            <li>
-                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="lock" class="w-4 h-4 mr-2"></i> Reset Password </a>
-                            </li>
-                            <li>
-                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider border-white/[0.08]">
-                            </li>
-                            <li>
-                                <a href="" class="dropdown-item hover:bg-white/5"> <i data-lucide="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
-                            </li>
-                        </ul>
-                    </div>
+@section('content-data')
+    <div class="intro-y flex sm:flex-row items-center mt-3">
+        <h2 class="text-lg font-medium mr-auto">
+            <b>Edit BOQ of {{ $project_id->project->brand_master->brand_name }} at {{ $project_id->project->location_master->location_name }}
+            @if ( $project_id->name == 'Master BOQ' )
+                [Master BOQ]
+                @else
+                [Additional BOQ]
+            @endif</b>
+        </h2>
+    </div>
+    <!-- BEGIN: Validation Form -->
+        <div class="group_wrapper">
+            <div class="intro-y input-form box p-5 mt-3">
+            <form action="{{ url('/formBoq/update') }}" method="post" id="form1" enctype="multipart/form-data">
+                @csrf
+                <div class="form-inline mb-3 mt-10">
+                    <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
+                    <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
+                        <option selected value="{{ $project_id->vender_id }}">{{ @$project_id->vender_name->name }}</option>
+                        @foreach ( $ven_der as $vd )
+                        <option value="{{ $vd->id }}">{{ $vd->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <!-- END: Account Menu -->
-            </div>
-        </div>
-        <!-- END: Top Bar -->
-        <!-- BEGIN: Top Menu -->
-        <nav class="top-nav">
-            <ul>
-                <li>
-                    <a href="javascript:;.html" class="top-menu top-menu--active">
-                        <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
-                        <div class="top-menu__title"> BOQ <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- END: Top Menu -->
-        <!-- BEGIN: Content -->
-        <div class="wrapper wrapper--top-nav">
-            <div class="wrapper-box">
-                <!-- BEGIN: Content -->
-                <div class="content">
-                    <div class="intro-y flex sm:flex-row items-center mt-3">
-                        <h2 class="text-lg font-medium mr-auto">
-                            <b>Edit BOQ of {{ $project_id->project->brand_master->brand_name }} at {{ $project_id->project->location_master->location_name }}
-                            @if ( $project_id->name == 'Master BOQ' )
-                                [Master BOQ]
-                                @else
-                                [Additional BOQ]
-                            @endif</b>
-                        </h2>
-                    </div>
-                    <!-- BEGIN: Validation Form -->
-                        <div class="group_wrapper">
-                            <form action="{{ url('/formBoq/update') }}" method="post" id="form1" enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-inline mb-3 mt-10">
-                                    <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
-                                    <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
-                                        <option selected value="{{ $project_id->vender_id }}">{{ @$project_id->vender_name->name }}</option>
-                                        @foreach ( $ven_der as $vd )
-                                        <option value="{{ $vd->id }}">{{ $vd->name }}</option>
+                <div id="addmain" class="input-form mt-3">
+                    @foreach ($catagories as $key => $cat)
+                    <input type="hidden" value="{{ $id }}" name="id">
+                    <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
+                    <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
+                    <div class="intro-y input-form mt-3 ml-2">
+                        <div class="input-form">
+                            @foreach ( $editboq as $eb )
+                            @if ( $eb->main_id == $cat->id)
+                                <input type="hidden" value="{{ $eb->id }}" name="boq_id">
+                                <input type="hidden" value="{{ $project_id->project_id }}" name="project_id">
+                                <div id="addsub" class="flex flex-row gap-2 mb-2">
+                                    <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
+                                    <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2" placeholder="Code...">
+                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_cata->code }}</option>
+                                        @foreach ($cat->catagory_sub as $cat_s)
+                                        <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <div id="addmain" class="input-form mt-3">
-                                    @foreach ($catagories as $key => $cat)
-                                    <input type="hidden" value="{{ $id }}" name="id">
-                                    <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
-                                    <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
-                                    <div class="intro-y input-form mt-3 ml-2">
-                                        <div class="input-form">
-                                            @foreach ( $editboq as $eb )
-                                            @if ( $eb->main_id == $cat->id)
-                                                <input type="hidden" value="{{ $eb->id }}" name="boq_id">
-                                                <input type="hidden" value="{{ $project_id->project_id }}" name="project_id">
-                                                <div id="addsub" class="flex flex-row gap-2 mb-2">
-                                                    <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                                    <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2" placeholder="Code...">
-                                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_cata->code }}</option>
-                                                        @foreach ($cat->catagory_sub as $cat_s)
-                                                        <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <select name="sub_id[][{{ $cat->id }}]" class="selectDropdown_2" placeholder="Please Select...">
-                                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_cata->name }}</option>
-                                                        @foreach ($cat->catagory_sub as $cat_s)
-                                                        <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ $eb->amount }}">
-                                                    <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
-                                                        <option selected value="{{ $eb->unit_id }}">{{ $eb->unit_u->unit_name }}</option>
-                                                        @foreach ($catagories2 as $cat2)
-                                                        <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" value="{{ $eb->desc }}">
-                                                    @php
-                                                    $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
-                                                    ->where('name', "Master BOQ")
-                                                    ->first();
-                                                    @endphp
-                                                    @if ( $data_chk )
-                                                    <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24" value="{{ $eb->wage_cost }}">
-                                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24" value="{{ $eb->material_cost }}">
-                                                    @endif
-                                                    <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
-                                                </div>
-                                            @endif
-                                            @endforeach
-                                            @php
-                                                $data_chk = App\Models\Boq::where('main_id', $cat->id)
-                                                    ->where('template_boq_id', $project_id->id)
-                                                    ->first();
-                                            @endphp
-                                            @if ( $data_chk == '')
-                                                <div id="addsub" class="flex flex-row gap-2 mb-2">
-                                                    <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                                    {{-- <span>code_id{{$key + 1}}</span> --}}
-                                                    {{-- <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2" placeholder="Code...">
-                                                        <option selected value=""></option>
-                                                        @foreach ($cat->catagory_sub as $cat_s)
-                                                        <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
-                                                        @endforeach
-                                                    </select> --}}
-                                                    <span id="select_code_id{{$key + 1}}"></span>
-                                                    {{-- <select id="sub1" name="sub_id[][{{ $cat->id }}]" class="selectDropdown_2">
-                                                        <option selected value=""></option>
-                                                        @foreach ($cat->catagory_sub as $cat_s)
-                                                        <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
-                                                        @endforeach
-                                                    </select> --}}
-                                                    <span id="select_sub_id{{$key + 1}}"></span>
-                                                    {{-- <span class="sub_selected{{ $cat->id }}"></span> --}}
-                                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
-                                                    <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
-                                                        <option selected value=""></option>
-                                                        @foreach ($catagories2 as $cat2)
-                                                        <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
-                                                    @php
-                                                    $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
-                                                    ->where('name', "Master BOQ")
-                                                    ->first();
-                                                    @endphp
-                                                    @if ( $data_chk )
-                                                        @if ($data_chk->status == "2" )
-                                                        <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24">
-                                                        <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24">
-                                                        @endif
-                                                    @endif
-                                                    <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
-                                                </div>
-                                            @endif
-                                            <div id="newRowsub{{$key + 1}}"></div>
-                                            <input type="hidden" id="number_s" rel="{{$key + 1}}">
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-3 mb-3">
-                                        <div class="col-span-2">
-                                            <input type="button" value="ลบงานย่อยที่เลือก" class="btn btn-secondary" id="checkDel" />
-                                        </div>
-                                        <div class="flex justify-end gap-2">
-                                            <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary" id="btnAddsub{{$key + 1}}" rel="{{$key + 1}}" />
-                                        </div>
-                                    </div>
-                                    @endforeach
+                                    <select name="sub_id[][{{ $cat->id }}]" class="selectDropdown_2" placeholder="Please Select...">
+                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_cata->name }}</option>
+                                        @foreach ($cat->catagory_sub as $cat_s)
+                                        <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ $eb->amount }}">
+                                    <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
+                                        <option selected value="{{ $eb->unit_id }}">{{ $eb->unit_u->unit_name }}</option>
+                                        @foreach ($catagories2 as $cat2)
+                                        <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" value="{{ $eb->desc }}">
                                     @php
-                                        $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
-                                        ->where('name', "Master BOQ")
-                                        ->first();
-                                        @endphp
-                                        @if ($data_chk)
-                                            @if ($data_chk->status == "2" )
-                                            <div class="grid grid-cols-3 gap-2">
-                                                <div class="input-form mt-3">
-                                                    <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
-                                                       <b> Overhead </b>
-                                                    </label>
-                                                    <input id="validation-form-8" type="number" name="overhead" class="form-control" value="{{$project_id->overhead}}">
-                                                </div>
-                                                <div class="input-form mt-3">
-                                                    <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
-                                                       <b> Discount </b>
-                                                    </label>
-                                                    <input id="validation-form-9" type="number" name="discount" class="form-control" value="{{$project_id->discount}}">
-                                                </div>
-                                            </div>
-                                            @endif
-                                        @endif
-                                </div>
-                                <input type="hidden" id="is_btn" name="btn_send">
-                                <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
-                                @if ($data_chk)
-                                    @if ($data_chk->status != "2")
-                                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                                    $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
+                                    ->where('name', "Master BOQ")
+                                    ->first();
+                                    @endphp
+                                    @if ( $data_chk )
+                                    <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24" value="{{ $eb->wage_cost }}">
+                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24" value="{{ $eb->material_cost }}">
                                     @endif
-                                    @else
-                                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
-                                @endif
-                                {{-- <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview"> --}}
-                                <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">Back</a>
-                            </form>
+                                    <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
+                                </div>
+                            @endif
+                            @endforeach
+                            @php
+                                $data_chk = App\Models\Boq::where('main_id', $cat->id)
+                                    ->where('template_boq_id', $project_id->id)
+                                    ->first();
+                            @endphp
+                            @if ( $data_chk == '')
+                                <div id="addsub" class="flex flex-row gap-2 mb-2">
+                                    <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
+                                    {{-- <span>code_id{{$key + 1}}</span> --}}
+                                    {{-- <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2" placeholder="Code...">
+                                        <option selected value=""></option>
+                                        @foreach ($cat->catagory_sub as $cat_s)
+                                        <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
+                                        @endforeach
+                                    </select> --}}
+                                    <span id="select_code_id{{$key + 1}}"></span>
+                                    {{-- <select id="sub1" name="sub_id[][{{ $cat->id }}]" class="selectDropdown_2">
+                                        <option selected value=""></option>
+                                        @foreach ($cat->catagory_sub as $cat_s)
+                                        <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
+                                        @endforeach
+                                    </select> --}}
+                                    <span id="select_sub_id{{$key + 1}}"></span>
+                                    {{-- <span class="sub_selected{{ $cat->id }}"></span> --}}
+                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
+                                    <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
+                                        <option selected value=""></option>
+                                        @foreach ($catagories2 as $cat2)
+                                        <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
+                                    @php
+                                    $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
+                                    ->where('name', "Master BOQ")
+                                    ->first();
+                                    @endphp
+                                    @if ( $data_chk )
+                                        @if ($data_chk->status == "2" )
+                                        <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24">
+                                        <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24">
+                                        @endif
+                                    @endif
+                                    <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
+                                </div>
+                            @endif
+                            <div id="newRowsub{{$key + 1}}"></div>
+                            <input type="hidden" id="number_s" rel="{{$key + 1}}">
                         </div>
-                    <!-- END: Validation Form -->
+                    </div>
+                    <div class="grid grid-cols-3 mb-3">
+                        <div class="col-span-2">
+                            <input type="button" value="ลบงานย่อยที่เลือก" class="btn btn-secondary" id="checkDel" />
+                        </div>
+                        <div class="flex justify-end gap-2">
+                            <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary" id="btnAddsub{{$key + 1}}" rel="{{$key + 1}}" />
+                        </div>
+                    </div>
+                    @endforeach
+                    @php
+                        $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
+                        ->where('name', "Master BOQ")
+                        ->first();
+                        @endphp
+                        @if ($data_chk)
+                            @if ($data_chk->status == "2" )
+                            <div class="grid grid-cols-3 gap-2">
+                                <div class="input-form mt-3">
+                                    <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
+                                    <b> Overhead </b>
+                                    </label>
+                                    <input id="validation-form-8" type="number" name="overhead" class="form-control" value="{{$project_id->overhead}}">
+                                </div>
+                                <div class="input-form mt-3">
+                                    <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
+                                    <b> Discount </b>
+                                    </label>
+                                    <input id="validation-form-9" type="number" name="discount" class="form-control" value="{{$project_id->discount}}">
+                                </div>
+                            </div>
+                            @endif
+                        @endif
                 </div>
-                <!-- END: Content -->
-            </div>
+                <input type="hidden" id="is_btn" name="btn_send">
+                <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
+                @if ($data_chk)
+                    @if ($data_chk->status != "2")
+                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                    @endif
+                    @else
+                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                @endif
+                {{-- <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview"> --}}
+                <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">Back</a>
+            </form>
         </div>
-        <!-- BEGIN: Modal Content -->
+        </div>
+    <!-- END: Validation Form -->
+
         <div id="delete-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -316,11 +187,7 @@
                 </div>
             </div>
         </div>
-        <!-- END: Modal Content -->
-        <!-- END: Content -->
-        <!-- BEGIN: JS Assets-->
-        <script src="{{ asset('public/dist/js/app.js')}}"></script>
-        {{-- <script src="/tom-select/dist/js/tom-select.complete.js"></script> --}}
+
         <script type="text/javascript">
 
             //
@@ -526,5 +393,4 @@
 
         </script>
         <!-- END: JS Assets-->
-    </body>
-</html>
+@endsection
