@@ -19,7 +19,6 @@ class ProjectController extends Controller
         $project = Project::orderBy('id', 'desc')
             ->get();
 
-
         return view('boq.index', compact('project'));
     }
 
@@ -96,4 +95,38 @@ class ProjectController extends Controller
 
         ]);
     }
+
+    public function edit($id)
+    {
+        $project = Project::find($id);
+        $project1 = Brand::where('is_active', "1")->get();
+        $project2 = Location::where('is_active', "1")->get();
+        $project3 = task_type::where('is_active', "1")->get();
+        $project4 = taskname::where('is_active', "1")->get();
+        $project5 = design_and_pm::where('is_active', "1")->get();
+
+        return view('boq.editprojectBoq', compact('project','project1','project2','project3','project4','project5'));
+    }
+
+    public function update(Request $request)
+    {
+        // dd($request);
+        $pro_data = Project::where('id', $request->id)->update([
+            'brand' => $request->brand,
+            'location' => $request->location,
+            'area' => $request->area,
+            'unit' => $request->unit,
+            'io' => $request->io,
+            'task' => $request->task,
+            'task_n' => $request->task_n,
+            'start_date' => $request->startDate,
+            'finish_date' => $request->finishDate,
+            'all_date' => $request->alldate,
+            'open_date' => $request->openDate,
+            'designer_name' => $request->ds_name,
+        ]);
+
+        return redirect(route('allBoq', ['id' => $request->id]))->with('success', '!!! Add Project Complete !!!');
+    }
+
 }

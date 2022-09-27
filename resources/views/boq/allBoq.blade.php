@@ -15,10 +15,11 @@
     <!-- BEGIN: HTML Table Data -->
     <div class="intro-y box p-5 mt-5">
         <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
-            <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
+            <div class="xl:flex sm:mr-auto">
                 <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
+                    <a class="btn btn-primary mr-2" href="{{ url('/editprojectBoq', $project->id) }}">Edit Project</a>
                 </div>
-            </form>
+            </div>
             <div class="sm:flex items-center mt-2 xl:mt-0">
                 @php
                     $data_chk = App\Models\template_boqs::where('project_id', $project->id)

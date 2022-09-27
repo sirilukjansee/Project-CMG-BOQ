@@ -29,15 +29,33 @@ class BoqController extends Controller
         ->first();
 
         $temp_boq = template_boqs::where('project_id', $id)
-            // ->paginate(5)
             ->get();
 
         return view('boq.allBoq', compact('project','temp_boq'));
     }
 
+    public function choose_temp($templateid, $id)
+    {
+        // dd($templateid);
+        $pro_brand = Project::where('id', $id)->first();
+        $data_boq = Boq::where('template_boq_id', $templateid)->get();
+        $catagories = catagory::where('is_active', "1")->get();
+        $brand_master = Brand::where('is_active', "1")->get();
+        $catagories2 = Unit::where('is_active', "1")->get();
+        $ven_der = Vender::where('is_active', "1")->get();
+        $edit_dis = Boq::where('template_boq_id', $id)->first();
+        $project_id = template_boqs::where('id' , $templateid)->first();  // templateid คือ ID โครงการที่ Choose template มา ||  id คือ id ของ project ที่กำลังทำอยู่ !!!!!!
+
+        // return $templateid;
+        // dd($id);
+        return view('boq.formBoq.addformBoq-template', compact('pro_brand','data_boq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis','templateid'));
+    }
+
+
+
     public function store(Request $request)
     {
-        // dd($request->vender_id);
+        // dd($request);
         if( $request->btn_send == "btn_send" )
         {
             $send_form = "1";
@@ -64,6 +82,7 @@ class BoqController extends Controller
                     'status'    =>  $send_form,
                     'overhead'  =>  $request->overhead,
                     'discount'  =>  $request->discount,
+                    'ref_template' => $request->ref_template,
                     'create_by' =>  1,
                     'update_by' =>  1
                 ])->id;
@@ -79,6 +98,7 @@ class BoqController extends Controller
                     'status'    =>  $send_form,
                     'overhead'  =>  $request->overhead,
                     'discount'  =>  $request->discount,
+                    'ref_template' => $request->ref_template,
                     'create_by' =>  1,
                     'update_by' =>  1
                 ])->id;
@@ -151,7 +171,7 @@ class BoqController extends Controller
     }
     public function edit($id)
     {
-
+        $pro_brand = Project::where('id', $id)->first();
         $editboq = Boq::where('template_boq_id', $id)->get();
         $catagories = catagory::where('is_active', "1")->get();
         $brand_master = Brand::where('is_active', "1")->get();
@@ -160,7 +180,8 @@ class BoqController extends Controller
         $edit_dis = Boq::where('template_boq_id', $id)->first();
         $project_id = template_boqs::where('id' , $id)->first();
 
-        return view('boq.formBoq.editformBoq', compact('editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis'));
+        // dd($id);
+        return view('boq.formBoq.editformBoq', compact('pro_brand','editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis'));
     }
     public function update(Request $request)
     {

@@ -99,8 +99,7 @@
                 ->first();
                 // dd($data_chk);
                 @endphp
-                @if ($data_chk)
-                    @if ($data_chk->status == "2" )
+                    @if ( $project_id->overhead > 0 )
                     <div class="grid grid-cols-3 gap-2">
                         <div class="input-form mt-3">
                             <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
@@ -116,7 +115,6 @@
                         </div>
                     </div>
                     @endif
-                @endif
         </div>
         <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">Back</a>
 

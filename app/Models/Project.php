@@ -10,8 +10,9 @@ class Project extends Model
 {
     use HasFactory;
 
+    Protected $table = 'projects';
     protected   $fillable = [
-        'project_id',
+        // 'project_id',
         'brand',
         'number_id',
         'location',
