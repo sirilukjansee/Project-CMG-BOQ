@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProjectExport;
+use App\Exports\VendersExport;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Brand;
@@ -12,6 +14,8 @@ use App\Models\design_and_pm;
 use App\Models\template_boqs;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProjectController extends Controller
 {
@@ -95,5 +99,39 @@ class ProjectController extends Controller
 
 
         ]);
+    }
+
+    public function sendFile()
+    {
+        // บันทึกข้อมูลลงไฟล์ contacts.csv
+        // $list = Project::get();
+        // $filName = "province.csv";
+        // $file = fopen("province.csv","w");
+        // foreach ($list as $line){
+        // fputcsv($file,explode(',',$line));
+        // }
+        // // ปิดไฟล์
+        // fclose($file);
+
+        // $content = "public/logo/logo-cmg.jpg";
+        // $test = "ssss";
+        // $test[] = [
+        //     "10,กรุงเทพมหานคร,13.7538762095,100.5017709732",
+        //     "11,สมุทรปราการ,13.640081,100.750065"
+        // ];
+
+        // $list = Excel::download(new VendersExport, 'vender.xlsx');
+        $list = Excel::store(new ProjectExport, '/export/project'. date('Ymd').'.csv');
+
+        // $bb = [
+        //     'xx' => $value->area,
+        // ];
+
+        $filename = 'storage/app/export/project'. date('Ymd').'.csv';
+
+        // echo $list;
+
+        // echo $content;
+        Storage::disk('sftp')->put('project'. date('Ymd').'.csv', file_get_contents($filename)); //ได้แล้วแต่ยังไม่สมบูรณ์
     }
 }

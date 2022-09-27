@@ -53,6 +53,17 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'sftp' => [
+            'driver' => 'sftp',
+            'host' => '58.137.77.142', // sendfile.central.co.th
+            // 'port' => 21,
+            'username' => 'CMGBOQCMG01',
+            'password' => 'r1ztWIoaJYdK',
+            // 'privateKey' => 'path/to/or/contents/of/privatekey',
+            'root' => '/PRD/OUTBOUND',
+            // 'timeout' => 10,
+        ]
+
     ],
 
     /*

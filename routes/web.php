@@ -47,9 +47,7 @@ Route::get('/', function () {
 // Route::get('/adminBoq', function () {
 //     return view('boq.adminBoq');
 // });
-// Route::get('/addUser', function () {
-//     return view('boq.formBoq.addUser');
-// });
+Route::get('/testSend', [ProjectController::class, 'sendFile'])->name('testSend');
 
 Route::get('test-select', function () {
     return view('boq.master.test-select');
