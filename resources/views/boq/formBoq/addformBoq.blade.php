@@ -15,38 +15,35 @@
                             <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-body p-10 text-center">
-                                        <table class="table">
+                                        <table class="table allWork" id="emp-table">
                                             <thead>
                                               <tr>
                                                 <th scope="col">ID</th>
+                                                <th scope="col">BOQ</th>
                                                 <th scope="col">ชื่อโครงการ</th>
-                                                <th scope="col">สถามที่</th>
                                                 <th scope="col">ขนาด</th>
                                                 <th scope="col"></th>
                                               </tr>
+                                              <tr>
+                                                <th scope="col" class="filterhead">ID</th>
+                                                <th scope="col" class="filterhead">BOQ</th>
+                                                <th scope="col" class="filterhead">ชื่อโครงการ</th>
+                                                <th scope="col" class="filterhead">ขนาด</th>
+                                                <th scope="col"></th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                              <tr>
-                                                <th scope="row">1</th>
-                                                <td>Master 1</td>
-                                                <td>Central Pinklao</td>
-                                                <td>159 ตร.ม</td>
-                                                <td class="text-center"><a href="#" class="btn btn-primary">เลือก</a></td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">2</th>
-                                                <td>Master 2</td>
-                                                <td>Central Pinklao</td>
-                                                <td>99 ตร.ม</td>
-                                                <td class="text-center"><a href="#" class="btn btn-primary">เลือก</a></td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">3</th>
-                                                <td>Master 3</td>
-                                                <td>Central Pinklao</td>
-                                                <td>109 ตร.ม</td>
-                                                <td class="text-center"><a href="#" class="btn btn-primary">เลือก</a></td>
-                                              </tr>
+                                                @foreach ( $template_choose as $key => $edt )
+                                                    @if ($edt->status == "2")
+                                                        <tr>
+                                                            <th scope="row">{{$edt->number_id}}</th>
+                                                            <td>{{$edt->name}}</td>
+                                                            <td>{{@$edt->project->brand_master->brand_name}} at {{@$edt->project->location_master->location_name}}</td>
+                                                            <td>{{@$edt->project->area}}</td>
+                                                            <td class="text-center"><a href="{{ url('/addformboq-template', [$edt->id, $project->id] ) }}" class="btn btn-primary">เลือก</a></td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
                                             </tbody>
                                           </table>
                                     </div>
@@ -58,11 +55,11 @@
                     <!-- BEGIN: Validation Form -->
                         <div class="group_wrapper">
                             <div class="intro-y input-form box p-5 mt-3">
-                            <form action="{{ route('add_Boq') }}" method="post" id="form1" enctype="multipart/form-data">
+                            <form action="{{ route('add_Boq') }}" method="post" id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-inline mb-3 mt-10">
                                     <label for="horizontal-form-1" class="form-label ml-4"><b> Vender </b><span style="color: red">*</span> : </label>
-                                    <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
+                                    <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender...">
                                         <option selected value=""></option>
                                         @foreach ( $venders as $vd )
                                         <option value="{{ $vd->id }}">{{ $vd->name }}</option>
@@ -101,7 +98,7 @@
                                                         <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-3/4">
+                                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">
                                                     @php
                                                     $data_chk = App\Models\template_boqs::where('project_id', $project->id)
                                                     ->where('name', "Master BOQ")
@@ -153,39 +150,84 @@
                                 <input type="hidden" id="is_btn" name="btn_send">
                                 <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
                                 @if ($data_chk)
+                                    {{-- @if ("vender_id"  == "" ) --}}
                                     @if ($data_chk->status != "2")
-                                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                                        <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                                        @endif
+                                        @else
+                                        <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
                                     @endif
-                                    @else
-                                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
-                                @endif
+                                {{-- @endif --}}
                                 <a href="{{ url()->previous() }}" class="btn btn-dark-soft mt-5">Back</a>
                             </form>
                         </div>
                         </div>
                     <!-- END: Validation Form -->
 
-        <!-- BEGIN: Modal Content -->
-        <div id="delete-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body p-0">
-                        <div class="p-5 text-center">
-                            <i data-lucide="send" class="w-16 h-16 text-warning mx-auto mt-3"></i>
-                            <div class="text-3xl mt-5">Send to Manager??</div>
-                            <div class="text-slate-500 mt-2">?????????????? <br>???????????.</div>
+                    @if ("vender_id" != null)
+                        <!-- BEGIN: Modal Content -->
+                        <div id="delete-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body p-0">
+                                        <div class="p-5 text-center">
+                                            <i data-lucide="send" class="w-16 h-16 text-warning mx-auto mt-3"></i>
+                                            <div class="text-3xl mt-5">Send to Manager??</div>
+                                            <div class="text-slate-500 mt-2">!! ตรวจสอบข้อมูลให้เรียบร้อยก่อนส่ง !!<br>???????????.</div>
+                                        </div>
+                                        <div class="px-5 pb-8 text-center">
+                                            <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                                            <button type="button" id="btn_send" name="send" class="btn btn-primary w-28">Save & Send</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="px-5 pb-8 text-center">
-                            <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                            <button type="button" id="btn_send" name="send" class="btn btn-primary w-28">Save & Send</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END: Modal Content -->
+                        <!-- END: Modal Content -->
+                    @endif
 
         <script type="text/javascript">
+
+            //table
+            jQuery(document).ready(function() {
+                var table = jQuery('.allWork').DataTable({
+                    "bLengthChange": true,
+                    "iDisplayLength": 10,
+                    "ordering": false,
+                });
+
+                jQuery(".filterhead").each(function(i) {
+                    var select = jQuery(
+                            '<select class="form-control-sm w-full"><option value="">All</option></select>')
+                        .appendTo(jQuery(this).empty())
+                        .on('change', function() {
+                            var term = $(this).val();
+                            table.column(i).search(term, false, false).draw();
+                        });
+                    table.column(i).data().unique().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            });
+
+            //alert
+            function myFunction() {
+                var x = document.forms["form1"]["vender_id"].value;
+                if(x == "" || x == null) {
+                    alert("Vender must be filled out");
+                    return false;
+                }
+            }
+
+
+            //alert
+            function validateForm(){
+                var x = document.forms["form1"]["vender_id"].value;
+                if(x == "" || x == null) {
+                    alert("Vender must be filled out");
+                    return false;
+                }
+            }
 
             //
             jQuery(document).on('click', "#btn_send1", function(){
@@ -232,7 +274,7 @@
                         //append code
                             var html = '';
                             var html2 = '';
-                            html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
+                            html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 code" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if( value3.brand_id ){
@@ -241,13 +283,12 @@
                                 // console.log(rows_tags);
                                 jQuery.each(rows_tags, function(rkey, rvalue2){
                                     if( rows_tags[rkey] == $('#b_id').val() )
-                                            {
+                                        {
                                         if(value3.catagory_id == value.id){
 
                                             html += '<option value="'+value3.id+'">'+value3.code+'</option>';
                                         }
-                                }
-
+                                    }
                                 });
                                 }else{
                                     if( value3.brand_id == null ){
@@ -265,7 +306,7 @@
 
 
                             // append งานย่อย
-                            html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 w-full" placeholder="Please Select...">';
+                            html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub" placeholder="Please Select...">';
                             html2 += '<option selected value=""></option>';
 
                             jQuery.each(response.dataSub, function(key, value2){
@@ -275,12 +316,11 @@
                                     // console.log(rows_tags);
                                     jQuery.each(rows_tags, function(rkey, rvalue2){
                                         if( rows_tags[rkey] == $('#b_id').val() )
-                                                {
+                                        {
                                             if(value2.catagory_id == value.id){
-
                                                 html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
                                             }
-                                }
+                                        }
 
                                     });
                                 }else{
@@ -305,7 +345,7 @@
                             jQuery('#select_sub_id'+sub_num).children().remove().end();
 
                             var html2 = '';
-                            html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 w-full" placeholder="Please Select...">';
+                            html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub" placeholder="Please Select...">';
                             html2 += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
                                 if( value2.brand_id ){
@@ -351,7 +391,7 @@
                             jQuery('#select_code_id'+sub_num).children().remove().end();
 
                             var html = '';
-                            html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
+                            html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 code" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if( value3.brand_id ){
@@ -419,7 +459,7 @@
                             var html = '';
                             html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
                             html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
-                            html += '<select id="code_id_a'+x+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
+                            html += '<select id="code_id_a'+x+'" name="code_id[]['+value.id+']" class="selectDropdown_2 code" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if( value3.brand_id ){
@@ -446,7 +486,7 @@
                             });
 
                             html += '</select>';
-                            html += '<select id="sub_a'+x+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 w-full" placeholder="Please Select...">';
+                            html += '<select id="sub_a'+x+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub" placeholder="Please Select...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
                                 if( value2.brand_id ){
@@ -475,7 +515,7 @@
                             html += '<input type="number" name="amount[]['+value.id+']" class="form-control w-24" placeholder="จำนวน" >';
                             html += '<select name="unit_id[]['+value.id+']" class="form-control w-24" required>';
                             html += '<option selected value=""></option>@foreach ($catagories2 as $cat2)<option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>@endforeach</select>';
-                            html += '<input type="text" name="desc[]['+value.id+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
+                            html += '<input type="text" name="desc[]['+value.id+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">';
                             html += '@if ( $data_chk )';
                             html += '<input type="number" name="material_cost[]['+value.id+']" placeholder="ค่าวัสดุ" class="form-control w-24">';
                             html += '<input type="number" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24">';

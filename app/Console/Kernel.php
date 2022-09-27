@@ -15,7 +15,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+<<<<<<< HEAD
         $schedule->command('message:daily')->everyMinute();
+=======
+        $schedule->call(function () {
+            info('TEST 001 !!!!');
+        })->everyMinute();
+>>>>>>> 601677e818d0b6b6a57d4b6ee052a93faf79145e
     }
 
     /**

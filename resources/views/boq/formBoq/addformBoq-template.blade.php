@@ -3,7 +3,7 @@
 @section('content-data')
     <div class="intro-y flex sm:flex-row items-center mt-3">
         <h2 class="text-lg font-medium mr-auto">
-            <b>Edit BOQ of {{ $project_id->project->brand_master->brand_name }} at {{ $project_id->project->location_master->location_name }}
+            <b>Choose Template BOQ of {{ $project_id->project->brand_master->brand_name }} at {{ $project_id->project->location_master->location_name }}
             @if ( $project_id->name == 'Master BOQ' )
                 [Master BOQ]
                 @else
@@ -14,7 +14,7 @@
     <!-- BEGIN: Validation Form -->
         <div class="group_wrapper">
             <div class="intro-y input-form box p-5 mt-3">
-            <form action="{{ url('/formBoq/update') }}" method="post" id="form1" enctype="multipart/form-data">
+            <form action="{{ route('add_Boq') }}" method="post" id="form1" enctype="multipart/form-data">
                 @csrf
                 <div class="form-inline mb-3 mt-10">
                     <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
@@ -25,34 +25,29 @@
                         @endforeach
                     </select>
                 </div>
+                <input type="hidden" value="{{ $project_id->id }}" name="ref_template">
                 <input type="hidden" value="{{ @$project_id->project->brand_master->id }}" name="brand_id" id="b_id">
+                <input type="hidden" value="{{ $id }}" name="project_id" id="p_id">
                 <div id="addmain" class="input-form mt-3">
                     @foreach ($catagories as $key => $cat)
-                    <input type="hidden" value="{{ $id }}" name="id">
                     <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
                     <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
                     <div class="intro-y input-form mt-3 ml-2">
                         <div class="input-form">
-                            @foreach ( $editboq as $eb )
+                            @foreach ( $data_boq as $eb )
                             @if ( $eb->main_id == $cat->id)
-                                <input type="hidden" value="{{ $eb->id }}" name="boq_id">
-                                <input type="hidden" value="{{ $project_id->project_id }}" name="project_id">
                                 <div id="addsub" class="flex flex-row gap-2 mb-2">
                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
                                     <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2 code" placeholder="Code...">
                                         <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_cata->code }}</option>
                                         @foreach ($cat->catagory_sub as $cat_s)
-                                        @if ( $cat_s->is_active == "1")
-                                            <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
-                                        @endif
+                                        <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                         @endforeach
                                     </select>
                                     <select name="sub_id[][{{ $cat->id }}]" class="selectDropdown_2 sub" placeholder="Please Select...">
                                         <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_cata->name }}</option>
                                         @foreach ($cat->catagory_sub as $cat_s)
-                                        @if ( $cat_s->is_active == "1")
-                                            <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
-                                        @endif
+                                        <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
                                         @endforeach
                                     </select>
                                     <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ $eb->amount }}">
@@ -63,12 +58,10 @@
                                         @endforeach
                                     </select>
                                     <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc" value="{{ $eb->desc }}">
-
                                     @if ( $eb->wage_cost != null )
                                     <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24" value="{{ $eb->material_cost }}">
                                     <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24" value="{{ $eb->wage_cost }}">
                                     @endif
-
                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                 </div>
                             @endif
@@ -105,16 +98,9 @@
                                         @endforeach
                                     </select>
                                     <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">
-                                    @php
-                                    $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
-                                    ->where('name', "Master BOQ")
-                                    ->first();
-                                    @endphp
-                                    @if ( $data_chk )
-                                        @if ($data_chk->status == "2" )
+                                    @if ( $eb->wage_cost != null )
                                         <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24">
                                         <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24">
-                                        @endif
                                     @endif
                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                 </div>
@@ -133,25 +119,24 @@
                     </div>
                     @endforeach
                     @php
-                        $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
-                        ->where('name', "Master BOQ")
+                        $data_chk = App\Models\template_boqs::where('id', $templateid)
                         ->first();
                         @endphp
-                        @if ( $project_id->overhead > 0 )
-                        <div class="grid grid-cols-3 gap-2">
-                            <div class="input-form mt-3">
-                                <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
-                                <b> Overhead </b>
-                                </label>
-                                <input id="validation-form-8" type="number" name="overhead" class="form-control" value="{{$project_id->overhead}}">
+                        @if ($data_chk->overhead > 0 )
+                            <div class="grid grid-cols-3 gap-2">
+                                <div class="input-form mt-3">
+                                    <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
+                                    <b> Overhead </b>
+                                    </label>
+                                    <input id="validation-form-8" type="number" name="overhead" class="form-control" value="{{$project_id->overhead}}">
+                                </div>
+                                <div class="input-form mt-3">
+                                    <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
+                                    <b> Discount </b>
+                                    </label>
+                                    <input id="validation-form-9" type="number" name="discount" class="form-control" value="{{$project_id->discount}}">
+                                </div>
                             </div>
-                            <div class="input-form mt-3">
-                                <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
-                                <b> Discount </b>
-                                </label>
-                                <input id="validation-form-9" type="number" name="discount" class="form-control" value="{{$project_id->discount}}">
-                            </div>
-                        </div>
                         @endif
                 </div>
                 <input type="hidden" id="is_btn" name="btn_send">
@@ -464,11 +449,9 @@
                             html += '<select name="unit_id[]['+value.id+']" class="form-control w-24" required>';
                             html += '<option selected value=""></option>@foreach ($catagories2 as $cat2)<option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>@endforeach</select>';
                             html += '<input type="text" name="desc[]['+value.id+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">';
-                            html += '@if ( $data_chk )';
-                            html += '@if ($data_chk->status == "2" )';
+                            html += '@if ( $eb->wage_cost != null )';
                             html += '<input type="number" name="material_cost[]['+value.id+']" placeholder="ค่าวัสดุ" class="form-control w-24">';
                             html += '<input type="number" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24">';
-                            html += '@endif';
                             html += '@endif';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
                             html += '</div>';

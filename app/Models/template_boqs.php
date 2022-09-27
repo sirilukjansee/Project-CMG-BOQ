@@ -22,6 +22,7 @@ class template_boqs extends Model
         'overhead',
         'discount',
         'vender_id',
+        'ref_template',
         'approve_by',
         'approve_at',
         'create_by',
