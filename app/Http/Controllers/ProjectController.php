@@ -100,32 +100,11 @@ class ProjectController extends Controller
         ]);
     }
 
-<<<<<<< HEAD
     public function sendFile()
     {
-        // บันทึกข้อมูลลงไฟล์ contacts.csv
-        // $list = Project::get();
-        // $filName = "province.csv";
-        // $file = fopen("province.csv","w");
-        // foreach ($list as $line){
-        // fputcsv($file,explode(',',$line));
-        // }
-        // // ปิดไฟล์
-        // fclose($file);
-
-        // $content = "public/logo/logo-cmg.jpg";
-        // $test = "ssss";
-        // $test[] = [
-        //     "10,กรุงเทพมหานคร,13.7538762095,100.5017709732",
-        //     "11,สมุทรปราการ,13.640081,100.750065"
-        // ];
 
         // $list = Excel::download(new VendersExport, 'vender.xlsx');
         $list = Excel::store(new ProjectExport, '/export/project'. date('Ymd').'.csv');
-
-        // $bb = [
-        //     'xx' => $value->area,
-        // ];
 
         $filename = 'storage/app/export/project'. date('Ymd').'.csv';
 
@@ -134,39 +113,4 @@ class ProjectController extends Controller
         // echo $content;
         Storage::disk('sftp')->put('project'. date('Ymd').'.csv', file_get_contents($filename)); //ได้แล้วแต่ยังไม่สมบูรณ์
     }
-=======
-    public function edit($id)
-    {
-        $project = Project::find($id);
-        $project1 = Brand::where('is_active', "1")->get();
-        $project2 = Location::where('is_active', "1")->get();
-        $project3 = task_type::where('is_active', "1")->get();
-        $project4 = taskname::where('is_active', "1")->get();
-        $project5 = design_and_pm::where('is_active', "1")->get();
-
-        return view('boq.editprojectBoq', compact('project','project1','project2','project3','project4','project5'));
-    }
-
-    public function update(Request $request)
-    {
-        // dd($request);
-        $pro_data = Project::where('id', $request->id)->update([
-            'brand' => $request->brand,
-            'location' => $request->location,
-            'area' => $request->area,
-            'unit' => $request->unit,
-            'io' => $request->io,
-            'task' => $request->task,
-            'task_n' => $request->task_n,
-            'start_date' => $request->startDate,
-            'finish_date' => $request->finishDate,
-            'all_date' => $request->alldate,
-            'open_date' => $request->openDate,
-            'designer_name' => $request->ds_name,
-        ]);
-
-        return redirect(route('allBoq', ['id' => $request->id]))->with('success', '!!! Add Project Complete !!!');
-    }
-
->>>>>>> 601677e818d0b6b6a57d4b6ee052a93faf79145e
 }
