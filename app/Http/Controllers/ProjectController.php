@@ -100,41 +100,15 @@ class ProjectController extends Controller
         ]);
     }
 
-<<<<<<< HEAD
     public function sendFile()
     {
-        // บันทึกข้อมูลลงไฟล์ contacts.csv
-        // $list = Project::get();
-        // $filName = "province.csv";
-        // $file = fopen("province.csv","w");
-        // foreach ($list as $line){
-        // fputcsv($file,explode(',',$line));
-        // }
-        // // ปิดไฟล์
-        // fclose($file);
-
-        // $content = "public/logo/logo-cmg.jpg";
-        // $test = "ssss";
-        // $test[] = [
-        //     "10,กรุงเทพมหานคร,13.7538762095,100.5017709732",
-        //     "11,สมุทรปราการ,13.640081,100.750065"
-        // ];
-
-        // $list = Excel::download(new VendersExport, 'vender.xlsx');
         $list = Excel::store(new ProjectExport, '/export/project'. date('Ymd').'.csv');
 
-        // $bb = [
-        //     'xx' => $value->area,
-        // ];
 
         $filename = 'storage/app/export/project'. date('Ymd').'.csv';
 
-        // echo $list;
-
-        // echo $content;
         Storage::disk('sftp')->put('project'. date('Ymd').'.csv', file_get_contents($filename)); //ได้แล้วแต่ยังไม่สมบูรณ์
     }
-=======
     public function edit($id)
     {
         $project = Project::find($id);
@@ -168,5 +142,4 @@ class ProjectController extends Controller
         return redirect(route('allBoq', ['id' => $request->id]))->with('success', '!!! Add Project Complete !!!');
     }
 
->>>>>>> 601677e818d0b6b6a57d4b6ee052a93faf79145e
 }

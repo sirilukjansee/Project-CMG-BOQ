@@ -164,7 +164,7 @@
                         </div>
                     <!-- END: Validation Form -->
 
-                    @if ("vender_id" != null)
+                    @if ( "vender_id" != null )
                         <!-- BEGIN: Modal Content -->
                         <div id="delete-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog">
