@@ -73,6 +73,7 @@ class ProjectController extends Controller
         $project->open_date = $request->openDate;
         $project->designer_name = $request->ds_name;
         $project->project_manager = $request->pm_name;
+        $project->created_at = Carbon::now();
         $project->save();
 
         $project_y = Carbon::today()->format('Y');
@@ -109,6 +110,7 @@ class ProjectController extends Controller
 
         Storage::disk('sftp')->put('project'. date('Ymd').'.csv', file_get_contents($filename)); //ได้แล้วแต่ยังไม่สมบูรณ์
     }
+
     public function edit($id)
     {
         $project = Project::find($id);
