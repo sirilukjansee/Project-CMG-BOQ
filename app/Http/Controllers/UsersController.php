@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
 
     public function index()
     {
-        return view('boq.users.users');
+        $users = User::all();
+
+        return view('boq.users.users', compact('users'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -30,7 +36,33 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+        ],
+        [
+            'name.unique' => "error",
+            'name.required' => "error",
+            'name.string' => "error",
+            'name.max' => "error",
+            'email.required' => "error",
+            'email.string' => "error",
+            'email.max' => "error",
+            'email.unique' => "error",
+            'password.required' => "error",
+            'password.string' => "error",
+            'password.min' => "error",
+        ]);
+        // dd($request);
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->permision = $request->permision;
+        $user->save();
+
+        return back()->with('success', '!!! ADD User Complete !!!');
     }
 
     /**
@@ -52,7 +84,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        return response()->json([
+            'dataEdit' => DB::table('users')->where('id', $id)->first()
+        ]);
     }
 
     /**
@@ -62,9 +96,53 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request);
+        // $request->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'string', 'min:8'],
+        // ],
+        // [
+        //     'name.unique' => "error",
+        //     'name.required' => "error",
+        //     'name.string' => "error",
+        //     'name.max' => "error",
+        //     'email.required' => "error",
+        //     'email.string' => "error",
+        //     'email.max' => "error",
+        //     'email.unique' => "error",
+        //     'password.required' => "error",
+        //     'password.string' => "error",
+        //     'password.min' => "error",
+        // ]);
+
+        // dd($request);
+        $user = User::find($request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'permision' => $request->permision,
+        ]);
+        return back()->with('success', '!!! Edit User Complete !!!');
+    }
+
+    public function changeStatus($id)
+    {
+        // return "dd";
+        $data = User::find($id);
+
+        if ($data->status == "1") {
+            User::where('id',$data->id)->update([
+                'status' => "0",
+            ]);
+        }else {
+            User::where('id',$data->id)->update([
+                'status' => "1",
+            ]);
+        }
+        return redirect()->back()->with('success','!!! Status Complete !!!');
     }
 
     /**

@@ -303,14 +303,6 @@
         <script src="{{ asset('public/dist/js/app.js')}}"></script>
         <script type="text/javascript">
 
-            // function validateForm() {
-            // let x = document.forms["addProject"]["brand"]["location"]["task"]["task_n"]["ds_name"].value;
-            // if (x == "") {
-            //     alert("Must be filled out");
-            //     return false;
-            // }
-            // }
-
             //calculate date
             $('#validation-form-7').on('change', function() {
 
@@ -327,17 +319,7 @@
 
             });
 
-            // Date Choose - Check
-            // $(document).on('change', '[name="startDate"]', function() {
-            //     var val = $(this).val();
-                // if (val == 1) {
-                //     $('[name="check_in"]').removeAttr('readonly').removeAttr('min');
-                //     $('[name="check_out"]').removeAttr('readonly').removeAttr('min');
-                // } else {
-                //     $('[name="check_in"]').attr('readonly', true).val('');
-                //     $('[name="check_out"]').attr('readonly', true).val('');
-                // }
-            // });
+
             jQuery(document).on('change', '[name="startDate"]', function() {
                 var min = $(this).val();
                 jQuery('[name="finishDate"]').attr('min', min);
@@ -350,30 +332,6 @@
                 jQuery('[name="openDate"]').attr('min', min);
             });
 
-            //  jQuery(document).on('click', '#chk', function(){
-            //     var val_brand = $("#validation-form-1").val();
-            //     var val_location = $("#validation-form-2").val();
-            //     var val_task_t = $("#select-beast-empty2").val();
-            //     var val_task_n = $("#select-beast-empty3").val();
-            //     var val_design = $("#validation-form-8").val();
-
-            //     if (val_brand == "" && val_task_t == "" && val_task_n == "" && val_design == "") {
-            //         $('#test').text('Please fill this');
-            //     }
-            //     // if (val_location == ""){
-            //     //     $('#test').text('Please fill this');
-            //     // }
-            //     // if(val_brand != "" && val_location != "" && val_task_t != "" && val_task_n != "" && val_design != ""){
-            //     //     jQuery("#formId").submit();
-            //     // }
-
-            //  });
-            //     jQuery(document).on('change', '#validation-form-1', function() {
-            //         $('#test').text('');
-            //     });
-            //     jQuery(document).on('change', '#validation-form-2', function() {
-            //         $('#test').text('');
-            //     });
 
             jQuery(document).on('keyup', '#validation-form-4', function(){
 

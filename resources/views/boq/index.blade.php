@@ -52,31 +52,31 @@
                 </thead>
                 <tbody>
                     @foreach ($project as $key => $pro)
-                        <tr data-href="{{ url('allBoq', $pro->id) }}" class="intro-x cursor-pointer">
+                        <tr data-href="{{ url('allBoq', $pro->id) }}" class="tooltip intro-x cursor-pointer" title="Update At {{ Carbon\Carbon::parse(@$pro->project_id1->approve_at)->format('d M y') }}">
                             <td class="text-center table-report__action">{{ $key + 1 }}</td>
                             <td class="w-40 text-center table-report__action">
-                                <h3>{{ $pro->number_id }}
+                                <h3>{{ @$pro->number_id }}
                             </td>
-                            <td class="table-report__action w-56">{{ $pro->brand_master->brand_name }}</td>
-                            <td class="table-report__action w-56">{{ $pro->location_master->location_name }}</td>
-                            <td class="text-center table-report__action w-56">{{ $pro->area }}</td>
-                            <td class="text-center table-report__action w-56">{{ $pro->task_type_master->task_type_name }}
+                            <td class="table-report__action w-56">{{ @$pro->brand_master->brand_name }}</td>
+                            <td class="table-report__action w-56">{{ @$pro->location_master->location_name }}</td>
+                            <td class="text-center table-report__action w-56">{{ @$pro->area }}</td>
+                            <td class="text-center table-report__action w-56">{{ @$pro->task_type_master->task_type_name }}
                             </td>
-                            <td class="text-center table-report__action w-56">{{ $pro->task_name_master->task_name }}</td>
+                            <td class="text-center table-report__action w-56">{{ @$pro->task_name_master->task_name }}</td>
                             <td class="text-center table-report__action w-56">
                                 {{ Carbon\Carbon::parse($pro->open_date)->format('d M y') }}</td>
-                            <td class="text-center table-report__action w-56">{{ $pro->designer_master->name }}</td>
+                            <td class="text-center table-report__action w-56">{{ @$pro->designer_master->name }}</td>
                             <td class="text-center table-report__action w-56">
                                 @if (@$pro->project_id1->name == 'Master BOQ')
-                                    @if ($pro->project_id1->status == '0')
+                                    @if (@$pro->project_id1->status == '0')
                                         Drafted
-                                    @elseif ($pro->project_id1->status == '1')
+                                    @elseif (@$pro->project_id1->status == '1')
                                         Waiting Approval
-                                    @elseif ($pro->project_id1->status == '2')
+                                    @elseif (@$pro->project_id1->status == '2')
                                         Approval
-                                    @elseif ($pro->project_id1->status == '3')
+                                    @elseif (@$pro->project_id1->status == '3')
                                         Reject
-                                    @elseif ($pro->project_id1->status == '4')
+                                    @elseif (@$pro->project_id1->status == '4')
                                         Rework
                                     @endif
                                 @endif

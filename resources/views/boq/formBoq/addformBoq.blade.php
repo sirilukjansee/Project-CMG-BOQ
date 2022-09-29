@@ -34,7 +34,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ( $template_choose as $key => $edt )
-                                                    @if ($edt->status == "2")
+                                                    @if ($edt->status == "2" || $edt->status == "3" || $edt->status == "4")
                                                         <tr>
                                                             <th scope="row">{{$edt->number_id}}</th>
                                                             <td>{{$edt->name}}</td>
@@ -75,8 +75,8 @@
                                         <div class="intro-y input-form mt-3 ml-2">
                                             <div class="input-form">
                                                 <div id="addsub" class="flex flex-row gap-2 mb-2">
+                                                    {{-- <span id="code_id{{$key + 1}}"></span> --}}
                                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                                    <span id="code_id{{$key + 1}}"></span>
                                                     {{-- <select id="code_id{{$key + 1}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2 w-32" placeholder="Code...">
                                                         <option selected value=""></option>
                                                         @foreach ($cat->catagory_sub as $cat_s)
@@ -91,7 +91,7 @@
                                                         @endforeach
                                                     </select> --}}
                                                     <span id="select_sub_id{{$key + 1}}"></span>
-                                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
+                                                    <input type="number" id="amount" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
                                                     <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
                                                         <option selected value=""></option>
                                                         @foreach ($catagories2 as $cat2)
@@ -105,8 +105,10 @@
                                                     ->first();
                                                     @endphp
                                                     @if ( $data_chk )
-                                                    <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24">
-                                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24">
+                                                    <input type="number" id="material" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24">
+                                                    <input type="number" id="wage" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24">
+                                                    <input type="text" id="each_unit" name="each_unit[][{{ $cat->id }}]" placeholder="รวม/หน่วย" class="form-control w-24" readonly>
+                                                    <input type="text" id="all_unit" name="all_unit[][{{ $cat->id }}]" placeholder="รวมทั้งหมด" class="form-control w-24" readonly>
                                                     @endif
                                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                                 </div>
@@ -187,6 +189,30 @@
                     @endif
 
         <script type="text/javascript">
+
+            // calculate
+            $('#wage').on('keyup', function() {
+                let wge = $(this).val();
+                var mtr = $("#material").val();
+                var amt = $("#amount").val();
+                // var eun = $("#each_unit").val();
+                var cost1 = parseInt(wge) + parseInt(mtr);
+                var cost2 = parseInt(amt) * parseInt(cost1);
+
+                console.log(cost1);
+                $('#each_unit').val(cost1);
+                $("#all_unit").val(cost2);
+
+            });
+
+            // $(document).ready(function(){
+            //     $(".addsub").on("keyup", "#material", function(){
+            //         var mate = +$(this).val();
+            //         var wage = +$("#wage").data("wage");
+            //         $("#each_unit").text("$" + mate + wage);
+            //     });
+
+            // });
 
             //table
             jQuery(document).ready(function() {
@@ -519,6 +545,8 @@
                             html += '@if ( $data_chk )';
                             html += '<input type="number" name="material_cost[]['+value.id+']" placeholder="ค่าวัสดุ" class="form-control w-24">';
                             html += '<input type="number" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24">';
+                            html += '<input type="text" name="each_unit[]['+value.id+']" placeholder="รวม/หน่วย" class="form-control w-24" readonly>';
+                            html += '<input type="text" name="all_unit[]['+value.id+']" placeholder="รวมทั้งหมด" class="form-control w-24" readonly>';
                             html += '@endif';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
                             html += '</div>';

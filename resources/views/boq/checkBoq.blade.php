@@ -21,6 +21,7 @@
                         <th class="text-center whitespace-nowrap">Task Type</th>
                         <th class="text-center whitespace-nowrap">Designer</th>
                         <th class="text-center whitespace-nowrap">Status</th>
+                        <th class="text-center whitespace-nowrap">Send_date</th>
                         <th class="text-center whitespace-nowrap"></th>
                     </tr>
                 </thead>
@@ -29,42 +30,46 @@
                         <tr class="intro-x">
                             <td class="w-40 table-report__action">
                                 <div class="flex">
-                                    <h3>{{ $bchk->number_id }}</h3>
+                                    <h3>{{ @$bchk->number_id }}</h3>
                                 </div>
                             </td>
                             <td class="table-report__action w-56">
-                                <div class="flex items-center justify-center">{{ $bchk->project->brand_master->brand_name }}
-                                </div>
-                            </td>
-                            <td class="table-report__action w-56">
-                                <div class="flex items-center justify-center">
-                                    {{ $bchk->project->location_master->location_name }}</div>
-                            </td>
-                            <td class="table-report__action w-56">
-                                <div class="flex items-center justify-center">
-                                    {{ $bchk->project->task_name_master->task_name }}</div>
-                            </td>
-                            <td class="table-report__action w-56">
-                                <div class="flex items-center justify-center">
-                                    {{ $bchk->project->task_type_master->task_type_name }}</div>
-                            </td>
-                            <td class="table-report__action w-56">
-                                <div class="flex items-center justify-center">{{ $bchk->project->designer_master->name }}
+                                <div class="flex items-center justify-center">{{ @$bchk->project->brand_master->brand_name }}
                                 </div>
                             </td>
                             <td class="table-report__action w-56">
                                 <div class="flex items-center justify-center">
-                                    @if ($bchk->status == '0')
+                                    {{ @$bchk->project->location_master->location_name }}</div>
+                            </td>
+                            <td class="table-report__action w-56">
+                                <div class="flex items-center justify-center">
+                                    {{ @$bchk->project->task_name_master->task_name }}</div>
+                            </td>
+                            <td class="table-report__action w-56">
+                                <div class="flex items-center justify-center">
+                                    {{ @$bchk->project->task_type_master->task_type_name }}</div>
+                            </td>
+                            <td class="table-report__action w-56">
+                                <div class="flex items-center justify-center">{{ @$bchk->project->designer_master->name }}
+                                </div>
+                            </td>
+                            <td class="table-report__action w-56">
+                                <div class="flex items-center justify-center">
+                                    @if (@$bchk->status == '0')
                                         Drafted
-                                    @elseif ($bchk->status == '1')
+                                    @elseif (@$bchk->status == '1')
                                         Waiting Approval
-                                    @elseif ($bchk->status == '2')
+                                    @elseif (@$bchk->status == '2')
                                         Approval
-                                    @elseif ($bchk->status == '3')
+                                    @elseif (@$bchk->status == '3')
                                         Reject
-                                    @elseif ($bchk->status == '4')
+                                    @elseif (@$bchk->status == '4')
                                         Rework
                                     @endif
+                                </div>
+                            </td>
+                            <td class="table-report__action w-56">
+                                <div class="flex items-center justify-center">{{ Carbon\Carbon::parse(@$bchk->created_at)->format('d M y') }}
                                 </div>
                             </td>
                             <td>

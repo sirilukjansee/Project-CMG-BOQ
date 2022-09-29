@@ -17,7 +17,8 @@
         <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
             <div class="xl:flex sm:mr-auto">
                 <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-                    <a class="btn btn-primary mr-2" href="{{ url('/editprojectBoq', $project->id) }}">Edit Project</a>
+                    <a class="btn btn-primary mr-2" href="{{ url('/editprojectBoq', $project->id) }}">
+                        <i data-lucide="settings" class="w-4 h-4 mr-2"></i>Edit Project</a>
                 </div>
             </div>
             <div class="sm:flex items-center mt-2 xl:mt-0">
@@ -28,15 +29,15 @@
                 @endphp
                 @if ($data_chk)
                     @if ($data_chk->status == '2')
-                        <a href="{{ url('/createformBoq', $project->id) }}" class="btn btn-primary mr-2"><i
-                                data-lucide="plus" class="w-4 h-4 mr-2"></i>New BOQ</a>
+                        <a href="{{ url('/createformBoq', $project->id) }}" class="btn btn-primary mr-2">
+                            <i data-lucide="plus" class="w-4 h-4 mr-2"></i>New BOQ</a>
                     @else
-                        <a href="#" class="btn btn-secondary mr-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i>New
-                            BOQ</a>
+                        <a href="#" class="btn btn-secondary mr-2">
+                            <i data-lucide="plus" class="w-4 h-4 mr-2"></i>NewBOQ</a>
                     @endif
                 @else
-                    <a href="{{ url('/createformBoq', $project->id) }}" class="btn btn-primary mr-2"><i data-lucide="plus"
-                            class="w-4 h-4 mr-2"></i>New BOQ</a>
+                    <a href="{{ url('/createformBoq', $project->id) }}" class="btn btn-primary mr-2">
+                        <i data-lucide="plus"class="w-4 h-4 mr-2"></i>New BOQ</a>
                 @endif
             </div>
         </div>
@@ -132,7 +133,8 @@
         <div class="sm:flex flex-col sm:items-end mt-2">
             <!-- BEGIN: Large Modal Toggle -->
             <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview"
-                class="btn btn-primary mr-1 mb-2">Import BOQ from vender</a>
+                class="btn btn-primary mr-1 mb-2">
+                <i data-lucide="database"class="w-4 h-4 mr-2"></i>Import BOQ from vender</a>
             <!-- END: Large Modal Toggle -->
         </div>
         <!-- BEGIN: Large Modal Content -->

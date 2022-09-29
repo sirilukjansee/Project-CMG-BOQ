@@ -53,7 +53,7 @@ Route::get('test-select', function () {
     return view('boq.master.test-select');
 });
 
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
     //master
     Route::get('/masterBoq', [MasterController::class, 'index'])->name('masterBoq');
     Route::get('/sub_masterBoq/{id}', [MasterController::class, 'index_sub'])->name('sub_masterBoq');
@@ -190,6 +190,10 @@ Route::middleware(['auth'])->group(function () {
 
     // Users
     Route::get('users', [UsersController::class, 'index']);
+    Route::post('/users/add', [UsersController::class, 'store'])->name('adduser');
+    Route::get('/users/edit/{id}', [UsersController::class, 'edit'])->name('/users/edit/{id}');
+    Route::post('/users/update', [UsersController::class, 'update']);
+    Route::get('/changeStatus_user/{id}', [UsersController::class, 'changeStatus'])->name('changeStatus_user');
 
     // Import File
     Route::post('/import-brand', [BrandController::class, 'uploadBrand']);
@@ -216,7 +220,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/export-unit', [UnitController::class, 'export']);
     Route::get('/export-tor', [MasterTORController::class, 'export']);
 
-});
+// });
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);
 // Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);

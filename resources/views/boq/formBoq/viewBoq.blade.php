@@ -55,6 +55,8 @@
                             @if ( $data_chk )
                             <input type="number" name="wage_cost[][{{ $cat->id }}]" class="form-control w-24" value="{{ $eb->wage_cost }}" disabled>
                             <input type="number" name="material_cost[][{{ $cat->id }}]" class="form-control w-24" value="{{ $eb->material_cost }}" disabled>
+                            <input type="text" name="each_unit[][{{ $cat->id }}]" class="form-control w-24" value="{{ $eb->each_unit }}" disabled>
+                            <input type="text" name="all_unit[][{{ $cat->id }}]" class="form-control w-24" value="{{ $eb->all_unit }}" disabled>
                             @endif
                         </div>
                     @endif
@@ -84,6 +86,8 @@
                             @if ( $data_chk )
                             <input type="number" name="material_cost[][{{ $cat->id }}]" class="form-control w-24" placeholder="ค่าวัสดุ" disabled>
                             <input type="number" name="wage_cost[][{{ $cat->id }}]" class="form-control w-24" placeholder="ค่าแรง" disabled>
+                            <input type="text" name="each_unit[][{{ $cat->id }}]" class="form-control w-24" placeholder="รวม/หน่วย" disabled>
+                            <input type="text" name="all_unit[][{{ $cat->id }}]" class="form-control w-24" placeholder="รวมทั้งหมด" disabled>
                             @endif
                         </div>
                     @endif

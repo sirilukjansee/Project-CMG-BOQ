@@ -19,7 +19,7 @@
                 <div class="form-inline mb-3 mt-10">
                     <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
                     <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
-                        <option selected value="{{ $project_id->vender_id }}">{{ @$project_id->vender_name->name }}</option>
+                        <option selected value="{{ @$project_id->vender_id }}">{{ @$project_id->vender_name->name }}</option>
                         @foreach ( $ven_der as $vd )
                         <option value="{{ $vd->id }}">{{ $vd->name }}</option>
                         @endforeach
@@ -36,11 +36,11 @@
                             @foreach ( $editboq as $eb )
                             @if ( $eb->main_id == $cat->id)
                                 <input type="hidden" value="{{ $eb->id }}" name="boq_id">
-                                <input type="hidden" value="{{ $project_id->project_id }}" name="project_id">
+                                <input type="hidden" value="{{ @$project_id->project_id }}" name="project_id">
                                 <div id="addsub" class="flex flex-row gap-2 mb-2">
                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
                                     <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2 code" placeholder="Code...">
-                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_cata->code }}</option>
+                                        <option selected value="{{ @$eb->sub_id }}">{{ @$eb->sub_cata->code }}</option>
                                         @foreach ($cat->catagory_sub as $cat_s)
                                         @if ( $cat_s->is_active == "1")
                                             <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
@@ -48,25 +48,27 @@
                                         @endforeach
                                     </select>
                                     <select name="sub_id[][{{ $cat->id }}]" class="selectDropdown_2 sub" placeholder="Please Select...">
-                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_cata->name }}</option>
+                                        <option selected value="{{ $eb->sub_id }}">{{ @$eb->sub_cata->name }}</option>
                                         @foreach ($cat->catagory_sub as $cat_s)
                                         @if ( $cat_s->is_active == "1")
-                                            <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
+                                            <option value="{{$cat_s->id}}">{{@$cat_s->name}}</option>
                                         @endif
                                         @endforeach
                                     </select>
-                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ $eb->amount }}">
+                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ @$eb->amount }}">
                                     <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
-                                        <option selected value="{{ $eb->unit_id }}">{{ $eb->unit_u->unit_name }}</option>
+                                        <option selected value="{{ $eb->unit_id }}">{{ @$eb->unit_u->unit_name }}</option>
                                         @foreach ($catagories2 as $cat2)
-                                        <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
+                                        <option value="{{$cat2->id}}">{{@$cat2->unit_name}}</option>
                                         @endforeach
                                     </select>
-                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc" value="{{ $eb->desc }}">
+                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc" value="{{ @$eb->desc }}">
 
                                     @if ( $eb->wage_cost != null )
-                                    <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24" value="{{ $eb->material_cost }}">
-                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24" value="{{ $eb->wage_cost }}">
+                                    <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24" value="{{ @$eb->material_cost }}">
+                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24" value="{{ @$eb->wage_cost }}">
+                                    <input type="text" name="each_unit[][{{ $cat->id }}]" placeholder="รวม/หน่วย" class="form-control w-24" value="{{ @$eb->each_unit }}">
+                                    <input type="text" name="all_unit[][{{ $cat->id }}]" placeholder="รวมทั้งหมด" class="form-control w-24" value="{{ @$eb->all_unit }}">
                                     @endif
 
                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
@@ -101,7 +103,7 @@
                                     <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
                                         <option selected value=""></option>
                                         @foreach ($catagories2 as $cat2)
-                                        <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
+                                        <option value="{{$cat2->id}}">{{@$cat2->unit_name}}</option>
                                         @endforeach
                                     </select>
                                     <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">
@@ -111,9 +113,11 @@
                                     ->first();
                                     @endphp
                                     @if ( $data_chk )
-                                        @if ($data_chk->status == "2" )
+                                        @if ( $data_chk->status == "2" )
                                         <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24">
                                         <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24">
+                                        <input type="text" name="each_unit[][{{ $cat->id }}]" placeholder="รวม/หน่วย" class="form-control w-24" readonly>
+                                        <input type="text" name="all_unit[][{{ $cat->id }}]" placeholder="รวมทั้งหมด" class="form-control w-24" readonly>
                                         @endif
                                     @endif
                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
@@ -189,6 +193,22 @@
         </div>
 
         <script type="text/javascript">
+
+            //calculate date
+            // $('#validation-form-7').on('change', function() {
+
+            // let strdate = $('#validation-form-6').val();
+            // var findate = $(this).val();
+            // var date1 = new Date(strdate);
+            // var date2 = new Date(findate);
+
+
+            // var diffTime = date2.getTime() - date1.getTime();
+            // var diffDay = diffTime / (1000 * 3600 * 24);
+            // console.log(diffDay);
+            // $('#validation-form-10').val(diffDay);
+
+            // });
 
             //
             jQuery(document).on('click', "#btn_send1", function(){
@@ -468,6 +488,8 @@
                             html += '@if ($data_chk->status == "2" )';
                             html += '<input type="number" name="material_cost[]['+value.id+']" placeholder="ค่าวัสดุ" class="form-control w-24">';
                             html += '<input type="number" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24">';
+                            html += '<input type="text" name="each_unit[]['+value.id+']" placeholder="รวม/หน่วย" class="form-control w-24" readonly>';
+                            html += '<input type="text" name="all_unit[]['+value.id+']" placeholder="รวมทั้งหมด" class="form-control w-24" readonly>';
                             html += '@endif';
                             html += '@endif';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';

@@ -1,7 +1,10 @@
+{{-- <th>
+    <img src="public/logo/DRAFT.png" width="1000px" height="1000px" alt="">
+</th> --}}
 <table>
     <thead>
         <tr>
-            <th>img</th>
+            <th><img src="public/logo/logo-cmg.jpg" width="63px" height="67px" alt=""></th>
             <th><b>CENTRAL TRADING CO.,LTD.</b></th>
         </tr>
         <tr>
