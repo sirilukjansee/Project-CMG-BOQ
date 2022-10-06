@@ -20,6 +20,7 @@ class CreateBoqsTable extends Migration
             $table->integer('amount')->comment('จำนวน');
             $table->foreignId('unit_id')->comment('หน่วย');
             $table->string('desc')->nullable()->comment('หมายเหตุ');
+            $table->float('material_cost')->nullable();
             $table->float('total', 8, 2)->default('0')->nullable()->comment('ยอดรวม');
             $table->foreignId('create_by');
             $table->foreignId('update_by');
