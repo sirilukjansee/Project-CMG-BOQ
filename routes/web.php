@@ -18,6 +18,8 @@ use App\Http\Controllers\ManagerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ImportVenderController;
+
 // use Illuminate\Support\Facades\DB;
 
 /*
@@ -184,6 +186,7 @@ Route::get('test-select', function () {
 
     Route::get('projects/export/{id}', [BoqController::class, 'export']);
 
+
     //manager_approve
     Route::get('/checkBoq', [ManagerController::class, 'index']);
     Route::post('/approve_store',[ManagerController::class, 'store']);
@@ -196,6 +199,7 @@ Route::get('test-select', function () {
     Route::get('/changeStatus_user/{id}', [UsersController::class, 'changeStatus'])->name('changeStatus_user');
 
     // Import File
+    Route::post('/import-boqvender', [ImportVenderController::class, 'uploadBoqVender']);
     Route::post('/import-brand', [BrandController::class, 'uploadBrand']);
     Route::post('/import-location', [LocationController::class, 'uploadLocation']);
     Route::post('/import-category', [MasterController::class, 'uploadCategory']);
@@ -209,6 +213,7 @@ Route::get('test-select', function () {
     Route::post('/import-tor-detail', [MasterTORController::class, 'uploadTorDetail']);
 
     // Export File
+    Route::get('/export-vender/{id}', [ImportVenderController::class, 'export']);
     Route::get('/export-brand', [BrandController::class, 'export']);
     Route::get('/export-location', [LocationController::class, 'export']);
     Route::get('/export-category', [MasterController::class, 'export']);

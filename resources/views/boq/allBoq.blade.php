@@ -64,7 +64,7 @@
                                 <a class="font-medium whitespace-nowrap">{{ $tb->name }}</a>
                             </td>
                             <td class="table-report__action w">
-                                <div class="flex items-center justify-center">{{ $tb->date }}</div>
+                                <div class="flex items-center justify-center">{{ Carbon\Carbon::parse($tb->date)->format('d-m-Y') }}</div>
                             </td>
                             <td class="table-report__action w-56">
                                 <div class="flex items-center justify-center">
@@ -130,39 +130,77 @@
             </table>
         </div>
         <!--dropzone-->
-        <div class="sm:flex flex-col sm:items-end mt-2">
+        <div class="sm:flex flex-col sm:items-end mt-6">
             <!-- BEGIN: Large Modal Toggle -->
-            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview"
+            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-import"
                 class="btn btn-primary mr-1 mb-2">
                 <i data-lucide="database"class="w-4 h-4 mr-2"></i>Import BOQ from vender</a>
             <!-- END: Large Modal Toggle -->
         </div>
+        <!--Import boq vender-->
+        <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+            <table class="table table-hover table-auto sm:mt-2">
+                <thead class="table-light">
+                    <tr>
+                        <th class="whitespace-nowrap">ID</th>
+                        <th class="whitespace-nowrap">Vender</th>
+                        <th class="text-center whitespace-nowrap">Date</th>
+                        <th class="text-center whitespace-nowrap"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ( $imp_boq as $key => $ib )
+                    <tr class="intro-x">
+                        <td class="w-40 table-report__action">
+                            <div class="flex">
+                                <h3>{{ $key + 1 }}</h3>
+                            </div>
+                        </td>
+                        <td>
+                            <a class="font-medium whitespace-nowrap">{{ $ib->vender_name->name }}</a>
+                        </td>
+                        <td class="table-report__action w">
+                            <div class="flex items-center justify-center">{{ $ib->created_at }}</div>
+                        </td>
+                        <td class="table-report__action">
+                            <div class="btn-group text-center flex justify-center">
+                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
+                                <a href="{{ url('/export-vender', $ib->id) }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false">
+                                <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <!-- BEGIN: Large Modal Content -->
-        <div id="large-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
+        <div id="large-modal-size-import" class="modal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <a data-tw-dismiss="modal" href="javascript:;">
-                        <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
-                    </a>
-                    <div class="modal-body p-10 text-center">
-                        <form data-file-types="image/jpeg|image/png|image/jpg" action="/file-upload" class="dropzone">
-                            <div class="fallback">
-                                <input name="file" type="file" />
+                    <div class="modal-header">
+                        <h2 class="font-medium text-base mr-auto">Import Boq Form Vender</h2>
+                    </div> <!-- END: Modal Header -->
+                    <!-- BEGIN: Modal Body -->
+                    <form action="{{ url('/import-boqvender') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $project->id }}">
+                        <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                            <div class="col-span-12 sm:col-span-4 input-form mt-3">
+                                <input name="file" type="file" class="form-control"/>
                             </div>
-                            <div class="dz-message" data-dz-message>
-                                <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                                <div class="text-slate-500">
-                                    This is just a demo dropzone. Selected files are <span class="font-medium">not</span>
-                                    actually uploaded.
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <!-- BEGIN: Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" data-tw-dismiss="modal"
+                                class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                        </div> <!-- END: Modal Footer -->
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- END: HTML Table Data -->
+        <!-- END: Large Modal Content -->
 
     <!-- BEGIN: Modal Content -->
     <div id="send-modal-preview" class="modal" tabindex="-1" aria-hidden="true">

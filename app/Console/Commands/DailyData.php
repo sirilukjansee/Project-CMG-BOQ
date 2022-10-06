@@ -47,7 +47,7 @@ class DailyData extends Command
         $list = Excel::store(new ProjectExport, '/export/project'. date('Ymd').'.csv');
         $filename = 'storage/app/export/project'. date('Ymd').'.csv';
 
-        Storage::disk('sftp')->put('project'. date('Ymd').'.csv', file_get_contents($filename)); //ได้แล้วแต่ยังไม่สมบูรณ์
+        Storage::disk('sftp')->put('project(test)'. date('Ymd').'.csv', file_get_contents($filename)); //ได้แล้วแต่ยังไม่สมบูรณ์
 
 
         // $this->info('Daily report has been sent successfully!');

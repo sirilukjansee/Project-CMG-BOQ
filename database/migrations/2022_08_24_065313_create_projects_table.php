@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->foreignId('brand');
             $table->foreignId('location');
-            $table->integer('area');
+            $table->float('area', 4, 2)->nullable();
             $table->string('unit');
             $table->integer('io');
             $table->foreignId('task');

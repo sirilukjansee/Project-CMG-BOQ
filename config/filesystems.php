@@ -60,7 +60,7 @@ return [
             'username' => 'CMGBOQCMG01',
             'password' => 'r1ztWIoaJYdK',
             // 'privateKey' => 'path/to/or/contents/of/privatekey',
-            'root' => '/PRD/OUTBOUND',
+            'root' => '/DEV/OUTBOUND',
             // 'timeout' => 10,
         ]
 

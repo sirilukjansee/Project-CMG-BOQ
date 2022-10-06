@@ -19,4 +19,8 @@ class MasterTOR extends Model
         'create_by',
         'update_by'
     ];
+
+    public function tor(){
+        return $this->hasMany(MasterTOR_Detail::class,'tor_id','id');
+    }
 }

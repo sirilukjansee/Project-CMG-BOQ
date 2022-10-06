@@ -20,7 +20,7 @@
             <th>TEL: 0-2229-7000, FAX: 0-2367-5414</th>
         </tr>
         <tr>
-            <th colspan="2"><b>เอกสารแจ้งสอบราคางานตกแต่งภายใน (Bill Of Quantity)</b></th>
+            <th colspan="2" style="height: 30px;"><b>เอกสารแจ้งสอบราคางานตกแต่งภายใน (Bill Of Quantity)</b></th>
         </tr>
     </thead>
 </table>
@@ -28,15 +28,15 @@
     <thead>
         <tr>
             <th><b>โครงการ</b></th>
-            <th colspan="3">{{ $export_boq->project->brand_master->brand_name }}</th>
-            <th><b>ชื่อผู้เสนอราคา</b></th>
-            <th colspan="3">{{ $export_boq->vender_name->name }}</th>
+            <th colspan="3">{{ @$export_boq->project->brand_master->brand_name }}</th>
+            <th style="width: 120px;"><b>ชื่อผู้เสนอราคา</b></th>
+            <th colspan="3">{{ @$export_boq->vender_name->name }}</th>
         </tr>
         <tr>
             <th><b>สถานที่</b></th>
-            <th colspan="3">{{ $export_boq->project->location_master->location_name }}</th>
-            <th><b>ขนาดพื้นที่</b></th>
-            <th colspan="3">{{ $export_boq->project->area }} ตร.ม</th>
+            <th colspan="3">{{ @$export_boq->project->location_master->location_name }}</th>
+            <th style="width: 120px;"><b>ขนาดพื้นที่</b></th>
+            <th colspan="3">{{ @$export_boq->project->area }} ตร.ม</th>
         </tr>
         <tr>
             <th style="text-align:center; background-color:gray">รายการ</th>
@@ -82,13 +82,13 @@
                 @if ( $sub->main_id == $cat->id )
                     <tr>
                         <td style="text-align:center;">{{ $key + 1 }}.{{ $number += 1 }}</td>
-                        <td>{{ $sub->sub_cata->name }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->amount }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->unit_u->unit_name }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->wage_cost }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->material_cost }}</td>
-                        <td style="text-align:center; height: 30px;"></td>
-                        <td style="text-align:center; height: 30px;"></td>
+                        <td>{{ @$sub->sub_cata->name }}</td>
+                        <td style="text-align:center; height: 30px;">{{ @$sub->amount }}</td>
+                        <td style="text-align:center; height: 30px;">{{ @$sub->unit_u->unit_name }}</td>
+                        <td style="text-align:center; height: 30px;">{{ @$sub->wage_cost }}</td>
+                        <td style="text-align:center; height: 30px;">{{ @$sub->material_cost }}</td>
+                        <td style="text-align:center; height: 30px;">{{ @$sub->each_unit }}</td>
+                        <td style="text-align:center; height: 30px;">{{ @$sub->all_unit }}</td>
                         <td style="height: 30px;">{{ $sub->desc }}</td>
                     </tr>
                 @endif

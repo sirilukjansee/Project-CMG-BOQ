@@ -55,7 +55,7 @@
                                         @endif
                                         @endforeach
                                     </select>
-                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ @$eb->amount }}">
+                                    <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ @$eb->amount }}" rel="{{$key + 1}}">
                                     <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
                                         <option selected value="{{ $eb->unit_id }}">{{ @$eb->unit_u->unit_name }}</option>
                                         @foreach ($catagories2 as $cat2)
@@ -65,10 +65,10 @@
                                     <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc" value="{{ @$eb->desc }}">
 
                                     @if ( $eb->wage_cost != null )
-                                    <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24" value="{{ @$eb->material_cost }}">
-                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24" value="{{ @$eb->wage_cost }}">
-                                    <input type="text" name="each_unit[][{{ $cat->id }}]" placeholder="รวม/หน่วย" class="form-control w-24" value="{{ @$eb->each_unit }}">
-                                    <input type="text" name="all_unit[][{{ $cat->id }}]" placeholder="รวมทั้งหมด" class="form-control w-24" value="{{ @$eb->all_unit }}">
+                                    <input type="number" id="material{{$key + 1}}" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24" value="{{ @$eb->material_cost }}" rel="{{$key + 1}}">
+                                    <input type="number" id="wage{{$key + 1}}" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24" value="{{ @$eb->wage_cost }}" rel="{{$key + 1}}">
+                                    <input type="text" id="each_unit{{$key + 1}}" name="each_unit[][{{ $cat->id }}]" placeholder="รวม/หน่วย" class="form-control w-24" value="{{ @$eb->each_unit }}" readonly>
+                                    <input type="text" id="all_unit{{$key + 1}}" name="all_unit[][{{ $cat->id }}]" placeholder="รวมทั้งหมด" class="form-control w-24" value="{{ @$eb->all_unit }}" readonly>
                                     @endif
 
                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
@@ -99,7 +99,7 @@
                                     </select> --}}
                                     <span id="select_sub_id{{$key + 1}}"></span>
                                     {{-- <span class="sub_selected{{ $cat->id }}"></span> --}}
-                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
+                                    <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" rel="{{$key + 1}}">
                                     <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
                                         <option selected value=""></option>
                                         @foreach ($catagories2 as $cat2)
@@ -114,10 +114,10 @@
                                     @endphp
                                     @if ( $data_chk )
                                         @if ( $data_chk->status == "2" )
-                                        <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24">
-                                        <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24">
-                                        <input type="text" name="each_unit[][{{ $cat->id }}]" placeholder="รวม/หน่วย" class="form-control w-24" readonly>
-                                        <input type="text" name="all_unit[][{{ $cat->id }}]" placeholder="รวมทั้งหมด" class="form-control w-24" readonly>
+                                        <input type="number" id="material{{$key + 1}}" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24" rel="{{$key + 1}}">
+                                        <input type="number" id="wage{{$key + 1}}" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24" rel="{{$key + 1}}">
+                                        <input type="text" id="each_unit{{$key + 1}}" name="each_unit[][{{ $cat->id }}]" placeholder="รวม/หน่วย" class="form-control w-24" readonly>
+                                        <input type="text" id="all_unit{{$key + 1}}" name="all_unit[][{{ $cat->id }}]" placeholder="รวมทั้งหมด" class="form-control w-24" readonly>
                                         @endif
                                     @endif
                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
@@ -194,22 +194,6 @@
 
         <script type="text/javascript">
 
-            //calculate date
-            // $('#validation-form-7').on('change', function() {
-
-            // let strdate = $('#validation-form-6').val();
-            // var findate = $(this).val();
-            // var date1 = new Date(strdate);
-            // var date2 = new Date(findate);
-
-
-            // var diffTime = date2.getTime() - date1.getTime();
-            // var diffDay = diffTime / (1000 * 3600 * 24);
-            // console.log(diffDay);
-            // $('#validation-form-10').val(diffDay);
-
-            // });
-
             //
             jQuery(document).on('click', "#btn_send1", function(){
                 $('#is_btn').val("btn_send");
@@ -250,6 +234,52 @@
                     jQuery.each(response.data, function(key, value){
                         // console.log(response);
                         var sub_num = key + 1;
+
+                        // calculate wage
+                        $('#wage'+sub_num).on('keyup', function() {
+                            var row = $(this).attr('rel');
+                            let wge = $(this).val();
+                            var mtr = $("#material"+sub_num).val();
+                            var amt = $("#amount"+sub_num).val();
+                            // var eun = $("#each_unit").val();
+                            var cost1 = parseInt(wge) + parseInt(mtr);
+                            var cost2 = parseInt(amt) * parseInt(cost1);
+
+                            console.log(row);
+                            $('#each_unit'+sub_num).val(cost1);
+                            $('#all_unit'+sub_num).val(cost2);
+
+                        });
+
+                        // check material
+                        $('#material'+sub_num).on('keyup', function() {
+                            var row = $(this).attr('rel');
+                            var material = $(this).val();
+                            var amount = $('#amount'+sub_num).val();
+                            var wge = $('#wage'+sub_num).val();
+                            var cost1 = parseInt(wge) + parseInt(material);
+                            var cost2 = parseInt(amount) * parseInt(cost1);
+
+                            console.log('#material'+sub_num);
+
+                            $('#each_unit'+sub_num).val(cost1);
+                            $('#all_unit'+sub_num).val(cost2);
+                        });
+
+                        // check amount
+                        $('#amount'+sub_num).on('keyup', function() {
+                            var row = $(this).attr('rel');
+                            var material = $('#material'+sub_num).val();
+                            var amount = $(this).val();
+                            var wge = $('#wage'+sub_num).val();
+                            var cost1 = parseInt(wge) + parseInt(material);
+                            var cost2 = parseInt(amount) * parseInt(cost1);
+
+                            console.log('#amount'+sub_num);
+
+                            $('#each_unit'+row).val(cost1);
+                            $('#all_unit'+row).val(cost2);
+                        });
 
                         //append code
                             var html = '';
@@ -480,16 +510,16 @@
                                 }
                             });
                             html += '</select>';
-                            html += '<input type="number" name="amount[]['+value.id+']" class="form-control w-24" placeholder="จำนวน" >';
+                            html += '<input type="number" id="amount2'+x+'" name="amount[]['+value.id+']" class="form-control w-24" placeholder="จำนวน" rel="'+x+'">';
                             html += '<select name="unit_id[]['+value.id+']" class="form-control w-24" required>';
                             html += '<option selected value=""></option>@foreach ($catagories2 as $cat2)<option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>@endforeach</select>';
                             html += '<input type="text" name="desc[]['+value.id+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">';
                             html += '@if ( $data_chk )';
                             html += '@if ($data_chk->status == "2" )';
-                            html += '<input type="number" name="material_cost[]['+value.id+']" placeholder="ค่าวัสดุ" class="form-control w-24">';
-                            html += '<input type="number" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24">';
-                            html += '<input type="text" name="each_unit[]['+value.id+']" placeholder="รวม/หน่วย" class="form-control w-24" readonly>';
-                            html += '<input type="text" name="all_unit[]['+value.id+']" placeholder="รวมทั้งหมด" class="form-control w-24" readonly>';
+                            html += '<input type="number" id="material2'+x+'" name="material_cost[]['+value.id+']" placeholder="ค่าวัสดุ" class="form-control w-24" rel="'+x+'">';
+                            html += '<input type="number" id="wage2'+x+'" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24" rel="'+x+'">';
+                            html += '<input type="text" id="each_unit2'+x+'" name="each_unit[]['+value.id+']" placeholder="รวม/หน่วย" class="form-control w-24" readonly>';
+                            html += '<input type="text" id="all_unit2'+x+'" name="all_unit[]['+value.id+']" placeholder="รวมทั้งหมด" class="form-control w-24" readonly>';
                             html += '@endif';
                             html += '@endif';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
@@ -499,6 +529,51 @@
                         $("#newRowsub" + sub_num).append(html);
                         jQuery('.selectDropdown_2').select2();
                         jQuery('#sub'+sub_num).select2();
+
+                        // check wage
+                        jQuery(document).on('keyup', '#wage2'+x, function() {
+                            var row = $(this).attr('rel');
+                            var material = $('#material2'+row).val();
+                            var amount = $('#amount2'+row).val();
+                            var wge = $(this).val();
+                            var cost1 = parseInt(wge) + parseInt(material);
+                            var cost2 = parseInt(amount) * parseInt(cost1);
+
+                            // console.log(amount);
+
+                            $('#each_unit2'+row).val(cost1);
+                            $('#all_unit2'+row).val(cost2);
+                        });
+
+                        // check material
+                        jQuery(document).on('keyup', '#material2'+x, function() {
+                            var row = $(this).attr('rel');
+                            var material = $(this).val();
+                            var amount = $('#amount2'+row).val();
+                            var wge = $('#wage2'+row).val();
+                            var cost1 = parseInt(wge) + parseInt(material);
+                            var cost2 = parseInt(amount) * parseInt(cost1);
+
+                            // console.log('#material2'+x);
+
+                            $('#each_unit2'+row).val(cost1);
+                            $('#all_unit2'+row).val(cost2);
+                        });
+
+                        // check amount
+                        jQuery(document).on('keyup', '#amount2'+x, function() {
+                            var row = $(this).attr('rel');
+                            var material = $('#material2'+row).val();
+                            var amount = $(this).val();
+                            var wge = $('#wage2'+row).val();
+                            var cost1 = parseInt(wge) + parseInt(material);
+                            var cost2 = parseInt(amount) * parseInt(cost1);
+
+                            // console.log('#material2'+x);
+
+                            $('#each_unit2'+row).val(cost1);
+                            $('#all_unit2'+row).val(cost2);
+                        });
 
                         x++;
                         });

@@ -10,8 +10,12 @@ use App\Models\catagory;
 use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Vender;
+use App\Models\Import_vender;
+use App\Models\Import_vender_detail;
 use Carbon\Carbon;
 use App\Exports\BoqsExport;
+use App\Exports\SheetsExport;
+use App\Exports\MultipleBoqExport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -31,7 +35,10 @@ class BoqController extends Controller
         $temp_boq = template_boqs::where('project_id', $id)
             ->get();
 
-        return view('boq.allBoq', compact('project','temp_boq'));
+        $imp_boq = Import_vender::where('id_project', $id)
+            ->get();
+
+        return view('boq.allBoq', compact('project','temp_boq','imp_boq'));
     }
 
     public function choose_temp($templateid, $id)
@@ -317,7 +324,8 @@ class BoqController extends Controller
         $catagorie = catagory::where('is_active', "1")
             ->get();
         // $number = 0;
-        return Excel::download(new BoqsExport($export_boq,$catagorie), 'Project.xlsx');
+        // return Excel::download(new BoqsExport($export_boq,$catagorie), 'Project-'.($export_boq->number_id).'.xlsx');
+        return Excel::download(new MultipleBoqExport($export_boq,$catagorie), 'Project-'.($export_boq->number_id).'.xlsx');
     }
 
 
