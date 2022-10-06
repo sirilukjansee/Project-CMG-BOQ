@@ -24,6 +24,6 @@ class Import_vender_detail extends Model
     ];
 
     public function cat_sub(){
-        return $this->hasMany(Boq::class,'id','sub_id');
+        return $this->hasOne(catagory_sub::class,'id','sub_id');
     }
 }

@@ -22,4 +22,7 @@ class Import_vender extends Model
     public function vender_name(){
         return $this->hasOne(Vender::class,'id','id_vender');
     }
+    public function project(){
+        return $this->hasOne(project::class,'id','id_project');
+    }
 }

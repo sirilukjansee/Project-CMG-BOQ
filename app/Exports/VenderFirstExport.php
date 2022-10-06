@@ -17,7 +17,7 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class VenderFirstExport implements FromView
+class VenderFirstExport implements FromView, WithTitle
 {
     protected $export_boq;
     protected $catagorie;
@@ -36,12 +36,17 @@ class VenderFirstExport implements FromView
 
         $exp_detail = Import_vender_detail::where('import_id', $this->export_boq->id)
         ->get();
-
-         return view('boq.formBoq.exportVenderFirst', [
+        // dd($exp_detail);
+         return view('boq.formBoq.exportVenderSecond', [
             'export_boq' => $this->export_boq,
             'catagorie' => $this->catagorie,
             'exp_tor' => $exp_tor,
             'exp_detail' => $exp_detail,
         ]);
+    }
+
+    public function title(): string
+    {
+        return 'ใบปะหน้า';
     }
 }

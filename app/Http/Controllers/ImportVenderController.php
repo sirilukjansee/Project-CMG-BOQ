@@ -11,6 +11,8 @@ use App\Imports\BoqVendersImport;
 use App\Imports\FirstBoqVendersImport;
 use App\Imports\MultiSheetImport;
 use App\Exports\VenderFirstExport;
+use App\Exports\VenderSecondExport;
+use App\Exports\MultiVenderExport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -33,6 +35,6 @@ class ImportVenderController extends Controller
         $catagorie = catagory::where('is_active', "1")
             ->get();
         // $number = 0;
-        return Excel::download(new VenderFirstExport($export_boq,$catagorie), 'Vender.xlsx');
+        return Excel::download(new MultiVenderExport($export_boq,$catagorie), 'Vender.xlsx');
     }
 }
