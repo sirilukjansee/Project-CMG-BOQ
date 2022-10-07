@@ -6,7 +6,7 @@ use App\Models\Boq;
 use App\Models\Project;
 use App\Models\template_boqs;
 use App\Models\MasterTOR;
-use App\Models\MasterTOR_Detail;
+use App\Models\MasterTOR_detail;
 use App\Models\catagory;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Contracts\View\View;
