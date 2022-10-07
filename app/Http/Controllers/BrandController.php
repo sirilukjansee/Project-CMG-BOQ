@@ -14,6 +14,7 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::all();
+        $_SESSION["projectID"] = '';
 
         return view('boq.master.masterBrand', compact('brands'));
     }

@@ -10,6 +10,7 @@ use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Models\catagory;
 use App\Models\catagory_sub;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,6 +20,7 @@ class MasterController extends Controller
     public function index()
     {
         $catagories = catagory::all();
+        $_SESSION["projectID"] = '';
 
         return view('boq.master.masterBoq', compact('catagories'));
     }
@@ -28,7 +30,8 @@ class MasterController extends Controller
         $data = array(
             'catagories' => catagory::find($id),
             'catagories3' => catagory_sub::where('catagory_id', $id)->get(),
-            'data_brand' => Brand::get()
+            'data_brand' => Brand::get(),
+            $_SESSION["projectID"] = ''
         );
 
         return view('boq.master.sub_masterBoq', $data);
@@ -126,11 +129,16 @@ class MasterController extends Controller
        $catagory_sub->code = $request->code1.$request->code2.$request->code3;
        $catagory_sub->catagory_id = $request->catagory_id;
        $catagory_sub->name = $request->name;
-       $catagory_sub->brand_id = implode( ',', $request->brand_id);
-       $catagory_sub->create_by = 1;
-       $catagory_sub->update_by = 1;
+       $catagory_sub->create_by = Auth::user()->id;
+       $catagory_sub->update_by = Auth::user()->id;
        $catagory_sub->is_active = "1";
        $catagory_sub->save();
+
+       if ($request->brand_id) {
+            catagory_sub::where('id', $catagory_sub->id)->update([
+                'brand_id' => implode( ',', $request->brand_id)
+        ]);
+       }
 
         return redirect()->back()->with('success', '!!! ADD_SUB Complete !!!');
     }

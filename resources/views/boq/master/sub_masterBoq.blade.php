@@ -129,7 +129,7 @@
                                     <p class="text-danger" id="comment2"></p>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12 input-form">
-                                    <select id="" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand" required>
+                                    <select id="" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand">
                                         @foreach ($data_brand as $value)
                                             <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
                                         @endforeach
@@ -177,7 +177,7 @@
                                     <p class="text-danger" id="edit_comment2"></p>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12 input-form">
-                                    <select id="get_brand_edit" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand" required>
+                                    <select id="get_brand_edit" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand">
                                         {{-- @foreach ($data_brand as $value)
                                             <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
                                         @endforeach --}}
