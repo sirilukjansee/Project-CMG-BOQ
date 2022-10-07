@@ -3,7 +3,7 @@
 @section('content-data')
     <div class="intro-y flex sm:flex-row items-top mt-5">
     <h2 class="text-lg font-medium mr-auto">
-        <b>Edit BOQ of {{ $project_id->project->brand_master->brand_name }} at {{ $project_id->project->location_master->location_name }}
+        <b>View BOQ of {{ $project_id->project->brand_master->brand_name }} at {{ $project_id->project->location_master->location_name }}
         @if ( $project_id->name == 'Master BOQ' )
             [Master BOQ]
             @else
