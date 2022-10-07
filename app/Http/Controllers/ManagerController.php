@@ -15,6 +15,8 @@ class ManagerController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
+        $_SESSION["projectID"] = '';
+
         return view('boq.checkBoq', compact('boq_chk'));
     }
 
