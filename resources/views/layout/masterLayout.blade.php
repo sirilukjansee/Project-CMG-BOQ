@@ -125,13 +125,17 @@
                 <li>
                     <a href="{{ url('index')}}" class="top-menu {{ (request()->is('index')) ? 'top-menu--active' : '' }}">
                         <div class="top-menu__icon"> <i data-lucide="file-text"></i> </div>
-                        <div class="top-menu__title"> Project</div>
+                        <div class="top-menu__title"> Project {{$_SESSION["projectID"]}}</div>
                     </a>
                 </li>
+                @php
+                    $id = "allBoq/".$_SESSION["projectID"];
+                @endphp
+                @if (request()->is($id))
                 <li>
                     <a href="{{ url('capex')}}" class="top-menu {{ (request()->is('capex')) ? 'top-menu--active' : '' }}">
                         <div class="top-menu__icon"> <i data-lucide="file-minus"></i> </div>
-                        <div class="top-menu__title"> Capex</div>
+                        <div class="top-menu__title">Capex</div>
                     </a>
                 </li>
                 <li>
@@ -146,6 +150,7 @@
                         <div class="top-menu__title"> Feas</div>
                     </a>
                 </li>
+                @endif
                 <li>
                     <a href="{{ url('checkBoq')}}" class="top-menu {{ (request()->is('checkBoq')) ? 'top-menu--active' : '' }}">
                         <div class="top-menu__icon"> <i data-lucide="user-check"></i> </div>

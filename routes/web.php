@@ -18,6 +18,7 @@ use App\Http\Controllers\ManagerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CapexController;
 use App\Http\Controllers\ImportVenderController;
 
 // use Illuminate\Support\Facades\DB;
@@ -197,6 +198,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/edit/{id}', [UsersController::class, 'edit'])->name('/users/edit/{id}');
     Route::post('/users/update', [UsersController::class, 'update']);
     Route::get('/changeStatus_user/{id}', [UsersController::class, 'changeStatus'])->name('changeStatus_user');
+
+    // Capex
+    Route::get('capex', [CapexController::class, 'index']);
+    // Route::post('/approve_store',[ManagerController::class, 'store']);
 
     // Import File
     Route::post('/import-boqvender', [ImportVenderController::class, 'uploadBoqVender']);

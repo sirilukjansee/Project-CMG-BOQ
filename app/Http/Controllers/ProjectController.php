@@ -23,6 +23,8 @@ class ProjectController extends Controller
         $project = Project::orderBy('id', 'desc')
             ->get();
 
+            $_SESSION["projectID"] = '';
+
         return view('boq.index', compact('project'));
     }
 
