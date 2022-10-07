@@ -47,8 +47,11 @@ class BoqVendersImport implements ToModel
             // dd($impvd);
             if( $impvd )
             {
-                $_SESSION["idimp"] = $impvd->id;
+                $_SESSION["idimp"] = $impvd->id ;
             }
+            // else{
+            //     $_SESSION["idimp"] = 1;
+            // }
             if( $cat )
             {
                 $_SESSION["cat"] = $cat->id;

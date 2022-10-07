@@ -21,6 +21,6 @@ class MasterTOR extends Model
     ];
 
     public function tor(){
-        return $this->hasMany(MasterTOR_Detail::class,'tor_id','id');
+        return $this->hasMany(MasterTOR_detail::class,'tor_id','id');
     }
 }

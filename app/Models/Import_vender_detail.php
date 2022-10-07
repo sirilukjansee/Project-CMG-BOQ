@@ -26,4 +26,7 @@ class Import_vender_detail extends Model
     public function cat_sub(){
         return $this->hasOne(catagory_sub::class,'id','sub_id');
     }
+    public function unit_u(){
+        return $this->hasOne(Unit::class,'id','unit_id');
+    }
 }

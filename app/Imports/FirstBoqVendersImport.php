@@ -44,6 +44,7 @@ class FirstBoqVendersImport implements ToModel, WithMappedCells
                 $_SESSION["vds"] = $vds->id;
                 if( is_numeric($row['row4']) )
                 {
+                    // dd($_SESSION["vds"]);
                 $_SESSION["imp"] = Import_vender::create([
                     'id_project' => $this->project_id,
                     'id_vender' => $_SESSION["vds"],

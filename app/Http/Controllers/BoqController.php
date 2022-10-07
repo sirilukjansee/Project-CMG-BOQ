@@ -233,35 +233,57 @@ class BoqController extends Controller
 
                                     foreach($request->desc[$key2] as $key6 => $value6)
                                     {
-                                        foreach($request->wage_cost[$key2] as $key7 => $value7)
+                                        if( $request->wage_cost != '')
                                         {
-                                            foreach($request->material_cost[$key2] as $key8 => $value8)
+                                            foreach($request->wage_cost[$key2] as $key7 => $value7)
                                             {
-                                                foreach($request->each_unit[$key2] as $key9 => $value9)
+                                                foreach($request->material_cost[$key2] as $key8 => $value8)
                                                 {
-                                                    foreach($request->all_unit[$key2] as $key10 => $value10)
+                                                    foreach($request->each_unit[$key2] as $key9 => $value9)
                                                     {
-                                                        $boq = new Boq;
-                                                        $boq->template_boq_id = $request->id;
-                                                        // $boq->vender_id = ($request->vender_id);
-                                                        $boq->main_id = ($key3);
-                                                        $boq->sub_id = ($value3);
-                                                        $boq->amount = $value4;
-                                                        $boq->unit_id = $value5;
-                                                        $boq->desc = $value6;
-                                                        $boq->total = $request->total;
-                                                        $boq->wage_cost = $value7;
-                                                        $boq->material_cost = $value8;
-                                                        $boq->each_unit = $value9;
-                                                        $boq->all_unit = $value10;
-                                                        $boq->status = $send_form;
-                                                        $boq->comment = $request->comment;
-                                                        $boq->create_by = 1;
-                                                        $boq->update_by = 1;
-                                                        $boq->save();
+                                                        foreach($request->all_unit[$key2] as $key10 => $value10)
+                                                        {
+                                                            $boq = new Boq;
+                                                            $boq->template_boq_id = $request->id;
+                                                            // $boq->vender_id = ($request->vender_id);
+                                                            $boq->main_id = ($key3);
+                                                            $boq->sub_id = ($value3);
+                                                            $boq->amount = $value4;
+                                                            $boq->unit_id = $value5;
+                                                            $boq->desc = $value6;
+                                                            $boq->total = $request->total;
+                                                            $boq->wage_cost = $value7;
+                                                            $boq->material_cost = $value8;
+                                                            $boq->each_unit = $value9;
+                                                            $boq->all_unit = $value10;
+                                                            $boq->status = $send_form;
+                                                            $boq->comment = $request->comment;
+                                                            $boq->create_by = 1;
+                                                            $boq->update_by = 1;
+                                                            $boq->save();
+                                                        }
                                                     }
                                                 }
                                             }
+                                        }else{
+                                            $boq = new Boq;
+                                            $boq->template_boq_id = $request->id;
+                                            // $boq->vender_id = ($request->vender_id);
+                                            $boq->main_id = ($key3);
+                                            $boq->sub_id = ($value3);
+                                            $boq->amount = $value4;
+                                            $boq->unit_id = $value5;
+                                            $boq->desc = $value6;
+                                            $boq->total = $request->total;
+                                            // $boq->wage_cost = $value7;
+                                            // $boq->material_cost = $value8;
+                                            // $boq->each_unit = $value9;
+                                            // $boq->all_unit = $value10;
+                                            $boq->status = $send_form;
+                                            $boq->comment = $request->comment;
+                                            $boq->create_by = 1;
+                                            $boq->update_by = 1;
+                                            $boq->save();
                                         }
                                     }
                                 }
@@ -269,8 +291,6 @@ class BoqController extends Controller
                         }
                     }
                 }
-
-
 
         return redirect(route('allBoq', ['id' => $request->project_id]))->with('success', '!!! Edit BOQ Complete !!!');
     }
