@@ -156,12 +156,20 @@ class MasterController extends Controller
 
     public function update_sub(Request $request)
     {
+        if ($request->brand_id) {
+            $update_sub = catagory_sub::find($request->id)->update([
+                'code' => $request->code1.$request->code2.$request->code3,
+                'name' => $request->name,
+                'brand_id' => implode( ',', $request->brand_id),
+                'update_by' => 1
+            ]);
+        }else{
         $update_sub = catagory_sub::find($request->id)->update([
             'code' => $request->code1.$request->code2.$request->code3,
             'name' => $request->name,
-            'brand_id' => implode( ',', $request->brand_id),
             'update_by' => 1
         ]);
+    }
         return back()->with('success', '!!! Edit_SUB Complete !!!');
     }
 
