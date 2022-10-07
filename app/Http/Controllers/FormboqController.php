@@ -25,6 +25,8 @@ class FormboqController extends Controller
         $catagories2 = Unit::where('is_active', "1")->get();
         $venders = Vender::where('is_active', "1")->get();
 
+        $_SESSION["projectID"] = '';
+
         // echo $catagories1;
         return view('boq.formBoq.addformBoq', compact('catagories','catagories2','brand_master','project','template_boq','venders','template_choose'));
 
