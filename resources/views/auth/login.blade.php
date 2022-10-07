@@ -24,7 +24,7 @@
                         <span class="text-white text-lg ml-3"> CMG </span>
                     </a>
                     <div class="my-auto">
-                        <img alt="Midone - HTML Admin Template" class="-intro-x w-1/2 -mt-16" src="{{ asset('public/dist/images/illustration.svg')}}">
+                        <img alt="Midone - HTML Admin Template" class="-intro-x w-1/2 -mt-16" src="{{ asset('public/logo/CMG.png')}}">
                         <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
                             Central Marketing Group <br> (CMG)
 

@@ -71,7 +71,7 @@
                 <!-- BEGIN: Logo -->
                 <a href="{{ url('index') }}" class="-intro-x hidden md:flex">
                     <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
-                    <span class="text-white text-lg ml-3">Test</span>
+                    <span class="text-white text-lg ml-3">BOQ</span>
                 </a>
                 <!-- END: Logo -->
                 <!-- BEGIN: Breadcrumb -->
@@ -123,19 +123,41 @@
         <nav class="top-nav">
             <ul>
                 <li>
-                    <a href="{{ url('index')}}" class="top-menu top-menu--active">
+                    <a href="{{ url('index')}}" class="top-menu {{ (request()->is('index')) ? 'top-menu--active' : '' }}">
                         <div class="top-menu__icon"> <i data-lucide="file-text"></i> </div>
-                        <div class="top-menu__title"> Project <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
+                        <div class="top-menu__title"> Project</div>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('checkBoq')}}" class="top-menu">
+                    <a href="{{ url('capex')}}" class="top-menu {{ (request()->is('capex')) ? 'top-menu--active' : '' }}">
+                        <div class="top-menu__icon"> <i data-lucide="file-minus"></i> </div>
+                        <div class="top-menu__title"> Capex</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('auc')}}" class="top-menu {{ (request()->is('auc')) ? 'top-menu--active' : '' }}">
+                        <div class="top-menu__icon"> <i data-lucide="list"></i> </div>
+                        <div class="top-menu__title"> AUC</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('feas')}}" class="top-menu {{ (request()->is('feas')) ? 'top-menu--active' : '' }}">
+                        <div class="top-menu__icon"> <i data-lucide="git-pull-request"></i> </div>
+                        <div class="top-menu__title"> Feas</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('checkBoq')}}" class="top-menu {{ (request()->is('checkBoq')) ? 'top-menu--active' : '' }}">
                         <div class="top-menu__icon"> <i data-lucide="user-check"></i> </div>
-                        <div class="top-menu__title"> Manager <i data-lucide="chevron-down" class="top-menu__sub-icon"></i></div>
+                        <div class="top-menu__title"> Manager</div>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="top-menu top-menu--active">
+                    <a href="#" class="top-menu {{ (request()->is('masterBrand')) ? 'top-menu--active' : '' }}
+                        {{ (request()->is('masterLocation')) ? 'top-menu--active' : '' }} {{ (request()->is('masterBoq')) ? 'top-menu--active' : '' }}
+                        {{ (request()->is('masterDesignPM')) ? 'top-menu--active' : '' }} {{ (request()->is('masterVender')) ? 'top-menu--active' : '' }}
+                        {{ (request()->is('masterTaskName')) ? 'top-menu--active' : '' }} {{ (request()->is('masterTaskType')) ? 'top-menu--active' : '' }}
+                        {{ (request()->is('masterUnit')) ? 'top-menu--active' : '' }} {{ (request()->is('masterTOR')) ? 'top-menu--active' : '' }}">
                         <div class="top-menu__icon"> <i data-lucide="clipboard"></i> </div>
                         <div class="top-menu__title"> Master <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
@@ -197,7 +219,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ url('users')}}" class="top-menu">
+                    <a href="{{ url('users')}}" class="top-menu {{ (request()->is('users')) ? 'top-menu--active' : '' }}">
                         <div class="top-menu__icon"> <i data-lucide="lock"></i> </div>
                         <div class="top-menu__title"> User </div>
                     </a>
