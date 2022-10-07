@@ -18,6 +18,7 @@ use App\Http\Controllers\ManagerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CapexController;
 use App\Http\Controllers\ImportVenderController;
 
 // use Illuminate\Support\Facades\DB;
@@ -55,7 +56,7 @@ Route::get('test-select', function () {
     return view('boq.master.test-select');
 });
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     //master
     Route::get('/masterBoq', [MasterController::class, 'index'])->name('masterBoq');
     Route::get('/sub_masterBoq/{id}', [MasterController::class, 'index_sub'])->name('sub_masterBoq');
@@ -198,6 +199,10 @@ Route::get('test-select', function () {
     Route::post('/users/update', [UsersController::class, 'update']);
     Route::get('/changeStatus_user/{id}', [UsersController::class, 'changeStatus'])->name('changeStatus_user');
 
+    // Capex
+    Route::get('capex', [CapexController::class, 'index']);
+    // Route::post('/approve_store',[ManagerController::class, 'store']);
+
     // Import File
     Route::post('/import-boqvender', [ImportVenderController::class, 'uploadBoqVender']);
     Route::post('/import-brand', [BrandController::class, 'uploadBrand']);
@@ -225,7 +230,7 @@ Route::get('test-select', function () {
     Route::get('/export-unit', [UnitController::class, 'export']);
     Route::get('/export-tor', [MasterTORController::class, 'export']);
 
-// });
+});
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);
 // Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);

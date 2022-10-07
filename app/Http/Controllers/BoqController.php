@@ -38,6 +38,8 @@ class BoqController extends Controller
         $imp_boq = Import_vender::where('id_project', $id)
             ->get();
 
+            $_SESSION["projectID"] = $id;
+
         return view('boq.allBoq', compact('project','temp_boq','imp_boq'));
     }
 

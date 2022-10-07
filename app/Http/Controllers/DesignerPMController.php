@@ -14,7 +14,7 @@ class DesignerPMController extends Controller
     public function index()
     {
         $design_and_pms = design_and_pm::all();
-
+        $_SESSION["projectID"] = '';
 
         return view('boq.master.masterDesignPM', compact('design_and_pms'));
     }

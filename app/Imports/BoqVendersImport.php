@@ -44,14 +44,13 @@ class BoqVendersImport implements ToModel
             $impvd = Import_vender::orderBy('id', 'desc')->first();
             $cat = catagory::where('name', $row[1])->first();
             $unt = Unit::where('unit_name', $row[3])->first();
-            // dd($impvd);
             if( $impvd )
             {
                 $_SESSION["idimp"] = $impvd->id ;
             }
-            // else{
-            //     $_SESSION["idimp"] = 1;
-            // }
+            else{
+                $_SESSION["idimp"] = 1;
+            }
             if( $cat )
             {
                 $_SESSION["cat"] = $cat->id;
@@ -66,8 +65,8 @@ class BoqVendersImport implements ToModel
                     'unit_id' => $unt->id,
                     'wage_cost' => $row[4],
                     'material_cost' => $row[5],
-                    'each_unit' => $row[6],
-                    'all_unit' => $row[7],
+                    'each_unit' => $row[4] + $row[5],
+                    'all_unit' => ($row[4] + $row[5]) * $row[2],
                     'desc' => $row[8],
                 ]);
             }

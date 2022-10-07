@@ -129,7 +129,7 @@
                                     <p class="text-danger" id="comment2"></p>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12 input-form">
-                                    <select id="" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand" required>
+                                    <select id="" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand">
                                         @foreach ($data_brand as $value)
                                             <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
                                         @endforeach
@@ -177,7 +177,7 @@
                                     <p class="text-danger" id="edit_comment2"></p>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12 input-form">
-                                    <select id="get_brand_edit" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand" required>
+                                    <select id="get_brand_edit" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand">
                                         {{-- @foreach ($data_brand as $value)
                                             <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
                                         @endforeach --}}
@@ -344,32 +344,82 @@
             });
     });
 
-    // $('.chk_name_edit').on('click', function() {
-    //         var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
-    //         $('#edit_comment').text('');
-    //         document.getElementById('btn_save_edit').disabled = false;
-    //         jQuery.ajax({
-    //             type:   "GET",
-    //             url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
-    //             datatype:   "JSON",
-    //             async:  false,
-    //             success: function(data) {
-    //                 // $('#chk_code').val(data.dataChk.code);
-    //                 jQuery.each(data.dataChk, function(key, value){
-    //                     if (value.code == datakey) {
-    //                         $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
-    //                         document.getElementById('btn_save_edit').disabled = true;
-    //                     }
-    //                 });
+    $('.chk_code_edit').on('keyup', function() {
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
+            $('#edit_comment').text('');
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
 
-    //             },
-    //         });
-    // });
+                },
+            });
+    });
+
+    $('.chk_code_edit2').on('keyup', function() {
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
+            $('#edit_comment').text('');
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
+
+    $('.chk_code_edit3').on('keyup', function() {
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
+            $('#edit_comment').text('');
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
 
     $('.chk_name').on('keyup', function() {
             var datakey = $(this).val();
             $('#comment2').text('');
-            document.getElementById('btn_save').disabled = false;
+            // console.log($('#comment').text());
+            if ($('#comment').text()) {
+                document.getElementById('btn_save').disabled = true;
+            }else{
+                document.getElementById('btn_save').disabled = false;
+            }
+
         jQuery.ajax({
             type:   "GET",
             url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",

@@ -3,7 +3,7 @@
 @section('content-data')
             <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
                 <h2 class="text-lg font-medium mr-auto">
-                    Master Brand {{Carbon\Carbon::today()}}
+                    Master Brand
                 </h2>
                 <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
                     <div class="text-center">
