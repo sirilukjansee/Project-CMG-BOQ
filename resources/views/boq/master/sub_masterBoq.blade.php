@@ -344,32 +344,82 @@
             });
     });
 
-    // $('.chk_name_edit').on('click', function() {
-    //         var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
-    //         $('#edit_comment').text('');
-    //         document.getElementById('btn_save_edit').disabled = false;
-    //         jQuery.ajax({
-    //             type:   "GET",
-    //             url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
-    //             datatype:   "JSON",
-    //             async:  false,
-    //             success: function(data) {
-    //                 // $('#chk_code').val(data.dataChk.code);
-    //                 jQuery.each(data.dataChk, function(key, value){
-    //                     if (value.code == datakey) {
-    //                         $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
-    //                         document.getElementById('btn_save_edit').disabled = true;
-    //                     }
-    //                 });
+    $('.chk_code_edit').on('keyup', function() {
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
+            $('#edit_comment').text('');
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
 
-    //             },
-    //         });
-    // });
+                },
+            });
+    });
+
+    $('.chk_code_edit2').on('keyup', function() {
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
+            $('#edit_comment').text('');
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
+
+    $('.chk_code_edit3').on('keyup', function() {
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
+            $('#edit_comment').text('');
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
 
     $('.chk_name').on('keyup', function() {
             var datakey = $(this).val();
             $('#comment2').text('');
-            document.getElementById('btn_save').disabled = false;
+            // console.log($('#comment').text());
+            if ($('#comment').text()) {
+                document.getElementById('btn_save').disabled = true;
+            }else{
+                document.getElementById('btn_save').disabled = false;
+            }
+
         jQuery.ajax({
             type:   "GET",
             url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
