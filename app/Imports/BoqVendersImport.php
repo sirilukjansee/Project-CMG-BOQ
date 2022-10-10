@@ -46,7 +46,7 @@ class BoqVendersImport implements ToModel
             $unt = Unit::where('unit_name', $row[3])->first();
             if( $impvd )
             {
-                $_SESSION["idimp"] = $impvd->id;
+                $_SESSION["idimp"] = $impvd->id ;
             }
             else{
                 $_SESSION["idimp"] = 1;

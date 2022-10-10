@@ -129,51 +129,6 @@
                 </tbody>
             </table>
         </div>
-        <!--dropzone-->
-        <div class="sm:flex flex-col sm:items-end mt-6">
-            <!-- BEGIN: Large Modal Toggle -->
-            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-import"
-                class="btn btn-primary mr-1 mb-2">
-                <i data-lucide="database"class="w-4 h-4 mr-2"></i>Import BOQ from vender</a>
-            <!-- END: Large Modal Toggle -->
-        </div>
-        <!--Import boq vender-->
-        <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-            <table class="table table-hover table-auto sm:mt-2">
-                <thead class="table-light">
-                    <tr>
-                        <th class="whitespace-nowrap">ID</th>
-                        <th class="whitespace-nowrap">Vender</th>
-                        <th class="text-center whitespace-nowrap">Date</th>
-                        <th class="text-center whitespace-nowrap"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ( $imp_boq as $key => $ib )
-                    <tr class="intro-x">
-                        <td class="w-40 table-report__action">
-                            <div class="flex">
-                                <h3>{{ $key + 1 }}</h3>
-                            </div>
-                        </td>
-                        <td>
-                            <a class="font-medium whitespace-nowrap">{{ $ib->vender_name->name }}</a>
-                        </td>
-                        <td class="table-report__action w">
-                            <div class="flex items-center justify-center">{{ $ib->created_at }}</div>
-                        </td>
-                        <td class="table-report__action">
-                            <div class="btn-group text-center flex justify-center">
-                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
-                                <a href="{{ url('/export-vender', $ib->id) }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false">
-                                <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
         <!-- BEGIN: Large Modal Content -->
         <div id="large-modal-size-import" class="modal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -202,30 +157,82 @@
         </div>
         <!-- END: Large Modal Content -->
 
-    <!-- BEGIN: Modal Content -->
-    <div id="send-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body p-0">
-                    <form action="{{ url('/change_status_boq') }}" method="post">
-                        @csrf
-                        <div class="p-5 text-center">
-                            <i data-lucide="send" class="w-16 h-16 text-warning mx-auto mt-3"></i>
-                            <div class="text-3xl mt-5">Send to Manager??</div>
-                            <div class="text-slate-500 mt-2">?????????????? <br>???????????.</div>
-                        </div>
-                        <input type="hidden" id="boq_id" name="boq_id">
-                        <div class="px-5 pb-8 text-center">
-                            <button type="button" data-tw-dismiss="modal"
-                                class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                            <button type="submit" name="send" class="btn btn-primary w-28">Send</button>
-                        </div>
-                    </form>
+        <!-- BEGIN: Modal Content -->
+        <div id="send-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <form action="{{ url('/change_status_boq') }}" method="post">
+                            @csrf
+                            <div class="p-5 text-center">
+                                <i data-lucide="send" class="w-16 h-16 text-warning mx-auto mt-3"></i>
+                                <div class="text-3xl mt-5">Send to Manager??</div>
+                                <div class="text-slate-500 mt-2">?????????????? <br>???????????.</div>
+                            </div>
+                            <input type="hidden" id="boq_id" name="boq_id">
+                            <div class="px-5 pb-8 text-center">
+                                <button type="button" data-tw-dismiss="modal"
+                                    class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                                <button type="submit" name="send" class="btn btn-primary w-28">Send</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- END: Modal Content -->
     </div>
-    <!-- END: Modal Content -->
+    <div class="intro-y box p-5 mt-5">
+        <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+            <div class="xl:flex sm:mr-auto">
+                <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0 ml-5">
+                   <b class="text-lg">BOQ from Vender</b>
+                </div>
+            </div>
+            <div class="sm:flex items-center mt-2 xl:mt-0">
+                <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-import"
+                class="btn btn-primary mr-1 mb-2">
+                <i data-lucide="database"class="w-4 h-4 mr-2"></i>Import BOQ from vender</a>
+            </div>
+        </div>
+        <!--Import boq vender-->
+        <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+            <table class="table table-hover table-auto sm:mt-2">
+                <thead class="table-light">
+                    <tr>
+                        <th class="whitespace-nowrap">ID</th>
+                        <th class="whitespace-nowrap">Vender</th>
+                        <th class="text-center whitespace-nowrap">Date</th>
+                        <th class="text-center whitespace-nowrap"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ( $imp_boq as $key => $ib )
+                    <tr class="intro-x">
+                        <td class="w-40 table-report__action">
+                            <div class="flex">
+                                <h3>{{ $key + 1 }}</h3>
+                            </div>
+                        </td>
+                        <td>
+                            <a class="font-medium whitespace-nowrap">{{ @$ib->vender_name->name }}</a>
+                        </td>
+                        <td class="table-report__action w">
+                            <div class="flex items-center justify-center">{{ Carbon\Carbon::parse(@$ib->create_at)->format('d-m-Y') }}</div>
+                        </td>
+                        <td class="table-report__action">
+                            <div class="btn-group text-center flex justify-center">
+                                {{-- <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a> --}}
+                                <a href="{{ url('/export-vender', $ib->id) }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false">
+                                <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
     <!-- END: Content -->
 
     <script type="text/javascript">

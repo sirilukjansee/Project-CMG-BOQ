@@ -28,10 +28,16 @@
             <th style="width: 120px;">{{ @$export_boq->project->brand_master->brand_name }}</th>
             <th></th>
             <th></th>
-            <th style="width: 120px;"><b>ชื่อผู้เสนอราคา</b></th>
+            <th style="width: 120px;"><b>Vender</b></th>
             <th style="width: 120px;">{{ @$export_boq->vender_name->name }}</th>
             <th></th>
             <th></th>
+        </tr>
+        <tr>
+            <th style="width: 120px;"><b>Location</b></th>
+            <th colspan="3">{{ @$export_boq->project->location_master->location_name }}</th>
+            <th style="width: 120px;"><b>Area</b></th>
+            <th colspan="3">{{ @$export_boq->project->area }} ตร.ม</th>
         </tr>
         <tr>
             <th style="width: 120px;"><b>Task Name</b></th>
@@ -40,16 +46,10 @@
             <th colspan="3">{{ @$export_boq->project->task_type_master->task_type_name }}</th>
         </tr>
         <tr>
-            <th style="width: 120px;"><b>สถานที่</b></th>
-            <th colspan="3">{{ @$export_boq->project->location_master->location_name }}</th>
-            <th style="width: 120px;"><b>ขนาดพื้นที่</b></th>
-            <th colspan="3">{{ @$export_boq->project->area }} ตร.ม</th>
-        </tr>
-        <tr>
             <th style="width: 120px;"><b>วันที่เข้าทำงาน</b></th>
-            <th colspan="3">{{ Carbon\Carbon::parse(@$export_boq->project->start_date)->format('d M y') }}</th>
+            <th colspan="3">{{ Carbon\Carbon::parse(@$export_boq->project->start_date)->format('d-m-y') }}</th>
             <th style="width: 120px;"><b>วันที่ส่งมอบร้าน</b></th>
-            <th colspan="3">{{ Carbon\Carbon::parse(@$export_boq->project->open_date)->format('d M y') }}</th>
+            <th colspan="3">{{ Carbon\Carbon::parse(@$export_boq->project->open_date)->format('d-m-y') }}</th>
         </tr>
         <tr>
             <th style="width: 120px;"><b>DESIGNER/PM</b></th>

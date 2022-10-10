@@ -19,7 +19,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class SheetsExport implements FromView, WithTitle
+class SheetsExport implements FromView, WithTitle, WithStyles
 {
     protected $catagorie;
     protected $export_boq;
@@ -49,30 +49,20 @@ class SheetsExport implements FromView, WithTitle
 
     }
 
-    // public function styles(Worksheet $sheet)
-    // {
-    //     // Make sure you enable worksheet protection if you need any of the worksheet or cell protection features!
-    //     $sheet->getParent()->getActiveSheet()->getProtection()->setSheet(true);
+    public function styles(Worksheet $sheet)
+    {
+        // Make sure you enable worksheet protection if you need any of the worksheet or cell protection features!
+        $sheet->getParent()->getActiveSheet()->getProtection()->setSheet(true);
 
-    //     // lock all cells then unlock the cell
-    //     $sheet->getParent()->getActiveSheet()
-    //         ->getStyle('E')
-    //         ->getProtection()
-    //         ->setLocked(Protection::PROTECTION_UNPROTECTED);
+        // lock all cells then unlock the cell
+        $sheet->getParent()->getActiveSheet()
+            ->getStyle('E53:E54')
+            ->getProtection()
+            ->setLocked(Protection::PROTECTION_UNPROTECTED);
 
-    //     // styling first row
-    //     $sheet->getStyle(1)->getFont()->setBold(true);
-    // }
-
-    // public function registerEvents(): array
-    // {
-    //     return [
-    //         AfterSheet::class => function(AfterSheet $event) {
-    //             $workSheet = $event->sheet->getDelegate();
-    //             $workSheet->getProtection('E35'); // freezing here
-    //         },
-    //     ];
-    // }
+        // styling first row
+        $sheet->getStyle(1)->getFont()->setBold(true);
+    }
 
     public function title(): string
     {

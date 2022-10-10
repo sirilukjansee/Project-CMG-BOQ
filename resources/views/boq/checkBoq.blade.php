@@ -69,8 +69,11 @@
                                 </div>
                             </td>
                             <td class="table-report__action w-56">
-                                <div class="flex items-center justify-center">{{ Carbon\Carbon::parse(@$bchk->created_at)->format('d M y') }}
-                                </div>
+                                @if ( $bchk->update == null)
+                                <div class="flex items-center justify-center">{{ Carbon\Carbon::parse(@$bchk->date)->format('d M y') }}</div>
+                                @else
+                                <div class="flex items-center justify-center">{{ Carbon\Carbon::parse(@$bchk->update)->format('d M y') }}</div>
+                                @endif
                             </td>
                             <td>
                                 <div class="btn-group flex text-center justify-center ">
