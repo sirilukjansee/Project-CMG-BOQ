@@ -13,7 +13,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-
+        $_SESSION["projectID"] = '';
         return view('boq.users.users', compact('users'));
     }
 

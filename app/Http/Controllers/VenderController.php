@@ -14,7 +14,7 @@ class VenderController extends Controller
     public function  index()
     {
         $venders = Vender::all();
-
+        $_SESSION["projectID"] = '';
 
         return view('boq.master.masterVender', compact('venders'));
     }

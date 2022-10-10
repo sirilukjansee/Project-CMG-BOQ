@@ -14,7 +14,7 @@ class TaskNameController extends Controller
     public function  index()
     {
         $tasknames = taskname::all();
-
+        $_SESSION["projectID"] = '';
         return view('boq.master.task_name', compact('tasknames'));
     }
 

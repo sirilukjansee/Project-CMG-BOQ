@@ -14,7 +14,7 @@ class UnitController extends Controller
     public function index()
     {
         $units = Unit::all();
-
+        $_SESSION["projectID"] = '';
         return view('boq.master.masterUnit', compact('units'));
     }
 

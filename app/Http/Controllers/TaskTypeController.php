@@ -14,7 +14,7 @@ class TaskTypeController extends Controller
     public function  index()
     {
         $task_types = task_type::all();
-
+        $_SESSION["projectID"] = '';
 
         return view('boq.master.task_type', compact('task_types'));
     }
