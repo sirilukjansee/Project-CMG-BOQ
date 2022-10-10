@@ -195,6 +195,7 @@ class BoqController extends Controller
         $ven_der = Vender::where('is_active', "1")->get();
         $edit_dis = Boq::where('template_boq_id', $id)->first();
         $project_id = template_boqs::where('id' , $id)->first();
+        $_SESSION["projectID"] = '';
 
         // dd($id);
         return view('boq.formBoq.editformBoq', compact('pro_brand','editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis'));
@@ -322,6 +323,7 @@ class BoqController extends Controller
         $ven_der = Vender::where('is_active', "1")->get();
         $edit_dis = Boq::where('template_boq_id', $id)->first();
         $project_id = template_boqs::where('id' ,$id)->first();
+        $_SESSION["projectID"] = '';
 
         return view('boq.formBoq.viewBoq', compact('editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis'));
     }
@@ -335,6 +337,7 @@ class BoqController extends Controller
         $ven_der = Vender::where('is_active', "1")->get();
         $edit_dis = Boq::where('template_boq_id', $id)->first();
         $project_id = template_boqs::where('id' ,$id)->first();
+        $_SESSION["projectID"] = '';
 
         return view('boq.formBoq.viewBoq', compact('editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis'));
     }

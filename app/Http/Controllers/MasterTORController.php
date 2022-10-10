@@ -16,7 +16,7 @@ class MasterTORController extends Controller
     public function index()
     {
         $masterTor = MasterTOR::get();
-
+        $_SESSION["projectID"] = '';
         return view('boq.master.masterTor', compact('masterTor'));
     }
 
@@ -84,7 +84,7 @@ class MasterTORController extends Controller
     {
         $masterTor_detail = MasterTOR_detail::where('tor_id', $id)->get();
         $nameTor = MasterTOR::find($id);
-
+        $_SESSION["projectID"] = '';
         return view('boq.master.masterTor_detail', compact('masterTor_detail', 'id', 'nameTor'));
     }
 
