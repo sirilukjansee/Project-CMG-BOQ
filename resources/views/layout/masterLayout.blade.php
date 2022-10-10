@@ -133,7 +133,7 @@
                 @endphp
                 @if (request()->is($id))
                 <li>
-                    <a href="{{ url('capex')}}" class="top-menu {{ (request()->is('capex')) ? 'top-menu--active' : '' }}">
+                    <a href="{{ url('capex', $_SESSION["projectID"])}}" class="top-menu {{ (request()->is('capex')) ? 'top-menu--active' : '' }}">
                         <div class="top-menu__icon"> <i data-lucide="file-minus"></i> </div>
                         <div class="top-menu__title">Capex</div>
                     </a>

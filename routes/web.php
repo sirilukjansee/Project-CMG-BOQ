@@ -200,7 +200,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/changeStatus_user/{id}', [UsersController::class, 'changeStatus'])->name('changeStatus_user');
 
     // Capex
-    Route::get('capex', [CapexController::class, 'index']);
+    Route::get('capex/{id}', [CapexController::class, 'index']);
     // Route::post('/approve_store',[ManagerController::class, 'store']);
 
     // Import File
