@@ -92,13 +92,13 @@
                                             </select> --}}
                                             <span id="select_sub_id{{$key + 1}}"></span>
                                             <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" rel="{{$key + 1}}">
-                                            <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
+                                            <select name="unit_id[][{{ $cat->id }}]" id="unit{{$key + 1}}" class="form-control w-24">
                                                 <option selected value=""></option>
                                                 @foreach ($catagories2 as $cat2)
                                                 <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
                                                 @endforeach
                                             </select>
-                                            <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">
+                                            <input type="text" id="desc" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">
                                             @php
                                             $data_chk = App\Models\template_boqs::where('project_id', $project->id)
                                             ->where('name', "Master BOQ")
@@ -189,6 +189,43 @@
             @endif
 
 <script type="text/javascript">
+
+    $(document).ready(function(){
+        function autoSave()
+        {
+            var vender_id = $('#vender_id').val();
+            var code_id = $('#code_id').val();
+            var sub = $('#sub').val();
+            var amount = $('#amount').val();
+            var unit = $('#unit').val();
+            var desc = $('#desc').val();
+            var material = $('#material').val();
+            var wage = $('#wage').val();
+            var each_unit = $('#each_unit').val();
+            var all_unit = $('#all_unit').val();
+            var overhead = $('#validation-form-8').val();
+            var discount =$('#validation-form-9').val();
+            if( code_id != '' && sub != '' && amount != '' && unit != '' && desc != '' )
+            {
+                $.ajax({
+                    type: "POST",
+                    url:"{{ route('add_Boq') }}",
+                    datatype:"text",
+                    // data:{code_id:code_id,sub:sub,},
+                    success:function(data)
+                    {
+                        $('#autoSave').text("TESTTTTTTT");
+                        setInterval(function(){
+                            $('#autoSave').text('');
+                        }, 3000);
+                    }
+                });
+            }
+        }
+        setInterval(function(){
+            autoSave();
+        },3000);
+    });
 
     //table
     jQuery(document).ready(function() {
