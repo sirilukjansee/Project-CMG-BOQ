@@ -176,7 +176,7 @@
                                             <label for="validation-form-3" class="form-label w-full flex flex-col sm:flex-row">
                                                 Area/Sq.m <span style="color: red">*</span>
                                             </label>
-                                            <input id="validation-form-3" type="number" name="area" class="form-control">
+                                            <input id="validation-form-3" type="number" name="area" step=".01" class="form-control">
                                         </div>
                                         @error('area')
                                                 <span class="text-danger">{{$message}}</span>

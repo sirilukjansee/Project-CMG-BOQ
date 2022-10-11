@@ -55,7 +55,7 @@
             <!-- BEGIN: Validation Form -->
                 <div class="group_wrapper">
                     <div class="intro-y input-form box p-5 mt-3">
-                    <form action="{{ route('add_Boq') }}" method="post" id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
+                    <form method="post" id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
                         @csrf
                         <div class="form-inline mb-3 mt-10">
                             <label for="horizontal-form-1" class="form-label ml-4"><b> Vender </b><span style="color: red">*</span> : </label>
@@ -190,41 +190,21 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function(){
-        function autoSave()
-        {
-            var vender_id = $('#vender_id').val();
-            var code_id = $('#code_id').val();
-            var sub = $('#sub').val();
-            var amount = $('#amount').val();
-            var unit = $('#unit').val();
-            var desc = $('#desc').val();
-            var material = $('#material').val();
-            var wage = $('#wage').val();
-            var each_unit = $('#each_unit').val();
-            var all_unit = $('#all_unit').val();
-            var overhead = $('#validation-form-8').val();
-            var discount =$('#validation-form-9').val();
-            if( code_id != '' && sub != '' && amount != '' && unit != '' && desc != '' )
-            {
-                $.ajax({
-                    type: "POST",
-                    url:"{{ route('add_Boq') }}",
-                    datatype:"text",
-                    // data:{code_id:code_id,sub:sub,},
-                    success:function(data)
-                    {
-                        $('#autoSave').text("TESTTTTTTT");
-                        setInterval(function(){
-                            $('#autoSave').text('');
-                        }, 3000);
-                    }
-                });
+    $("#form1").on("submit", function(e){
+        e.preventDefault();
+        var formData = new FormData(this);
+        console.log(formData);
+        jQuery.ajax({
+            type: "POST",
+            url: "{{ route('add_Boq1') }}",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(){
+
             }
-        }
-        setInterval(function(){
-            autoSave();
-        },3000);
+        });
     });
 
     //table
@@ -257,7 +237,6 @@
             return false;
         }
     }
-
 
     //alert
     function validateForm(){
