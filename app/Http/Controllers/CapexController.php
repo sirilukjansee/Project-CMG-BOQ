@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 class CapexController extends Controller
 {
 
-    public function index()
+    public function index($id)
     {
         $data_categorys = catagory::where('is_active', "1")->get();
+        $_SESSION["projectID"] = $id;
         return view('boq.Capex.capex', compact('data_categorys'));
     }
 
