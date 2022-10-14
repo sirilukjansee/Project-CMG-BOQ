@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CapexController;
+use App\Http\Controllers\ConceptController;
 use App\Http\Controllers\ImportVenderController;
 
 // use Illuminate\Support\Facades\DB;
@@ -96,6 +97,15 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/masterBrand/softdelete/{id}',[BrandController::class,'softdelete']);
     Route::get('/masterBrand/changeStatus/{id}',[BrandController::class,'changeStatus']);
     Route::get('/masterBrand/chk/{data}',[BrandController::class,'brandChk']);
+
+    //master Concept
+    Route::get('/masterConcept', [ConceptController::class, 'index'])->name('masterConcept');
+    Route::post('/masterConcept/add', [ConceptController::class, 'store']);
+    Route::get('/masterConcept/edit/{id}', [ConceptController::class, 'edit'])->name('/masterConcept/edit/{id}');
+    Route::post('/masterConcept/update', [ConceptController::class, 'update']);
+    // // Route::get('/masterBrand/softdelete/{id}',[ConceptController::class,'softdelete']);
+    Route::get('/masterConcept/changeStatus/{id}',[ConceptController::class,'changeStatus']);
+    Route::get('/masterConcept/chk/{data}',[ConceptController::class,'ConceptChk']);
 
     //master location
     Route::get('/masterLocation', [LocationController::class, 'index'])->name('masterLocation');
@@ -216,6 +226,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/import-unit', [UnitController::class, 'uploadUnit']);
     Route::post('/import-tor', [MasterTORController::class, 'uploadTor']);
     Route::post('/import-tor-detail', [MasterTORController::class, 'uploadTorDetail']);
+    Route::post('/import-Concept', [ConceptController::class, 'uploadConcept']);
 
     // Export File
     Route::get('/export-vender/{id}', [ImportVenderController::class, 'export']);
@@ -229,6 +240,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/export-task-type', [TaskTypeController::class, 'export']);
     Route::get('/export-unit', [UnitController::class, 'export']);
     Route::get('/export-tor', [MasterTORController::class, 'export']);
+    Route::get('/export-Concept', [ConceptController::class, 'export']);
 
 });
 
