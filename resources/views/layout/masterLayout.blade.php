@@ -235,6 +235,12 @@
                         <div class="top-menu__title"> User </div>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ url('report')}}" class="top-menu {{ (request()->is('report')) ? 'top-menu--active' : '' }}">
+                        <div class="top-menu__icon"> <i data-lucide="folder"></i> </div>
+                        <div class="top-menu__title"> Report</div>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- END: Top Menu -->

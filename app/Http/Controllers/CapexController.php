@@ -21,15 +21,11 @@ class CapexController extends Controller
         $data_categorys = catagory::where('is_active', "1")->get();
 
         $project_id = Project::where('id', $id)->first();
-        $template_id = template_boqs::where('project_id', $id)->first();
+        // $template_id = template_boqs::where('project_id', $id)->first();
         $cpx = Capex::where('project_id', $id)->get();
         $_SESSION["projectID"] = $id;
 
-        if ($template_id) {
-            return view('boq.Capex.capex', compact('data_categorys','project_id','template_id', 'cpx'));
-        }else{
-            return view('boq.Capex.capex2');
-        }
+            return view('boq.Capex.capex', compact('data_categorys','project_id', 'cpx'));
     }
 
     /**

@@ -66,7 +66,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <input type="text" value="{{ $template_id }}" name="temp_id" id="temp_id">
+                        <input type="hidden" value="{{ $template_id }}" name="temp_id" id="temp_id">
                         <input type="hidden" value="{{ $project->id }}" name="project_id" id="p_id">
                         <input type="hidden" value="{{ $project->brand }}" name="brand_id" id="b_id"> {{-- ID brand จาก project--}}
                         <div id="addmain" class="input-form mt-3">
@@ -155,10 +155,10 @@
                         @if ($data_chk)
                             {{-- @if ("vender_id"  == "" ) --}}
                             @if ($data_chk->status != "2")
-                                <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                                <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()">
                                 @endif
                                 @else
-                                <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                                <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()">
                             @endif
                         {{-- @endif --}}
                         <a href="{{ url()->previous() }}" class="btn btn-dark-soft mt-5">Back</a>
@@ -218,15 +218,7 @@
         var x = document.forms["form1"]["vender_id"].value;
         if(x == "" || x == null) {
             alert("Vender must be filled out");
-            return false;
-        }
-    }
-
-    //alert
-    function validateForm(){
-        var x = document.forms["form1"]["vender_id"].value;
-        if(x == "" || x == null) {
-            alert("Vender must be filled out");
+            $('#delete-modal-preview').hide();
             return false;
         }
     }

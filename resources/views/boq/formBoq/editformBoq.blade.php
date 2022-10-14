@@ -31,12 +31,13 @@
                     <input type="hidden" value="{{ $id }}" name="id">
                     <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
                     <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
+                    <input type="hidden" value="{{ $project_id->project_id }}" name="project_id">
                     <div class="intro-y input-form mt-3 ml-2">
                         <div class="input-form">
                             @foreach ( $editboq as $eb )
                             @if ( $eb->main_id == $cat->id)
                                 <input type="hidden" value="{{ $eb->id }}" name="boq_id">
-                                <input type="hidden" value="{{ @$project_id->project_id }}" name="project_id">
+                                {{-- <input type="hidden" value="{{ $project_id->project_id }}" name="project_id"> --}}
                                 <div id="addsub" class="flex flex-row gap-2 mb-2">
                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
                                     <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2 code" placeholder="Code...">
@@ -167,7 +168,6 @@
                     @else
                     <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()">
                 @endif
-                {{-- <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview"> --}}
                 <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">Back</a>
             </form>
         </div>
@@ -198,6 +198,7 @@
                 var x = document.forms["form1"]["vender_id"].value;
                 if(x == "" || x == null) {
                     alert("Vender must be filled out");
+                    $('#delete-modal-preview').hide();
                     return false;
                 }if(x != "" || x != null)
                 {
