@@ -17,7 +17,7 @@
                     <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-import" class="btn btn-success mr-1 mb-2 text-white">
                         <i data-lucide="database" class="w-4 h-4 mr-2"></i> Import Detail
                     </a>
-                    <a href="#" class="btn btn-pending mr-1 mb-2 text-white">
+                    <a href="{{url('export-category_sub', $catagories->id)}}" class="btn btn-pending mr-1 mb-2 text-white">
                         <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export Detail
                     </a>
                     <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add_sub" class="btn btn-primary mr-1 mb-2">
@@ -110,6 +110,7 @@
                         <form action="{{ url('/sub_masterBoq/add_sub') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" class="form-control" name="catagory_id" value="{{$catagories->id}}">
+                            <input type="hidden" class="form-control" name="catagory_code" value="{{$catagories->code}}">
                             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                 <div class="col-span-12 sm:col-span-12 input-form mt-3">
                                     <input type="text" class="form-control" name="name" placeholder="{{ $catagories->name }}" disabled>
@@ -158,6 +159,7 @@
                         <!-- BEGIN: Modal Body -->
                         <form action="{{ url('/sub_masterBoq/update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" class="form-control" name="catagory_code" value="{{$catagories->code}}">
                             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                 <div class="col-span-12 sm:col-span-12 input-form mt-3">
                                     <input type="text" class="form-control" id="name" name="name" placeholder="{{ $catagories->name }}" disabled>

@@ -14,6 +14,7 @@ class catagory extends Model
 
     Protected $table = 'catagories';
     protected $fillable = [
+        'code',
         'name',
         'create_by',
         'update_by',

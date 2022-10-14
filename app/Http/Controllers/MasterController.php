@@ -39,15 +39,16 @@ class MasterController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'unique:catagories'
-        ],
-        [
-            'name.unique' => "error"
-        ]);
+        // $request->validate([
+        //     'name' => 'unique:catagories'
+        // ],
+        // [
+        //     'name.unique' => "error"
+        // ]);
 
         // dd($request);
         $data = array();
+        $data['code'] = $request->code;
         $data['name'] = $request->name;
         $data['create_by'] = 1;
         $data['update_by'] = 1;
@@ -82,6 +83,7 @@ class MasterController extends Controller
         // ]);
 
         $update = DB::table('catagories')->where('id', $request->id)->update([
+            'code' => $request->code,
             'name' => $request->name,
             'update_by' => 1,
         ]);
@@ -129,6 +131,7 @@ class MasterController extends Controller
        $catagory_sub->code = $request->code1.$request->code2.$request->code3;
        $catagory_sub->catagory_id = $request->catagory_id;
        $catagory_sub->name = $request->name;
+       $catagory_sub->code_cat = $request->catagory_code;
        $catagory_sub->create_by = Auth::user()->id;
        $catagory_sub->update_by = Auth::user()->id;
        $catagory_sub->is_active = "1";
@@ -161,12 +164,14 @@ class MasterController extends Controller
                 'code' => $request->code1.$request->code2.$request->code3,
                 'name' => $request->name,
                 'brand_id' => implode( ',', $request->brand_id),
+                'code_cat' => $request->catagory_code,
                 'update_by' => 1
             ]);
         }else{
         $update_sub = catagory_sub::find($request->id)->update([
             'code' => $request->code1.$request->code2.$request->code3,
             'name' => $request->name,
+            'code_cat' => $request->catagory_code,
             'update_by' => 1
         ]);
     }
@@ -218,9 +223,9 @@ class MasterController extends Controller
         return Excel::download(new CategorysExport, 'category.xlsx');
     }
 
-    public function export_sub()
+    public function export_sub($cat_id)
     {
-        return Excel::download(new CategorySubsExport, 'category_sub.xlsx');
+        return Excel::download(new CategorySubsExport($cat_id), 'category_sub.xlsx');
     }
 
     public function masterBoqChk($data)

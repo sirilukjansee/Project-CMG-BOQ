@@ -17,6 +17,7 @@ class catagory_sub extends Model
         'catagory_id',
         'name',
         'brand_id',
+        'code_cat',
         'create_by',
         'update_by',
         'is_active'

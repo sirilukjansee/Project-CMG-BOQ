@@ -38,12 +38,14 @@
             <thead>
                 <tr>
                     <th scope="col" style="text-align: center;">ID</th>
+                    <th scope="col">Code</th>
                     <th scope="col">งานหลัก</th>
                     <th scope="col">Status</th>
                     <th scope="col" style="text-align: center;">Active</th>
                 </tr>
                 <tr>
                     <th scope="col" class="filterhead" style="text-align: center;">ID</th>
+                    <th scope="col" class="filterhead">Codde</th>
                     <th scope="col" class="filterhead">งานหลัก</th>
                     <th scope="col" class="filterhead">Status</th>
                     <th scope="col" class="filterhead" style="text-align: center;"></th>
@@ -53,6 +55,7 @@
                 @foreach ($catagories as $key => $cat)
                     <tr>
                         <td class="text-center">{{ $key + 1 }}</td>
+                        <td>{{ $cat->code }}</td>
                         <td>{{ $cat->name }}</td>
                         <td>
                             @if ($cat->is_active == '1')
@@ -90,6 +93,10 @@
                 <form action="{{ url('/masterBoq/add') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
+                            <input type="text" class="form-control mb-2 chk_code" name="code" placeholder="Please add a Code..." required>
+                            <p class="text-danger" id="comment_code"></p>
+                        </div>
                         <div class="col-span-12 sm:col-span-12 input-form mt-3">
                             <input type="text" class="form-control mb-2 chk_name" name="name" placeholder="Please add a job..." required>
                             <p class="text-danger" id="comment"></p>
@@ -118,6 +125,10 @@
                 <form action="{{ url('/masterBoq/update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
+                            <input type="text" class="form-control mb-2 chk_code" name="code" id="code" required>
+                            <p class="text-danger" id="edit_comment_code"></p>
+                        </div>
                         <div class="col-span-12 sm:col-span-12 input-form mt-3">
                             <input type="text" class="form-control mb-2 chk_name" name="name" id="name" required>
                             <p class="text-danger" id="edit_comment"></p>
@@ -174,7 +185,7 @@ jQuery(document).ready(function() {
         "ordering": false,
     });
 
-    jQuery(".filterhead").not(":eq(3)").each( function ( i ) {
+    jQuery(".filterhead").not(":eq(4)").each( function ( i ) {
         var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
             .appendTo( jQuery(this).empty() )
             .on( 'change', function () {
@@ -190,8 +201,9 @@ jQuery(document).ready(function() {
     //edit main
     function edit_modal(id) {
         $('#edit_comment').text('');
+        $('#edit_comment_code').text('');
         document.getElementById('btn_save_edit').disabled = false;
-        console.log(id);
+        // console.log(id);
         jQuery.ajax({
             type: "GET",
             url: "{!! url('master/edit/"+id+"') !!}",
@@ -199,6 +211,7 @@ jQuery(document).ready(function() {
             async: false,
             success: function(data) {
                 $('#get_id').val(data.dataEdit.id);
+                $('#code').val(data.dataEdit.code);
                 $('#name').val(data.dataEdit.name);
                 $('#update_by').val(data.dataEdit.update_by);
                 jQuery('#Delete').children().remove().end();
@@ -211,6 +224,8 @@ jQuery(document).ready(function() {
     $('#btn_add').on('click', function() {
             $('#comment').text('');
             $('#edit_comment').text('');
+            $('#comment_code').text('');
+            $('#edit_comment_code').text('');
             document.getElementById('btn_save').disabled = false;
             document.getElementById('btn_save_edit').disabled = false;
         });
@@ -232,6 +247,33 @@ jQuery(document).ready(function() {
                     if (value.name.toUpperCase() == datakey.toUpperCase()) {
                         $('#comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
                         $('#edit_comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                        document.getElementById('btn_save_edit').disabled = true;
+                    }
+                });
+
+            },
+        });
+    });
+
+    $('.chk_code').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#comment_code').text('');
+            $('#edit_comment_code').text('');
+            document.getElementById('btn_save').disabled = false;
+            document.getElementById('btn_save_edit').disabled = false;
+            console.log(datakey);
+        jQuery.ajax({
+            type:   "GET",
+            url:    "{!! url('masterBoq/chk/"+datakey+"') !!}",
+            datatype:   "JSON",
+            async:  false,
+            success: function(data) {
+                // $('#chk_code').val(data.dataChk.code);
+                jQuery.each(data.dataChk, function(key, value){
+                    if (value.code == datakey) {
+                        $('#comment_code').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                        $('#edit_comment_code').text("'" + value.code + "' มีอยูในระบบแล้ว !");
                         document.getElementById('btn_save').disabled = true;
                         document.getElementById('btn_save_edit').disabled = true;
                     }

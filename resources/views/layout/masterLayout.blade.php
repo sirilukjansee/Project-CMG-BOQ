@@ -174,6 +174,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ url('/masterConcept') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Master Concept </div>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('/masterLocation') }}" class="top-menu">
                                 <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
                                 <div class="top-menu__title"> Master Location </div>

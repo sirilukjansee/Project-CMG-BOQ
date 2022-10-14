@@ -16,6 +16,7 @@ class CreateColumnCatagorySub extends Migration
         Schema::table('catagory_subs', function (Blueprint $table) {
             $table->string('code')->after('id')->nullable();
             $table->string('brand_id')->after('name')->nullable();
+            $table->string('code_cat')->after('brand_id')->comment('Code ของตาราง Catagory')->nullable();
         });
     }
 
