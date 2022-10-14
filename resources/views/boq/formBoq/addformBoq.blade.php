@@ -66,7 +66,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <input type="hidden" value="{{ $template_id }}" name="temp_id" id="temp_id">
+                        <input type="text" value="{{ $template_id }}" name="temp_id" id="temp_id">
                         <input type="hidden" value="{{ $project->id }}" name="project_id" id="p_id">
                         <input type="hidden" value="{{ $project->brand }}" name="brand_id" id="b_id"> {{-- ID brand จาก project--}}
                         <div id="addmain" class="input-form mt-3">

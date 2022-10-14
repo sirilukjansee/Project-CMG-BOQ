@@ -17,7 +17,7 @@ use App\Exports\BoqsExport;
 use App\Exports\SheetsExport;
 use App\Exports\MultipleBoqExport;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
@@ -389,8 +389,8 @@ class BoqController extends Controller
                     'overhead'  =>  $request->overhead,
                     'discount'  =>  $request->discount,
                     'ref_template' => $request->ref_template,
-                    'create_by' =>  1,
-                    'update_by' =>  1
+                    'create_by' =>  Auth::user()->id,
+                    'update_by' =>  Auth::user()->id
                 ])->id;
             }else{
                 $number_id2 = str_pad(1, 4, '0', STR_PAD_LEFT);
@@ -404,12 +404,21 @@ class BoqController extends Controller
                     'overhead'  =>  $request->overhead,
                     'discount'  =>  $request->discount,
                     'ref_template' => $request->ref_template,
-                    'create_by' =>  1,
-                    'update_by' =>  1
+                    'create_by' =>  Auth::user()->id,
+                    'update_by' =>  Auth::user()->id
                 ])->id;
             }
             $template_id = $template;
         }else{
+                $template = template_boqs::where('id', $chk_temp->id)->update([
+                    'vender_id' =>  $request->vender_id,
+                    'date'  =>  Carbon::now(),
+                    'status'    =>  $send_form,
+                    'overhead'  =>  $request->overhead,
+                    'discount'  =>  $request->discount,
+                    'update_by' =>  Auth::user()->id
+                ])->id;
+
             $template_id = $request->temp_id;
             $template = $request->temp_id;
         }
