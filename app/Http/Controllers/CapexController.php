@@ -9,6 +9,7 @@ use App\Models\template_boqs;
 use App\Models\Boq;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
@@ -18,14 +19,13 @@ class CapexController extends Controller
     public function index($id)
     {
         $data_categorys = catagory::where('is_active', "1")->get();
+
         $project_id = Project::where('id', $id)->first();
         $template_id = template_boqs::where('project_id', $id)->first();
-        $cpx = Capex::where('project_id', $id)
-            // ->('')
-            ->get();
+        $cpx = Capex::where('project_id', $id)->get();
         $_SESSION["projectID"] = $id;
 
-        return view('boq.Capex.capex', compact('data_categorys','project_id','template_id','cpx'));
+        return view('boq.Capex.capex', compact('data_categorys','project_id','template_id', 'cpx'));
     }
 
     /**
@@ -49,19 +49,31 @@ class CapexController extends Controller
         // dd($request);
         foreach( $request->boq_id as $key => $value )
         {
-            // foreach( $request->total[$key] as $key1 => $value1 )
-            // {
+            $data = Capex::where('project_id',  $request->project_id)->where('boq_id',  $value)->first();
+
+            if ($data) {
+                $cap =Capex::where('id', $data->id)->first();
+                $cap->project_id = $request->project_id;
+                $cap->template_id = $request->template_id;
+                $cap->boq_id = ($value);
+                $cap->total = ($request->total[$key]);
+                $cap->remark = $request->remark;
+                $cap->update_by = Auth::user()->id;
+                $cap->updated_at = Carbon::now();
+                $cap->update();
+            }else{
                 $cap = new Capex;
                 $cap->project_id = $request->project_id;
                 $cap->template_id = $request->template_id;
                 $cap->boq_id = ($value);
                 $cap->total = ($request->total[$key]);
                 $cap->remark = $request->remark;
-                $cap->create_by = 1;
-                $cap->update_by = 1;
+                $cap->create_by = Auth::user()->id;
+                $cap->update_by = Auth::user()->id;
                 $cap->created_at = Carbon::now();
                 $cap->save();
-            // }
+            }
+
         }
 
 

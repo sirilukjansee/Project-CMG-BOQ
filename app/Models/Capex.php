@@ -19,4 +19,8 @@ class Capex extends Model
         'create_by',
         'update_by'
     ];
+
+    public function catagory(){
+        return $this->hasOne(catagory::class,'id','boq_id');
+    }
 }
