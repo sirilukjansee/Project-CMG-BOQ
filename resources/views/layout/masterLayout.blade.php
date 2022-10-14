@@ -139,7 +139,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('auc')}}" class="top-menu {{ (request()->is('auc')) ? 'top-menu--active' : '' }}">
+                    <a href="{{ url('auc', $_SESSION["projectID"])}}" class="top-menu {{ (request()->is('auc')) ? 'top-menu--active' : '' }}">
                         <div class="top-menu__icon"> <i data-lucide="list"></i> </div>
                         <div class="top-menu__title"> AUC</div>
                     </a>

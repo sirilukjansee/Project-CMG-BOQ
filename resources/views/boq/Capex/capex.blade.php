@@ -9,8 +9,9 @@
             <!-- BEGIN: Validation Form -->
                 <div class="group_wrapper">
                     <div class="intro-y input-form box p-5 mt-3">
-                    <form action="{{ route('add_Boq') }}" method="post" id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
+                    <form action="{{ route('addcapex') }}" method="post" id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" value="{{ $template_id->id }}" name="project_id">
                         <div class="grid grid-cols-12 gap-2">
                             <div class="col-span-12 xl:col-span-9 input-form mt-3">
                                 <label for="" style="font-weight: bold;">ชื่อหมวด</label>
@@ -21,14 +22,29 @@
                         </div>
                         <div class="grid grid-cols-12 gap-2">
                         @foreach ($data_categorys as $key => $cat)
+
                         <div class="col-span-12 xl:col-span-9 input-form mt-3">
+                            <input type="hidden" value="{{ $cat->id }}" name="boq_id[]">
                             <input type="text" class="w-full" value="{{ $key + 1 }}. {{ $cat->name }}" readonly >
                         </div>
                         <div class="col-span-12 xl:col-span-3 input-form mt-3">
-                            <input type="text" class="w-full" value="2000.00" style="text-align: right;" readonly >
+                            @foreach ( $cpx as $cx )
+                            @if ( $cx->boq_id == $cat->id )
+                            <input type="number" name="total[]" step=".01" class="w-full" value="{{ @$cx->total }}" placeholder="0000.00" style="text-align: right;" >
+                            {{-- @else
+                            <input type="number" name="total[]" step=".01" class="w-full" placeholder="0000.00" style="text-align: right;" > --}}
+                            @endif
+                            @endforeach
                         </div>
+                            {{-- @php
+                                $cpx_chk =App\Models\Capex::where('boq_id', $cat->id)->first();
+                            @endphp
+                            @if ( $cpx_chk == '' )
+                            <input type="number" name="total[]" step=".01" class="w-full" placeholder="0000.00" style="text-align: right;" >
+                            @endif --}}
                         @endforeach
                         </div>
+                        <input type="submit" value="Save" class="btn btn-primary mt-5">
                     </form>
                 </div>
                 </div>

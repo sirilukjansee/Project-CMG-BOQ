@@ -21,7 +21,6 @@ class MultipleBoqExport implements WithMultipleSheets
 
     public function sheets(): array
     {
-
         return[
             new BoqsExport($this->export_boq,$this->catagorie),
             new SheetsExport($this->catagorie,$this->export_boq,$this->exp_tor),

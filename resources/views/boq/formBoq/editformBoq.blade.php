@@ -14,11 +14,11 @@
     <!-- BEGIN: Validation Form -->
         <div class="group_wrapper">
             <div class="intro-y input-form box p-5 mt-3">
-            <form action="{{ url('/formBoq/update') }}" method="post" id="form1" enctype="multipart/form-data">
+            <form action="{{ url('/formBoq/update') }}" method="post" onsubmit="return validateForm()" id="form1" enctype="multipart/form-data">
                 @csrf
                 <div class="form-inline mb-3 mt-10">
                     <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
-                    <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
+                    <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender...">
                         <option selected value="{{ @$project_id->vender_id }}">{{ @$project_id->vender_name->name }}</option>
                         @foreach ( $ven_der as $vd )
                         <option value="{{ $vd->id }}">{{ $vd->name }}</option>
@@ -162,10 +162,10 @@
                 <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
                 @if ($data_chk)
                     @if ($data_chk->status != "2")
-                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()">
                     @endif
                     @else
-                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()">
                 @endif
                 {{-- <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview"> --}}
                 <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">Back</a>
@@ -173,7 +173,6 @@
         </div>
         </div>
     <!-- END: Validation Form -->
-
         <div id="delete-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -193,6 +192,18 @@
         </div>
 
         <script type="text/javascript">
+
+            //alert
+            function myFunction(){
+                var x = document.forms["form1"]["vender_id"].value;
+                if(x == "" || x == null) {
+                    alert("Vender must be filled out");
+                    return false;
+                }if(x != "" || x != null)
+                {
+                    jQuery('#delete-modal-preview').show();
+                }
+            }
 
             //
             jQuery(document).on('click', "#btn_send1", function(){

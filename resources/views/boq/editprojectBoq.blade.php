@@ -12,33 +12,39 @@
             @csrf
             <input type="hidden" value="{{ $project->id }}" name="id">
             <div class="intro-y input-form box p-5">
-                <div class="grid grid-cols-2 gap-2">
+                <div class="grid grid-cols-3 gap-2">
                     <div class="input-form mt-3">
                         <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
-                            Brand <span style="color: red">*</span>
+                            Brand
                         </label>
-                        {{-- <input id="validation-form-1" type="text" name="brand" class="form-control" required> --}}
-                        <select name="brand" id="validation-form-1"  data-placeholder="Select a brand..." class="tom-select form-control w-full">
+                        <input id="validation-form-1" type="text" name="brand" class="form-control" value="{{ @$project->brand_master->brand_name }}" readonly>
+                        {{-- <select name="brand" id="validation-form-1"  data-placeholder="Select a brand..." class="tom-select form-control w-full">
                             <option selected value="{{ $project->brand_master->id }}">{{ $project->brand_master->brand_name }}</option>
                             @foreach ($project1 as $pro1)
                             <option value="{{ $pro1->id }}">{{ $pro1->brand_name }}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                         @error('brand')
                                 <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="input-form mt-3">
                         <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
-                            Location <span style="color: red">*</span>
+                            Concept
                         </label>
-                        {{-- <input id="validation-form-2" type="text" name="location" class="form-control" required> --}}
-                        <select id="validation-form-2" name="location" data-placeholder="Select a location..."  autocomplete="off" class="tom-select form-control w-full">
+                        <input id="concept" type="text" name="concept" class="form-control" value="" readonly>
+                    </div>
+                    <div class="input-form mt-3">
+                        <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
+                            Location
+                        </label>
+                        <input id="validation-form-2" type="text" name="location" class="form-control" value="{{ @$project->location_master->location_name }}" readonly>
+                        {{-- <select id="validation-form-2" name="location" data-placeholder="Select a location..."  autocomplete="off" class="tom-select form-control w-full">
                             <option selected value="{{ $project->location_master->id }}">{{ $project->location_master->location_name }}</option>
                             @foreach ($project2 as $pro2)
                             <option value="{{ $pro2->id }}">{{ $pro2->location_name }}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                         @error('location')
                                 <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -48,9 +54,9 @@
                     <div class="col-span-12 xl:col-span-2 mt-3">
                         <div class="input-form mt-2 xl:mt-0">
                             <label for="validation-form-3" class="form-label w-full flex flex-col sm:flex-row">
-                                Area/Sq.m <span style="color: red">*</span>
+                                Area/Sq.m
                             </label>
-                            <input id="validation-form-3" type="number" name="area" class="form-control" value="{{ $project->area }}">
+                            <input id="validation-form-3" type="number" name="area" step=".01" class="form-control" value="{{ $project->area }}">
                         </div>
                         @error('area')
                                 <span class="text-danger">{{$message}}</span>
@@ -68,11 +74,11 @@
                     <div class="col-span-12 xl:col-span-2 mt-3">
                         <div class="input-form mt-2 xl:mt-0">
                             <label for="validation-form-5" class="form-label w-full flex flex-col sm:flex-row">
-                                Task Type <span style="color: red">*</span>
+                                Task Type
                             </label>
                             {{-- <input id="validation-form-5" type="text" name="task" class="form-control" required> --}}
                             <select id="select-beast-empty2" name="task" data-placeholder="Select a task type..."  autocomplete="off" class="tom-select form-control w-full">
-                                <option selected value="{{ $project->task_type_master->id }}">{{ $project->task_type_master->task_type_name }}</option>
+                                <option selected value="{{ $project->task_type_master->id }}">{{ @$project->task_type_master->task_type_name }}</option>
                                 @foreach ($project3 as $pro3)
                                 <option value="{{ $pro3->id }}">{{ $pro3->task_type_name }}</option>
                                 @endforeach
@@ -85,11 +91,11 @@
                     <div class="col-span-12 xl:col-span-2 mt-3">
                         <div class="input-form mt-2 xl:mt-0">
                             <label for="validation-form-5" class="form-label w-full flex flex-col sm:flex-row">
-                                Task Name <span style="color: red">*</span>
+                                Task Name
                             </label>
                             {{-- <input id="validation-form-5" type="text" name="task_n" class="form-control" required> --}}
                             <select id="select-beast-empty3" name="task_n" data-placeholder="Select a task name..."  autocomplete="off" class="tom-select form-control w-full">
-                                <option selected value="{{ $project->task_name_master->id }}">{{ $project->task_name_master->task_name }}</option>
+                                <option selected value="{{ $project->task_name_master->id }}">{{ @$project->task_name_master->task_name }}</option>
                                 @foreach ($project4 as $pro4)
                                 <option value="{{$pro4->id}}">{{$pro4->task_name}}</option>
                                 @endforeach
@@ -104,7 +110,7 @@
                     <div class="col-span-12 xl:col-span-2 mt-3">
                         <div class="input-form mt-2 xl:mt-0">
                             <label for="validation-form-6" class="form-label w-full sm:flex-row" id="sDate">
-                                Start Date <span style="color: red">*</span>
+                                Start Date
                             </label>
                             <input id="validation-form-6" type="date" name="startDate" class="form-control" value="{{ $project->start_date }}">
                             @error('startDate')
@@ -115,7 +121,7 @@
                     <div class="col-span-12 xl:col-span-2 mt-3">
                         <div class="input-form mt-2 xl:mt-0">
                             <label for="validation-form-7" class="form-label w-full sm:flex-row">
-                                Hand Over Date <span style="color: red">*</span>
+                                Hand Over Date
                             </label>
                             <input id="validation-form-7" type="date" name="finishDate" class="form-control" value="{{ $project->finish_date }}">
                             @error('finishDate')
@@ -134,7 +140,7 @@
                     <div class="col-span-12 xl:col-span-2 mt-3">
                         <div class="input-form mt-2 xl:mt-0">
                             <label for="validation-form-11" class="form-label w-full sm:flex-row">
-                                Open Date <span style="color: red">*</span>
+                                Open Date
                             </label>
                             <input id="validation-form-11" type="date" name="openDate" class="form-control" value="{{ $project->open_date }}">
                             @error('openDate')
@@ -146,7 +152,7 @@
                 <div class="grid grid-cols-2 gap-2">
                     <div class="input-form mt-3">
                         <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
-                            Designer Name <span style="color: red">*</span>
+                            Designer Name
                         </label>
                         {{-- <input id="validation-form-8" type="text" name="ds_name" class="form-control" required> --}}
                         <select name="ds_name" id="validation-form-8" data-placeholder="Select a designer..."  autocomplete="off" class="tom-select form-control w-full">
@@ -162,7 +168,7 @@
                 </div>
                 <input id="chk" type="submit" value="Save" class="btn btn-primary mt-5">
                 {{-- <span id="btn_add"></span> --}}
-                <a href="{{ url("index") }}" class="btn btn-secondary mt-5">Back</a>
+                <a href="{{ url("allBoq", $project->id) }}" class="btn btn-secondary mt-5">Back</a>
             </div>
         </form>
     </div>

@@ -21,6 +21,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CapexController;
 use App\Http\Controllers\ConceptController;
 use App\Http\Controllers\ImportVenderController;
+use App\Http\Controllers\AucController;
 
 // use Illuminate\Support\Facades\DB;
 
@@ -57,7 +58,7 @@ Route::get('test-select', function () {
     return view('boq.master.test-select');
 });
 
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
     //master
     Route::get('/masterBoq', [MasterController::class, 'index'])->name('masterBoq');
     Route::get('/sub_masterBoq/{id}', [MasterController::class, 'index_sub'])->name('sub_masterBoq');
@@ -184,6 +185,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/editFormBoq/edit/{id}', [BoqController::class, 'edit'])->name('editformBoq');
     Route::post('/formBoq/update', [BoqController::class, 'update']);
     Route::post('/change_status_boq', [BoqController::class, 'change_status_boq'])->name('change_status_boq');
+    Route::post('/addBoq1/add', [BoqController::class, 'store_aj'])->name('add_Boq1');
 
     Route::get('/addformboq-template/{templateid}/{id}', [BoqController::class, 'choose_temp']);
 
@@ -211,7 +213,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Capex
     Route::get('capex/{id}', [CapexController::class, 'index']);
+    Route::post('/capex/add', [CapexController::class, 'store'])->name('addcapex');
     // Route::post('/approve_store',[ManagerController::class, 'store']);
+
+    //AUC
+    Route::get('auc/{id}', [AucController::class, 'index']);
 
     // Import File
     Route::post('/import-boqvender', [ImportVenderController::class, 'uploadBoqVender']);
@@ -242,7 +248,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/export-tor', [MasterTORController::class, 'export']);
     Route::get('/export-Concept', [ConceptController::class, 'export']);
 
-});
+// });
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);
 // Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);

@@ -192,12 +192,12 @@
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>OVER HEAD</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3"></td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ @$export_boq->overhead }}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>COMMERCIAL DISCOUNT</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3"></td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ @$export_boq->discount }}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>

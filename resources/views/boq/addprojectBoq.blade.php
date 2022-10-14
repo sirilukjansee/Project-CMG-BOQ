@@ -138,7 +138,7 @@
                         <form name="addProject" action="{{ url('/addprojectBoq/add') }}" method="post" id="formId">
                             @csrf
                             <div class="intro-y input-form box p-5">
-                                <div class="grid grid-cols-2 gap-2">
+                                <div class="grid grid-cols-3 gap-2">
                                     <div class="input-form mt-3">
                                         <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
                                             Brand <span style="color: red">*</span>
@@ -153,6 +153,17 @@
                                         @error('brand')
                                                 <span class="text-danger">{{ $message }}</span>
                                         @enderror
+                                    </div>
+                                    <div class="input-form mt-3">
+                                        <label for="concept" class="form-label w-full flex flex-col sm:flex-row">
+                                            Concept
+                                        </label>
+                                        <select id="concept" name="concept" data-placeholder="Select a location..."  autocomplete="off" class="tom-select form-control w-full">
+                                            <option selected value="">Select a location...</option>
+                                            @foreach ($project2 as $pro2)
+                                            <option value=""></option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="input-form mt-3">
                                         <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
@@ -176,7 +187,7 @@
                                             <label for="validation-form-3" class="form-label w-full flex flex-col sm:flex-row">
                                                 Area/Sq.m <span style="color: red">*</span>
                                             </label>
-                                            <input id="validation-form-3" type="number" name="area" class="form-control">
+                                            <input id="validation-form-3" type="number" name="area" step=".01" class="form-control">
                                         </div>
                                         @error('area')
                                                 <span class="text-danger">{{$message}}</span>
