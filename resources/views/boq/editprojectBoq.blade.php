@@ -32,7 +32,7 @@
                         <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
                             Concept
                         </label>
-                        <input id="concept" type="text" name="concept" class="form-control" value="" readonly>
+                        <input id="concept" type="text" name="concept" class="form-control" value="{{ @$project->concept_master->name }}" readonly>
                     </div>
                     <div class="input-form mt-3">
                         <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">

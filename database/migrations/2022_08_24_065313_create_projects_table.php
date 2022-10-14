@@ -16,6 +16,7 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->foreignId('brand');
+            $table->foreignId('concept');
             $table->foreignId('location');
             $table->float('area', 4, 2)->nullable();
             $table->string('unit');

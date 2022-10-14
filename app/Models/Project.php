@@ -14,6 +14,7 @@ class Project extends Model
     protected   $fillable = [
         // 'project_id',
         'brand',
+        'concept',
         'number_id',
         'location',
         'area',
@@ -32,6 +33,10 @@ class Project extends Model
 
     public function brand_master(){
         return $this->hasOne(Brand::class,'id','brand');
+    }
+
+    public function concept_master(){
+        return $this->hasOne(Concept::class,'id','concept');
     }
 
     public function location_master(){

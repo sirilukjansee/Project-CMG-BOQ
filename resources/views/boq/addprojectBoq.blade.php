@@ -159,9 +159,9 @@
                                             Concept
                                         </label>
                                         <select id="concept" name="concept" data-placeholder="Select a location..."  autocomplete="off" class="tom-select form-control w-full">
-                                            <option selected value="">Select a location...</option>
-                                            @foreach ($project2 as $pro2)
-                                            <option value=""></option>
+                                            <option selected value="">Select a Concept...</option>
+                                            @foreach ($project6 as $pro6)
+                                            <option value="{{$pro6->id}}">{{$pro6->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

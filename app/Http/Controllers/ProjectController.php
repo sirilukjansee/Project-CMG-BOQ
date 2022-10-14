@@ -7,6 +7,7 @@ use App\Exports\VendersExport;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Brand;
+use App\Models\Concept;
 use App\Models\Location;
 use App\Models\task_type;
 use App\Models\taskname;
@@ -42,8 +43,9 @@ class ProjectController extends Controller
         $project3 = task_type::where('is_active', "1")->get();
         $project4 = taskname::where('is_active', "1")->get();
         $project5 = design_and_pm::where('is_active', "1")->get();
+        $project6 = Concept::where('is_active', "1")->get();
 
-        return view('boq.addprojectBoq', compact('project','project1','project2','project3','project4','project5'));
+        return view('boq.addprojectBoq', compact('project','project1','project2','project3','project4','project5', 'project6'));
     }
 
     public function store(Request $request)
@@ -63,6 +65,7 @@ class ProjectController extends Controller
 
         $project = new Project;
         $project->brand = $request->brand;
+        $project->concept = $request->concept;
         $project->location = $request->location;
         $project->area = $request->area;
         $project->unit = $request->unit;
@@ -121,9 +124,10 @@ class ProjectController extends Controller
         $project3 = task_type::where('is_active', "1")->get();
         $project4 = taskname::where('is_active', "1")->get();
         $project5 = design_and_pm::where('is_active', "1")->get();
+        $project6 = Concept::where('is_active', "1")->get();
         $_SESSION["projectID"] = '';
 
-        return view('boq.editprojectBoq', compact('project','project1','project2','project3','project4','project5'));
+        return view('boq.editprojectBoq', compact('project','project1','project2','project3','project4','project5', 'project6'));
     }
 
     public function update(Request $request)
@@ -132,6 +136,7 @@ class ProjectController extends Controller
         $pro_data = Project::where('id', $request->id)->update([
             // 'brand' => $request->brand,
             // 'location' => $request->location,
+            'concept' => $request->concept,
             'area' => $request->area,
             'unit' => $request->unit,
             'io' => $request->io,
