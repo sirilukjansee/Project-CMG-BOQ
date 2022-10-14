@@ -121,6 +121,7 @@ class ProjectController extends Controller
         $project3 = task_type::where('is_active', "1")->get();
         $project4 = taskname::where('is_active', "1")->get();
         $project5 = design_and_pm::where('is_active', "1")->get();
+        $_SESSION["projectID"] = '';
 
         return view('boq.editprojectBoq', compact('project','project1','project2','project3','project4','project5'));
     }
@@ -129,8 +130,8 @@ class ProjectController extends Controller
     {
         // dd($request);
         $pro_data = Project::where('id', $request->id)->update([
-            'brand' => $request->brand,
-            'location' => $request->location,
+            // 'brand' => $request->brand,
+            // 'location' => $request->location,
             'area' => $request->area,
             'unit' => $request->unit,
             'io' => $request->io,

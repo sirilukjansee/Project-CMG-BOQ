@@ -53,9 +53,9 @@
                 <!-- END: Super Large Modal Content -->
             </div>
             <!-- BEGIN: Validation Form -->
-                <div class="group_wrapper">
-                    <div class="intro-y input-form box p-5 mt-3">
-                    <form method="post" id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
+            <div class="group_wrapper">
+                <div class="intro-y input-form box p-5 mt-3">
+                    <form id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
                         @csrf
                         <div class="form-inline mb-3 mt-10">
                             <label for="horizontal-form-1" class="form-label ml-4"><b> Vender </b><span style="color: red">*</span> : </label>
@@ -66,6 +66,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        <input type="hidden" value="{{ $template_id }}" name="temp_id" id="temp_id">
                         <input type="hidden" value="{{ $project->id }}" name="project_id" id="p_id">
                         <input type="hidden" value="{{ $project->brand }}" name="brand_id" id="b_id"> {{-- ID brand จาก project--}}
                         <div id="addmain" class="input-form mt-3">
@@ -137,20 +138,20 @@
                                             <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
                                                 <b> Overhead </b>
                                             </label>
-                                            <input id="validation-form-8" type="number" name="overhead" class="form-control" required>
+                                            <input id="validation-form-8" type="number" name="overhead" class="form-control">
                                         </div>
                                         <div class="input-form mt-3">
                                             <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
                                                 <b> Discount </b>
                                             </label>
-                                            <input id="validation-form-9" type="number" name="discount" class="form-control" required>
+                                            <input id="validation-form-9" type="number" name="discount" class="form-control">
                                         </div>
                                     </div>
                                     @endif
                                 @endif
                         </div>
                         <input type="hidden" id="is_btn" name="btn_send">
-                        <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
+                        {{-- <input type="submit" value="Save Draft" class="btn btn-primary mr-1"> --}}
                         @if ($data_chk)
                             {{-- @if ("vender_id"  == "" ) --}}
                             @if ($data_chk->status != "2")
@@ -163,7 +164,7 @@
                         <a href="{{ url()->previous() }}" class="btn btn-dark-soft mt-5">Back</a>
                     </form>
                 </div>
-                </div>
+            </div>
             <!-- END: Validation Form -->
 
             @if ( "vender_id" != null )
@@ -189,23 +190,6 @@
             @endif
 
 <script type="text/javascript">
-
-    $("#form1").on("submit", function(e){
-        e.preventDefault();
-        var formData = new FormData(this);
-        console.log(formData);
-        jQuery.ajax({
-            type: "POST",
-            url: "{{ route('add_Boq1') }}",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(){
-
-            }
-        });
-    });
 
     //table
     jQuery(document).ready(function() {
@@ -370,7 +354,7 @@
 
 
                     // append งานย่อย
-                    html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub" placeholder="Please Select...">';
+                    html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub ats" placeholder="Please Select...">';
                     html2 += '<option selected value=""></option>';
 
                     jQuery.each(response.dataSub, function(key, value2){
@@ -551,7 +535,7 @@
                     });
 
                     html += '</select>';
-                    html += '<select id="sub_a'+x+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub" placeholder="Please Select...">';
+                    html += '<select id="sub_a'+x+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub ats" placeholder="Please Select...">';
                     html += '<option selected value=""></option>';
                     jQuery.each(response.dataSub, function(key, value2){
                         if( value2.brand_id ){
@@ -654,6 +638,26 @@
         }
         });
     });
+
+    //auto save///////////////////////
+    // $('#form1').ready(function(){
+        $('#form1').on("click", function(){
+            var formData = new FormData(document.getElementById("form1"));
+            // console.log(formData);
+            jQuery.ajax({
+                type: "POST",
+                url: "{{ route('add_Boq1') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    $('#temp_id').val(response.temp);
+                    // console.log(response.temp);
+                }
+            });
+        });
+    // });
 
 
 </script>

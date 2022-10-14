@@ -17,7 +17,7 @@
         <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
             <div class="xl:flex sm:mr-auto">
                 <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-                    <a class="btn btn-primary mr-2" href="{{ url('/editprojectBoq', $project->id) }}">
+                    <a class="btn btn-instagram mr-2" href="{{ url('/editprojectBoq', $project->id) }}">
                         <i data-lucide="settings" class="w-4 h-4 mr-2"></i>Edit Project</a>
                 </div>
             </div>
@@ -191,7 +191,7 @@
             </div>
             <div class="sm:flex items-center mt-2 xl:mt-0">
                 <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-import"
-                class="btn btn-primary mr-1 mb-2">
+                class="btn btn-success mr-1 mb-2 text-white">
                 <i data-lucide="database"class="w-4 h-4 mr-2"></i>Import BOQ from vender</a>
             </div>
         </div>

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CapexController;
 use App\Http\Controllers\ImportVenderController;
+use App\Http\Controllers\AucController;
 
 // use Illuminate\Support\Facades\DB;
 
@@ -202,7 +203,11 @@ Route::get('test-select', function () {
 
     // Capex
     Route::get('capex/{id}', [CapexController::class, 'index']);
+    Route::post('/capex/add', [CapexController::class, 'store'])->name('addcapex');
     // Route::post('/approve_store',[ManagerController::class, 'store']);
+
+    //AUC
+    Route::get('auc/{id}', [AucController::class, 'index']);
 
     // Import File
     Route::post('/import-boqvender', [ImportVenderController::class, 'uploadBoqVender']);

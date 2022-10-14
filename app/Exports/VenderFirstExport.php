@@ -33,7 +33,6 @@ class VenderFirstExport implements FromView, WithTitle
     {
         $exp_tor = MasterTOR::where('is_active', "1")
         ->get();
-
         $exp_detail = Import_vender_detail::where('import_id', $this->export_boq->id)
         ->get();
         // dd($exp_detail);

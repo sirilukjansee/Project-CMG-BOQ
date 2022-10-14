@@ -18,17 +18,17 @@ class FormboqController extends Controller
 
         $project = Project::find($id);
         $template_choose = template_boqs::get();
-        $template_boq = template_boqs::where('project_id',  $id)->first();
+        // $template_boq = template_boqs::where('project_id', $id)->first();
 
         $catagories = catagory::where('is_active', "1")->get();
         $brand_master = Brand::where('is_active', "1")->get();
         $catagories2 = Unit::where('is_active', "1")->get();
         $venders = Vender::where('is_active', "1")->get();
-
+        $template_id = '';
         $_SESSION["projectID"] = '';
 
         // echo $catagories1;
-        return view('boq.formBoq.addformBoq', compact('catagories','catagories2','brand_master','project','template_boq','venders','template_choose'));
+        return view('boq.formBoq.addformBoq', compact('catagories','catagories2','brand_master','project','venders','template_choose','template_id'));
 
     }
 
