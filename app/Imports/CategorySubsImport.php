@@ -18,6 +18,7 @@ class CategorySubsImport implements ToModel, WithHeadingRow
         $chk = catagory_sub::where('code', $row['code'])->first();
         if ($chk) {
             catagory_sub::where('id', $chk->id)->update([
+                'code_cat' => $row['code_cat'],
                 'code' => $row['code'],
                 'catagory_id' => $row['category'],
                 'name' => $row['name'],
@@ -27,6 +28,7 @@ class CategorySubsImport implements ToModel, WithHeadingRow
             ]);
         }else{
             return new catagory_sub([
+                'code_cat' => $row['code_cat'],
                 'code' => $row['code'],
                 'catagory_id' => $row['category'],
                 'name' => $row['name'],

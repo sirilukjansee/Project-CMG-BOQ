@@ -15,6 +15,7 @@ class CreateCatagoriesTable extends Migration
     {
         Schema::create('catagories', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->comment('code ของแต่ละหมวด');
             $table->string('name');
             $table->enum('is_active',['0','1'])->default('1')->comment('0 = InActive, 1 = Active');
             $table->string('create_by');
