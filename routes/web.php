@@ -58,7 +58,7 @@ Route::get('test-select', function () {
     return view('boq.master.test-select');
 });
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     //master
     Route::get('/masterBoq', [MasterController::class, 'index'])->name('masterBoq');
     Route::get('/sub_masterBoq/{id}', [MasterController::class, 'index_sub'])->name('sub_masterBoq');
@@ -248,7 +248,7 @@ Route::get('test-select', function () {
     Route::get('/export-tor', [MasterTORController::class, 'export']);
     Route::get('/export-Concept', [ConceptController::class, 'export']);
 
-// });
+});
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);
 // Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);
