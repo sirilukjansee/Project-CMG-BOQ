@@ -410,14 +410,14 @@ class BoqController extends Controller
             }
             $template_id = $template;
         }else{
-                $template = template_boqs::where('id', $chk_temp->id)->update([
+                template_boqs::where('id', $chk_temp->id)->update([
                     'vender_id' =>  $request->vender_id,
                     'date'  =>  Carbon::now(),
                     'status'    =>  $send_form,
                     'overhead'  =>  $request->overhead,
                     'discount'  =>  $request->discount,
                     'update_by' =>  Auth::user()->id
-                ])->id;
+                ]);
 
             $template_id = $request->temp_id;
             $template = $request->temp_id;
