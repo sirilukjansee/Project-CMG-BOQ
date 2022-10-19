@@ -3,7 +3,7 @@
 @section('content-data')
             <div class="intro-y flex sm:flex-row items-center mt-3">
                 <h2 class="text-lg font-medium mr-auto">
-                    <b>Create BOQ of {{ $project->brand_master->brand_name }} at {{ $project->location_master->location_name }}</b>
+                    <b>Create BOQ of {{ @$project->brand_master->brand_name }} at {{ @$project->location_master->location_name }}</b>
                 </h2>
                 <div class="text-center">
                     <!-- BEGIN: Super Large Modal Toggle -->

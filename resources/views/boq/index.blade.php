@@ -54,11 +54,9 @@
                     {{-- {{ Carbon\Carbon::parse(@$pro->project_id1->approve_at)->format('d M y') }} --}}
                     @foreach ($project as $key => $pro)
                         <tr data-href="{{ url('allBoq', $pro->id) }}" class="tooltip intro-x cursor-pointer" title="Update At
-
                             @if (@$pro->project_id1->approve_at)
                             {{ Carbon\Carbon::parse(@$pro->project_id1->approve_at)->format('d M y') }}
                             @endif">
-
                             <td class="text-center table-report__action">{{ $key + 1 }}</td>
                             <td class="w-40 text-center table-report__action">
                                 <h3>{{ @$pro->number_id }}</h3>

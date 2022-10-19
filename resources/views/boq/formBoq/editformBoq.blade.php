@@ -27,6 +27,9 @@
                 </div>
                 <input type="hidden" value="{{ @$project_id->project->brand_master->id }}" name="brand_id" id="b_id">
                 <div id="addmain" class="input-form mt-3">
+                    @php
+                        $num_x = 1;
+                    @endphp
                     @foreach ($catagories as $key => $cat)
                     <input type="hidden" value="{{ $id }}" name="id">
                     <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
@@ -37,18 +40,17 @@
                             @foreach ( $editboq as $eb )
                             @if ( $eb->main_id == $cat->id)
                                 <input type="hidden" value="{{ $eb->id }}" name="boq_id">
-                                {{-- <input type="hidden" value="{{ $project_id->project_id }}" name="project_id"> --}}
                                 <div id="addsub" class="flex flex-row gap-2 mb-2">
                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                    <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2 code" placeholder="Code...">
-                                        <option selected value="{{ @$eb->sub_id }}">{{ @$eb->sub_cata->code }}</option>
+                                    <select id="code_edit{{$num_x}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2_edit code" placeholder="Code...">
+                                        <option selected value="{{ $eb->sub_id }}">{{ @$eb->sub_cata->code }}</option>
                                         @foreach ($cat->catagory_sub as $cat_s)
                                         @if ( $cat_s->is_active == "1")
                                             <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                         @endif
                                         @endforeach
                                     </select>
-                                    <select name="sub_id[][{{ $cat->id }}]" class="selectDropdown_2 sub" placeholder="Please Select...">
+                                    <select id="sub_edit{{$num_x}}" name="sub_id[][{{ $cat->id }}]" class="selectDropdown_2 sub" placeholder="Please Select...">
                                         <option selected value="{{ $eb->sub_id }}">{{ @$eb->sub_cata->name }}</option>
                                         @foreach ($cat->catagory_sub as $cat_s)
                                         @if ( $cat_s->is_active == "1")
@@ -74,6 +76,9 @@
 
                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                 </div>
+                                @php
+                                    $num_x ++;
+                                @endphp
                             @endif
                             @endforeach
                             @php
@@ -84,22 +89,8 @@
                             @if ( $data_chk == '')
                                 <div id="addsub" class="flex flex-row gap-2 mb-2">
                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                    {{-- <span>code_id{{$key + 1}}</span> --}}
-                                    {{-- <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2" placeholder="Code...">
-                                        <option selected value=""></option>
-                                        @foreach ($cat->catagory_sub as $cat_s)
-                                        <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
-                                        @endforeach
-                                    </select> --}}
                                     <span id="select_code_id{{$key + 1}}"></span>
-                                    {{-- <select id="sub1" name="sub_id[][{{ $cat->id }}]" class="selectDropdown_2">
-                                        <option selected value=""></option>
-                                        @foreach ($cat->catagory_sub as $cat_s)
-                                        <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
-                                        @endforeach
-                                    </select> --}}
                                     <span id="select_sub_id{{$key + 1}}"></span>
-                                    {{-- <span class="sub_selected{{ $cat->id }}"></span> --}}
                                     <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" rel="{{$key + 1}}">
                                     <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
                                         <option selected value=""></option>
@@ -323,9 +314,41 @@
                             // jQuery('#code_id'+sub_num).select2();
                             jQuery('.selectDropdown_2').select2();
 
+                            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            //link code => sub [edit]
+                            jQuery(document).on('change', "#code_edit"+sub_num, function(){
+                                jQuery("sub_edit"+sub_num).children().remove().end();
 
+                                $("#sub_edit"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
+
+                                jQuery('#sub_edit'+sub_num).select2();
+
+                            });
+                            jQuery('#code_edit'+sub_num).select2();
+
+                            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            //link sub => code [edit]
+                            jQuery(document).on('change', "#sub_edit"+sub_num, function(){
+                                jQuery("code_edit"+sub_num).children().remove().end();
+
+                                $("#code_edit"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
+
+                                jQuery('#code_edit'+sub_num).select2();
+
+                            });
+                            // jQuery('#code_edit'+sub_num).select2();
+
+                            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            //link
+                            // jQuery(document).on('change', "#code_edit"+value3, function(){
+                            // $('#select_code_id'+sub_num).append(html);
+                            // $("#code_id"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
+
+
+
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                             // append งานย่อย
-                            html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub" placeholder="Please Select...">';
+                            html2 += '<select id="sub_id'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub" placeholder="Please Select...">';
                             html2 += '<option selected value=""></option>';
 
                             jQuery.each(response.dataSub, function(key, value2){
@@ -355,16 +378,13 @@
 
 
                         // คลิกที่ code แล้ว link งานย่อย
-                        jQuery(document).on('change', "#sub"+sub_num, function(){
-                            // alert("#sub1 option[value='2']");
+                        jQuery(document).on('change', "#code_id"+sub_num, function(){
                             console.log($(this).val());
-                            // console.log($(this).attr('id'));
-                            // console.log('#select_code_id'+sub_num);
 
-                            jQuery('#select_code_id'+sub_num).children().remove().end();
+                            jQuery('#select_sub_id'+sub_num).children().remove().end();
 
                             var html = '';
-                            html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 code" placeholder="Code...">';
+                            html += '<select id="sub_id'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 code" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
                                 if(value2.brand_id){
@@ -374,7 +394,7 @@
                                         if( rows_tags[rkey] == $('#b_id').val() )
                                         {
                                             if(value2.catagory_id == value.id){
-                                                html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                                html += '<option value="'+value2.id+'">'+value2.name+'</option>';
                                             }
                                         }
 
@@ -382,28 +402,23 @@
                                 }else{
                                     if( value2.brand_id == null ){
                                             if(value2.catagory_id == value.id){
-                                                html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                                html += '<option value="'+value2.id+'">'+value2.name+'</option>';
                                             }
                                         }
                                 }
                             });
                             html += '</select>';
-                            $('#select_code_id'+sub_num).append(html);
+                            $('#select_sub_id'+sub_num).append(html);
 
-                            $("#code_id"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
+                            $("#sub_id"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
 
                             jQuery('.selectDropdown_2').select2();
-                            // jQuery('#code_id'+sub_num).select2();
                         });
 
                         //------------------------------------------------------------//
 
                         // คลิกที่ งานย่อย แล้ว link code
                         jQuery(document).on('change', "#sub"+sub_num, function(){
-                            // alert("#sub1 option[value='2']");
-                            console.log($(this).val());
-                            console.log($(this).attr('id'));
-                            console.log('#select_code_id'+sub_num);
 
                             jQuery('#select_code_id'+sub_num).children().remove().end();
 

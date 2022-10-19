@@ -22,7 +22,6 @@ use App\Http\Controllers\CapexController;
 use App\Http\Controllers\ConceptController;
 use App\Http\Controllers\ImportVenderController;
 use App\Http\Controllers\AucController;
-
 // use Illuminate\Support\Facades\DB;
 
 /*
@@ -247,6 +246,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/export-unit', [UnitController::class, 'export']);
     Route::get('/export-tor', [MasterTORController::class, 'export']);
     Route::get('/export-Concept', [ConceptController::class, 'export']);
+    Route::get('/export-auc', [AucController::class, 'export']);
 
 });
 
