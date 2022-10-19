@@ -2,8 +2,8 @@
 
 @section('content-data')
             <div class="intro-y flex sm:flex-row items-center mt-3">
-                <h2 class="text-lg font-medium mr-auto">
-                    <b>Create Capex of</b>
+                <h2 class="text-lg font-medium mr-auto mt-5 mb-5">
+                    <b>Create Capex of {{ @$project_id->brand_master->brand_name }} at {{ @$project_id->location_master->location_name }}</b>
                 </h2>
             </div>
             <!-- BEGIN: Validation Form -->
@@ -41,6 +41,7 @@
                         @endforeach
                         </div>
                         <input type="submit" value="Save" class="btn btn-primary mt-5">
+                        <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">Back</a>
                     </form>
                 </div>
                 </div>

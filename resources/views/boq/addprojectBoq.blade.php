@@ -190,7 +190,7 @@
                                             <input id="validation-form-3" type="number" name="area" step=".01" class="form-control">
                                         </div>
                                         @error('area')
-                                                <span class="text-danger">{{$message}}</span>
+                                            <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
                                     <div class="col-span-12 xl:col-span-2 mt-3">

@@ -3,7 +3,7 @@
 @section('content-data')
     <div class="intro-y flex sm:flex-row items-top mt-5">
     <h2 class="text-lg font-medium mr-auto">
-        <b>View BOQ of {{ $project_id->project->brand_master->brand_name }} at {{ $project_id->project->location_master->location_name }}
+        <b>View BOQ of {{ @$project_id->project->brand_master->brand_name }} at {{ @$project_id->project->location_master->location_name }}
         @if ( $project_id->name == 'Master BOQ' )
             [Master BOQ]
             @else
@@ -34,18 +34,15 @@
             <div class="intro-y input-form mt-3 ml-2">
                 <div class="input-form">
                     @foreach ( $editboq as $eb )
-
                     @if ( $eb->main_id == $cat->id)
                         <input type="hidden" value="{{ $eb->id }}" name="boq_id">
                         <input type="hidden" value="{{ $project_id->project_id }}" name="project_id">
                         <div id="addsub" class="flex flex-row gap-2 mb-2">
-                            <input type="text" class="w-32" value="{{ @$eb->sub_cata->code }}" disabled>
-
+                            {{-- <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test"> --}}
+                            <input type="text" class="w-24" value="{{ @$eb->sub_cata->code }}" disabled>
                             <input type="text" class="w-full" value="{{ $eb->sub_cata->name }}" disabled>
-
                             <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ $eb->amount }}" disabled>
                             <input type="text" class="w-24" value="{{ @$eb->unit_u->unit_name }}" disabled>
-
                             <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" value="{{ $eb->desc }}" disabled>
                             @php
                             $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
@@ -69,14 +66,10 @@
                     @if ( $data_chk == '')
                         <div id="addsub" class="flex flex-row gap-2 mb-2">
                             {{-- <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test"> --}}
-                            <input type="text" class="w-32" value="" disabled>
-
-                            <input type="text" class="w-full" value="" disabled>
-
-                            <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" disabled>
-
                             <input type="text" class="w-24" value="" disabled>
-
+                            <input type="text" class="w-full" value="" disabled>
+                            <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" disabled>
+                            <input type="text" class="w-24" value="" disabled>
                             <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" disabled>
                             @php
                             $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)

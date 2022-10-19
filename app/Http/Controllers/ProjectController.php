@@ -72,6 +72,7 @@ class ProjectController extends Controller
         $project->io = $request->io;
         $project->task = $request->task;
         $project->task_n = $request->task_n;
+        $project->concept = $request->concept;
         $project->start_date = $request->startDate;
         $project->finish_date = $request->finishDate;
         $project->all_date = $request->alldate;

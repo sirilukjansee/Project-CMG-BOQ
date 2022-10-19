@@ -23,4 +23,7 @@ class Capex extends Model
     public function catagory(){
         return $this->hasOne(catagory::class,'id','boq_id');
     }
+    public function project_n(){
+        return $this->hasOne(Brand::class, 'id','project_id');
+    }
 }

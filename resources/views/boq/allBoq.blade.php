@@ -218,7 +218,7 @@
                             <a class="font-medium whitespace-nowrap">{{ @$ib->vender_name->name }}</a>
                         </td>
                         <td class="table-report__action w">
-                            <div class="flex items-center justify-center">{{ Carbon\Carbon::parse(@$ib->create_at)->format('d-m-Y') }}</div>
+                            <div class="flex items-center justify-center">{{ Carbon\Carbon::parse(@$ib->created_at)->format('d-m-Y') }}</div>
                         </td>
                         <td class="table-report__action">
                             <div class="btn-group text-center flex justify-center">
