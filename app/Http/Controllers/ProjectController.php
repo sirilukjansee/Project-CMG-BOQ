@@ -36,7 +36,7 @@ class ProjectController extends Controller
         return view('boq.adminBoq', compact('project_ad'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $project = Project::all();
         $project1 = Brand::where('is_active', "1")->get();
@@ -62,6 +62,11 @@ class ProjectController extends Controller
             'finishDate' => 'required',
             'openDate' => 'required',
             'ds_name' => 'required'
+        ],
+        [
+            'ds_name.required' => ' The Designer field is required.',
+            'task.required' => ' The Task Type field is required.',
+            'task_n.required' => ' The Task Name field is required.',
         ]);
         // dd($request);
         $project = new Project;

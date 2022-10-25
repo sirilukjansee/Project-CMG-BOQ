@@ -145,15 +145,15 @@
                 </div>
                 <input type="hidden" id="is_btn" name="btn_send">
                 <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
-                {{-- @if ($data_chk)
-                    @if ($data_chk->status != "2") --}}
+                {{-- @if ($data_chk) --}}
+                    @if ($data_chk->status != "2")
                     <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
-                    {{-- @endif
-                    @else --}}
-                    {{-- <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview"> --}}
-                {{-- @endif --}}
+                    {{-- @endif --}}
+                    @else
+                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                    @endif
                 {{-- <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview"> --}}
-                <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">Back</a>
+                <a href="{{ url('allBoq', $id) }}" class="btn btn-secondary mt-5">Back</a>
             </form>
         </div>
         </div>

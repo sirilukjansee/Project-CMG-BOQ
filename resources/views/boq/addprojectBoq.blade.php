@@ -147,7 +147,11 @@
                                         <select name="brand" id="validation-form-1"  data-placeholder="Select a brand..." class="tom-select form-control w-full">
                                             <option selected value=""></option>
                                             @foreach ($project1 as $pro1)
+                                            @if (old('brand') == $pro1->id)
+                                            <option value="{{$pro1->id}}" selected>{{$pro1->brand_name}}</option>
+                                            @else
                                             <option value="{{$pro1->id}}">{{$pro1->brand_name}}</option>
+                                            @endif
                                             @endforeach
                                         </select>
                                         @error('brand')
@@ -158,10 +162,14 @@
                                         <label for="concept" class="form-label w-full flex flex-col sm:flex-row">
                                             Concept
                                         </label>
-                                        <select id="concept" name="concept" data-placeholder="Select a location..."  autocomplete="off" class="tom-select form-control w-full">
-                                            <option selected value="">Select a Concept...</option>
+                                        <select id="concept" name="concept" data-placeholder="Select a Concept..."  autocomplete="off" class="tom-select form-control w-full">
+                                            <option selected value=""></option>
                                             @foreach ($project6 as $pro6)
+                                            @if (old('concept') == $pro6->id)
+                                            <option value="{{$pro6->id}}" selected>{{$pro6->name}}</option>
+                                            @else
                                             <option value="{{$pro6->id}}">{{$pro6->name}}</option>
+                                            @endif
                                             @endforeach
                                         </select>
                                     </div>
@@ -171,9 +179,13 @@
                                         </label>
                                         {{-- <input id="validation-form-2" type="text" name="location" class="form-control" required> --}}
                                         <select id="validation-form-2" name="location" data-placeholder="Select a location..."  autocomplete="off" class="tom-select form-control w-full">
-                                            <option selected value="">Select a location...</option>
+                                            <option selected value=""></option>
                                             @foreach ($project2 as $pro2)
+                                            @if (old('location') == $pro2->id)
+                                            <option value="{{$pro2->id}}" selected>{{$pro2->location_name}}</option>
+                                            @else
                                             <option value="{{$pro2->id}}">{{$pro2->location_name}}</option>
+                                            @endif
                                             @endforeach
                                         </select>
                                         @error('location')
@@ -187,7 +199,7 @@
                                             <label for="validation-form-3" class="form-label w-full flex flex-col sm:flex-row">
                                                 Area/Sq.m <span style="color: red">*</span>
                                             </label>
-                                            <input id="validation-form-3" type="number" name="area" step=".01" class="form-control">
+                                            <input id="validation-form-3" type="number" name="area" step=".01" class="form-control" value="{{ old('area') }}">
                                         </div>
                                         @error('area')
                                             <span class="text-danger">{{$message}}</span>
@@ -198,7 +210,7 @@
                                             <label for="validation-form-4" class="form-label w-full flex flex-col sm:flex-row">
                                                 IO number
                                             </label>
-                                            <input id="validation-form-4" type="text" name="io" maxlength="8" class="form-control">
+                                            <input id="validation-form-4" type="text" name="io" maxlength="8" class="form-control" value="{{ old('io') }}">
                                             <p id="comment" class="text-danger mt-2"></p>
                                         </div>
                                     </div>
@@ -209,9 +221,13 @@
                                             </label>
                                             {{-- <input id="validation-form-5" type="text" name="task" class="form-control" required> --}}
                                             <select id="select-beast-empty2" name="task" data-placeholder="Select a task type..."  autocomplete="off" class="tom-select form-control w-full">
-                                                <option selected value="">Select a task type...</option>
+                                                <option selected value=""></option>
                                                 @foreach ($project3 as $pro3)
+                                                @if (old('task') == $pro3->id)
+                                                <option value="{{$pro3->id}}" selected>{{$pro3->task_type_name}}</option>
+                                                @else
                                                 <option value="{{$pro3->id}}">{{$pro3->task_type_name}}</option>
+                                                @endif
                                                 @endforeach
                                             </select>
                                             @error('task')
@@ -226,9 +242,13 @@
                                             </label>
                                             {{-- <input id="validation-form-5" type="text" name="task_n" class="form-control" required> --}}
                                             <select id="select-beast-empty3" name="task_n" data-placeholder="Select a task name..."  autocomplete="off" class="tom-select form-control w-full">
-                                                <option selected value="">Select a task name...</option>
+                                                <option selected value=""></option>
                                                 @foreach ($project4 as $pro4)
+                                                @if (old('task_n') == $pro4->id)
+                                                <option value="{{$pro4->id}}" selected>{{$pro4->task_name}}</option>
+                                                @else
                                                 <option value="{{$pro4->id}}">{{$pro4->task_name}}</option>
+                                                @endif
                                                 @endforeach
                                             </select>
                                             @error('task_n')
@@ -243,7 +263,7 @@
                                             <label for="validation-form-6" class="form-label w-full sm:flex-row" id="sDate">
                                                 Start Date <span style="color: red">*</span>
                                             </label>
-                                            <input id="validation-form-6" type="date" name="startDate" class="form-control" value="{{ date('d-m-y') }}">
+                                            <input id="validation-form-6" type="date" name="startDate" class="form-control" value="{{old('startDate')}}">
                                             @error('startDate')
                                                 <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -254,7 +274,7 @@
                                             <label for="validation-form-7" class="form-label w-full sm:flex-row">
                                                 Hand Over Date <span style="color: red">*</span>
                                             </label>
-                                            <input id="validation-form-7" type="date" name="finishDate" class="form-control">
+                                            <input id="validation-form-7" type="date" name="finishDate" class="form-control" value="{{old('finishDate')}}">
                                             @error('finishDate')
                                                 <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -265,7 +285,7 @@
                                             <label for="validation-form-10" class="form-label w-full sm:flex-row">
                                                 All Date
                                             </label>
-                                            <input id="validation-form-10" type="text" name="alldate" class="form-control" readonly>
+                                            <input id="validation-form-10" type="text" name="alldate" class="form-control" value="{{old('alldate')}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-span-12 xl:col-span-2 mt-3">
@@ -273,7 +293,7 @@
                                             <label for="validation-form-11" class="form-label w-full sm:flex-row">
                                                 Open Date <span style="color: red">*</span>
                                             </label>
-                                            <input id="validation-form-11" type="date" name="openDate" class="form-control">
+                                            <input id="validation-form-11" type="date" name="openDate" class="form-control" value="{{old('openDate')}}">
                                             @error('openDate')
                                                 <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -285,11 +305,14 @@
                                         <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
                                             Designer Name <span style="color: red">*</span>
                                         </label>
-                                        {{-- <input id="validation-form-8" type="text" name="ds_name" class="form-control" required> --}}
                                         <select name="ds_name" id="validation-form-8" data-placeholder="Select a designer..."  autocomplete="off" class="tom-select form-control w-full">
-                                            <option selected value="">Select a designer...</option>
+                                            <option selected value=""></option>
                                             @foreach ($project5 as $pro5)
+                                            @if (old('ds_name') == $pro5->id)
+                                            <option value="{{$pro5->id}}" selected>{{$pro5->name}}</option>
+                                            @else
                                             <option value="{{$pro5->id}}">{{$pro5->name}}</option>
+                                            @endif
                                             @endforeach
                                         </select>
                                         @error('ds_name')

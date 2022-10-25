@@ -55,6 +55,7 @@ class BoqController extends Controller
         $ven_der = Vender::where('is_active', "1")->get();
         $edit_dis = Boq::where('template_boq_id', $id)->first();
         $project_id = template_boqs::where('id' , $templateid)->first();  // templateid คือ ID โครงการที่ Choose template มา ||  id คือ id ของ project ที่กำลังทำอยู่ !!!!!!
+        $_SESSION["projectID"] = '';
 
         // return $templateid;
         // dd($id);
@@ -91,8 +92,8 @@ class BoqController extends Controller
                     'overhead'  =>  $request->overhead,
                     'discount'  =>  $request->discount,
                     'ref_template' => $request->ref_template,
-                    'create_by' =>  1,
-                    'update_by' =>  1
+                    'create_by' =>  Auth::user()->id,
+                    'update_by' =>  Auth::user()->id,
                 ])->id;
             }else
             {
@@ -107,8 +108,8 @@ class BoqController extends Controller
                     'overhead'  =>  $request->overhead,
                     'discount'  =>  $request->discount,
                     'ref_template' => $request->ref_template,
-                    'create_by' =>  1,
-                    'update_by' =>  1
+                    'create_by' =>  Auth::user()->id,
+                    'update_by' =>  Auth::user()->id,
                 ])->id;
             }
 
@@ -533,12 +534,12 @@ class BoqController extends Controller
                     }
                 }
             }
-
-
-        return response()->json([
-            'temp' => $template_id
-        ]);
+            if ($send_form == 1) {
+                return redirect(route('allBoq',$request->project_id));
+            }else {
+                return response()->json([
+                    'temp' => $template_id
+                ]);
+            }
     }
-
-
 }

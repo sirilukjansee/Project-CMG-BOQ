@@ -163,7 +163,7 @@
             </form>
         </div>
         </div>
-    <!-- END: Validation Form -->
+        <!-- END: Validation Form -->
         <div id="delete-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -171,7 +171,7 @@
                         <div class="p-5 text-center">
                             <i data-lucide="send" class="w-16 h-16 text-warning mx-auto mt-3"></i>
                             <div class="text-3xl mt-5">Send to Manager??</div>
-                            <div class="text-slate-500 mt-2">?????????????? <br>???????????.</div>
+                            <div class="text-slate-500 mt-2"> ตรวจสอบข้อมูลให้เรียบร้อยก่อนส่ง !! <br>???????????.</div>
                         </div>
                         <div class="px-5 pb-8 text-center">
                             <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
