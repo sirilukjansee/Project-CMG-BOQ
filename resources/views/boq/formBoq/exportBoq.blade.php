@@ -1,6 +1,3 @@
-{{-- <th>
-    <img src="public/logo/DRAFT.png" width="1000px" height="1000px" alt="">
-</th> --}}
 <table>
     <thead>
         <tr>
@@ -40,7 +37,7 @@
         </tr>
         <tr>
             <th style="text-align:center; background-color:gray">รายการ</th>
-            <th style="text-align:center; width:700px; background-color:gray">รายระเอียด</th>
+            <th style="text-align:center; width:700px; background-color:gray">รายละเอียด</th>
             <th style="text-align:center; background-color:gray">จำนวน</th>
             <th style="text-align:center; background-color:gray">หน่วย</th>
             <th style="text-align:center; background-color:gray" colspan="3">ราคาต่อหน่วย</th>

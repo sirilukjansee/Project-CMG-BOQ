@@ -167,9 +167,11 @@
 }
 .code {
     min-width: 8rem;
+    max-width: 8rem;
 }
 .sub {
     min-width: 35rem;
+    max-width: 44rem;
 }
 .desc {
     flex: 1;

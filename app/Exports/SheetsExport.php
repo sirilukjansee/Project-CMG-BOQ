@@ -18,8 +18,10 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithDrawings;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
-class SheetsExport implements FromView, WithTitle, WithStyles
+class SheetsExport implements FromView, WithTitle, WithStyles, WithDrawings
 {
     protected $catagorie;
     protected $export_boq;
@@ -62,6 +64,28 @@ class SheetsExport implements FromView, WithTitle, WithStyles
 
         // styling first row
         $sheet->getStyle(1)->getFont()->setBold(true);
+    }
+
+    public function drawings()
+    {
+        // if($tmplate_boqs->status != 2)
+        // {
+            $drawing = new Drawing();
+            $drawing->setName('Logo');
+            $drawing->setDescription('This is my logo');
+            $drawing->setPath(public_path('/logo/logo-cmg.jpg'));
+            $drawing->setHeight(75);
+            $drawing->setCoordinates('A1');
+
+            $drawing2 = new Drawing();
+            $drawing2->setName('Logo');
+            $drawing2->setDescription('This is my logo');
+            $drawing2->setPath(public_path('/logo/DRAFT.png'));
+            $drawing2->setHeight(500);
+            $drawing2->setCoordinates('D9');
+
+            return [$drawing, $drawing2];
+        // }
     }
 
     public function title(): string

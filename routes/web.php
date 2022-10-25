@@ -246,7 +246,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/export-unit', [UnitController::class, 'export']);
     Route::get('/export-tor', [MasterTORController::class, 'export']);
     Route::get('/export-Concept', [ConceptController::class, 'export']);
-    Route::get('/export-auc', [AucController::class, 'export']);
+    Route::post('/export-auc', [AucController::class, 'export']);
+    Route::get('/export-auc/{id}', [AucController::class, 'send_chhk']);
 
 });
 

@@ -1,7 +1,7 @@
 <table>
     <thead>
         <tr>
-            <th><img src="public/logo/logo-cmg.jpg" width="63px" height="67px" alt=""></th>
+            <th></th>
             <th><b>CENTRAL TRADING CO.,LTD.</b></th>
         </tr>
         <tr>

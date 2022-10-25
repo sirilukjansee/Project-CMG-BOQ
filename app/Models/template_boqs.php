@@ -38,5 +38,7 @@ class template_boqs extends Model
     public function cat_sub(){
         return $this->hasMany(Boq::class,'template_boq_id','id');
     }
-
+    public function vender_auc(){
+        return $this->hasOne(Import_vender::class, 'id_project', 'project_id');
+    }
 }
