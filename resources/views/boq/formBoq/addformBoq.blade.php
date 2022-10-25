@@ -55,8 +55,8 @@
             <!-- BEGIN: Validation Form -->
             <div class="group_wrapper">
                 <div class="intro-y input-form box p-5 mt-3">
-                    {{-- <form action="{{ route('add_Boq1') }}" method="post" id="" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data"> --}}
-                        <form id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
+                    <form action="{{ route('add_Boq1') }}" method="post" id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
+                        {{-- <form id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data"> --}}
                         @csrf
                         <div class="form-inline mb-3 mt-10">
                             <label for="horizontal-form-1" class="form-label ml-4"><b> Vender </b><span style="color: red">*</span> : </label>
