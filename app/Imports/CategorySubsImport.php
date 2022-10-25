@@ -3,8 +3,11 @@
 namespace App\Imports;
 
 use App\Models\catagory_sub;
+<<<<<<< HEAD
+=======
 use App\Models\catagory;
 use App\Models\Brand;
+>>>>>>> dab746cb07787636da41809596245993b86c55b2
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;

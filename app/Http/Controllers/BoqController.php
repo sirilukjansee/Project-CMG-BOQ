@@ -61,8 +61,6 @@ class BoqController extends Controller
         return view('boq.formBoq.addformBoq-template', compact('pro_brand','data_boq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis','templateid'));
     }
 
-
-
     public function store(Request $request)
     {
         // dd($request);
@@ -151,8 +149,8 @@ class BoqController extends Controller
                                                         $boq->all_unit = $value10;
                                                         $boq->status = $send_form;
                                                         $boq->comment = $request->comment;
-                                                        $boq->create_by = 1;
-                                                        $boq->update_by = 1;
+                                                        $boq->create_by = Auth::user()->id;
+                                                        // $boq->update_by = ;
                                                         $boq->save();
                                                     }
                                                 }
@@ -172,8 +170,8 @@ class BoqController extends Controller
                                             // $boq->material_cost = $value8;
                                             $boq->status = $send_form;
                                             $boq->comment = $request->comment;
-                                            $boq->create_by = 1;
-                                            $boq->update_by = 1;
+                                            $boq->create_by = Auth::user()->id;
+                                            // $boq->update_by = 1;
                                             $boq->save();
                                     }
                                 }
@@ -262,8 +260,8 @@ class BoqController extends Controller
                                                             $boq->all_unit = $value10;
                                                             $boq->status = $send_form;
                                                             $boq->comment = $request->comment;
-                                                            $boq->create_by = 1;
-                                                            $boq->update_by = 1;
+                                                            // $boq->create_by = 1;
+                                                            $boq->update_by = Auth::user()->id;
                                                             $boq->save();
                                                         }
                                                     }
@@ -285,8 +283,8 @@ class BoqController extends Controller
                                             // $boq->all_unit = $value10;
                                             $boq->status = $send_form;
                                             $boq->comment = $request->comment;
-                                            $boq->create_by = 1;
-                                            $boq->update_by = 1;
+                                            // $boq->create_by = 1;
+                                            $boq->update_by = Auth::user()->id;
                                             $boq->save();
                                         }
                                     }
@@ -466,8 +464,8 @@ class BoqController extends Controller
                                                             $boq->all_unit = $value10;
                                                             $boq->status = $send_form;
                                                             $boq->comment = $request->comment;
-                                                            $boq->create_by = 1;
-                                                            $boq->update_by = 1;
+                                                            // $boq->create_by = 1;
+                                                            $boq->update_by = Auth::user()->id;
                                                             $boq->update();
                                                         }else{
                                                             $boq = new Boq;
@@ -485,8 +483,8 @@ class BoqController extends Controller
                                                             $boq->all_unit = $value10;
                                                             $boq->status = $send_form;
                                                             $boq->comment = $request->comment;
-                                                            $boq->create_by = 1;
-                                                            $boq->update_by = 1;
+                                                            $boq->create_by = Auth::user()->id;
+                                                            // $boq->update_by = 1;
                                                             $boq->save();
                                                         }
                                                     }
@@ -510,8 +508,8 @@ class BoqController extends Controller
                                             // $boq->material_cost = $value8;
                                             $boq->status = $send_form;
                                             $boq->comment = $request->comment;
-                                            $boq->create_by = 1;
-                                            $boq->update_by = 1;
+                                            // $boq->create_by = 1;
+                                            $boq->update_by = Auth::user()->id;
                                             $boq->update();
                                         }else{
                                             $boq = new Boq;
@@ -527,8 +525,8 @@ class BoqController extends Controller
                                             // $boq->material_cost = $value8;
                                             $boq->status = $send_form;
                                             $boq->comment = $request->comment;
-                                            $boq->create_by = 1;
-                                            $boq->update_by = 1;
+                                            $boq->create_by = Auth::user()->id;
+                                            // $boq->update_by = 1;
                                             $boq->save();
                                         }
                                     }

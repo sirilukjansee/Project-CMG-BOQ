@@ -14,6 +14,7 @@ use App\Models\taskname;
 use App\Models\design_and_pm;
 use App\Models\template_boqs;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -62,7 +63,7 @@ class ProjectController extends Controller
             'openDate' => 'required',
             'ds_name' => 'required'
         ]);
-
+        // dd($request);
         $project = new Project;
         $project->brand = $request->brand;
         $project->concept = $request->concept;
@@ -78,7 +79,8 @@ class ProjectController extends Controller
         $project->all_date = $request->alldate;
         $project->open_date = $request->openDate;
         $project->designer_name = $request->ds_name;
-        $project->project_manager = $request->pm_name;
+        // $project->project_manager = $request->pm_name;
+        $project->create_by = Auth::user()->id;
         $project->created_at = Carbon::now();
         $project->save();
 

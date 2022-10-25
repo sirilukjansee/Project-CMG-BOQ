@@ -28,7 +28,8 @@ class Project extends Model
         'open_date',
         'designer_name',
         'project_manager',
-        'total'
+        'total',
+        'create_by',
     ];
 
     public function brand_master(){

@@ -79,19 +79,7 @@
                                         <div id="addsub" class="flex flex-row gap-2 mb-2">
                                             {{-- <span id="code_id{{$key + 1}}"></span> --}}
                                             <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                            {{-- <select id="code_id{{$key + 1}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2 w-32" placeholder="Code...">
-                                                <option selected value=""></option>
-                                                @foreach ($cat->catagory_sub as $cat_s)
-                                                <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
-                                                @endforeach
-                                            </select> --}}
                                             <span id="select_code_id{{$key + 1}}"></span>
-                                            {{-- <select id="sub{{$key + 1}}" name="sub_id[][{{ $cat->id }}]" class="selectDropdown_2 w-full" placeholder="Please Select...">
-                                                <option selected value=""></option>
-                                                @foreach ($cat->catagory_sub as $cat_s)
-                                                <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
-                                                @endforeach
-                                            </select> --}}
                                             <span id="select_sub_id{{$key + 1}}"></span>
                                             <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" rel="{{$key + 1}}">
                                             <select name="unit_id[][{{ $cat->id }}]" id="unit{{$key + 1}}" class="form-control w-24">
@@ -389,7 +377,7 @@
                 // คลิกที่ code แล้ว link งานย่อย
                 jQuery(document).on('change', "#code_id"+sub_num, function(){
                     // alert("#sub1 option[value='2']");
-                    console.log($(this).val());
+                    // console.log($(this).val());
 
                     jQuery('#select_sub_id'+sub_num).children().remove().end();
 

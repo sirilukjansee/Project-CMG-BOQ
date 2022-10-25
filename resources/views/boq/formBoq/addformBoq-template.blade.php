@@ -210,7 +210,7 @@
             {
                 var x = 1;
                 jQuery.ajax({
-                    url: "../../addformBoq/select-catagory",
+                url: "../../addformBoq/select-catagory",
                 type: "GET",
                 datatype: "JSON",
                 success: function(response) {

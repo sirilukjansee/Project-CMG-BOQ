@@ -13,6 +13,7 @@ use App\Models\template_boqs;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AucExport;
+use App\Models\ExportAuc;
 
 class AucController extends Controller
 {
@@ -34,20 +35,65 @@ class AucController extends Controller
 
     public function export(Request $request)
     {
-        // dd($request);
-        // $data = array();
-        // $data['chk_m'] = $request->chk_m;
-        // $data['chk_s'] = $request->chk_s;
-        foreach( $request->chk_m as $chk )
+        ExportAuc::where('project_id', $request->project_id)->delete();
+
+    if( isset($request->chk_m) )
+    {
+        foreach ( $request->chk_m as $key => $ckm )
         {
-            if( $chk ){
-                $data = array();
-                $data[] = ['main_id']$request->chk_m;
+            foreach ( $ckm as $key2 => $ckm_a)
+            {
+                ExportAuc::create([
+                    'project_id' => $request->project_id,
+                    'template_id' => $key,
+                    'main_id' => $ckm_a,
+                    'remark' => "All",
+                ]);
+            }
+        }
+        if ( isset($request->chk_s) ){
+            foreach ( $request->chk_s as $key => $cks )
+            {
+                foreach ( $cks as $key2 => $cks_a )
+                {
+                    ExportAuc::create([
+                        'project_id' => $request->project_id,
+                        'template_id' => $key,
+                        'boq_id' => $cks_a,
+                        'remark' => "sub",
+                    ]);
+                }
             }
         }
 
+        return Excel::download(new AucExport($request->project_id), 'AUC.xlsx');
+    }elseif ( isset($request->chk_s) ){
+        foreach ( $request->chk_s as $key => $cks )
+        {
+            foreach ( $cks as $key2 => $cks_a )
+            {
+                ExportAuc::create([
+                    'project_id' => $request->project_id,
+                    'template_id' => $key,
+                    'boq_id' => $cks_a,
+                    'remark' => "sub",
+                ]);
+            }
+        }
 
-        return Excel::download(new AucExport($request->chk_m), 'AUC.xlsx');
-        // return Excel::download(new AucExport($data), 'AUC.xlsx');
+        return Excel::download(new AucExport($request->project_id), 'AUC.xlsx');
+    }else{
+        return back()->with('success', '!!! Please Check Some Box !!!');
+    }
+
+    }
+
+    public function send_chhk($id)
+    {
+        return response()->json([
+            'chk_data' => catagory::where('is_active', "1")->get(),
+            'chk_box' => template_boqs::where('project_id', $id)->get(),
+            'id2' => $id
+        ]);
     }
 }

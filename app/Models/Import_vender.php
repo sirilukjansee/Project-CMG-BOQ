@@ -25,4 +25,7 @@ class Import_vender extends Model
     public function project(){
         return $this->hasOne(Project::class,'id','id_project');
     }
+    public function vender_d(){
+        return $this->hasOne(Import_vender_detail::class, 'import_id','id');
+    }
 }

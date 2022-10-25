@@ -342,14 +342,6 @@
                             });
                             // jQuery('#code_edit'+sub_num).select2();
 
-                            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                            //link
-                            // jQuery(document).on('change', "#code_edit"+value3, function(){
-                            // $('#select_code_id'+sub_num).append(html);
-                            // $("#code_id"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
-
-
-
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                             // append งานย่อย
                             html2 += '<select id="sub_id'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub" placeholder="Please Select...">';
@@ -422,8 +414,8 @@
                         //------------------------------------------------------------//
 
                         // คลิกที่ งานย่อย แล้ว link code
-                        jQuery(document).on('change', "#sub"+sub_num, function(){
-
+                        jQuery(document).on('change', "#sub_id"+sub_num, function(){
+                            console.log($(this).val());
                             jQuery('#select_code_id'+sub_num).children().remove().end();
 
                             var html = '';
@@ -453,13 +445,11 @@
                             $('#select_code_id'+sub_num).append(html);
 
                             $("#code_id"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
-
                             jQuery('.selectDropdown_2').select2();
                             // jQuery('#code_id'+sub_num).select2();
                         });
 
                         //----------------------------------------------------------------------------------------------------//
-                        // คลิกที่ งานย่อย แล้ว link code
                         jQuery(document).on('change', "#sub_a"+sub_num, function(){
                             // alert("#sub1 option[value='2']");
                             console.log($(this).val());
