@@ -205,17 +205,26 @@ class MasterController extends Controller
     public function uploadCategory(Request $request)
     {
         // dd($request);
-        Excel::import(new CategorysImport, $request->file);
+        if ($request->file == "category-import.xlsx") {
+            Excel::import(new CategorysImport, $request->file);
 
-        return back()->with('success','!!! Import File Complete !!!');
+            return back()->with('success','!!! Import File Complete !!!');
+        }else{
+            return back()->with('success','!!! Failed to upload file !!!');
+        }
+
     }
 
     public function uploadCategory_sub(Request $request)
     {
         // dd($request);
-        Excel::import(new CategorySubsImport, $request->file);
+        if ($request->file == "categorySub-import.xlsx") {
+            Excel::import(new CategorySubsImport, $request->file);
 
-        return back()->with('success','!!! Import File Complete !!!');
+            return back()->with('success','!!! Import File Complete !!!');
+        }else{
+            return back()->with('success','!!! Failed to upload file !!!');
+        }
     }
 
     public function export()
