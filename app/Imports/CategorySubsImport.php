@@ -21,7 +21,7 @@ class CategorySubsImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        $chk = catagory_sub::where('code', $row['code'])->first();
+        $chk = catagory_sub::where('code', 'LIKE', $row['code'])->first();
         $chk_brand = Brand::where('brand_name', $row['brand'])->first();
         if ($chk) {
             catagory_sub::where('id', $chk->id)->update([
@@ -35,7 +35,7 @@ class CategorySubsImport implements ToModel, WithHeadingRow
                 'update_by' => Auth::user()->id,
             ]);
         }else{
-            $chk2 = catagory::where('code', $row['code_cat'])->first();
+            $chk2 = catagory::where('code', 'LIKE', $row['code_cat'])->first();
             $chk_brand2 = Brand::where('brand_name', $row['brand'])->first();
             return new catagory_sub([
                 'code_cat' => $row['code_cat'],

@@ -55,7 +55,8 @@
             <!-- BEGIN: Validation Form -->
             <div class="group_wrapper">
                 <div class="intro-y input-form box p-5 mt-3">
-                    <form id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
+                    <form action="{{ route('add_Boq1') }}" method="post" id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
+                        {{-- <form id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data"> --}}
                         @csrf
                         <div class="form-inline mb-3 mt-10">
                             <label for="horizontal-form-1" class="form-label ml-4"><b> Vender </b><span style="color: red">*</span> : </label>
@@ -149,13 +150,14 @@
                                 <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()">
                             @endif
                         {{-- @endif --}}
+                        {{-- <button type="submit">save</button> --}}
                         <a href="{{ url()->previous() }}" class="btn btn-dark-soft mt-5">Back</a>
                     </form>
                 </div>
             </div>
             <!-- END: Validation Form -->
 
-            @if ( "vender_id" != null )
+            {{-- @if ( "vender_id" != null ) --}}
                 <!-- BEGIN: Modal Content -->
                 <div id="delete-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
@@ -175,7 +177,7 @@
                     </div>
                 </div>
                 <!-- END: Modal Content -->
-            @endif
+            {{-- @endif --}}
 
 <script type="text/javascript">
 
@@ -202,7 +204,11 @@
     });
 
     //alert
+<<<<<<< HEAD
     function myFunction() {
+=======
+    function myFunction(){
+>>>>>>> bbcb3822bb9a888f579866b53d0a1a34aa352448
         const myModal = tailwind.Modal.getInstance(document.querySelector("#delete-modal-preview"));
         var x = document.forms["form1"]["vender_id"].value;
         if(x == "" || x == null) {

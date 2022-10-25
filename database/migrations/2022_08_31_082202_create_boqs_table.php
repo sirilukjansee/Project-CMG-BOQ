@@ -22,8 +22,8 @@ class CreateBoqsTable extends Migration
             $table->string('desc')->nullable()->comment('หมายเหตุ');
             $table->float('material_cost')->nullable();
             $table->float('total', 8, 2)->default('0')->nullable()->comment('ยอดรวม');
-            $table->foreignId('create_by');
-            $table->foreignId('update_by');
+            $table->foreignId('create_by')->nullable();
+            $table->foreignId('update_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
