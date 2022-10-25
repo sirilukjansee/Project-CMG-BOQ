@@ -312,6 +312,7 @@ class BoqController extends Controller
         ]);
 
         return back()->with('Yay');
+        // return redirect(route('allBoq',$data->project_id));
 
     }
 
@@ -365,6 +366,8 @@ class BoqController extends Controller
         {
             $send_form = "0";
         }
+
+        // return $send_form;
 
         $data_number = Project::where('id', $request->project_id)
             ->first();
@@ -536,10 +539,13 @@ class BoqController extends Controller
                 }
             }
 
-
-        return response()->json([
-            'temp' => $template_id
-        ]);
+            if ($send_form == 1) {
+                return redirect(route('allBoq',$request->project_id));
+            }else {
+                // return response()->json([
+                //     'temp' => $template_id
+                // ]);
+            }
     }
 
 

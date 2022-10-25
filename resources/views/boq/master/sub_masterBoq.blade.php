@@ -212,7 +212,7 @@
                             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
 
                                     <div class="col-span-12 sm:col-span-4 input-form mt-3">
-                                        <input name="file" type="file" class="form-control-xl"/>
+                                        <input name="file_data" type="file" class="form-control-xl"/>
                                     </div>
                             </div>
                             <!-- BEGIN: Modal Footer -->

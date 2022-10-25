@@ -205,7 +205,8 @@ class MasterController extends Controller
     public function uploadCategory(Request $request)
     {
         // dd($request);
-        if ($request->file == "category-import.xlsx") {
+        $data = $request->file;
+        if ($data->getClientOriginalName() == "category-import.xlsx") {
             Excel::import(new CategorysImport, $request->file);
 
             return back()->with('success','!!! Import File Complete !!!');
@@ -217,9 +218,10 @@ class MasterController extends Controller
 
     public function uploadCategory_sub(Request $request)
     {
-        // dd($request);
-        if ($request->file == "categorySub-import.xlsx") {
-            Excel::import(new CategorySubsImport, $request->file);
+        // dd($request->file_data);
+        $data = $request->file_data;
+        if ($data->getClientOriginalName() == "categorySub-import.xlsx") {
+            Excel::import(new CategorySubsImport, $request->file_data);
 
             return back()->with('success','!!! Import File Complete !!!');
         }else{
