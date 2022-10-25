@@ -537,12 +537,8 @@ class BoqController extends Controller
                     }
                 }
             }
-<<<<<<< HEAD
-            if ($send_form == 1) {
-=======
 
             if ($request->btn_send == "btn_send") {
->>>>>>> bbcb3822bb9a888f579866b53d0a1a34aa352448
                 return redirect(route('allBoq',$request->project_id));
             }else {
                 return response()->json([

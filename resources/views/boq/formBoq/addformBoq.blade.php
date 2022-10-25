@@ -204,11 +204,7 @@
     });
 
     //alert
-<<<<<<< HEAD
-    function myFunction() {
-=======
     function myFunction(){
->>>>>>> bbcb3822bb9a888f579866b53d0a1a34aa352448
         const myModal = tailwind.Modal.getInstance(document.querySelector("#delete-modal-preview"));
         var x = document.forms["form1"]["vender_id"].value;
         if(x == "" || x == null) {
