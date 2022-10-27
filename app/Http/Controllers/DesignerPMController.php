@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\design_and_pm;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class DesignerPMController extends Controller
 {
@@ -70,20 +71,20 @@ class DesignerPMController extends Controller
     public function changeStatus($id)
     {
         // return "dd";
-        $data = design_and_pm::find($id);
+        $data = design_and_pm::where('id', $id)->first();
 
         if ($data->is_active == "1") {
             design_and_pm::where('id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }else {
             design_and_pm::where('id',$data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }
-        return redirect()->back()->with('success','!!! Status Complete !!!');
+        return response()->json();
     }
 
     public function uploadDesigner(Request $request)

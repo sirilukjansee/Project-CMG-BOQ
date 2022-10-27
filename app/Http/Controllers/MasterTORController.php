@@ -10,6 +10,7 @@ use App\Models\MasterTOR;
 use App\Models\MasterTOR_detail;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class MasterTORController extends Controller
 {
@@ -25,7 +26,7 @@ class MasterTORController extends Controller
         MasterTOR::create([
             'message'   =>  $request->tor,
             'is_active'    =>  "1",
-            'created_by'    =>  "1",
+            'created_by'    =>  Auth::user()->id,
         ]);
 
         return redirect()->back()->with('success', '!!! ADD Tor Complete !!!');
@@ -42,7 +43,7 @@ class MasterTORController extends Controller
     {
         $update = MasterTOR::where('id', $request->id)->update([
             'message' => $request->tor,
-            'update_by' => 1,
+            'update_by' => Auth::user()->id,
         ]);
 
         return back()->with('success', '!!! Edit Complete !!!');
@@ -61,23 +62,23 @@ class MasterTORController extends Controller
         if ($data->is_active == "1") {
             MasterTOR::where('id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
             MasterTOR_detail::where('tor_id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }else {
             MasterTOR::where('id',$data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
             MasterTOR_detail::where('tor_id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }
-        return redirect()->back()->with('success','!!! Status Complete !!!');
+        return response()->json();
     }
 
     public function create_detail($id)
@@ -94,7 +95,7 @@ class MasterTORController extends Controller
             'tor_id'    => $request->tor_id,
             'message'   =>  $request->tor,
             'is_active'    =>  "1",
-            'created_by'    =>  "1",
+            'created_by'    =>  Auth::user()->id,
         ]);
 
         return redirect()->back()->with('success', '!!! ADD Tor Complete !!!');
@@ -111,7 +112,7 @@ class MasterTORController extends Controller
     {
         $update = MasterTOR_detail::where('id', $request->id)->update([
             'message' => $request->tor,
-            'update_by' => 1,
+            'update_by' => Auth::user()->id,
         ]);
 
         return back()->with('success', '!!! Edit Complete !!!');
@@ -125,15 +126,15 @@ class MasterTORController extends Controller
         if ($data->is_active == "1") {
             MasterTOR_detail::where('id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }else {
             MasterTOR_detail::where('id',$data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }
-        return redirect()->back()->with('success','!!! Status Complete !!!');
+        return response()->json();
     }
 
     public function uploadTor(Request $request)

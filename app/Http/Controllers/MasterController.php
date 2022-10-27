@@ -121,7 +121,7 @@ class MasterController extends Controller
                 'update_by' => 1
             ]);
         }
-        return redirect()->back()->with('success','!!! Status Complete !!!');
+        return response()->json();
     }
 
     public function store_sub(Request $request)
@@ -191,15 +191,15 @@ class MasterController extends Controller
         if ($data->is_active == "1") {
             catagory_sub::find($data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }else {
             catagory_sub::find($data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }
-        return redirect()->back()->with('success','!!! Status Complete !!!');
+        return response()->json();
     }
 
     public function uploadCategory(Request $request)

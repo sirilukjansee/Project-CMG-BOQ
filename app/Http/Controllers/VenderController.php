@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Vender;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class VenderController extends Controller
 {
@@ -24,8 +25,8 @@ class VenderController extends Controller
         $vend = new vender;
         $vend->name = $request->name;
         $vend->is_active = "1";
-        $vend->create_by = 1;
-        $vend->update_by = 1;
+        $vend->create_by = Auth::user()->id;
+        $vend->update_by = Auth::user()->id;
         $vend->save();
 
         return redirect()->back()->with('success', '!!! ADD VENDER Complete !!!');
@@ -48,7 +49,7 @@ class VenderController extends Controller
 
         $venders = vender::find($request->id)->update([
             'name' => $request->name,
-            'update_by' => 1
+            'update_by' => Auth::user()->id
         ]);
 
         return back()->with('success', '!!! Edit VENDER Complete !!!');
@@ -68,15 +69,15 @@ class VenderController extends Controller
         if ($data->is_active == "1") {
             vender::where('id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }else {
             vender::where('id',$data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }
-        return redirect()->back()->with('success','!!! Status Complete !!!');
+        return response()->json();
     }
 
     public function uploadVender(Request $request)

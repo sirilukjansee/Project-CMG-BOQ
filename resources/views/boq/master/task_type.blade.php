@@ -39,13 +39,11 @@
                             <tr>
                                 <th scope="col" style="text-align: center;">ID</th>
                                 <th scope="col">Task Type</th>
-                                <th scope="col">Status</th>
                                 <th scope="col" style="text-align: center;">Active</th>
                             </tr>
                             <tr>
                                 <th scope="col" class="filterhead" style="text-align: center;">ID</th>
                                 <th scope="col" class="filterhead">Task Type</th>
-                                <th scope="col" class="filterhead">Status</th>
                                 <th scope="col" class="filterhead" style="text-align: center;"></th>
                             </tr>
                         </thead>
@@ -54,19 +52,22 @@
                             <tr>
                                 <td class="text-center">{{ $key + 1 }}</td>
                                 <td>{{ $task->task_type_name }}</td>
-                                <td>
-                                    @if ($task->is_active == "1")
-                                        ON
-                                    @else
-                                        OFF
-                                    @endif
-                                </td>
                                 <td class="text-center">
                                     <!-- BEGIN: Large Modal Toggle -->
                                     <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal({{$task->id}})" data-tw-toggle="modal"
                                         data-tw-target="#large-modal-size-preview_edit"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
 
-                                    <a href="{{ url('/masterTaskType/changeStatus', $task->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
+                                        @if ($task->is_active == "1")
+                                            <span class="form-switch">
+                                                <input id="" class="form-check-input status" type="checkbox" value="{{$task->id}}" checked>
+                                                <label class="form-check-label message_status{{$task->id}}" for="checkbox-switch-7">ON</label>
+                                            </span>
+                                        @else
+                                            <span class="form-switch">
+                                                <input id="" class="form-check-input status" type="checkbox" value="{{$task->id}}">
+                                                <label class="form-check-label message_status{{$task->id}}" for="checkbox-switch-7">OFF</label>
+                                            </span>
+                                        @endif
                                     {{-- <a href="{{ url('/masterTaskType/softdelete', $task->id) }}" class="btn btn-dark gap-w"> Delete </a> --}}
                                 </td>
                             </tr>
@@ -162,6 +163,34 @@
             <!-- END: Large Modal Content -->
 
 <script type="text/javascript">
+
+    // Change Status
+    $('.status').on('click', function() {
+        var id = $(this).val();
+        // console.log($(this).val());
+        if($(this).is(':checked') )
+            {
+                $('.message_status'+$(this).val()).text("ON");
+                jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('/masterTaskType/changeStatus/"+id+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                    success: function() {}
+                });
+            }else{
+                $('.message_status'+$(this).val()).text("OFF");
+
+                jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('/masterTaskType/changeStatus/"+id+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                    success: function() {}
+                });
+            }
+	});
+
     jQuery(document).ready(function() {
         var table = jQuery('#example').DataTable({
             "bLengthChange": true,
@@ -169,7 +198,7 @@
             "ordering": false,
         });
 
-        jQuery(".filterhead").not(":eq(3)").each( function ( i ) {
+        jQuery(".filterhead").not(":eq(2)").each( function ( i ) {
             var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
                 .appendTo( jQuery(this).empty() )
                 .on( 'change', function () {

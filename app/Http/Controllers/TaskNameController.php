@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\taskname;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class TaskNameController extends Controller
 {
@@ -23,8 +24,8 @@ class TaskNameController extends Controller
         // dd($request);
         $taskname = new taskname;
         $taskname->task_name = $request->task_name;
-        $taskname->create_by = 1;
-        $taskname->update_by = 1;
+        $taskname->create_by = Auth::user()->id;
+        $taskname->update_by = Auth::user()->id;
         $taskname->save();
 
         return redirect()->back()->with('success', '!!! ADD TASK_NAME Complete !!!');
@@ -49,7 +50,7 @@ class TaskNameController extends Controller
 
         $taskname = taskname::find($request->id)->update([
             'task_name' => $request->task_name,
-            'update_by' => 1
+            'update_by' => Auth::user()->id
         ]);
 
         return back()->with('success', '!!! Edit TASK NAME Complete !!!');
@@ -69,15 +70,15 @@ class TaskNameController extends Controller
         if ($data->is_active == "1") {
             taskname::where('id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }else {
             taskname::where('id',$data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }
-        return redirect()->back()->with('success','!!! Status Complete !!!');
+        return response()->json();
     }
 
     public function uploadTaskName(Request $request)

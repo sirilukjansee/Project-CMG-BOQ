@@ -236,7 +236,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('report')}}" class="top-menu {{ (request()->is('report')) ? 'top-menu--active' : '' }}">
+                    <a href="{{ url('reportAll')}}" class="top-menu {{ (request()->is('reportAll')) ? 'top-menu--active' : '' }}">
                         <div class="top-menu__icon"> <i data-lucide="folder"></i> </div>
                         <div class="top-menu__title"> Report</div>
                     </a>

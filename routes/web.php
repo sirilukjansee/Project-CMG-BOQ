@@ -22,6 +22,7 @@ use App\Http\Controllers\CapexController;
 use App\Http\Controllers\ConceptController;
 use App\Http\Controllers\ImportVenderController;
 use App\Http\Controllers\AucController;
+use App\Http\Controllers\ReportAllController;
 // use Illuminate\Support\Facades\DB;
 
 /*
@@ -249,6 +250,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/export-auc', [AucController::class, 'export']);
     Route::get('/export-auc/{id}', [AucController::class, 'send_chhk']);
 
+    // Report
+    Route::get('reportAll', [ReportAllController::class, 'index']);
 });
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);

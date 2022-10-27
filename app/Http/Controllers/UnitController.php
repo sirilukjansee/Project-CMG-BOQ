@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Unit;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class UnitController extends Controller
 {
@@ -23,8 +24,8 @@ class UnitController extends Controller
         // dd($request);
         $unit = new Unit;
         $unit->unit_name = $request->unit_name;
-        $unit->create_by = 1;
-        $unit->update_by = 1;
+        $unit->create_by = Auth::user()->id;
+        $unit->update_by = Auth::user()->id;
         $unit->save();
 
         return redirect()->back()->with('success', '!!! ADD DESIGNER/PM Complete !!!');
@@ -49,7 +50,7 @@ class UnitController extends Controller
 
         $unit = Unit::find($request->id)->update([
             'unit_name' => $request->unit_name,
-            'update_by' => 1
+            'update_by' => Auth::user()->id
         ]);
 
         return back()->with('success', '!!! Edit DESIGNER/PM Complete !!!');
@@ -69,15 +70,15 @@ class UnitController extends Controller
         if ($data->is_active == "1") {
             Unit::where('id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }else {
             Unit::where('id',$data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }
-        return redirect()->back()->with('success','!!! Status Complete !!!');
+        return response()->json();
     }
 
     public function uploadUnit(Request $request)
