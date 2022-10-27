@@ -75,7 +75,7 @@
                                         @endif
                                 @endforeach
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center" style="width: 30%;">
                                     <!-- BEGIN: Large Modal Toggle -->
                                     <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal_sub({{$cat->id}})" data-tw-toggle="modal"
                                         data-tw-target="#large-modal-size-preview_edit_sub"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>

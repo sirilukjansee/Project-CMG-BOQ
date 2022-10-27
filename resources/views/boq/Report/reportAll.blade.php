@@ -32,19 +32,51 @@
                     <table class="table table-hover table-auto sm:mt-2" id="example">
                         <thead>
                             <tr>
-                                <th scope="col" style="text-align: center;">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">E-amil</th>
-                                <th scope="col">สิทธิ์การใช้งาน</th>
+                                <th scope="col" style="text-align: center;">Job no</th>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Cost</th>
+                                <th scope="col">Project</th>
+                                <th scope="col">Venue</th>
+                                <th scope="col">Task Type</th>
+                                <th scope="col">Task Name</th>
+                                <th scope="col">Area</th>
+                                <th scope="col">Budget</th>
+                                <th scope="col">B. Location</th>
+                                <th scope="col">Job Finished Date</th>
+                                <th scope="col">Job in date</th>
                                 <th scope="col">Status</th>
-                                <th scope="col" style="text-align: center;">Active</th>
+                                <th scope="col">Objective</th>
+                                <th scope="col">PR No</th>
+                                <th scope="col">PR Date</th>
+                                <th scope="col">PR Status</th>
+                                <th scope="col">PO No</th>
+                                <th scope="col">PO Date</th>
+                                <th scope="col">PO Date</th>
+                                <th scope="col">Cost Sqm</th>
+                                {{-- <th scope="col" style="text-align: center;">Active</th> --}}
                             </tr>
                             <tr>
-                                <th scope="col" class="filterhead" style="text-align: center;">ID</th>
-                                <th scope="col" class="filterhead">Name</th>
-                                <th scope="col" class="filterhead">E-mail</th>
-                                <th scope="col" class="filterhead">สิทธิ์การใช้งาน</th>
+                                <th scope="col" class="filterhead" style="text-align: center;">Job no</th>
+                                <th scope="col" class="filterhead">Brand</th>
+                                <th scope="col" class="filterhead">Cost</th>
+                                <th scope="col" class="filterhead">Project</th>
+                                <th scope="col" class="filterhead">Venue</th>
+                                <th scope="col" class="filterhead">Task Type</th>
+                                <th scope="col" class="filterhead">Task Name</th>
+                                <th scope="col" class="filterhead">Area</th>
+                                <th scope="col" class="filterhead">Budget</th>
+                                <th scope="col" class="filterhead">B. Location</th>
+                                <th scope="col" class="filterhead">Job Finished Date</th>
+                                <th scope="col" class="filterhead">Job in date</th>
                                 <th scope="col" class="filterhead">Status</th>
+                                <th scope="col" class="filterhead">Objective</th>
+                                <th scope="col" class="filterhead">PR No</th>
+                                <th scope="col" class="filterhead">PR Date</th>
+                                <th scope="col" class="filterhead">PR Status</th>
+                                <th scope="col" class="filterhead">PO No</th>
+                                <th scope="col" class="filterhead">PO Date</th>
+                                <th scope="col" class="filterhead">PO Date</th>
+                                <th scope="col" class="filterhead">Cost Sqm</th>
                                 <th scope="col" class="filterhead" style="text-align: center;"></th>
                             </tr>
                         </thead>
