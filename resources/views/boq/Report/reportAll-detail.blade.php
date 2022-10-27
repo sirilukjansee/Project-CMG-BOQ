@@ -27,7 +27,7 @@
                                 <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export </button>
                         </div>
                     </div>
-                    <div class="intro-y overflow-auto lg:overflow-auto mt-8 sm:mt-0">
+
                     <table class="table table-hover table-auto sm:mt-2" id="example">
                         <thead>
                             <tr>
@@ -79,8 +79,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- <tr data-href="{{ url('reportAll-detail', 1) }}"> --}}
-                                <tr>
+                            <tr data-href="{{ url('reportAll-detail', 1) }}" class="tooltip intro-x cursor-pointer">
                                 <td>220001</td>
                                 <td>Casio</td>
                                 <td>110161</td>
@@ -180,7 +179,6 @@
                             @endforeach --}}
                         </tbody>
                     </table>
-                    </div>
                 </div>
 
                 <!-- BEGIN: Large Modal Content -->

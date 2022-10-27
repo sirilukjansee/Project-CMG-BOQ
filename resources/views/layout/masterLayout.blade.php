@@ -236,11 +236,41 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('reportAll')}}" class="top-menu {{ (request()->is('reportAll')) ? 'top-menu--active' : '' }}">
+                    <a href="#" class="top-menu {{ (request()->is('reportAll')) ? 'top-menu--active' : '' }}">
                         <div class="top-menu__icon"> <i data-lucide="folder"></i> </div>
-                        <div class="top-menu__title"> Report</div>
+                        <div class="top-menu__title"> Report <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
-                </li>
+                    <ul class="">
+                        <li>
+                            <a href="{{ url('reportAll') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Project Report </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('report-designer') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Designer/PM Report </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('report-year') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Year Report </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('report-task-type-ref-brand') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Task Type (Brand) Report </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('report-task-type-ref-location') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Task Type (Location) Report </div>
+                            </a>
+                        </li>
             </ul>
         </nav>
         <!-- END: Top Menu -->

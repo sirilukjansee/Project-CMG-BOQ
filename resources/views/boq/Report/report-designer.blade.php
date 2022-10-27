@@ -3,7 +3,7 @@
 @section('content-data')
             <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
                 <h2 class="text-lg font-medium mr-auto">
-                    Report
+                   Designer/PM Report
                 </h2>
                 <div class="w-full sm:w-auto flex mt-4 sm:mt-0"></div>
             </div>
@@ -20,134 +20,82 @@
                 <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                 </div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                    <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
-                        <div class="xl:flex sm:mr-auto" ></div>
-                        <div class="flex mt-5 sm:mt-0 mb-5">
+                    <div class="flex flex-col sm:flex-row sm:items-end xl:items-start mb-10">
+                        <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto" >
+                            <div class="sm:flex items-center sm:mr-4">
+                                <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Brand</label>
+                                <select id="tabulator-html-filter-field" class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto">
+                                    <option value="">Select</option>
+                                    <option value="category">AT TWENTY</option>
+                                    <option value="remaining_stock">4x4</option>
+                                </select>
+                            </div>
+                            <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
+                                <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Name</label>
+                                <input id="tabulator-html-filter-value" type="text" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0" placeholder="Search...">
+                            </div>
+                            <div class="mt-2 xl:mt-0">
+                                <button id="tabulator-html-filter-go" type="button" class="btn btn-primary w-full sm:w-16" >Go</button>
+                                <button id="tabulator-html-filter-reset" type="button" class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1" >Reset</button>
+                            </div>
+                        </form>
+                        <div class="flex mt-5 sm:mt-0">
                             <button id="tabulator-print" class="btn btn-outline-secondary w-1/2 sm:w-auto mr-2">
                                 <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export </button>
-                        </div>
                     </div>
-                    <div class="intro-y overflow-auto lg:overflow-auto mt-8 sm:mt-0">
+                    </div>
                     <table class="table table-hover table-auto sm:mt-2" id="example">
                         <thead>
                             <tr>
-                                <th scope="col">Job no</th>
-                                <th scope="col">Brand</th>
-                                <th scope="col">Cost</th>
-                                <th scope="col">Project</th>
-                                <th scope="col">Venue</th>
-                                <th scope="col">Task Type</th>
-                                <th scope="col">Task Name</th>
-                                <th scope="col">Area</th>
-                                <th scope="col">Budget</th>
-                                <th scope="col">B. Location</th>
-                                <th scope="col">Job Finished Date</th>
-                                <th scope="col">Job in date</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Objective</th>
-                                <th scope="col">PR No</th>
-                                <th scope="col">PR Date</th>
-                                <th scope="col">PR Status</th>
-                                <th scope="col">PO No</th>
-                                <th scope="col">PO Date</th>
-                                <th scope="col">PO Date</th>
-                                <th scope="col">Cost Sqm</th>
-                                {{-- <th scope="col" style="text-align: center;">Active</th> --}}
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">ม.ค.</th>
+                                <th scope="col">ก.พ.</th>
+                                <th scope="col">มี.ค.</th>
+                                <th scope="col">เม.ย.</th>
+                                <th scope="col">พ.ค.</th>
+                                <th scope="col">มิ.ย.</th>
+                                <th scope="col">ก.ค.</th>
+                                <th scope="col">Grand Total</th>
                             </tr>
-                            <tr>
-                                <th scope="col" class="filterhead">Job no</th>
-                                <th scope="col" class="filterhead">Brand</th>
-                                <th scope="col" class="filterhead">Cost</th>
-                                <th scope="col" class="filterhead">Project</th>
-                                <th scope="col" class="filterhead">Venue</th>
-                                <th scope="col" class="filterhead">Task Type</th>
-                                <th scope="col" class="filterhead">Task Name</th>
-                                <th scope="col" class="filterhead">Area</th>
-                                <th scope="col" class="filterhead">Budget</th>
-                                <th scope="col" class="filterhead">B. Location</th>
-                                <th scope="col" class="filterhead">Job Finished Date</th>
-                                <th scope="col" class="filterhead">Job in date</th>
-                                <th scope="col" class="filterhead">Status</th>
-                                <th scope="col" class="filterhead">Objective</th>
-                                <th scope="col" class="filterhead">PR No</th>
-                                <th scope="col" class="filterhead">PR Date</th>
-                                <th scope="col" class="filterhead">PR Status</th>
-                                <th scope="col" class="filterhead">PO No</th>
-                                <th scope="col" class="filterhead">PO Date</th>
-                                <th scope="col" class="filterhead">PO Date</th>
-                                <th scope="col" class="filterhead">Cost Sqm</th>
-                            </tr>
+                            {{-- <tr>
+                                <th scope="col" class="filterhead">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">ม.ค.</th>
+                                <th scope="col">ก.พ.</th>
+                                <th scope="col">มี.ค.</th>
+                                <th scope="col">เม.ย.</th>
+                                <th scope="col">พ.ค.</th>
+                                <th scope="col">มิ.ย.</th>
+                                <th scope="col">ก.ค.</th>
+                                <th scope="col">Grand Total</th>
+                            </tr> --}}
                         </thead>
                         <tbody>
                             {{-- <tr data-href="{{ url('reportAll-detail', 1) }}"> --}}
                                 <tr>
-                                <td>220001</td>
-                                <td>Casio</td>
-                                <td>110161</td>
-                                <td>GFactory</td>
-                                <td>Siam Center</td>
-                                <td>Kiosk</td>
-                                <td>1001:New</td>
-                                <td>38.15</td>
-                                <td>1149125</td>
-                                <td>No Location</td>
-                                <td>15/3/17</td>
-                                <td>10/2/17</td>
-                                <td>Approve</td>
-                                <td>New location</td>
-                                <td>12062797</td>
-                                <td>10/2/17</td>
-                                <td>Completed</td>
-                                <td>102042843</td>
-                                <td>22/2/2017</td>
-                                <td>733305</td>
-                                <td>19221.63</td>
+                                <td>1</td>
+                                <td>Bass</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>7</td>
                             </tr>
                             <tr data-href="{{ url('reportAll-detail', 1) }}">
-                                <td>220002</td>
-                                <td>Casio</td>
-                                <td>110161</td>
-                                <td>GFactory</td>
-                                <td>Siam Center</td>
-                                <td>Kiosk</td>
-                                <td>1001:New</td>
-                                <td>38.15</td>
-                                <td>1149125</td>
-                                <td>No Location</td>
-                                <td>15/3/17</td>
-                                <td>10/2/17</td>
-                                <td>Approve</td>
-                                <td>New location</td>
-                                <td>12062797</td>
-                                <td>10/2/17</td>
-                                <td>Completed</td>
-                                <td>102042843</td>
-                                <td>22/2/2017</td>
-                                <td>733305</td>
-                                <td>19221.63</td>
-                            </tr>
-                            <tr data-href="{{ url('reportAll-detail', 1) }}">
-                                <td>220003</td>
-                                <td>Lee</td>
-                                <td>110166</td>
-                                <td>GFactory</td>
-                                <td>Lee SIS</td>
-                                <td>C.Zen</td>
-                                <td>1001:New</td>
-                                <td>38.15</td>
-                                <td>1149125</td>
-                                <td>No Location</td>
-                                <td>15/3/17</td>
-                                <td>10/2/17</td>
-                                <td>Approve</td>
-                                <td>New location</td>
-                                <td>12062797</td>
-                                <td>10/2/17</td>
-                                <td>Completed</td>
-                                <td>102042843</td>
-                                <td>22/2/2017</td>
-                                <td>733305</td>
-                                <td>19221.63</td>
+                                <td>2</td>
+                                <td>Jane</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>4</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>12</td>
                             </tr>
                             {{-- @foreach ($users as $key => $urs)
                             <tr>
@@ -179,8 +127,20 @@
                             </tr>
                             @endforeach --}}
                         </tbody>
+                        <tfoot>
+                            <tr style="font-weight:bold;">
+                                <td colspan="2" style="text-align: center;">Grand Total</td>
+                                <td>3</td>
+                                <td>3</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>8</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>19</td>
+                            </tr>
+                        </tfoot>
                     </table>
-                    </div>
                 </div>
 
                 <!-- BEGIN: Large Modal Content -->
@@ -347,7 +307,11 @@
          "bLengthChange": true,
          "iDisplayLength": 10,
          "ordering": false,
+         "bFilter": false
 	   });
+
+    $(".dataTables_length").hide();
+
 
        jQuery(".filterhead").each( function ( i ) {
         var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')

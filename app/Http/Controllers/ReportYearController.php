@@ -4,24 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ReportAllController extends Controller
+class ReportYearController extends Controller
 {
 
     public function index()
     {
         $_SESSION["projectID"] = '';
-        return view('boq.Report.reportAll');
+        return view('boq.Report.report-year');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index_detail($id)
+    public function index_brand()
     {
         $_SESSION["projectID"] = '';
-        return view('boq.Report.reportAll-detail');
+        return view('boq.Report.report-task-type');
+    }
+
+    public function index_location()
+    {
+        $_SESSION["projectID"] = '';
+        return view('boq.Report.report-task-type-ref-location');
     }
 
     /**

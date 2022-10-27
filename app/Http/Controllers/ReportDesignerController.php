@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ReportAllController extends Controller
+class ReportDesignerController extends Controller
 {
 
     public function index()
     {
         $_SESSION["projectID"] = '';
-        return view('boq.Report.reportAll');
+        return view('boq.Report.report-designer');
     }
 
     /**
@@ -18,10 +18,9 @@ class ReportAllController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index_detail($id)
+    public function create()
     {
-        $_SESSION["projectID"] = '';
-        return view('boq.Report.reportAll-detail');
+        //
     }
 
     /**
