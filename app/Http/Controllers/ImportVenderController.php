@@ -21,9 +21,13 @@ class ImportVenderController extends Controller
 
     public function uploadBoqVender(Request $request)
     {
-        // $name = "FirstBoqVendersImport";
         // dd($request);
-        Excel::import(new FirstBoqVendersImport($request->id), $request->file);
+        // $imp_vd = new Import_vender;
+        // $imp_vd->id_vender = $request->id_vender;
+        // $imp_vd->save();
+        // $name = "FirstBoqVendersImport";
+        // dd($request->id_vender);
+        Excel::import(new FirstBoqVendersImport($request->id,$request->id_vender), $request->file);
         Excel::import(new BoqVendersImport($request->id), $request->file);
         return back()->with('success','!!! Import File Complete !!!');
     }

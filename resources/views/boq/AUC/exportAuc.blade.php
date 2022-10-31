@@ -22,6 +22,7 @@
             <th style="text-align:center; height: 30px; width:100px;">รวม</th>
             <th style="text-align:center; height: 30px; width:300px;">หมายเหตุ</th>
             <th style="text-align:center; height: 30px; width:100px;">Remark</th>
+            <th style="text-align:center; height: 30px; width:100px;">Vender</th>
         </tr>
     </thead>
     <tbody>
@@ -69,6 +70,7 @@
                         @foreach ( $sub as $key => $sb )
                             @if ($sb->template->name == "Master BOQ")
                             <tr>
+                                {{-- check all master --}}
                                 <td style="height: 30px;"></td>      {{-- empty --}}
                                 <td style="height: 30px;"></td>      {{-- empty --}}
                                 <td style="height: 30px;">{{@$sb->template->vender_auc->vender_d->cat_sub->name}}</td>
@@ -80,9 +82,11 @@
                                 <td style="height: 30px;">{{@$sb->template->vender_auc->vender_d->all_unit}}</td>   {{-- รวม --}}
                                 <td style="height: 30px;">{{@$sb->template->vender_auc->vender_d->desc}}</td>   {{-- หมายเหตุ --}}
                                 <td style="height: 30px; text-align:center;">{{@$sb->template->name}}</td>
+                                <td style="height: 30px;">{{@$sb->template->vender_auc->vender_name->name}}</td>
                             </tr>
                             @else
                             <tr>
+                                {{-- check all addi --}}
                                 <td style="height: 30px;"></td>      {{-- empty --}}
                                 <td style="height: 30px;"></td>      {{-- empty --}}
                                 <td style="height: 30px;">{{@$sb->sub_cata->name}}</td>
@@ -94,11 +98,13 @@
                                 <td style="height: 30px;">{{@$sb->all_unit}}</td>   {{-- รวม --}}
                                 <td style="height: 30px;">{{@$sb->desc}}</td>   {{-- หมายเหตุ --}}
                                 <td style="height: 30px; text-align:center;">{{@$sb->template->name}}</td>
+                                <td style="height: 30px;">{{@$sb->auc_t->vender_name->name}}</td>
                             </tr>
                             @endif
                         @endforeach
                         @elseif ( $auc->boq_a->template->name == "Master BOQ" )
                         <tr>
+                            {{-- check sub master --}}
                             <td style="height: 30px;"></td>      {{-- empty --}}
                             <td style="height: 30px;"></td>      {{-- empty --}}
                             <td style="height: 30px;">{{@$auc->boq_a->template->vender_auc->vender_d->cat_sub->name}}</td>
@@ -110,9 +116,11 @@
                             <td style="height: 30px;">{{@$auc->boq_a->template->vender_auc->vender_d->all_unit}}</td>   {{-- รวม --}}
                             <td style="height: 30px;">{{@$auc->boq_a->template->vender_auc->vender_d->desc}}</td>   {{-- หมายเหตุ --}}
                             <td style="height: 30px; text-align:center;">{{@$auc->temp_a->name}}</td>
+                            <td style="height: 30px;">{{@$auc->pro_a->vender_name->name}}</td>
                         </tr>
                         @else
                         <tr>
+                            {{-- check sub addi --}}
                             <td style="height: 30px;"></td>      {{-- empty --}}
                             <td style="height: 30px;"></td>      {{-- empty --}}
                             <td style="height: 30px;">{{@$auc->boq_a->sub_cata->name}}</td>
@@ -124,6 +132,7 @@
                             <td style="height: 30px;">{{@$auc->boq_a->all_unit}}</td>   {{-- รวม --}}
                             <td style="height: 30px;">{{@$auc->boq_a->desc}}</td>   {{-- หมายเหตุ --}}
                             <td style="height: 30px; text-align:center;">{{@$auc->temp_a->name}}</td>
+                            <td style="height: 30px;">{{@$auc->temp_a->vender_auc2->vender_name->name}}</td>
                         </tr>
                     @endif
                 @endif

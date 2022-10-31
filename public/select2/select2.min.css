@@ -166,12 +166,12 @@
     --tw-border-opacity: 1;
 }
 .code {
-    min-width: 8rem;
-    max-width: 8rem;
+    min-width: 6rem;
+    max-width: 6rem;
 }
 .sub {
-    min-width: 35rem;
-    max-width: 44rem;
+    min-width: 30rem;
+    max-width: 30rem;
 }
 .desc {
     flex: 1;

@@ -13,6 +13,7 @@ class Import_vender extends Model
     protected $fillable = [
         'id_project',
         'id_vender',
+        'template_id',
         'remark',
         'overhead',
         'discount',
@@ -27,5 +28,8 @@ class Import_vender extends Model
     }
     public function vender_d(){
         return $this->hasOne(Import_vender_detail::class, 'import_id','id');
+    }
+    public function template_d(){
+        return $this->hasOne(template_boqs::class, 'id','template_id');
     }
 }

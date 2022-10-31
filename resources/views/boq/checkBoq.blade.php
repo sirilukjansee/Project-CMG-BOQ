@@ -69,10 +69,10 @@
                                 </div>
                             </td>
                             <td class="table-report__action w-56">
-                                @if ( $bchk->update == null)
+                                @if ( $bchk->updated_at == null)
                                 <div class="flex items-center justify-center">{{ Carbon\Carbon::parse(@$bchk->date)->format('d M y') }}</div>
                                 @else
-                                <div class="flex items-center justify-center">{{ Carbon\Carbon::parse(@$bchk->update)->format('d M y') }}</div>
+                                <div class="flex items-center justify-center">{{ Carbon\Carbon::parse(@$bchk->updated_at)->format('d M y') }}</div>
                                 @endif
                             </td>
                             <td>

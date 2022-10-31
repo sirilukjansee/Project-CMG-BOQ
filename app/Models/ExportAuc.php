@@ -29,4 +29,7 @@ class ExportAuc extends Model
     public function pro_a(){
         return $this->hasOne(Import_vender::class, 'id', 'project_id');
     }
+    public function pro_a1(){
+        return $this->hasOne(Import_vender::class, 'template_id', 'project_id');
+    }
 }

@@ -16,7 +16,7 @@
             <div class="intro-y input-form box p-5 mt-3">
             <form action="{{ url('/formBoq/update') }}" method="post" onsubmit="return validateForm()" id="form1" enctype="multipart/form-data">
                 @csrf
-                <div class="form-inline mb-3 mt-10">
+                {{-- <div class="form-inline mb-3 mt-10">
                     <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
                     <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender...">
                         <option selected value="{{ @$project_id->vender_id }}">{{ @$project_id->vender_name->name }}</option>
@@ -24,7 +24,7 @@
                         <option value="{{ $vd->id }}">{{ $vd->name }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
                 <input type="hidden" value="{{ @$project_id->project->brand_master->id }}" name="brand_id" id="b_id">
                 <div id="addmain" class="input-form mt-3">
                     @php
@@ -58,20 +58,22 @@
                                         @endif
                                         @endforeach
                                     </select>
-                                    <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ @$eb->amount }}" rel="{{$key + 1}}">
-                                    <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
+                                    <input type="number" id="width{{$key + 1}}" name="width[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="กว้าง" value="{{$eb->width}}">
+                                    <input type="number" id="depth{{$key + 1}}" name="depth[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="ยาว" value="{{$eb->depth}}">
+                                    <input type="number" id="height{{$key + 1}}" name="height[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="สูง" value="{{$eb->height}}">
+                                    <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-20" min="0" placeholder="จำนวน" value="{{ @$eb->amount }}" rel="{{$key + 1}}">
+                                    <select name="unit_id[][{{ $cat->id }}]" class="form-control w-20">
                                         <option selected value="{{ $eb->unit_id }}">{{ @$eb->unit_u->unit_name }}</option>
                                         @foreach ($catagories2 as $cat2)
                                         <option value="{{$cat2->id}}">{{@$cat2->unit_name}}</option>
                                         @endforeach
                                     </select>
                                     <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc" value="{{ @$eb->desc }}">
-
                                     @if ( $eb->wage_cost != null )
-                                    <input type="number" id="material{{$key + 1}}" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24" value="{{ @$eb->material_cost }}" rel="{{$key + 1}}">
-                                    <input type="number" id="wage{{$key + 1}}" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24" value="{{ @$eb->wage_cost }}" rel="{{$key + 1}}">
-                                    <input type="text" id="each_unit{{$key + 1}}" name="each_unit[][{{ $cat->id }}]" placeholder="รวม/หน่วย" class="form-control w-24" value="{{ @$eb->each_unit }}" readonly>
-                                    <input type="text" id="all_unit{{$key + 1}}" name="all_unit[][{{ $cat->id }}]" placeholder="รวมทั้งหมด" class="form-control w-24" value="{{ @$eb->all_unit }}" readonly>
+                                    <input type="number" id="material{{$key + 1}}" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" min="0" class="form-control w-20" value="{{ @$eb->material_cost }}" rel="{{$key + 1}}">
+                                    <input type="number" id="wage{{$key + 1}}" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" min="0" class="form-control w-20" value="{{ @$eb->wage_cost }}" rel="{{$key + 1}}">
+                                    <input type="text" id="each_unit{{$key + 1}}" name="each_unit[][{{ $cat->id }}]" placeholder="รวม/หน่วย" min="0" class="form-control w-20" value="{{ @$eb->each_unit }}" readonly>
+                                    <input type="text" id="all_unit{{$key + 1}}" name="all_unit[][{{ $cat->id }}]" placeholder="รวมทั้งหมด" min="0" class="form-control w-20" value="{{ @$eb->all_unit }}" readonly>
                                     @endif
 
                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
@@ -91,8 +93,11 @@
                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
                                     <span id="select_code_id{{$key + 1}}"></span>
                                     <span id="select_sub_id{{$key + 1}}"></span>
-                                    <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" rel="{{$key + 1}}">
-                                    <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
+                                    <input type="number" id="width{{$key + 1}}" name="width[][{{ $cat->id }}]" class="form-control w-16" placeholder="กว้าง">
+                                    <input type="number" id="depth{{$key + 1}}" name="depth[][{{ $cat->id }}]" class="form-control w-16" placeholder="ยาว">
+                                    <input type="number" id="height{{$key + 1}}" name="height[][{{ $cat->id }}]" class="form-control w-16" placeholder="สูง">
+                                    <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-20" placeholder="จำนวน" rel="{{$key + 1}}" >
+                                    <select name="unit_id[][{{ $cat->id }}]" class="form-control w-20" >
                                         <option selected value=""></option>
                                         @foreach ($catagories2 as $cat2)
                                         <option value="{{$cat2->id}}">{{@$cat2->unit_name}}</option>
@@ -106,10 +111,10 @@
                                     @endphp
                                     @if ( $data_chk )
                                         @if ( $data_chk->status == "2" )
-                                        <input type="number" id="material{{$key + 1}}" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24" rel="{{$key + 1}}">
-                                        <input type="number" id="wage{{$key + 1}}" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24" rel="{{$key + 1}}">
-                                        <input type="text" id="each_unit{{$key + 1}}" name="each_unit[][{{ $cat->id }}]" placeholder="รวม/หน่วย" class="form-control w-24" readonly>
-                                        <input type="text" id="all_unit{{$key + 1}}" name="all_unit[][{{ $cat->id }}]" placeholder="รวมทั้งหมด" class="form-control w-24" readonly>
+                                        <input type="number" id="material{{$key + 1}}" name="material_cost[][{{ $cat->id }}]" min="0" placeholder="ค่าวัสดุ" class="form-control w-20" rel="{{$key + 1}}">
+                                        <input type="number" id="wage{{$key + 1}}" name="wage_cost[][{{ $cat->id }}]" min="0" placeholder="ค่าแรง" class="form-control w-20" rel="{{$key + 1}}">
+                                        <input type="text" id="each_unit{{$key + 1}}" name="each_unit[][{{ $cat->id }}]" min="0" placeholder="รวม/หน่วย" class="form-control w-20" readonly>
+                                        <input type="text" id="all_unit{{$key + 1}}" name="all_unit[][{{ $cat->id }}]" min="0" placeholder="รวมทั้งหมด" class="form-control w-20" readonly>
                                         @endif
                                     @endif
                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
@@ -175,7 +180,7 @@
                         </div>
                         <div class="px-5 pb-8 text-center">
                             <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                            <button type="button" id="btn_send" name="send" class="btn btn-primary w-28">Save & Send</button>
+                            <button type="button" id="btn_send_to" name="send" class="btn btn-primary w-28">Save & Send</button>
                         </div>
                     </div>
                 </div>
@@ -187,27 +192,27 @@
             //alert
             function myFunction(){
                 const myModal = tailwind.Modal.getInstance(document.querySelector("#delete-modal-preview"));
-                var x = document.forms["form1"]["vender_id"].value;
-                if(x == "" || x == null) {
-                    alert("Vender must be filled out");
+                // var x = document.forms["form1"]["vender_id"].value;
+                // if(x == "" || x == null) {
+                    // alert("Vender must be filled out");
                     // $('#delete-modal-preview').hide();
-                    myModal.hide();
-                    return false;
-                }if(x != "" || x != null)
-                {
+                    // myModal.hide();
+                    // return false;
+                // }if(x != "" || x != null)
+                // {
                     // jQuery('#delete-modal-preview').show();
                     myModal.show();
 
-                }
+                // }
             }
 
             //
-            jQuery(document).on('click', "#btn_send1", function(){
+            jQuery(document).on('click', "#btn_send_to", function(){
                 $('#is_btn').val("btn_send");
             });
 
             //save & send
-            jQuery(document).on('click', "#btn_send", function(){
+            jQuery(document).on('click', "#btn_send_to", function(){
                 document.getElementById("form1").submit();
             });
 
@@ -531,16 +536,19 @@
                                 }
                             });
                             html += '</select>';
-                            html += '<input type="number" id="amount2'+x+'" name="amount[]['+value.id+']" class="form-control w-24" placeholder="จำนวน" rel="'+x+'">';
-                            html += '<select name="unit_id[]['+value.id+']" class="form-control w-24" required>';
+                            html +=  '<input type="number" name="width[]['+value.id+']" class="form-control w-16" min="0" step=".01" placeholder="กว้าง">';
+                            html +=  '<input type="number" name="depth[]['+value.id+']" class="form-control w-16" min="0" step=".01" placeholder="ยาว">';
+                            html +=  '<input type="number" name="height[]['+value.id+']" class="form-control w-16" min="0" step=".01" placeholder="สูง">';
+                            html += '<input type="number" id="amount2'+x+'" name="amount[]['+value.id+']" min="0" class="form-control w-20" placeholder="จำนวน" rel="'+x+'" >';
+                            html += '<select name="unit_id[]['+value.id+']" class="form-control w-20" >';
                             html += '<option selected value=""></option>@foreach ($catagories2 as $cat2)<option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>@endforeach</select>';
                             html += '<input type="text" name="desc[]['+value.id+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">';
                             html += '@if ( $data_chk )';
                             html += '@if ($data_chk->status == "2" )';
-                            html += '<input type="number" id="material2'+x+'" name="material_cost[]['+value.id+']" placeholder="ค่าวัสดุ" class="form-control w-24" rel="'+x+'">';
-                            html += '<input type="number" id="wage2'+x+'" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24" rel="'+x+'">';
-                            html += '<input type="text" id="each_unit2'+x+'" name="each_unit[]['+value.id+']" placeholder="รวม/หน่วย" class="form-control w-24" readonly>';
-                            html += '<input type="text" id="all_unit2'+x+'" name="all_unit[]['+value.id+']" placeholder="รวมทั้งหมด" class="form-control w-24" readonly>';
+                            html += '<input type="number" id="material2'+x+'" name="material_cost[]['+value.id+']" min="0" placeholder="ค่าวัสดุ" class="form-control w-20" rel="'+x+'">';
+                            html += '<input type="number" id="wage2'+x+'" name="wage_cost[]['+value.id+']" min="0" placeholder="ค่าแรง" class="form-control w-20" rel="'+x+'">';
+                            html += '<input type="text" id="each_unit2'+x+'" name="each_unit[]['+value.id+']" min="0" placeholder="รวม/หน่วย" class="form-control w-20" readonly>';
+                            html += '<input type="text" id="all_unit2'+x+'" name="all_unit[]['+value.id+']" min="0" placeholder="รวมทั้งหมด" class="form-control w-20" readonly>';
                             html += '@endif';
                             html += '@endif';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';

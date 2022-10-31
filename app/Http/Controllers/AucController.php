@@ -9,6 +9,7 @@ use App\Models\catagory;
 use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Vender;
+use App\Models\Import_vender;
 use App\Models\template_boqs;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -28,30 +29,47 @@ class AucController extends Controller
         $project_id = template_boqs::where('id' ,$id)->first();
         $auc_temp = template_boqs::where('project_id', $id)->get();
         $auc_pro = Project::where('id' ,$id)->first();
+        $auc_ven = Import_vender::where('id_project', $id)->get();
         $_SESSION["projectID"] = $id;
 
-        return view('boq.AUC.auc', compact('editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis','auc_temp','auc_pro'));
+        return view('boq.AUC.auc', compact('editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis','auc_temp','auc_pro','auc_ven'));
     }
 
     public function export(Request $request)
     {
         ExportAuc::where('project_id', $request->project_id)->delete();
 
-    if( isset($request->chk_m) )
-    {
-        foreach ( $request->chk_m as $key => $ckm )
+        if( isset($request->chk_m) )
         {
-            foreach ( $ckm as $key2 => $ckm_a)
+            foreach ( $request->chk_m as $key => $ckm )
             {
-                ExportAuc::create([
-                    'project_id' => $request->project_id,
-                    'template_id' => $key,
-                    'main_id' => $ckm_a,
-                    'remark' => "All",
-                ]);
+                foreach ( $ckm as $key2 => $ckm_a)
+                {
+                    ExportAuc::create([
+                        'project_id' => $request->project_id,
+                        'template_id' => $key,
+                        'main_id' => $ckm_a,
+                        'remark' => "All",
+                    ]);
+                }
             }
-        }
-        if ( isset($request->chk_s) ){
+            if ( isset($request->chk_s) ){
+                foreach ( $request->chk_s as $key => $cks )
+                {
+                    foreach ( $cks as $key2 => $cks_a )
+                    {
+                        ExportAuc::create([
+                            'project_id' => $request->project_id,
+                            'template_id' => $key,
+                            'boq_id' => $cks_a,
+                            'remark' => "sub",
+                        ]);
+                    }
+                }
+            }
+
+            return Excel::download(new AucExport($request->project_id), 'AUC.xlsx');
+        }elseif ( isset($request->chk_s) ){
             foreach ( $request->chk_s as $key => $cks )
             {
                 foreach ( $cks as $key2 => $cks_a )
@@ -64,27 +82,11 @@ class AucController extends Controller
                     ]);
                 }
             }
-        }
 
-        return Excel::download(new AucExport($request->project_id), 'AUC.xlsx');
-    }elseif ( isset($request->chk_s) ){
-        foreach ( $request->chk_s as $key => $cks )
-        {
-            foreach ( $cks as $key2 => $cks_a )
-            {
-                ExportAuc::create([
-                    'project_id' => $request->project_id,
-                    'template_id' => $key,
-                    'boq_id' => $cks_a,
-                    'remark' => "sub",
-                ]);
-            }
+            return Excel::download(new AucExport($request->project_id), 'AUC.xlsx');
+        }else{
+            return back()->with('success', '!!! Please Check Some Box !!!');
         }
-
-        return Excel::download(new AucExport($request->project_id), 'AUC.xlsx');
-    }else{
-        return back()->with('success', '!!! Please Check Some Box !!!');
-    }
 
     }
 
@@ -95,5 +97,15 @@ class AucController extends Controller
             'chk_box' => template_boqs::where('project_id', $id)->get(),
             'id2' => $id
         ]);
+    }
+
+    public function select_auc($id, $temp_id)
+    {
+        // dd($temp_id);
+        Import_vender::where('id', $id)->update([
+            'template_id' => $temp_id,
+        ]);
+
+        return back();
     }
 }

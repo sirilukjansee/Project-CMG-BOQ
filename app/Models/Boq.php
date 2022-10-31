@@ -13,6 +13,9 @@ class Boq extends Model
         'template_boq_id',
         'main_id',
         'sub_id',
+        'width',
+        'depth',
+        'height',
         'amount',
         'unit_id',
         'desc',
@@ -40,6 +43,9 @@ class Boq extends Model
     }
     public function template(){
         return $this->hasOne(template_boqs::class,'id','template_boq_id');
+    }
+    public function auc_t(){
+        return $this->hasOne(Import_vender::class,'template_id','template_boq_id');
     }
 }
 

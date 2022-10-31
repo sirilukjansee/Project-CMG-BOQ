@@ -22,21 +22,16 @@ class BoqVendersImport implements ToModel
         $this->project_id = $project_id;
     }
 
+    // public function mapping(): array
+    // {
+    //     return [
+    //         'OVERHEAD'  => 'H7',
+    //         'DISCOUNT' => 'H8',
+    //     ];
+    // }
+
     public function model(array $row)
     {
-        // $vds = Vender::where('name', $row[5] )->first();
-        // if( $vds && $row[5] != null )
-        // {
-        //     $_SESSION["vds"] = $vds->id;
-        //     // dd($vds);
-        //         $imp = Import_vender::create([
-        //             'id_project' => $this->project_id,
-        //             'id_vender' => $_SESSION["vds"],
-        //             // 'overhead' => $row[4],
-        //             // 'discount' => $row[4],
-        //         ]);
-        // }
-
         $cat_s = catagory_sub::where('name', $row[1])->first();
 
         if( is_numeric($row[0]) || floor($row[0]) == 1 )
@@ -71,21 +66,24 @@ class BoqVendersImport implements ToModel
                 ]);
             }
         }
+        // $_SESSION["value"] = 1;
 
-        // $vds = Vender::where('name', $row[5] )->first();
-        // if( $vds && $row[5] != null)
-        // {
-        //     $_SESSION["vds"] = $vds->id;
-        //     // dd($vds);
-
-        //     return new Import_vender([
-        //         'id_project' => $this->project_id,
-        //         'id_vender' => $_SESSION["vds"],
-        //         // 'remark' => $row['a3'],
-        //         // 'create_by' => 2,
-        //     ]);
-        // }
-
+        if( !is_null($row[7]) && $row[6] == "OVERHEAD" )
+        {
+            $impvd1 = Import_vender::orderBy('id', 'desc')->first();
+            Import_vender::where('id', $impvd1->id)->update([
+                'overhead' => $row[7],
+                // 'discount' => $row[7],
+            ]);
+        }
+        if( !is_null($row[7]) && $row[6] == "COMMERCIAL DISCOUNT" )
+        {
+            $impvd1 = Import_vender::orderBy('id', 'desc')->first();
+            Import_vender::where('id', $impvd1->id)->update([
+                // 'overhead' => $row[7],
+                'discount' => $row[7],
+            ]);
+        }
     }
 
     // public function sheets(): array

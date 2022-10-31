@@ -22,10 +22,10 @@
 <!-- BEGIN: Validation Form -->
 <div class="group_wrapper">
     <div class="intro-y input-form box p-5 mt-3">
-        <div class="form-inline mb-3 mt-10">
+        {{-- <div class="form-inline mb-3 mt-10">
             <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
             <input type="text" value="{{ @$project_id->vender_name->name }}" disabled>
-        </div>
+        </div> --}}
         <div id="addmain" class="input-form mt-3">
             @foreach ($catagories as $key => $cat)
             <input type="hidden" value="{{ $id }}" name="id">
@@ -41,7 +41,10 @@
                             {{-- <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test"> --}}
                             <input type="text" class="w-24" value="{{ @$eb->sub_cata->code }}" disabled>
                             <input type="text" class="w-full" value="{{ $eb->sub_cata->name }}" disabled>
-                            <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ $eb->amount }}" disabled>
+                            <input type="number" name="width[][{{ $cat->id }}]" class="form-control w-16" placeholder="กว้าง" value="{{ $eb->width }}" disabled>
+                            <input type="number" name="depth[][{{ $cat->id }}]" class="form-control w-16" placeholder="ยาว" value="{{ $eb->depth }}" disabled>
+                            <input type="number" name="height[][{{ $cat->id }}]" class="form-control w-16" placeholder="สูง" value="{{ $eb->height }}" disabled>
+                            <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-16" placeholder="จำนวน" value="{{ $eb->amount }}" disabled>
                             <input type="text" class="w-24" value="{{ @$eb->unit_u->unit_name }}" disabled>
                             <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" value="{{ $eb->desc }}" disabled>
                             @php
@@ -66,10 +69,13 @@
                     @if ( $data_chk == '')
                         <div id="addsub" class="flex flex-row gap-2 mb-2">
                             {{-- <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test"> --}}
-                            <input type="text" class="w-24" value="" disabled>
-                            <input type="text" class="w-full" value="" disabled>
-                            <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" disabled>
-                            <input type="text" class="w-24" value="" disabled>
+                            <input type="text" class="w-24" disabled>
+                            <input type="text" class="w-full" disabled>
+                            <input type="number" name="width[][{{ $cat->id }}]" class="form-control w-16" placeholder="กว้าง" disabled>
+                            <input type="number" name="depth[][{{ $cat->id }}]" class="form-control w-16" placeholder="ยาว" disabled>
+                            <input type="number" name="height[][{{ $cat->id }}]" class="form-control w-16" placeholder="สูง" disabled>
+                            <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-16" placeholder="จำนวน" disabled>
+                            <input type="text" class="w-24" placeholder="หน่วย" disabled>
                             <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" disabled>
                             @php
                             $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)

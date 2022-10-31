@@ -1,7 +1,7 @@
 <table>
     <thead>
         <tr>
-            <th><img src="public/logo/logo-cmg.jpg" width="63px" height="67px" alt=""></th>
+            <th></th>
             <th><b>CENTRAL TRADING CO.,LTD.</b></th>
         </tr>
         <tr>
@@ -24,16 +24,20 @@
 <table style="border: 1px solid black; border-collapse: collapse;">
     <thead>
         <tr>
-            <th><b>โครงการ</b></th>
-            <th colspan="3">{{ @$export_boq->project->brand_master->brand_name }}</th>
+            <th style="width: 120px;"><b>โครงการ</b></th>
+            <th colspan="1">{{ @$export_boq->project->brand_master->brand_name }}</th>
             <th style="width: 120px;"><b>ชื่อผู้เสนอราคา</b></th>
             <th colspan="3">{{ @$export_boq->vender_name->name }}</th>
+            <th style="width: 160px;"><b>OVERHEAD</b></th>
+            <th>{{ @$export_boq->overhead }}</th>
         </tr>
         <tr>
-            <th><b>สถานที่</b></th>
-            <th colspan="3">{{ @$export_boq->project->location_master->location_name }}</th>
+            <th style="width: 120px;"><b>สถานที่</b></th>
+            <th colspan="1">{{ @$export_boq->project->location_master->location_name }}</th>
             <th style="width: 120px;"><b>ขนาดพื้นที่</b></th>
             <th colspan="3">{{ @$export_boq->project->area }} ตร.ม</th>
+            <th style="width: 160px;"><b>COMMERCIAL DISCOUNT</b></th>
+            <th>{{ @$export_boq->discount }}</th>
         </tr>
         <tr>
             <th style="text-align:center; background-color:gray">รายการ</th>

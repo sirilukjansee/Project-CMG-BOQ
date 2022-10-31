@@ -17,10 +17,12 @@ use App\Imports\BoqVendersImport;
 class FirstBoqVendersImport implements ToModel, WithMappedCells
 {
     protected $project_id;
+    protected $vender_id;
 
-    function __construct($project_id)
+    function __construct($project_id,$vender_id)
     {
         $this->project_id = $project_id;
+        $this->vender_id = $vender_id;
     }
 
     public function mapping(): array
@@ -28,8 +30,8 @@ class FirstBoqVendersImport implements ToModel, WithMappedCells
         return [
             'row5' => 'F7',
             'row4' => 'E53',
-            'OVERHEAD'  => 'E53',
-            'DISCOUNT' => 'E54',
+            // 'OVERHEAD'  => 'E53',
+            // 'DISCOUNT' => 'E54',
         ];
     }
 
@@ -38,31 +40,31 @@ class FirstBoqVendersImport implements ToModel, WithMappedCells
 
         if( $row['row5'] != null )
         {
-            $vds = Vender::where('name', $row['row5'] )->first();
-            if( $vds )
-            {
-                $_SESSION["vds"] = $vds->id;
-                if( is_numeric($row['row4']) )
-                {
+            // $vds = Vender::where('name', $row['row5'] )->first();
+            // if( $vds )
+            // {
+                // $_SESSION["vds"] = $vds->id;
+                // if( is_numeric($row['row4']) )
+                // {
                     // dd($_SESSION["vds"]);
                 $_SESSION["imp"] = Import_vender::create([
                     'id_project' => $this->project_id,
-                    'id_vender' => $_SESSION["vds"],
+                    'id_vender' => $this->vender_id,
                     // 'overhead' => $row[4],
                     // 'discount' => $row[4],
                 ])->id;
-                }
-            }
+                // }
+            // }
 
         }
-        if( is_numeric($row['row4']) )
-        {
-            // dd($row[4]);
-            Import_vender::where('id', $_SESSION["imp"])->update([
-                'overhead' => $row['OVERHEAD'],
-                'discount' => $row['DISCOUNT'],
-            ]);
-        }
+        // if( is_numeric($row['row4']) )
+        // {
+        //     // dd($row[4]);
+        //     Import_vender::where('id', $_SESSION["imp"])->update([
+        //         'overhead' => $row['OVERHEAD'],
+        //         'discount' => $row['DISCOUNT'],
+        //     ]);
+        // }
         // $name = "BoqVendersImport";
 
         // new MultiSheetImport(78);

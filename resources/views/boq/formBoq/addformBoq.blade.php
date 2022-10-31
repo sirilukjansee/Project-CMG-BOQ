@@ -58,7 +58,7 @@
                     <form action="{{ route('add_Boq1') }}" method="post" id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
                         {{-- <form id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data"> --}}
                         @csrf
-                        <div class="form-inline mb-3 mt-10">
+                        {{-- <div class="form-inline mb-3 mt-10">
                             <label for="horizontal-form-1" class="form-label ml-4"><b> Vender </b><span style="color: red">*</span> : </label>
                             <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender...">
                                 <option selected value=""></option>
@@ -66,7 +66,7 @@
                                 <option value="{{ $vd->id }}">{{ $vd->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                         <input type="hidden" value="{{ $template_id }}" name="temp_id" id="temp_id">
                         <input type="hidden" value="{{ $project->id }}" name="project_id" id="p_id">
                         <input type="hidden" value="{{ $project->brand }}" name="brand_id" id="b_id"> {{-- ID brand จาก project--}}
@@ -81,24 +81,36 @@
                                             <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
                                             <span id="select_code_id{{$key + 1}}"></span>
                                             <span id="select_sub_id{{$key + 1}}"></span>
-                                            <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" rel="{{$key + 1}}">
-                                            <select name="unit_id[][{{ $cat->id }}]" id="unit{{$key + 1}}" class="form-control w-24">
-                                                <option selected value=""></option>
-                                                @foreach ($catagories2 as $cat2)
-                                                <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <input type="text" id="desc" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">
+                                            <input type="number" id="width{{$key + 1}}" name="width[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="กว้าง">
+                                            <input type="number" id="depth{{$key + 1}}" name="depth[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="ยาว">
+                                            <input type="number" id="height{{$key + 1}}" name="height[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="สูง">
                                             @php
                                             $data_chk = App\Models\template_boqs::where('project_id', $project->id)
                                             ->where('name', "Master BOQ")
                                             ->first();
                                             @endphp
                                             @if ( $data_chk )
-                                            <input type="number" id="material{{$key + 1}}" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24 material{{$key + 1}}" rel="{{$key + 1}}">
-                                            <input type="number" id="wage{{$key + 1}}" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24 wage{{$key + 1}}" rel="{{$key + 1}}">
-                                            <input type="text" id="each_unit{{$key + 1}}" name="each_unit[][{{ $cat->id }}]" placeholder="รวม/หน่วย" class="form-control w-24 each_unit{{ $key+1 }}" readonly>
-                                            <input type="text" id="all_unit{{$key + 1}}"  name="all_unit[][{{ $cat->id }}]" placeholder="รวมทั้งหมด" class="form-control w-24 all_unit{{ $key+1 }}" readonly>
+                                            <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-20" placeholder="จำนวน" rel="{{$key + 1}}" required>
+                                            @else
+                                            <input type="number" id="amount{{$key + 1}}" name="amount[][{{ $cat->id }}]" class="form-control w-20" placeholder="จำนวน" min="0" rel="{{$key + 1}}" required>
+                                            @endif
+                                            <select name="unit_id[][{{ $cat->id }}]" id="unit{{$key + 1}}" class="form-control w-20" required>
+                                                <option selected value=""></option>
+                                                @foreach ($catagories2 as $cat2)
+                                                <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <input type="text" id="desc" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">
+                                            {{-- @php
+                                            $data_chk = App\Models\template_boqs::where('project_id', $project->id)
+                                            ->where('name', "Master BOQ")
+                                            ->first();
+                                            @endphp --}}
+                                            @if ( $data_chk )
+                                            <input type="number" id="material{{$key + 1}}" name="material_cost[][{{ $cat->id }}]" min="0" placeholder="ค่าวัสดุ" class="form-control w-20 material{{$key + 1}}" rel="{{$key + 1}}">
+                                            <input type="number" id="wage{{$key + 1}}" name="wage_cost[][{{ $cat->id }}]" min="0" placeholder="ค่าแรง" class="form-control w-20 wage{{$key + 1}}" rel="{{$key + 1}}">
+                                            <input type="text" id="each_unit{{$key + 1}}" name="each_unit[][{{ $cat->id }}]" min="0" placeholder="รวม/หน่วย" class="form-control w-20 each_unit{{ $key+1 }}" readonly>
+                                            <input type="text" id="all_unit{{$key + 1}}"  name="all_unit[][{{ $cat->id }}]" min="0" placeholder="รวมทั้งหมด" class="form-control w-20 all_unit{{ $key+1 }}" readonly>
                                             @endif
                                             <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                         </div>
@@ -170,7 +182,7 @@
                                 </div>
                                 <div class="px-5 pb-8 text-center">
                                     <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                                    <button type="button" id="btn_send" name="send" class="btn btn-primary w-28">Save & Send</button>
+                                    <button type="button" id="btn_send_to" name="send" class="btn btn-primary w-28">Save & Send</button>
                                 </div>
                             </div>
                         </div>
@@ -204,33 +216,31 @@
     });
 
     //alert
-<<<<<<< HEAD
-    function myFunction() {
-=======
     function myFunction(){
->>>>>>> bbcb3822bb9a888f579866b53d0a1a34aa352448
         const myModal = tailwind.Modal.getInstance(document.querySelector("#delete-modal-preview"));
-        var x = document.forms["form1"]["vender_id"].value;
-        if(x == "" || x == null) {
-            alert("Vender must be filled out");
-            // $('#delete-modal-preview').hide();
-            myModal.hide();
-            return false;
-        }if(x != "" || x != null)
-        {
+        // var x = document.forms["form1"]["vender_id"].value;
+        // if(x == "" || x == null) {
+        //     alert("Vender must be filled out");
+        //     // $('#delete-modal-preview').hide();
+        //     myModal.hide();
+        //     return false;
+        // }if(x != "" || x != null)
+        // {
             // jQuery('#delete-modal-preview').show();
             myModal.show();
 
-        }
+        // }
     }
 
+    
+
     //
-    jQuery(document).on('click', "#btn_send1", function(){
+    jQuery(document).on('click', "#btn_send_to", function(){
         $('#is_btn').val("btn_send");
     });
 
     //save & send
-    jQuery(document).on('click', "#btn_send", function(){
+    jQuery(document).on('click', "#btn_send_to", function(){
         document.getElementById("form1").submit();
     });
 
@@ -554,15 +564,22 @@
                         }
                     });
                     html += '</select>';
-                    html += '<input type="number" id="amount2'+x+'" name="amount[]['+value.id+']" class="form-control w-24" placeholder="จำนวน" rel="'+x+'">';
-                    html += '<select name="unit_id[]['+value.id+']" class="form-control w-24" required>';
+                    html +=  '<input type="number" name="width[]['+value.id+']" class="form-control w-16" min="0" step=".01" placeholder="กว้าง">';
+                    html +=  '<input type="number" name="depth[]['+value.id+']" class="form-control w-16" min="0" step=".01" placeholder="ยาว">';
+                    html +=  '<input type="number" name="height[]['+value.id+']" class="form-control w-16" min="0" step=".01" placeholder="สูง">';
+                    html += '@if ( $data_chk )';
+                    html += '<input type="number" id="amount2'+x+'" name="amount[]['+value.id+']" class="form-control w-20" placeholder="จำนวน" rel="'+x+'">';
+                    html += '@else';
+                    html += '<input type="number" id="amount2'+x+'" name="amount[]['+value.id+']" class="form-control w-20" min="0" placeholder="จำนวน" rel="'+x+'">';
+                    html += '@endif';
+                    html += '<select name="unit_id[]['+value.id+']" class="form-control w-20" required>';
                     html += '<option selected value=""></option>@foreach ($catagories2 as $cat2)<option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>@endforeach</select>';
                     html += '<input type="text" name="desc[]['+value.id+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="desc">';
                     html += '@if ( $data_chk )';
-                    html += '<input type="number" id="material2'+x+'" name="material_cost[]['+value.id+']" placeholder="ค่าวัสดุ" class="form-control w-24 material'+x+'" rel="'+x+'">';
-                    html += '<input type="number" id="wage2'+x+'" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24 wage'+x+'" rel="'+x+'">';
-                    html += '<input type="text" id="each_unit2'+x+'" name="each_unit[]['+value.id+']" placeholder="รวม/หน่วย" class="form-control w-24 each_unit'+x+'" readonly>';
-                    html += '<input type="text" id="all_unit2'+x+'" name="all_unit[]['+value.id+']" placeholder="รวมทั้งหมด" class="form-control w-24 all_unit'+x+'" readonly>';
+                    html += '<input type="number" id="material2'+x+'" name="material_cost[]['+value.id+']" min="0" placeholder="ค่าวัสดุ" class="form-control w-20 material'+x+'" rel="'+x+'">';
+                    html += '<input type="number" id="wage2'+x+'" name="wage_cost[]['+value.id+']" min="0" placeholder="ค่าแรง" class="form-control w-20 wage'+x+'" rel="'+x+'">';
+                    html += '<input type="text" id="each_unit2'+x+'" name="each_unit[]['+value.id+']" min="0" placeholder="รวม/หน่วย" class="form-control w-20 each_unit'+x+'" readonly>';
+                    html += '<input type="text" id="all_unit2'+x+'" name="all_unit[]['+value.id+']" min="0" placeholder="รวมทั้งหมด" class="form-control w-20 all_unit'+x+'" readonly>';
                     html += '@endif';
                     html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
                     html += '</div>';

@@ -217,6 +217,7 @@ Route::middleware(['auth'])->group(function () {
 
     //AUC
     Route::get('auc/{id}', [AucController::class, 'index']);
+    Route::get('select-to-auc/{id}/{id_1}', [AucController::class, 'select_auc']);
 
     // Import File
     Route::post('/import-boqvender', [ImportVenderController::class, 'uploadBoqVender']);

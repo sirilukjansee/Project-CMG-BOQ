@@ -58,7 +58,7 @@ class SheetsExport implements FromView, WithTitle, WithStyles, WithDrawings
 
         // lock all cells then unlock the cell
         $sheet->getParent()->getActiveSheet()
-            ->getStyle('E53:E54')
+            ->getStyle('A1')
             ->getProtection()
             ->setLocked(Protection::PROTECTION_UNPROTECTED);
 
@@ -81,8 +81,8 @@ class SheetsExport implements FromView, WithTitle, WithStyles, WithDrawings
             $drawing2->setName('Logo');
             $drawing2->setDescription('This is my logo');
             $drawing2->setPath(public_path('/logo/DRAFT.png'));
-            $drawing2->setHeight(500);
-            $drawing2->setCoordinates('D9');
+            $drawing2->setHeight(750);
+            $drawing2->setCoordinates('B11');
 
             return [$drawing, $drawing2];
         // }

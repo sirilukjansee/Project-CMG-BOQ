@@ -135,14 +135,24 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 class="font-medium text-base mr-auto">Import Boq Form Vender</h2>
-                    </div> <!-- END: Modal Header -->
+                    </div>
+                    <!-- END: Modal Header -->
                     <!-- BEGIN: Modal Body -->
                     <form action="{{ url('/import-boqvender') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="{{ $project->id }}">
+                        <label for="horizontal-form-1" class="form-label ml-4 mt-3"><b> Vender </b><span style="color: red">*</span> : </label>
+                        <div class="ml-4">
+                        <select id="id_vender" name="id_vender" class="tom-select w-72" placeholder="Select Vender...">
+                            <option selected value=""></option>
+                            @foreach ( $vend_imp as $vd )
+                            <option value="{{ $vd->id }}">{{ $vd->name }}</option>
+                            @endforeach
+                        </select>
+                        </div>
                         <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                             <div class="col-span-12 sm:col-span-4 input-form mt-3">
-                                <input name="file" type="file" class="form-control"/>
+                                <input name="file" type="file" class="form-control" required/>
                             </div>
                         </div>
                         <!-- BEGIN: Modal Footer -->
@@ -173,7 +183,7 @@
                             <div class="px-5 pb-8 text-center">
                                 <button type="button" data-tw-dismiss="modal"
                                     class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                                <button type="submit" name="send" class="btn btn-primary w-28">Send</button>
+                                <button type="submit" name="send" class="btn btn-primary w-28" onclick="myFunction()">Send</button>
                             </div>
                         </form>
                     </div>
@@ -201,6 +211,7 @@
                 <thead class="table-light">
                     <tr>
                         <th class="whitespace-nowrap">ID</th>
+                        <th class="whitespace-nowrap">ID_BOQ</th>
                         <th class="whitespace-nowrap">Vender</th>
                         <th class="text-center whitespace-nowrap">Date</th>
                         <th class="text-center whitespace-nowrap"></th>
@@ -215,6 +226,15 @@
                             </div>
                         </td>
                         <td>
+                            <a class="font-medium whitespace-nowrap">{{ @$ib->template_d->number_id }}
+                            @if( @$ib->template_d->name == "Master BOQ" )
+                                (M)
+                            @elseif (@$ib->template_d->name == "Additional BOQ")
+                                (A)
+                            @endif
+                            </a>
+                        </td>
+                        <td>
                             <a class="font-medium whitespace-nowrap">{{ @$ib->vender_name->name }}</a>
                         </td>
                         <td class="table-report__action w">
@@ -223,6 +243,25 @@
                         <td class="table-report__action">
                             <div class="btn-group text-center flex justify-center">
                                 {{-- <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a> --}}
+                                <div class="dropdown">
+                                    <button class="dropdown-toggle btn btn-secondary w-full sm:w-auto mr-2" aria-expanded="false" data-tw-toggle="dropdown">Select BOQ</button>
+                                    {{-- <input type="text" value="{{ $ib->id }}"> --}}
+                                    <div class="dropdown-menu w-40">
+                                        <ul class="dropdown-content">
+                                            @foreach ( $temp_boq as $key => $tbp )
+                                            <li>
+                                                <a href="{{ url('/select-to-auc', [$ib->id, $tbp->id] ) }}" class="dropdown-item">{{ $tbp->number_id }}
+                                                @if( $tbp->name == "Master BOQ" )
+                                                    (M)
+                                                @else
+                                                    (A)
+                                                @endif
+                                                </a>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
                                 <a href="{{ url('/export-vender', $ib->id) }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false">
                                 <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
                             </div>
@@ -241,5 +280,16 @@
             $('#boq_id').val(boq_id);
             jQuery('#send-modal-preview').show();
         });
+
+        // function myFunction(){
+        //     var x = document.forms["form1"]["id_vender"].value;
+        //     if(x == "" || x == null) {
+        //         alert("Vender must be filled out");
+        //         // $('#delete-modal-preview').hide();
+        //         // myModal.hide();
+        //         return false;
+        //     }
+        // }
+
     </script>
 @endsection

@@ -41,4 +41,10 @@ class template_boqs extends Model
     public function vender_auc(){
         return $this->hasOne(Import_vender::class, 'id_project', 'project_id');
     }
+    public function vender_auc1(){
+        return $this->hasOne(Import_vender::class, 'template_id', 'project_id');
+    }
+    public function vender_auc2(){
+        return $this->hasOne(Import_vender::class, 'template_id', 'id');
+    }
 }

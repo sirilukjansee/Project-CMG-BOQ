@@ -26,6 +26,13 @@ use function PHPUnit\Framework\isEmpty;
 
 class BoqController extends Controller
 {
+    // public function select_auc($id)
+    // {
+    //     $temp_id = template_boqs::where('id' ,$id)->first();
+
+    //     return back();
+    // }
+
     public function index($id)
     {
         $project = Project::leftjoin('brands','projects.brand','brands.brand_name')
@@ -33,15 +40,20 @@ class BoqController extends Controller
         ->select('projects.*','brands.id as brand_id')
         ->first();
 
+        $temp_id = template_boqs::where('id' ,$id)->first();
+
         $temp_boq = template_boqs::where('project_id', $id)
             ->get();
 
         $imp_boq = Import_vender::where('id_project', $id)
             ->get();
 
-            $_SESSION["projectID"] = $id;
+        $_SESSION["projectID"] = $id;
 
-        return view('boq.allBoq', compact('project','temp_boq','imp_boq'));
+        $vend_imp = Vender::where('is_active', "1")
+        ->get();
+
+        return view('boq.allBoq', compact('project','temp_boq','imp_boq','vend_imp','temp_id'));
     }
 
     public function choose_temp($templateid, $id)
@@ -125,55 +137,70 @@ class BoqController extends Controller
                             {
                                 foreach($request->desc[$key2] as $key6 => $value6)
                                 {
-                                    if ($request->wage_cost != '')
+                                    foreach($request->width[$key2] as $key11 => $value11)
                                     {
-                                        foreach($request->wage_cost[$key2] as $key7 => $value7)
+                                        foreach($request->depth[$key2] as $key12 => $value12)
                                         {
-                                            foreach($request->material_cost[$key2] as $key8 => $value8)
+                                            foreach($request->height[$key2] as $key13 => $value13)
                                             {
-                                                foreach($request->each_unit[$key2] as $key9 => $value9)
+                                                if ($request->wage_cost != '')
                                                 {
-                                                    foreach($request->all_unit[$key2] as $key10 => $value10)
+                                                    foreach($request->wage_cost[$key2] as $key7 => $value7)
                                                     {
-                                                        $boq = new Boq;
+                                                        foreach($request->material_cost[$key2] as $key8 => $value8)
+                                                        {
+                                                            foreach($request->each_unit[$key2] as $key9 => $value9)
+                                                            {
+                                                                foreach($request->all_unit[$key2] as $key10 => $value10)
+                                                                {
+                                                                    $boq = new Boq;
+                                                                    $boq->template_boq_id = $template;
+                                                                    // $boq->vender_id = ($request->vender_id);
+                                                                    $boq->main_id = ($key3);
+                                                                    $boq->sub_id = ($value3);
+                                                                    $boq->width = $value11;
+                                                                    $boq->depth = $value12;
+                                                                    $boq->height = $value13;
+                                                                    $boq->amount = $value4;
+                                                                    $boq->unit_id = $value5;
+                                                                    $boq->desc = $value6;
+                                                                    $boq->total = $request->total;
+                                                                    $boq->wage_cost = $value7;
+                                                                    $boq->material_cost = $value8;
+                                                                    $boq->each_unit = $value9;
+                                                                    $boq->all_unit = $value10;
+                                                                    $boq->status = $send_form;
+                                                                    $boq->comment = $request->comment;
+                                                                    $boq->create_by = Auth::user()->id;
+                                                                    // $boq->update_by = ;
+                                                                    $boq->save();
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }else{
+                                                    $boq = new Boq;
                                                         $boq->template_boq_id = $template;
                                                         // $boq->vender_id = ($request->vender_id);
                                                         $boq->main_id = ($key3);
                                                         $boq->sub_id = ($value3);
+                                                        $boq->width = $value11;
+                                                        $boq->depth = $value12;
+                                                        $boq->height = $value13;
                                                         $boq->amount = $value4;
                                                         $boq->unit_id = $value5;
                                                         $boq->desc = $value6;
                                                         $boq->total = $request->total;
-                                                        $boq->wage_cost = $value7;
-                                                        $boq->material_cost = $value8;
-                                                        $boq->each_unit = $value9;
-                                                        $boq->all_unit = $value10;
+                                                        // $boq->wage_cost = $value7;
+                                                        // $boq->material_cost = $value8;
                                                         $boq->status = $send_form;
                                                         $boq->comment = $request->comment;
                                                         $boq->create_by = Auth::user()->id;
-                                                        // $boq->update_by = ;
+                                                        // $boq->update_by = 1;
                                                         $boq->save();
-                                                    }
                                                 }
                                             }
                                         }
-                                    }else{
-                                        $boq = new Boq;
-                                            $boq->template_boq_id = $template;
-                                            // $boq->vender_id = ($request->vender_id);
-                                            $boq->main_id = ($key3);
-                                            $boq->sub_id = ($value3);
-                                            $boq->amount = $value4;
-                                            $boq->unit_id = $value5;
-                                            $boq->desc = $value6;
-                                            $boq->total = $request->total;
-                                            // $boq->wage_cost = $value7;
-                                            // $boq->material_cost = $value8;
-                                            $boq->status = $send_form;
-                                            $boq->comment = $request->comment;
-                                            $boq->create_by = Auth::user()->id;
-                                            // $boq->update_by = 1;
-                                            $boq->save();
                                     }
                                 }
                             }
@@ -233,60 +260,74 @@ class BoqController extends Controller
 
                                 foreach($request->unit_id[$key2] as $key5 => $value5)
                                 {
-
                                     foreach($request->desc[$key2] as $key6 => $value6)
                                     {
-                                        if( $request->wage_cost != '')
+                                        foreach($request->width[$key2] as $key11 => $value11)
                                         {
-                                            foreach($request->wage_cost[$key2] as $key7 => $value7)
+                                            foreach($request->depth[$key2] as $key12 => $value12)
                                             {
-                                                foreach($request->material_cost[$key2] as $key8 => $value8)
+                                                foreach($request->height[$key2] as $key13 => $value13)
                                                 {
-                                                    foreach($request->each_unit[$key2] as $key9 => $value9)
+                                                    if( $request->wage_cost != '')
                                                     {
-                                                        foreach($request->all_unit[$key2] as $key10 => $value10)
+                                                        foreach($request->wage_cost[$key2] as $key7 => $value7)
                                                         {
-                                                            $boq = new Boq;
-                                                            $boq->template_boq_id = $request->id;
-                                                            // $boq->vender_id = ($request->vender_id);
-                                                            $boq->main_id = ($key3);
-                                                            $boq->sub_id = ($value3);
-                                                            $boq->amount = $value4;
-                                                            $boq->unit_id = $value5;
-                                                            $boq->desc = $value6;
-                                                            $boq->total = $request->total;
-                                                            $boq->wage_cost = $value7;
-                                                            $boq->material_cost = $value8;
-                                                            $boq->each_unit = $value9;
-                                                            $boq->all_unit = $value10;
-                                                            $boq->status = $send_form;
-                                                            $boq->comment = $request->comment;
-                                                            // $boq->create_by = 1;
-                                                            $boq->update_by = Auth::user()->id;
-                                                            $boq->save();
+                                                            foreach($request->material_cost[$key2] as $key8 => $value8)
+                                                            {
+                                                                foreach($request->each_unit[$key2] as $key9 => $value9)
+                                                                {
+                                                                    foreach($request->all_unit[$key2] as $key10 => $value10)
+                                                                    {
+                                                                        $boq = new Boq;
+                                                                        $boq->template_boq_id = $request->id;
+                                                                        // $boq->vender_id = ($request->vender_id);
+                                                                        $boq->main_id = ($key3);
+                                                                        $boq->sub_id = ($value3);
+                                                                        $boq->width = $value11;
+                                                                        $boq->depth = $value12;
+                                                                        $boq->height = $value13;
+                                                                        $boq->amount = $value4;
+                                                                        $boq->unit_id = $value5;
+                                                                        $boq->desc = $value6;
+                                                                        $boq->total = $request->total;
+                                                                        $boq->wage_cost = $value7;
+                                                                        $boq->material_cost = $value8;
+                                                                        $boq->each_unit = $value9;
+                                                                        $boq->all_unit = $value10;
+                                                                        $boq->status = $send_form;
+                                                                        $boq->comment = $request->comment;
+                                                                        // $boq->create_by = 1;
+                                                                        $boq->update_by = Auth::user()->id;
+                                                                        $boq->save();
+                                                                    }
+                                                                }
+                                                            }
                                                         }
+                                                    }else{
+                                                        $boq = new Boq;
+                                                        $boq->template_boq_id = $request->id;
+                                                        // $boq->vender_id = ($request->vender_id);
+                                                        $boq->main_id = ($key3);
+                                                        $boq->sub_id = ($value3);
+                                                        $boq->width = $value11;
+                                                        $boq->depth = $value12;
+                                                        $boq->height = $value13;
+                                                        $boq->amount = $value4;
+                                                        $boq->unit_id = $value5;
+                                                        $boq->desc = $value6;
+                                                        $boq->total = $request->total;
+                                                        // $boq->wage_cost = $value7;
+                                                        // $boq->material_cost = $value8;
+                                                        // $boq->each_unit = $value9;
+                                                        // $boq->all_unit = $value10;
+                                                        $boq->status = $send_form;
+                                                        $boq->comment = $request->comment;
+                                                        // $boq->create_by = 1;
+                                                        $boq->update_by = Auth::user()->id;
+                                                        $boq->save();
                                                     }
                                                 }
                                             }
-                                        }else{
-                                            $boq = new Boq;
-                                            $boq->template_boq_id = $request->id;
-                                            // $boq->vender_id = ($request->vender_id);
-                                            $boq->main_id = ($key3);
-                                            $boq->sub_id = ($value3);
-                                            $boq->amount = $value4;
-                                            $boq->unit_id = $value5;
-                                            $boq->desc = $value6;
-                                            $boq->total = $request->total;
-                                            // $boq->wage_cost = $value7;
-                                            // $boq->material_cost = $value8;
-                                            // $boq->each_unit = $value9;
-                                            // $boq->all_unit = $value10;
-                                            $boq->status = $send_form;
-                                            $boq->comment = $request->comment;
-                                            // $boq->create_by = 1;
-                                            $boq->update_by = Auth::user()->id;
-                                            $boq->save();
                                         }
                                     }
                                 }
@@ -313,9 +354,6 @@ class BoqController extends Controller
         return back()->with('Yay');
 
     }
-
-
-
 
     public function view_boq($id)
     {
@@ -354,7 +392,7 @@ class BoqController extends Controller
             ->get();
         // $number = 0;
         // return Excel::download(new BoqsExport($export_boq,$catagorie), 'BOQ-'.(@$export_boq->project->brand_master->brand_name).'-'.(@$export_boq->project->task_type_master->task_type_name).'-'.(@$export_boq->project->location_master->location_name).'-'.(@$export_boq->project->number_id).'.xlsx');
-        return Excel::download(new MultipleBoqExport($export_boq,$catagorie), ''.(@$export_boq->name).'-'.(@$export_boq->project->task_type_master->task_type_name).'-Concept-'.(@$export_boq->project->task_type_master->task_type_name).'-'.(@$export_boq->project->location_master->location_name).'-'.(@$export_boq->project->number_id).'.xlsx');
+        return Excel::download(new MultipleBoqExport($export_boq,$catagorie), ''.(@$export_boq->name).'-'.(@$export_boq->project->brand_master->brand_name).''.(@$export_boq->project->concept_master->name).'-'.(@$export_boq->project->task_type_master->task_type_name).'-'.(@$export_boq->project->location_master->location_name).'-'.(@$export_boq->project->number_id).'.xlsx');
     }
 
     public function store_aj(Request $request)
@@ -439,98 +477,119 @@ class BoqController extends Controller
                             {
                                 foreach($request->desc[$key2] as $key6 => $value6)
                                 {
-                                    if ($request->wage_cost != '')
+                                    foreach($request->width[$key2] as $key11 => $value11)
                                     {
-                                        foreach($request->wage_cost[$key2] as $key7 => $value7)
+                                        foreach($request->depth[$key2] as $key12 => $value12)
                                         {
-                                            foreach($request->material_cost[$key2] as $key8 => $value8)
+                                            foreach($request->height[$key2] as $key13 => $value13)
                                             {
-                                                foreach($request->each_unit[$key2] as $key9 => $value9)
+                                                if ($request->wage_cost != '')
                                                 {
-                                                    foreach($request->all_unit[$key2] as $key10 => $value10)
+                                                    foreach($request->wage_cost[$key2] as $key7 => $value7)
                                                     {
-                                                        $chk_boq = Boq::where('template_boq_id', $template)->where('main_id', $key3)->where('sub_id', $value3)->first();
-                                                        if( $chk_boq )
+                                                        foreach($request->material_cost[$key2] as $key8 => $value8)
                                                         {
-                                                            $boq = Boq::where('id', $chk_boq->id)->first();
-                                                            $boq->template_boq_id = $template;
-                                                            // $boq->vender_id = ($request->vender_id);
-                                                            $boq->main_id = ($key3);
-                                                            $boq->sub_id = ($value3);
-                                                            $boq->amount = $value4;
-                                                            $boq->unit_id = $value5;
-                                                            $boq->desc = $value6;
-                                                            $boq->total = $request->total;
-                                                            $boq->wage_cost = $value7;
-                                                            $boq->material_cost = $value8;
-                                                            $boq->each_unit = $value9;
-                                                            $boq->all_unit = $value10;
-                                                            $boq->status = $send_form;
-                                                            $boq->comment = $request->comment;
-                                                            // $boq->create_by = 1;
-                                                            $boq->update_by = Auth::user()->id;
-                                                            $boq->update();
-                                                        }else{
-                                                            $boq = new Boq;
-                                                            $boq->template_boq_id = $template;
-                                                            // $boq->vender_id = ($request->vender_id);
-                                                            $boq->main_id = ($key3);
-                                                            $boq->sub_id = ($value3);
-                                                            $boq->amount = $value4;
-                                                            $boq->unit_id = $value5;
-                                                            $boq->desc = $value6;
-                                                            $boq->total = $request->total;
-                                                            $boq->wage_cost = $value7;
-                                                            $boq->material_cost = $value8;
-                                                            $boq->each_unit = $value9;
-                                                            $boq->all_unit = $value10;
-                                                            $boq->status = $send_form;
-                                                            $boq->comment = $request->comment;
-                                                            $boq->create_by = Auth::user()->id;
-                                                            // $boq->update_by = 1;
-                                                            $boq->save();
+                                                            foreach($request->each_unit[$key2] as $key9 => $value9)
+                                                            {
+                                                                foreach($request->all_unit[$key2] as $key10 => $value10)
+                                                                {
+                                                                    $chk_boq = Boq::where('template_boq_id', $template)->where('main_id', $key3)->where('sub_id', $value3)->first();
+                                                                    if( $chk_boq )
+                                                                    {
+                                                                        $boq = Boq::where('id', $chk_boq->id)->first();
+                                                                        $boq->template_boq_id = $template;
+                                                                        // $boq->vender_id = ($request->vender_id);
+                                                                        $boq->main_id = ($key3);
+                                                                        $boq->sub_id = ($value3);
+                                                                        $boq->amount = $value4;
+                                                                        $boq->width = $value11;
+                                                                        $boq->depth = $value12;
+                                                                        $boq->height = $value13;
+                                                                        $boq->unit_id = $value5;
+                                                                        $boq->desc = $value6;
+                                                                        $boq->total = $request->total;
+                                                                        $boq->wage_cost = $value7;
+                                                                        $boq->material_cost = $value8;
+                                                                        $boq->each_unit = $value9;
+                                                                        $boq->all_unit = $value10;
+                                                                        $boq->status = $send_form;
+                                                                        $boq->comment = $request->comment;
+                                                                        // $boq->create_by = 1;
+                                                                        $boq->update_by = Auth::user()->id;
+                                                                        $boq->update();
+                                                                    }else{
+                                                                        $boq = new Boq;
+                                                                        $boq->template_boq_id = $template;
+                                                                        // $boq->vender_id = ($request->vender_id);
+                                                                        $boq->main_id = ($key3);
+                                                                        $boq->sub_id = ($value3);
+                                                                        $boq->width = $value11;
+                                                                        $boq->depth = $value12;
+                                                                        $boq->height = $value13;
+                                                                        $boq->amount = $value4;
+                                                                        $boq->unit_id = $value5;
+                                                                        $boq->desc = $value6;
+                                                                        $boq->total = $request->total;
+                                                                        $boq->wage_cost = $value7;
+                                                                        $boq->material_cost = $value8;
+                                                                        $boq->each_unit = $value9;
+                                                                        $boq->all_unit = $value10;
+                                                                        $boq->status = $send_form;
+                                                                        $boq->comment = $request->comment;
+                                                                        $boq->create_by = Auth::user()->id;
+                                                                        // $boq->update_by = 1;
+                                                                        $boq->save();
+                                                                    }
+                                                                }
+                                                            }
                                                         }
+                                                    }
+                                                }else{
+                                                    $chk_boq = Boq::where('template_boq_id', $template)->where('main_id', $key3)->where('sub_id', $value3)->first();
+                                                    if( $chk_boq )
+                                                    {
+                                                        $boq = Boq::where('id', $chk_boq->id)->first();
+                                                        $boq->template_boq_id = $template;
+                                                        // $boq->vender_id = ($request->vender_id);
+                                                        $boq->main_id = ($key3);
+                                                        $boq->sub_id = ($value3);
+                                                        $boq->width = $value11;
+                                                        $boq->depth = $value12;
+                                                        $boq->height = $value13;
+                                                        $boq->amount = $value4;
+                                                        $boq->unit_id = $value5;
+                                                        $boq->desc = $value6;
+                                                        $boq->total = $request->total;
+                                                        // $boq->wage_cost = $value7;
+                                                        // $boq->material_cost = $value8;
+                                                        $boq->status = $send_form;
+                                                        $boq->comment = $request->comment;
+                                                        // $boq->create_by = 1;
+                                                        $boq->update_by = Auth::user()->id;
+                                                        $boq->update();
+                                                    }else{
+                                                        $boq = new Boq;
+                                                        $boq->template_boq_id = $template;
+                                                        // $boq->vender_id = ($request->vender_id);
+                                                        $boq->main_id = ($key3);
+                                                        $boq->sub_id = ($value3);
+                                                        $boq->width = $value11;
+                                                        $boq->depth = $value12;
+                                                        $boq->height = $value13;
+                                                        $boq->amount = $value4;
+                                                        $boq->unit_id = $value5;
+                                                        $boq->desc = $value6;
+                                                        $boq->total = $request->total;
+                                                        // $boq->wage_cost = $value7;
+                                                        // $boq->material_cost = $value8;
+                                                        $boq->status = $send_form;
+                                                        $boq->comment = $request->comment;
+                                                        $boq->create_by = Auth::user()->id;
+                                                        // $boq->update_by = 1;
+                                                        $boq->save();
                                                     }
                                                 }
                                             }
-                                        }
-                                    }else{
-                                        $chk_boq = Boq::where('template_boq_id', $template)->where('main_id', $key3)->where('sub_id', $value3)->first();
-                                        if( $chk_boq )
-                                        {
-                                            $boq = Boq::where('id', $chk_boq->id)->first();
-                                            $boq->template_boq_id = $template;
-                                            // $boq->vender_id = ($request->vender_id);
-                                            $boq->main_id = ($key3);
-                                            $boq->sub_id = ($value3);
-                                            $boq->amount = $value4;
-                                            $boq->unit_id = $value5;
-                                            $boq->desc = $value6;
-                                            $boq->total = $request->total;
-                                            // $boq->wage_cost = $value7;
-                                            // $boq->material_cost = $value8;
-                                            $boq->status = $send_form;
-                                            $boq->comment = $request->comment;
-                                            // $boq->create_by = 1;
-                                            $boq->update_by = Auth::user()->id;
-                                            $boq->update();
-                                        }else{
-                                            $boq = new Boq;
-                                            $boq->template_boq_id = $template;
-                                            // $boq->vender_id = ($request->vender_id);
-                                            $boq->main_id = ($key3);
-                                            $boq->sub_id = ($value3);
-                                            $boq->amount = $value4;
-                                            $boq->unit_id = $value5;
-                                            $boq->desc = $value6;
-                                            $boq->total = $request->total;
-                                            // $boq->wage_cost = $value7;
-                                            // $boq->material_cost = $value8;
-                                            $boq->status = $send_form;
-                                            $boq->comment = $request->comment;
-                                            $boq->create_by = Auth::user()->id;
-                                            // $boq->update_by = 1;
-                                            $boq->save();
                                         }
                                     }
                                 }
@@ -539,9 +598,12 @@ class BoqController extends Controller
                     }
                 }
             }
-<<<<<<< HEAD
-            if ($send_form == 1) {
-=======
-
             if ($request->btn_send == "btn_send") {
->>>>>>> bbcb3822bb9a888f579866b53d0a1a34aa352448
+                return redirect(route('allBoq',$request->project_id));
+            }else {
+                return response()->json([
+                    'temp' => $template_id
+                ]);
+            }
+        }
+    }

@@ -22,13 +22,18 @@
     </div>
     <ul class="nav nav-tabs" role="tablist">
     @foreach ( $auc_temp as $key => $auc )
-        @if ( $auc->project_id == $id )
-        <li id="example-{{$key}}-tab" class="nav-item flex-1" role="presentation">
-            <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-{{$key}}" type="button" role="tab" aria-controls="example-tab-{{$key}}" aria-selected="true">
-                {{ $auc->name }}
-            </button>
-        </li>
-        @endif
+    @foreach ( $auc_ven as $key1 => $avd )
+    @if ( $auc->project_id == $id )
+    @if ( $avd->template_id == $auc->id )
+    <li id="example-{{$key}}-tab" class="nav-item flex-1" role="presentation">
+        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-{{$key}}" type="button" role="tab" aria-controls="example-tab-{{$key}}" value="{{ $auc->id }}" aria-selected="true">
+        {{ $auc->id }},{{ $avd->id  }}
+        {{ $auc->name }}
+        </button>
+    </li>
+    @endif
+    @endif
+    @endforeach
     @endforeach
     </ul>
     <div class="tab-content border-l border-r border-b">
@@ -37,12 +42,16 @@
         <div id="example-tab-{{$key}}" class="tab-pane leading-relaxed p-5 box" role="tabpanel" aria-labelledby="example-{{$key}}-tab">
             <div class="group_wrapper">
                 <div class="intro-y input-form p-3">
+                    <div class="mb-3">
+                        <input id="checkbox-switch-all{{$auc->id}}" class="form-check-input" type="checkbox" name="chk_all" value="">
+                        <label for="checkbox-switch-all{{$auc->id}}">Check all</label>
+                    </div>
                     <div id="addmain" class="input-form">
                         @foreach ( $catagories as $key => $cat )
                         <input type="hidden" value="{{ $id }}" id="project_id" name="project_id">
                         <div class="flex flex-row gap-2">
                             <input id="checkbox-switch-{{$cat->id}}{{$auc->id}}" class="form-check-input" type="checkbox" name="chk_m[{{ $auc->id }}][]" value="{{ $cat->id }}">
-                            <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(209, 208, 208);" readonly >
+                            <input id="main" type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(209, 208, 208);" readonly >
                         </div>
                         <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
                         <input type="hidden" name="template" value="{{$auc->id}}" id="template">
@@ -52,9 +61,10 @@
                                 @if ( $ac->main_id == $cat->id )
                                     <input type="hidden" name="project_id[][{{ $edit_dis->template_boq_id }}]">
                                     <div id="addsub" class="flex flex-row gap-2 mb-2 ml-3">
+                                        {{-- <input type="text" value="{{$cat->id}}"> --}}
                                         <input class="form-check-input chk{{$cat->id}}{{$auc->id}}" type="checkbox" name="chk_s[{{$auc->id}}][]" value="{{$ac->id}}">  <!-- เก็บ id ของ boq -->
                                         <input type="text" class="w-24" value="{{ @$ac->sub_cata->code }}" readonly>
-                                        <input type="text" name="sub[][{{ $ac->sub_id }}]" class="w-full" value="{{ @$ac->sub_cata->name }}" readonly>
+                                        <input type="text" name="sub[][{{ $ac->sub_id }}]" class="w-full sb" value="{{ @$ac->sub_cata->name }}" readonly>
                                         <input type="number" name="amount[][{{ $ac->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ @$ac->amount }}" readonly>
                                         <input type="text" name="unit[][{{ $ac->unit_id }}]" class="w-24" value="{{ @$ac->unit_u->unit_name }}" readonly>
                                         <input type="text" name="desc[][{{ $ac->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" value="{{ @$ac->desc }}" readonly>
@@ -79,7 +89,8 @@
                                 @endphp
                                 @if ( $data_chk == '')
                                     <div id="addsub" class="flex flex-row gap-2 mb-2 ml-3">
-                                        <input id="checkbox-switch-2" class="form-check-input" type="checkbox" name="chk">
+                                        {{-- <input type="text" value="{{$cat->id}}"> --}}
+                                        <input id="checkbox-switch-emt" class="form-check-input" type="checkbox" name="chk">
                                         <input type="text" class="w-24" value="" readonly>
                                         <input type="text" class="w-full" value="" readonly>
                                         <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" readonly>
@@ -110,7 +121,8 @@
     jQuery(document).ready(function(){
         var id = $('#project_id').val();
         var id_a = $('#template').val();
-        // console.log(id_a);
+        var id_1a = $('#main').val();
+        console.log(id_1a);
         jQuery.ajax({
             url: "{!! url('export-auc/"+id+"') !!}",
             type: "GET",
@@ -127,6 +139,19 @@
                                 jQuery('.chk'+value1.id+''+value.id+'').prop("disabled", false);
                                 jQuery('.chk'+value1.id+''+value.id+'').prop("checked", false);
                             }
+                        })
+
+                        jQuery('#checkbox-switch-all'+value.id+'').click( function () {
+                            // if( $('.sb') != null )
+                            // {
+                                // jQuery( '#checkbox-switch-'+value1.id+''+value.id+'' ).prop('checked', true);
+                                jQuery( '.chk'+value1.id+''+value.id+'' ).prop('checked', true);
+                                if( $('.chk'+value1.id+''+value.id+'').is(':checked') )
+                                {
+                                    jQuery( '#checkbox-switch-'+value1.id+''+value.id+'' ).prop('checked', true);
+                                    jQuery( '#checkbox-switch-'+value1.id+''+value.id+'' ).prop('disabled', true);
+                                }
+                            // }
                         })
                     })
                 })
