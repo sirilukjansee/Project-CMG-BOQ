@@ -39,13 +39,11 @@
                             <tr>
                                 <th scope="col" style="text-align: center;">ID</th>
                                 <th scope="col">Unit</th>
-                                <th scope="col">Status</th>
                                 <th scope="col" style="text-align: center;">Action</th>
                             </tr>
                             <tr>
                                 <th scope="col" class="filterhead" style="text-align: center;">ID</th>
                                 <th scope="col" class="filterhead">Unit</th>
-                                <th scope="col" class="filterhead">Status</th>
                                 <th scope="col" class="filterhead"></th>
                             </tr>
                         </thead>
@@ -54,20 +52,23 @@
                             <tr>
                                 <td class="text-center">{{ $key + 1 }}</td>
                                 <td>{{ $un->unit_name }}</td>
-                                <td>
-                                    @if ($un->is_active == "1")
-                                        ON
-                                    @else
-                                        OFF
-                                    @endif
-                                </td>
                                 <td class="text-center">
                                     <!-- BEGIN: Large Modal Toggle -->
                                     <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal({{$un->id}})" data-tw-toggle="modal"
                                         data-tw-target="#large-modal-size-preview_edit"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
 
-                                        <a href="{{ url('/masterUnit/changeStatus', $un->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i>On/Off</a>
-                                    {{-- <a href="{{ url('/masterUnit/softdelete', $un->id) }}" class="btn btn-dark gap-w"> Delete </a> --}}
+                                        @if ($un->is_active == "1")
+                                            <span class="form-switch">
+                                                <input id="" class="form-check-input status" type="checkbox" value="{{$un->id}}" checked>
+                                                <label class="form-check-label message_status{{$un->id}}" for="checkbox-switch-7">ON</label>
+                                            </span>
+                                        @else
+                                            <span class="form-switch">
+                                                <input id="" class="form-check-input status" type="checkbox" value="{{$un->id}}">
+                                                <label class="form-check-label message_status{{$un->id}}" for="checkbox-switch-7">OFF</label>
+                                            </span>
+                                        @endif
+                                        {{-- <a href="{{ url('/masterUnit/softdelete', $un->id) }}" class="btn btn-dark gap-w"> Delete </a> --}}
                                 </td>
                             </tr>
                             @endforeach
@@ -162,6 +163,34 @@
             <!-- END: Large Modal Content -->
 
 <script type="text/javascript">
+
+     // Change Status
+     $('.status').on('click', function() {
+        var id = $(this).val();
+        // console.log($(this).val());
+        if($(this).is(':checked') )
+            {
+                $('.message_status'+$(this).val()).text("ON");
+                jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('/masterUnit/changeStatus/"+id+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                    success: function() {}
+                });
+            }else{
+                $('.message_status'+$(this).val()).text("OFF");
+
+                jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('/masterUnit/changeStatus/"+id+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                    success: function() {}
+                });
+            }
+	});
+
     jQuery(document).ready(function() {
      var table = jQuery('#example').DataTable({
          "bLengthChange": true,
@@ -169,7 +198,7 @@
          "ordering": false,
 	   });
 
-       jQuery(".filterhead").not(":eq(3)").each( function ( i ) {
+       jQuery(".filterhead").not(":eq(2)").each( function ( i ) {
         var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
             .appendTo( jQuery(this).empty() )
             .on( 'change', function () {

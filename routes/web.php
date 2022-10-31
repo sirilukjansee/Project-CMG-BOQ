@@ -22,6 +22,9 @@ use App\Http\Controllers\CapexController;
 use App\Http\Controllers\ConceptController;
 use App\Http\Controllers\ImportVenderController;
 use App\Http\Controllers\AucController;
+use App\Http\Controllers\ReportAllController;
+use App\Http\Controllers\ReportDesignerController;
+use App\Http\Controllers\ReportYearController;
 // use Illuminate\Support\Facades\DB;
 
 /*
@@ -250,6 +253,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/export-auc', [AucController::class, 'export']);
     Route::get('/export-auc/{id}', [AucController::class, 'send_chhk']);
 
+    // Report
+    Route::get('reportAll', [ReportAllController::class, 'index']);
+    // Route::get('reportAll-detail/{id}', [ReportAllController::class, 'index_detail']);
+
+    Route::get('report-designer', [ReportDesignerController::class, 'index']);
+
+    Route::get('report-year', [ReportYearController::class, 'index']);
+    Route::get('report-task-type-ref-brand', [ReportYearController::class, 'index_brand']);
+    Route::get('report-task-type-ref-location', [ReportYearController::class, 'index_location']);
 });
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);

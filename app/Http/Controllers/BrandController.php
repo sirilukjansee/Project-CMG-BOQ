@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Brand;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class BrandController extends Controller
 {
@@ -25,8 +26,8 @@ class BrandController extends Controller
         $brand = new Brand;
         // $brand->code = $request->code;
         $brand->brand_name = $request->brand_name;
-        $brand->create_by = 1;
-        $brand->update_by = 1;
+        $brand->create_by = Auth::user()->id;
+        $brand->update_by = Auth::user()->id;
         $brand->save();
 
         return redirect()->back()->with('success', '!!! ADD DESIGNER/PM Complete !!!');
@@ -52,7 +53,7 @@ class BrandController extends Controller
         $design_pm = Brand::find($request->id)->update([
             // 'code' => $request->code,
             'brand_name' => $request->brand_name,
-            'update_by' => 1
+            'update_by' => Auth::user()->id
         ]);
 
         return back()->with('success', '!!! Edit DESIGNER/PM Complete !!!');
@@ -72,15 +73,15 @@ class BrandController extends Controller
         if ($data->is_active == "1") {
             Brand::where('id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }else {
             Brand::where('id',$data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }
-        return redirect()->back()->with('success','!!! Status Complete !!!');
+        return response()->json();
     }
 
     public function uploadBrand(Request $request)

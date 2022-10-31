@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Location;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class LocationController extends Controller
 {
@@ -24,8 +25,8 @@ class LocationController extends Controller
         $location = new Location;
         $location->location_name = $request->location_name;
         $location->is_active = "1";
-        $location->create_by = 1;
-        $location->update_by = 1;
+        $location->create_by = Auth::user()->id;
+        $location->update_by = Auth::user()->id;
         $location->save();
 
         return redirect()->back()->with('success', '!!! ADD DESIGNER/PM Complete !!!');
@@ -50,7 +51,7 @@ class LocationController extends Controller
 
         $location = Location::find($request->id)->update([
             'location_name' => $request->location_name,
-            'update_by' => 1
+            'update_by' => Auth::user()->id
         ]);
 
         return back()->with('success', '!!! Edit DESIGNER/PM Complete !!!');
@@ -70,15 +71,15 @@ class LocationController extends Controller
         if ($data->is_active == "1") {
             Location::where('id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }else {
             Location::where('id',$data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }
-        return redirect()->back()->with('success','!!! Status Complete !!!');
+        return response()->json();
     }
 
     public function uploadLocation(Request $request)

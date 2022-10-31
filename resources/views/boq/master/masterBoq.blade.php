@@ -40,14 +40,12 @@
                     <th scope="col" style="text-align: center;">ID</th>
                     <th scope="col">Code</th>
                     <th scope="col">งานหลัก</th>
-                    <th scope="col">Status</th>
                     <th scope="col" style="text-align: center;">Active</th>
                 </tr>
                 <tr>
                     <th scope="col" class="filterhead" style="text-align: center;">ID</th>
                     <th scope="col" class="filterhead">Codde</th>
                     <th scope="col" class="filterhead">งานหลัก</th>
-                    <th scope="col" class="filterhead">Status</th>
                     <th scope="col" class="filterhead" style="text-align: center;"></th>
                 </tr>
             </thead>
@@ -57,13 +55,6 @@
                         <td class="text-center">{{ $key + 1 }}</td>
                         <td>{{ $cat->code }}</td>
                         <td>{{ $cat->name }}</td>
-                        <td>
-                            @if ($cat->is_active == '1')
-                                ON
-                            @else
-                                OFF
-                            @endif
-                        </td>
                         <td class="text-center">
                             <a href="{{ url('sub_masterBoq', $cat->id) }}" class="btn btn-primary mr-2 mb-2"> <i
                                     data-lucide="list" class="w-4 h-4 mr-2"></i> Detail</a>
@@ -72,8 +63,17 @@
                                 data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_edit"> <i
                                     data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
 
-                            <a href="{{ url('/masterBoq/changeStatus', $cat->id) }}" class="btn btn-dark mr-2 mb-2"> <i
-                                    data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
+                            @if ($cat->is_active == "1")
+                                <span class="form-switch">
+                                    <input id="" class="form-check-input status" type="checkbox" value="{{$cat->id}}" checked>
+                                    <label class="form-check-label message_status{{$cat->id}}" for="checkbox-switch-7">ON</label>
+                                </span>
+                            @else
+                                <span class="form-switch">
+                                    <input id="" class="form-check-input status" type="checkbox" value="{{$cat->id}}">
+                                    <label class="form-check-label message_status{{$cat->id}}" for="checkbox-switch-7">OFF</label>
+                                </span>
+                            @endif
                             {{-- <a href="{{ url('/master/softdelete', $cat->id) }}" class="btn btn-dark gap-w"> Delete </a> --}}
                         </td>
                     </tr>
@@ -178,6 +178,34 @@
 <!-- END: Large Modal Content -->
 
 <script type="text/javascript">
+
+    // Change Status
+    $('.status').on('click', function() {
+        var id = $(this).val();
+        // console.log($(this).val());
+        if($(this).is(':checked') )
+            {
+                $('.message_status'+$(this).val()).text("ON");
+                jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('/masterBoq/changeStatus/"+id+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                    success: function() {}
+                });
+            }else{
+                $('.message_status'+$(this).val()).text("OFF");
+
+                jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('/masterBoq/changeStatus/"+id+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                    success: function() {}
+                });
+            }
+	});
+
 jQuery(document).ready(function() {
     var table = jQuery('#example').DataTable({
         "bLengthChange": true,
@@ -185,7 +213,7 @@ jQuery(document).ready(function() {
         "ordering": false,
     });
 
-    jQuery(".filterhead").not(":eq(4)").each( function ( i ) {
+    jQuery(".filterhead").not(":eq(3)").each( function ( i ) {
         var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
             .appendTo( jQuery(this).empty() )
             .on( 'change', function () {

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\task_type;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class TaskTypeController extends Controller
 {
@@ -24,8 +25,8 @@ class TaskTypeController extends Controller
         // dd($request);
         $tasktype = new task_type;
         $tasktype->task_type_name = $request->task_type_name;
-        $tasktype->create_by = 1;
-        $tasktype->update_by = 1;
+        $tasktype->create_by = Auth::user()->id;
+        $tasktype->update_by = Auth::user()->id;
         $tasktype->save();
 
         return redirect()->back()->with('success', '!!! ADD TASK_TYPE Complete !!!');
@@ -50,7 +51,7 @@ class TaskTypeController extends Controller
 
         $tasktype = task_type::find($request->id)->update([
             'task_type_name' => $request->task_type_name,
-            'update_by' => 1
+            'update_by' => Auth::user()->id
         ]);
 
         return back()->with('success', '!!! Edit TASK NAME Complete !!!');
@@ -70,15 +71,15 @@ class TaskTypeController extends Controller
         if ($data->is_active == "1") {
             task_type::where('id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }else {
             task_type::where('id',$data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }
-        return redirect()->back()->with('success','!!! Status Complete !!!');
+        return response()->json();
     }
 
     public function uploadTaskType(Request $request)
