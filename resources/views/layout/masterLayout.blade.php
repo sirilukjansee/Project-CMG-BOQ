@@ -268,7 +268,7 @@
                         <li>
                             <a href="{{ url('report-task-type-ref-location') }}" class="top-menu">
                                 <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
-                                <div class="top-menu__title"> Task Type (Location) Report </div>
+                                <div class="top-menu__title"> Task Type (Location) <br> Report </div>
                             </a>
                         </li>
             </ul>

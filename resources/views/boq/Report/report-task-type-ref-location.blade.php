@@ -3,7 +3,7 @@
 @section('content-data')
             <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
                 <h2 class="text-lg font-medium mr-auto">
-                   Task Type (Location) Report
+                   Task Type (Location) Report {{Carbon\Carbon::today()->toDateString()}}
                 </h2>
                 <div class="w-full sm:w-auto flex mt-4 sm:mt-0"></div>
             </div>
