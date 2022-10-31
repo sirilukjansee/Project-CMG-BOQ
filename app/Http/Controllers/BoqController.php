@@ -311,9 +311,11 @@ class BoqController extends Controller
         ]);
 
         return back()->with('Yay');
-        // return redirect(route('allBoq',$data->project_id));
 
     }
+
+
+
 
     public function view_boq($id)
     {
@@ -543,11 +545,3 @@ class BoqController extends Controller
 
             if ($request->btn_send == "btn_send") {
 >>>>>>> bbcb3822bb9a888f579866b53d0a1a34aa352448
-                return redirect(route('allBoq',$request->project_id));
-            }else {
-                return response()->json([
-                    'temp' => $template_id
-                ]);
-            }
-    }
-}
