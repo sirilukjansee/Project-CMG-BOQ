@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Project;
 
 class ReportAllController extends Controller
 {
 
     public function index()
     {
+        $data['projects'] = Project::orderBy('id', 'desc')->get();
+
         $_SESSION["projectID"] = '';
-        return view('boq.Report.reportAll');
+        return view('boq.Report.reportAll', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index_detail($id)
     {
         $_SESSION["projectID"] = '';

@@ -32,6 +32,10 @@ class Project extends Model
         'create_by',
     ];
 
+    public function capexs(){
+        return $this->hasOne(Capex::class,'project_id','id');
+    }
+
     public function brand_master(){
         return $this->hasOne(Brand::class,'id','brand');
     }
