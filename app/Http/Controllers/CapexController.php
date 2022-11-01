@@ -7,11 +7,14 @@ use App\Models\catagory;
 use App\Models\Capex;
 use App\Models\template_boqs;
 use App\Models\Boq;
+use App\Exports\CapexExport;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class CapexController extends Controller
 {
@@ -123,5 +126,13 @@ class CapexController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export($id)
+    {
+        // dd($id);
+        // $cpx = Project::where('id', $id)->first();
+
+        return Excel::download(new CapexExport($id), 'Capex.xlsx');
     }
 }

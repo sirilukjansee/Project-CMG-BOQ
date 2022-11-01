@@ -50,7 +50,7 @@
                                         <option value="{{$cat_s->id}}">{{@$cat_s->name}}</option>
                                         @endforeach
                                     </select>
-                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ $eb->amount }}">
+                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" min="0" step=".01" value="{{ $eb->amount }}">
                                     <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
                                         <option selected value="{{ $eb->unit_id }}">{{ @$eb->unit_u->unit_name }}</option>
                                         @foreach ($catagories2 as $cat2)

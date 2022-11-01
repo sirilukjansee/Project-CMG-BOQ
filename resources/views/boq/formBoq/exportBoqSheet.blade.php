@@ -158,7 +158,7 @@
             <tr>
                 <td style="height: 30px; text-align:center;">{{ $key + 1 }}</td>
                 <td style="height: 30px;"><b>{{ @$cat->name }}</b></td>
-                <td style="text-align:center; height: 30px;"><b>{{ $counts }}</b></td>
+                <td style="text-align:center; height: 30px;"><b>{{ number_format($counts, 2) }}</b></td>
                 <td style="text-align:center; height: 30px;">งาน</td>
                 <td style="text-align:center; height: 30px;" colspan="3"></td>
                 <td style="height: 30px;"></td>
@@ -192,12 +192,12 @@
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>OVER HEAD</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ @$export_boq->overhead }}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format(@$export_boq->overhead, 2) }}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>COMMERCIAL DISCOUNT</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ @$export_boq->discount }}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format(@$export_boq->discount, 2) }}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>

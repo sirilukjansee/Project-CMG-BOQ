@@ -5,11 +5,13 @@
                 <h2 class="text-lg font-medium mr-auto mt-5 mb-5">
                     <b>Create Capex of {{ @$project_id->brand_master->brand_name }} at {{ @$project_id->location_master->location_name }}</b>
                 </h2>
+                <a href="{{ url('/capex/export', $project_id->id) }}"
+                    class="btn btn-success text-white w-full sm:w-auto mr-2" aria-expanded="false"> Export to Excel </a>
             </div>
             <!-- BEGIN: Validation Form -->
                 <div class="group_wrapper">
                     <div class="intro-y input-form box p-5 mt-3">
-                        <form action="{{ route('addcapex') }}" method="post" id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
+                        <form action="{{ route('addcapex') }}" method="post" id="form1" name="form1" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" value="{{ $project_id->id }}" name="project_id">
                             {{-- <input type="hidden" value="{{ $template_id->id }}" name="template_id"> --}}
@@ -42,10 +44,10 @@
                             {{-- total --}}
                             <div class="grid grid-cols-12 gap-2">
                                 <div class="col-span-12 xl:col-span-9 input-form mt-3">
-                                    <input type="text" class="text-right w-full" value="Total" readonly >
+                                    <input type="text" class="text-right w-full" value="Total" readonly style="background-color: rgb(190, 188, 189);" >
                                 </div>
                                 <div class="col-span-12 xl:col-span-3 input-form mt-3">
-                                    <input type="number" name="total_sum"  class="w-full" value="" placeholder="0000.00" style="text-align: right;" readonly>
+                                    <input type="number" name="total_sum"  class="w-full" value="{{ $cpx->sum('total') }}" placeholder="0000.00" style="text-align: right; background-color: rgb(190, 188, 189);" readonly>
                                 </div>
                             </div>
                             {{-- end-total --}}

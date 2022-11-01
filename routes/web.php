@@ -252,6 +252,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/export-Concept', [ConceptController::class, 'export']);
     Route::post('/export-auc', [AucController::class, 'export']);
     Route::get('/export-auc/{id}', [AucController::class, 'send_chhk']);
+    Route::get('/capex/export/{id}', [CapexController::class, 'export']);
 
     // Report
     Route::get('reportAll', [ReportAllController::class, 'index']);

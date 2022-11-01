@@ -29,7 +29,7 @@
             <th style="width: 120px;"><b>ชื่อผู้เสนอราคา</b></th>
             <th colspan="3">{{ @$export_boq->vender_name->name }}</th>
             <th style="width: 160px;"><b>OVERHEAD</b></th>
-            <th>{{ @$export_boq->overhead }}</th>
+            <th>{{ number_format(@$export_boq->overhead, 2) }}</th>
         </tr>
         <tr>
             <th style="width: 120px;"><b>สถานที่</b></th>
@@ -37,7 +37,7 @@
             <th style="width: 120px;"><b>ขนาดพื้นที่</b></th>
             <th colspan="3">{{ @$export_boq->project->area }} ตร.ม</th>
             <th style="width: 160px;"><b>COMMERCIAL DISCOUNT</b></th>
-            <th>{{ @$export_boq->discount }}</th>
+            <th>{{ number_format(@$export_boq->discount, 2) }}</th>
         </tr>
         <tr>
             <th style="text-align:center; background-color:gray">รายการ</th>
@@ -86,10 +86,10 @@
                         <td>{{ @$sub->sub_cata->name }}</td>
                         <td style="text-align:center; height: 30px;">{{ @$sub->amount }}</td>
                         <td style="text-align:center; height: 30px;">{{ @$sub->unit_u->unit_name }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->wage_cost }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->material_cost }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->each_unit }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->all_unit }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->wage_cost, 2) }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->material_cost, 2) }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->each_unit, 2) }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->all_unit, 2) }}</td>
                         <td style="height: 30px;">{{ $sub->desc }}</td>
                     </tr>
                 @endif

@@ -1,10 +1,8 @@
-{{-- <th>
-    <img src="public/logo/DRAFT.png" width="1000px" height="1000px" alt="">
-</th> --}}
 <table>
     <thead>
+        <tr></tr>
         <tr>
-            <th><img src="public/logo/logo-cmg.jpg" width="63px" height="67px" alt=""></th>
+            <th style="width: 120px;"></th>
             <th><b>CENTRAL TRADING CO.,LTD.</b></th>
         </tr>
         <tr>
@@ -86,10 +84,10 @@
                         <td>{{ @$sub->cat_sub->name }}</td>
                         <td style="text-align:center; height: 30px;">{{ @$sub->amount }}</td>
                         <td style="text-align:center; height: 30px;">{{ @$sub->unit_u->unit_name }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->wage_cost }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->material_cost }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->each_unit }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->all_unit }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->wage_cost, 2) }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->material_cost, 2) }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->each_unit, 2) }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->all_unit, 2) }}</td>
                         <td style="height: 30px;">{{ $sub->desc }}</td>
                     </tr>
                     @php
@@ -108,7 +106,7 @@
                 <td style="height: 30px; background-color:gray"></td>
                 <td style="height: 30px; background-color:gray"></td>
                 <td style="height: 30px; background-color:gray"></td>
-                <td style="height: 30px; background-color:gray; text-align:center;">{{ $total }}</td>
+                <td style="height: 30px; background-color:gray; text-align:center;">{{ number_format($total, 2) }}</td>
                 <td style="height: 30px; background-color:gray"></td>
             </tr>
             <tr>

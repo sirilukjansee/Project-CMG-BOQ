@@ -26,4 +26,7 @@ class Capex extends Model
     public function project_n(){
         return $this->hasOne(Brand::class, 'id','project_id');
     }
+    public function pro_c(){
+        return $this->hasOne(Project::class, 'id','project_id');
+    }
 }

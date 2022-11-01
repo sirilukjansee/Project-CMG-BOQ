@@ -1,9 +1,6 @@
 <table>
     <thead>
-        <tr>
-            <th><img src="public/logo/logo-cmg.jpg" width="63px" height="67px" alt=""></th>
-            <th><b>CENTRAL TRADING CO.,LTD.</b></th>
-        </tr>
+        <tr></tr>
         <tr>
             <th></th>
             <th>3388/26-27 SIRIRAT BUILDING 9-11th. FLOOR RAMA 4 ROAD,</th>
@@ -170,9 +167,9 @@
                 <tr>
                     <td style="height: 30px; text-align:center;">{{ $key + 1 }}</td>
                     <td style="height: 30px;"><b>{{ @$cat->name }}</b></td>
-                    <td style="text-align:center; height: 30px;"><b>{{ $counts }}</b></td>
+                    <td style="text-align:center; height: 30px;"><b>{{ number_format($counts, 2) }}</b></td>
                     <td style="text-align:center; height: 30px;">งาน</td>
-                    <td style="text-align:center; height: 30px;" colspan="3">{{ $total }}</td>
+                    <td style="text-align:center; height: 30px;" colspan="3">{{ number_format($total, 2) }}</td>
                     <td style="height: 30px;"></td>
                     <td style="height: 30px;"></td>
                     <td style="height: 30px;"></td>
@@ -199,31 +196,31 @@
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>TOTAL PRICE</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ $total_p }}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format($total_p, 2) }}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>OVER HEAD</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ @$export_boq->overhead }}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format(@$export_boq->overhead, 2) }}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>COMMERCIAL DISCOUNT</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ @$export_boq->discount }}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format(@$export_boq->discount, 2) }}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>SUB TOTAL</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ $sub_t = $total_p + $export_boq->overhead - $export_boq->discount}}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format($sub_t = $total_p + $export_boq->overhead - $export_boq->discount, 2)}}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>VAT 7%</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ $vat = $sub_t * 7 / 100 }}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format($vat = $sub_t * 7 / 100, 2) }}</td>
         </tr>
         <tr>
             <td contenteditable="true" style="text-align:right; background-color:gray; height: 30px;" colspan="4"><b>GRAND TOTAL</b></td>
-            <td style="text-align:center; background-color:gray; height: 30px;" colspan="3">{{ $vat + $sub_t }}</td>
+            <td style="text-align:center; background-color:gray; height: 30px;" colspan="3">{{ number_format($vat + $sub_t, 2) }}</td>
             <td style="background-color:gray; height: 30px;"></td>
         </tr>
         <tr>
