@@ -19,7 +19,7 @@ use Maatwebsite\Excel\Concerns\WithDrawings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 
-class BoqsExport implements FromView, WithTitle, WithEvents, WithStyles, WithDrawings
+class BoqsExport_1 implements FromView, WithTitle, WithEvents, WithStyles, WithDrawings
 {
     protected $export_boq;
     protected $catagorie;
@@ -35,7 +35,7 @@ class BoqsExport implements FromView, WithTitle, WithEvents, WithStyles, WithDra
 
     public function view(): View
     {
-         return view('boq.formBoq.exportBoq', [
+         return view('boq.export.exportBoq_1', [
             'export_boq' => $this->export_boq,
             'catagorie' => $this->catagorie,
         ]);
@@ -50,14 +50,7 @@ class BoqsExport implements FromView, WithTitle, WithEvents, WithStyles, WithDra
         $drawing->setHeight(75);
         $drawing->setCoordinates('A1');
 
-        $drawing2 = new Drawing();
-        $drawing2->setName('watermark');
-        $drawing2->setDescription('This is my watermark');
-        $drawing2->setPath(public_path('/logo/DRAFT.png'));
-        $drawing2->setHeight(750);
-        $drawing2->setCoordinates('A1');
-
-        return [$drawing, $drawing2];
+        return $drawing;
     }
 
     public function registerEvents(): array

@@ -28,11 +28,22 @@
                                 <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="input-form mt-3">
+                    {{-- <div class="input-form mt-3">
                         <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
                             Concept
                         </label>
-                        <input id="concept" type="text" name="concept" class="form-control" value="{{ @$project->concept_master->name }}" readonly>
+                        <input id="concept" type="text" name="concept" class="form-control" value="{{ @$project->concept_master->name }}">
+                    </div> --}}
+                    <div class="input-form mt-3">
+                        <label for="concept" class="form-label w-full flex flex-col sm:flex-row">
+                            Concept
+                        </label>
+                        <select id="concept" name="concept" data-placeholder="Select a Concept..."  autocomplete="off" class="tom-select form-control w-full">
+                            <option value="{{@$project->concept_master->id}}" selected>{{@$project->concept_master->name}}</option>
+                            @foreach ($project6 as $pro6)
+                            <option value="{{$pro6->id}}">{{$pro6->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="input-form mt-3">
                         <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">

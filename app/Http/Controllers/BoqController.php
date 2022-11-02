@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Exports\BoqsExport;
 use App\Exports\SheetsExport;
 use App\Exports\MultipleBoqExport;
+use App\Exports\MultipleBoqExport_1;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -383,6 +384,7 @@ class BoqController extends Controller
         return view('boq.formBoq.viewBoq', compact('editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis'));
     }
 
+    // watermark
     public function export($id)
     {
         $export_boq = template_boqs::where('id', $id)
@@ -393,6 +395,19 @@ class BoqController extends Controller
         // $number = 0;
         // return Excel::download(new BoqsExport($export_boq,$catagorie), 'BOQ-'.(@$export_boq->project->brand_master->brand_name).'-'.(@$export_boq->project->task_type_master->task_type_name).'-'.(@$export_boq->project->location_master->location_name).'-'.(@$export_boq->project->number_id).'.xlsx');
         return Excel::download(new MultipleBoqExport($export_boq,$catagorie), ''.(@$export_boq->name).'-'.(@$export_boq->project->brand_master->brand_name).''.(@$export_boq->project->concept_master->name).'-'.(@$export_boq->project->task_type_master->task_type_name).'-'.(@$export_boq->project->location_master->location_name).'-'.(@$export_boq->project->number_id).'.xlsx');
+    }
+
+    // no watermark
+    public function export_nowatermark($id)
+    {
+        $export_boq = template_boqs::where('id', $id)
+            // ->where('project_id', $id)
+            ->first();
+        $catagorie = catagory::where('is_active', "1")
+            ->get();
+        // $number = 0;
+        // return Excel::download(new BoqsExport($export_boq,$catagorie), 'BOQ-'.(@$export_boq->project->brand_master->brand_name).'-'.(@$export_boq->project->task_type_master->task_type_name).'-'.(@$export_boq->project->location_master->location_name).'-'.(@$export_boq->project->number_id).'.xlsx');
+        return Excel::download(new MultipleBoqExport_1($export_boq,$catagorie), ''.(@$export_boq->name).'-'.(@$export_boq->project->brand_master->brand_name).''.(@$export_boq->project->concept_master->name).'-'.(@$export_boq->project->task_type_master->task_type_name).'-'.(@$export_boq->project->location_master->location_name).'-'.(@$export_boq->project->number_id).'.xlsx');
     }
 
     public function store_aj(Request $request)

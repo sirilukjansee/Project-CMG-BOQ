@@ -28,7 +28,7 @@ class FirstBoqVendersImport implements ToModel, WithMappedCells
     public function mapping(): array
     {
         return [
-            'row5' => 'F7',
+            'row5' => 'E7',
             'row4' => 'E53',
             // 'OVERHEAD'  => 'E53',
             // 'DISCOUNT' => 'E54',
