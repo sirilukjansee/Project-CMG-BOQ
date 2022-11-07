@@ -41,6 +41,8 @@
                                     <th scope="col">Budget</th>
                                     <th scope="col">Job Finished Date</th>
                                     <th scope="col">Job in date</th>
+                                    <th scope="col">Designer</th>
+                                    {{-- <th scope="col">Vender</th> --}}
                                     <th scope="col">Status</th>
                                     <th scope="col">Cost Sqm</th>
                                     {{-- <th scope="col" style="text-align: center;">Active</th> --}}
@@ -56,14 +58,18 @@
                                     <th scope="col" class="filterhead">Budget</th>
                                     <th scope="col" class="filterhead">Job Finished Date</th>
                                     <th scope="col" class="filterhead">Job in date</th>
+                                    <th scope="col" class="filterhead">Designer</th>
+                                    {{-- <th scope="col" class="filterhead">Vender</th> --}}
                                     <th scope="col" class="filterhead">Status</th>
                                     <th scope="col" class="filterhead">Cost Sqm</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- <tr data-href="{{ url('reportAll-detail', 1) }}"> --}}
                                     @foreach ($projects as $value)
-                                    <tr>
+                                    @php
+                                        $budgets = App\Models\Capex::where('project_id', $value->id)->sum('total');
+                                    @endphp
+                                    <tr data-href="{{ url('reportAll-detail', $value->id) }}">
                                         <td>{{ $value->number_id }}</td>
                                         <td>{{ @$value->brand_master->brand_name }}</td>
                                         <td>{{ @$value->concept_master->name }}</td>
@@ -71,9 +77,11 @@
                                         <td>{{ @$value->task_type_master->task_type_name }}</td>
                                         <td>{{ @$value->task_name_master->task_name }}</td>
                                         <td>{{ $value->area }}</td>
-                                        <td>{{ $value->budget }}</td>
+                                        <td>{{ number_format($budgets, 2) }}</td>
                                         <td>{{ Carbon\Carbon::parse($value->finish_date)->format('d/m/Y') }}</td>
                                         <td>{{ Carbon\Carbon::parse($value->open_date)->format('d/m/Y') }}</td>
+                                        <td>{{ @$value->designer_master->name }}</td>
+                                        {{-- <td>{{ @$value->template_boqs->vender_name->name }}</td> --}}
                                         <td>
                                             @if (@$value->project_id1->name == 'Master BOQ')
                                                 @if (@$value->project_id1->status == '0')

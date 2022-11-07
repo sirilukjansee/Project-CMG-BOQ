@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\template_boqs;
+use App\Models\Import_vender;
 
 class ReportAllController extends Controller
 {
@@ -18,8 +20,12 @@ class ReportAllController extends Controller
 
     public function index_detail($id)
     {
+        $data['temp_boq'] = template_boqs::where('project_id', $id)->get();
+
+        $data['imp_boq'] = Import_vender::where('id_project', $id)->get();
+
         $_SESSION["projectID"] = '';
-        return view('boq.Report.reportAll-detail');
+        return view('boq.Report.reportAll-detail', $data);
     }
 
     /**

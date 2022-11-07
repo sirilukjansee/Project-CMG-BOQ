@@ -256,9 +256,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Report
     Route::get('reportAll', [ReportAllController::class, 'index']);
-    // Route::get('reportAll-detail/{id}', [ReportAllController::class, 'index_detail']);
+    Route::get('reportAll-detail/{id}', [ReportAllController::class, 'index_detail']);
 
     Route::get('report-designer', [ReportDesignerController::class, 'index']);
+    Route::get('report-designer-detail/{id}/{month}', [ReportDesignerController::class, 'index_detail']);
+    Route::post('report-designer-search', [ReportDesignerController::class, 'search']);
 
     Route::get('report-year', [ReportYearController::class, 'index']);
     Route::get('report-task-type-ref-brand', [ReportYearController::class, 'index_brand']);

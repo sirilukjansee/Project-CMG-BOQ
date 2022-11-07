@@ -21,21 +21,34 @@
                 </div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
                     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start mb-10">
-                        <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto" >
+                        <form action="{{url('report-designer-search')}}" method="POST" enctype="multipart/form-data" id="tabulator-html-filter-form" class="xl:flex sm:mr-auto" >
+                            @csrf
                             <div class="sm:flex items-center sm:mr-4">
                                 <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Brand</label>
-                                <select id="tabulator-html-filter-field" class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto">
-                                    <option value="">Select</option>
-                                    <option value="category">AT TWENTY</option>
-                                    <option value="remaining_stock">4x4</option>
+                                <select id="tabulator-html-filter-field" class="form-select w-full sm:w-42 2xl:w-full mt-2 sm:mt-0 sm:w-auto" name="brand_id">
+                                    <option value="0">Select</option>
+                                    @foreach ($brands as $value)
+                                    <option value="{{$value->id}}">{{$value->brand_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="sm:flex items-center sm:mr-4">
+                                <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Year</label>
+                                <select id="tabulator-html-filter-field" class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto" name="year">
+                                    <option value="0">Select</option>
+                                    <?php
+                                        for ($y = 2000; $y <= date('Y'); $y++) { ?>
+                                        <option value ="<?=$y?>"> <?=$y?> </option>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
                                 <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Name</label>
-                                <input id="tabulator-html-filter-value" type="text" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0" placeholder="Search...">
+                                <input id="tabulator-html-filter-value" type="text"
+                                class="form-control sm:w-42 2xl:w-full mt-2 sm:mt-0" placeholder="Search..." name="name">
                             </div>
                             <div class="mt-2 xl:mt-0">
-                                <button id="tabulator-html-filter-go" type="button" class="btn btn-primary w-full sm:w-16" >Go</button>
+                                <button id="tabulator-html-filter-go" type="submit" class="btn btn-primary w-full sm:w-16" >Go</button>
                                 <button id="tabulator-html-filter-reset" type="button" class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1" >Reset</button>
                             </div>
                         </form>
@@ -56,249 +69,145 @@
                                 <th scope="col">พ.ค.</th>
                                 <th scope="col">มิ.ย.</th>
                                 <th scope="col">ก.ค.</th>
+                                <th scope="col">ส.ค.</th>
+                                <th scope="col">ก.ย.</th>
+                                <th scope="col">ต.ค.</th>
+                                <th scope="col">พ.ย.</th>
+                                <th scope="col">ธ.ค.</th>
                                 <th scope="col">Grand Total</th>
                             </tr>
-                            {{-- <tr>
-                                <th scope="col" class="filterhead">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">ม.ค.</th>
-                                <th scope="col">ก.พ.</th>
-                                <th scope="col">มี.ค.</th>
-                                <th scope="col">เม.ย.</th>
-                                <th scope="col">พ.ค.</th>
-                                <th scope="col">มิ.ย.</th>
-                                <th scope="col">ก.ค.</th>
-                                <th scope="col">Grand Total</th>
-                            </tr> --}}
                         </thead>
                         <tbody>
-                            {{-- <tr data-href="{{ url('reportAll-detail', 1) }}"> --}}
-                                <tr>
-                                <td>1</td>
-                                <td>Bass</td>
-                                <td>1</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>1</td>
-                                <td>0</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>7</td>
-                            </tr>
-                            <tr data-href="{{ url('reportAll-detail', 1) }}">
-                                <td>2</td>
-                                <td>Jane</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>1</td>
-                                <td>4</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>12</td>
-                            </tr>
-                            {{-- @foreach ($users as $key => $urs)
+                            @php
+                                $sumMonth1 = 0;
+                                $sumMonth2 = 0;
+                                $sumMonth3 = 0;
+                                $sumMonth4 = 0;
+                                $sumMonth5 = 0;
+                                $sumMonth6 = 0;
+                                $sumMonth7 = 0;
+                                $sumMonth8 = 0;
+                                $sumMonth9 = 0;
+                                $sumMonth10 = 0;
+                                $sumMonth11 = 0;
+                                $sumMonth12 = 0;
+                                $grandTotal = 0;
+                            @endphp
+                            @foreach ($designers as $key => $value)
+                                @php
+                                    $month1 = 0;
+                                    $month2 = 0;
+                                    $month3 = 0;
+                                    $month4 = 0;
+                                    $month5 = 0;
+                                    $month6 = 0;
+                                    $month7 = 0;
+                                    $month8 = 0;
+                                    $month9 = 0;
+                                    $month10 = 0;
+                                    $month11 = 0;
+                                    $month12 = 0;
+
+                                    if ($year == '') {
+                                        $year = Carbon\Carbon::today()->format('Y');
+                                    }
+                                    $projects = App\Models\Project::where('designer_name', $value->id)->get();
+
+                                    foreach ($projects as $p) {
+                                        if (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 1 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month1 += 1;
+                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 2 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month2 += 1;
+                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 3 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month3 += 1;
+                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 4 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month4 += 1;
+                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 5 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month5 += 1;
+                                        } elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 6 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month6 += 1;
+                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 7 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month7 += 1;
+                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 8 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month8 += 1;
+                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 9 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month9 += 1;
+                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 10 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month10 += 1;
+                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 11 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month11 += 1;
+                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 12 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        {
+                                            $month12 += 1;
+                                        }
+                                    }
+                                @endphp
                             <tr>
-                                <td class="text-center">{{ $key + 1 }}</td>
-                                <td>{{ $urs->name }}</td>
-                                <td>{{ $urs->email }}</td>
-                                <td>
-                                    @if ($urs->permision == "0")
-                                        User
-                                    @elseif ($urs->permision == "1")
-                                        Manager
-                                    @elseif ($urs->permision == "2")
-                                        Admin
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($urs->status == "1")
-                                        ON
-                                    @else
-                                        OFF
-                                    @endif
-                                </td>
-                                <td class="text-center">
-                                    <!-- BEGIN: Large Modal Toggle -->
-                                    <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal({{$urs->id}})" data-tw-toggle="modal"
-                                        data-tw-target="#large-modal-size-preview_edit"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
-                                    <a href="{{ url('/changeStatus_user', $urs->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
-                                </td>
+                                <td>{{ $key + 1 }}</td>
+                                <td>{{ $value->name }}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 1]) }}">{{$month1}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 2]) }}">{{$month2}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 3]) }}">{{$month3}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 4]) }}">{{$month4}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 5]) }}">{{$month5}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 6]) }}">{{$month6}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 7]) }}">{{$month7}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 8]) }}">{{$month8}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 9]) }}">{{$month9}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 10]) }}">{{$month10}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 11]) }}">{{$month11}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 12]) }}">{{$month12}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 13]) }}">{{ count($projects) }}</td>
                             </tr>
-                            @endforeach --}}
+
+                            @php
+                                $sumMonth1 += $month1;
+                                $sumMonth2 += $month2;
+                                $sumMonth3 += $month3;
+                                $sumMonth4 += $month4;
+                                $sumMonth5 += $month5;
+                                $sumMonth6 += $month6;
+                                $sumMonth7 += $month7;
+                                $sumMonth8 += $month8;
+                                $sumMonth9 += $month9;
+                                $sumMonth10 += $month10;
+                                $sumMonth11 += $month11;
+                                $sumMonth12 += $month12;
+                                $grandTotal += count($projects);
+                            @endphp
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr style="font-weight:bold;">
                                 <td colspan="2" style="text-align: center;">Grand Total</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>8</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>19</td>
+                                <td>{{$sumMonth1}}</td>
+                                <td>{{$sumMonth2}}</td>
+                                <td>{{$sumMonth3}}</td>
+                                <td>{{$sumMonth4}}</td>
+                                <td>{{$sumMonth5}}</td>
+                                <td>{{$sumMonth6}}</td>
+                                <td>{{$sumMonth7}}</td>
+                                <td>{{$sumMonth8}}</td>
+                                <td>{{$sumMonth9}}</td>
+                                <td>{{$sumMonth10}}</td>
+                                <td>{{$sumMonth11}}</td>
+                                <td>{{$sumMonth12}}</td>
+                                <td>{{ $grandTotal }}</td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
-
-                <!-- BEGIN: Large Modal Content -->
-                <div id="large-modal-size-preview_add" class="modal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h2 class="font-medium text-base mr-auto">Add User</h2>
-                            </div> <!-- END: Modal Header -->
-                            <!-- BEGIN: Modal Body -->
-                            <form action="{{ url('/users/add') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-
-                                    <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" autofocus>
-
-                                                @error('name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email">
-
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="radio" class="col-md-4 col-form-label text-md-end">{{ __('สิทธิการใช้งาน') }}</label>
-                                                <div class="flex flex-col sm:flex-row mt-2">
-                                                    <div class="form-check mr-2">
-                                                        <input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0">
-                                                        <label class="form-check-label" for="radio-switch-4">User</label>
-                                                    </div>
-                                                    <div class="form-check mr-2 mt-2 sm:mt-0">
-                                                        <input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1">
-                                                        <label class="form-check-label" for="radio-switch-5">Manager</label>
-                                                    </div>
-                                                    <div class="form-check mr-2 mt-2 sm:mt-0">
-                                                        <input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2">
-                                                        <label class="form-check-label" for="radio-switch-6">Admin</label>
-                                                    </div>
-                                                </div>
-                                        </div>
-
-                                </div>
-                                <!-- BEGIN: Modal Footer -->
-                                <div class="modal-footer">
-                                    <button type="button" data-tw-dismiss="modal"
-                                        class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
-                                </div> <!-- END: Modal Footer -->
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- END: Large Modal Content -->
-
-                <!-- BEGIN: Large Modal Content -->
-                <div id="large-modal-size-preview_edit" class="modal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h2 class="font-medium text-base mr-auto">Edit Brand</h2>
-                            </div> <!-- END: Modal Header -->
-                            <!-- BEGIN: Modal Body -->
-                            <form action="{{ url('/users/update') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="id" id="get_id">
-                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-
-                                    <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" autofocus>
-
-                                                @error('name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email">
-
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="radio" class="col-md-4 col-form-label text-md-end">{{ __('สิทธิการใช้งาน') }}</label>
-                                                <div class="flex flex-col sm:flex-row mt-2" id="permision">
-                                                </div>
-                                        </div>
-
-                                </div>
-                                <!-- BEGIN: Modal Footer -->
-                                <div class="modal-footer">
-                                    <button type="button" data-tw-dismiss="modal"
-                                        class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
-                                </div> <!-- END: Modal Footer -->
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- END: Large Modal Content -->
             </div>
 
 <script type="text/javascript">
@@ -311,57 +220,11 @@
 	   });
 
     $(".dataTables_length").hide();
-
-
-       jQuery(".filterhead").each( function ( i ) {
-        var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
-            .appendTo( jQuery(this).empty() )
-            .on( 'change', function () {
-               var term = $(this).val();
-                table.column( i ).search(term, false, false ).draw();
-            } );
- 	      table.column( i ).data().unique().each( function ( d, j ) {
-            	select.append( '<option value="'+d+'">'+d+'</option>' )
-        } );
-		} );
     });
-
-    //edit
-    function edit_modal(id){
-
-        jQuery.ajax({
-            type:   "GET",
-            url:    "{!! url('users/edit/"+id+"') !!}",
-            datatype:   "JSON",
-            async:  false,
-            success: function(response) {
-                $('#get_id').val(response.dataEdit.id);
-                $('#name').val(response.dataEdit.name);
-                $('#email').val(response.dataEdit.email);
-                $('#permision').val(response.dataEdit.permision);
-                // $('#update_by').val(data.dataEdit.update_by);
-                jQuery('#permision').children().remove().end();
-                if (response.dataEdit.permision == 0 ) {
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" checked><label class="form-check-label" for="radio-switch-4">User</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1"><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2"><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
-                    }if (response.dataEdit.permision == 1 ) {
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" ><label class="form-check-label" for="radio-switch-4">User</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1" checked><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2"><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
-                    }if (response.dataEdit.permision == 2 ) {
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" ><label class="form-check-label" for="radio-switch-4">User</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1" ><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2" checked><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
-                    }
-
-            }
-        });
-    }
 
     //button href
     document.addEventListener("DOMContentLoaded", () => {
-            const rows = document.querySelectorAll("tr[data-href]");
+            const rows = document.querySelectorAll("td[data-href]");
 
             rows.forEach(row => {
                 row.addEventListener("click", () => {

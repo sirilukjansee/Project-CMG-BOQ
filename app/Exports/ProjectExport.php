@@ -24,7 +24,7 @@ class ProjectExport implements FromView
     {
          return view('boq.send_view', [
             'export_project' => Project::join('template_boqs', 'projects.id', 'template_boqs.project_id')
-            ->whereNotIn('status', ["0"])->select('projects.*')->get()
+            ->where('template_boqs.status', "2")->whereDate('projects.updated_at', Carbon::today()->format('Y-m-d'))->select('projects.*')->get()
         ]);
     }
 

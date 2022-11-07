@@ -105,7 +105,6 @@ class AucController extends Controller
         Import_vender::where('id', $id)->update([
             'template_id' => $temp_id,
         ]);
-
         return back();
     }
 }
