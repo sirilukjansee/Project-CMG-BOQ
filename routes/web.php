@@ -200,6 +200,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/addformBoq/select-catagory', [FormboqController::class, 'select_catagory']);
 
     Route::get('projects/export/{id}', [BoqController::class, 'export']);
+    Route::get('projects/export_no/{id}', [BoqController::class, 'export_nowatermark']);
 
 
     //manager_approve

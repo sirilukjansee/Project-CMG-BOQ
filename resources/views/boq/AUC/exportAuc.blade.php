@@ -73,7 +73,7 @@
                                 {{-- check all master --}}
                                 <td style="height: 30px;"></td>      {{-- empty --}}
                                 <td style="height: 30px;"></td>      {{-- empty --}}
-                                <td style="height: 30px;">{{@$sb->template->vender_auc->vender_d->cat_sub->name}}</td>
+                                <td style="height: 30px;">{{@$sb->sub_cata->name}}</td>
                                 <td style="height: 30px; text-align:center;">{{number_format(@$sb->template->vender_auc->vender_d->amount, 2)}}</td>   {{-- จำนวน --}}
                                 <td style="height: 30px; text-align:center;">{{@$sb->template->vender_auc->vender_d->unit_u->unit_name}}</td>   {{-- หน่วย --}}
                                 <td style="height: 30px;">{{number_format(@$sb->template->vender_auc->vender_d->material_cost, 2)}}</td>   {{-- ค่าวัสดุ --}}
@@ -107,7 +107,7 @@
                             {{-- check sub master --}}
                             <td style="height: 30px;"></td>      {{-- empty --}}
                             <td style="height: 30px;"></td>      {{-- empty --}}
-                            <td style="height: 30px;">{{@$auc->boq_a->template->vender_auc->vender_d->cat_sub->name}}</td>
+                            <td style="height: 30px;">{{@$auc->boq_a->sub_cata->name}}</td>
                             <td style="height: 30px; text-align:center;">{{number_format(@$auc->boq_a->template->vender_auc->vender_d->amount, 2)}}</td>   {{-- จำนวน --}}
                             <td style="height: 30px; text-align:center;">{{@$auc->boq_a->template->vender_auc->vender_d->unit_u->unit_name}}</td>   {{-- หน่วย --}}
                             <td style="height: 30px;">{{number_format(@$auc->boq_a->template->vender_auc->vender_d->material_cost, 2)}}</td>   {{-- ค่าวัสดุ --}}

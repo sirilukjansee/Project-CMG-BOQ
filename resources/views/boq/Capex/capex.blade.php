@@ -32,7 +32,7 @@
                                 <div class="col-span-12 xl:col-span-3 input-form mt-3">
                                     @foreach ( $cpx as $cx )
                                     @if ( $cx->boq_id == $cat->id )
-                                    <input type="number" name="total[]" step=".01" class="w-full" value="{{ @$cx->total }}" placeholder="0000.00" style="text-align: right;" >
+                                    <input type="number" name="total[]" step=".01" class="w-full" value="{{ $cx->total }}" placeholder="0000.00" style="text-align: right;" >
                                     @endif
                                     @endforeach
                                     @if ( count($cpx) == 0)

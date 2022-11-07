@@ -58,10 +58,10 @@ class BoqVendersImport implements ToModel
                     'sub_id' => $cat_s->id,
                     'amount' => $row[2],
                     'unit_id' => $unt->id,
-                    'wage_cost' => $row[4],
-                    'material_cost' => $row[5],
-                    'each_unit' => $row[4] + $row[5],
-                    'all_unit' => ($row[4] + $row[5]) * $row[2],
+                    'wage_cost' => number_format($row[4], 2),
+                    'material_cost' => number_format($row[5], 2),
+                    'each_unit' => number_format($row[4], 2) + number_format($row[5], 2),
+                    'all_unit' => (number_format($row[4], 2) + number_format($row[5], 2)) * $row[2],
                     'desc' => $row[8],
                 ]);
             }
@@ -72,7 +72,7 @@ class BoqVendersImport implements ToModel
         {
             $impvd1 = Import_vender::orderBy('id', 'desc')->first();
             Import_vender::where('id', $impvd1->id)->update([
-                'overhead' => $row[7],
+                'overhead' => number_format($row[7], 2),
                 // 'discount' => $row[7],
             ]);
         }
@@ -81,7 +81,7 @@ class BoqVendersImport implements ToModel
             $impvd1 = Import_vender::orderBy('id', 'desc')->first();
             Import_vender::where('id', $impvd1->id)->update([
                 // 'overhead' => $row[7],
-                'discount' => $row[7],
+                'discount' => number_format($row[7], 2),
             ]);
         }
     }
