@@ -38,7 +38,7 @@ class BoqVendersImport implements ToModel
         {
             $impvd = Import_vender::orderBy('id', 'desc')->first();
             $cat = catagory::where('name', $row[1])->first();
-            $unt = Unit::where('unit_name', $row[3])->first();
+            $unt = Unit::where('unit_name', $row[6])->first();
             if( $impvd )
             {
                 $_SESSION["idimp"] = $impvd->id ;
@@ -56,13 +56,16 @@ class BoqVendersImport implements ToModel
                     'import_id' => $_SESSION["idimp"],
                     'main_id' => $_SESSION["cat"],
                     'sub_id' => $cat_s->id,
-                    'amount' => $row[2],
+                    'width' => $row[2],
+                    'depth' => $row[3],
+                    'height' => $row[4],
+                    'amount' => $row[5],
                     'unit_id' => $unt->id,
-                    'wage_cost' => number_format($row[4], 2),
-                    'material_cost' => number_format($row[5], 2),
-                    'each_unit' => number_format($row[4], 2) + number_format($row[5], 2),
-                    'all_unit' => (number_format($row[4], 2) + number_format($row[5], 2)) * $row[2],
-                    'desc' => $row[8],
+                    'wage_cost' => $row[8],
+                    'material_cost' => $row[7],
+                    'each_unit' => $row[7] + $row[8],
+                    'all_unit' => ($row[7] + $row[8]) * $row[5],
+                    'desc' => $row[11],
                 ]);
             }
         }
@@ -72,7 +75,7 @@ class BoqVendersImport implements ToModel
         {
             $impvd1 = Import_vender::orderBy('id', 'desc')->first();
             Import_vender::where('id', $impvd1->id)->update([
-                'overhead' => number_format($row[7], 2),
+                'overhead' => $row[7],
                 // 'discount' => $row[7],
             ]);
         }
@@ -81,7 +84,7 @@ class BoqVendersImport implements ToModel
             $impvd1 = Import_vender::orderBy('id', 'desc')->first();
             Import_vender::where('id', $impvd1->id)->update([
                 // 'overhead' => $row[7],
-                'discount' => number_format($row[7], 2),
+                'discount' => $row[7],
             ]);
         }
     }

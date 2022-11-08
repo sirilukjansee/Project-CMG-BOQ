@@ -188,6 +188,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/formBoq/update', [BoqController::class, 'update']);
     Route::post('/change_status_boq', [BoqController::class, 'change_status_boq'])->name('change_status_boq');
     Route::post('/addBoq1/add', [BoqController::class, 'store_aj'])->name('add_Boq1');
+    Route::post('/addComm', [BoqController::class, 'store_cm'])->name('add_cm');
+    Route::get('/show_remark/{id}', [BoqController::class, 'show_remark']);
 
     Route::get('/addformboq-template/{templateid}/{id}', [BoqController::class, 'choose_temp']);
 
@@ -222,6 +224,8 @@ Route::middleware(['auth'])->group(function () {
     //AUC
     Route::get('auc/{id}', [AucController::class, 'index']);
     Route::get('select-to-auc/{id}/{id_1}', [AucController::class, 'select_auc']);
+
+    Route::post('/select-boqvender', [AucController::class, 'send_ven']);
 
     // Import File
     Route::post('/import-boqvender', [ImportVenderController::class, 'uploadBoqVender']);

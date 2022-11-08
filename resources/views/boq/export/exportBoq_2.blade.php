@@ -29,7 +29,7 @@
             <th></th>
             <th></th>
             <th style="width: 120px;"><b>Vender</b></th>
-            <th style="width: 120px;">{{ @$export_boq->vender_name->name }}</th>
+            <th colspan="3">{{ @$export_boq->vender_name->name }}</th>
             <th></th>
             <th></th>
         </tr>
@@ -192,12 +192,12 @@
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>OVER HEAD</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format(@$export_boq->overhead, 2) }}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format($export_boq->overhead, 2) }}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>COMMERCIAL DISCOUNT</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format(@$export_boq->discount, 2) }}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format($export_boq->discount, 2) }}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>

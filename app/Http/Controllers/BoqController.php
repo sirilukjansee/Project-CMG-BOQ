@@ -27,13 +27,6 @@ use function PHPUnit\Framework\isEmpty;
 
 class BoqController extends Controller
 {
-    // public function select_auc($id)
-    // {
-    //     $temp_id = template_boqs::where('id' ,$id)->first();
-
-    //     return back();
-    // }
-
     public function index($id)
     {
         $project = Project::leftjoin('brands','projects.brand','brands.brand_name')
@@ -41,7 +34,11 @@ class BoqController extends Controller
         ->select('projects.*','brands.id as brand_id')
         ->first();
 
-        $temp_id = template_boqs::where('id' ,$id)->first();
+        $temp_id = template_boqs::where('id' ,$id)
+            ->first();
+
+        $temp_id1 = template_boqs::where('project_id' ,$id)
+            ->first();
 
         $temp_boq = template_boqs::where('project_id', $id)
             ->get();
@@ -49,12 +46,16 @@ class BoqController extends Controller
         $imp_boq = Import_vender::where('id_project', $id)
             ->get();
 
+        $imp_boqs = Import_vender::where('id_project', $id)
+            // ->where('template_id', $id)
+            ->get();
+            // SELECT SUM(all_unit) FROM `boqs` WHERE template_boq_id = 17;
         $_SESSION["projectID"] = $id;
 
         $vend_imp = Vender::where('is_active', "1")
         ->get();
 
-        return view('boq.allBoq', compact('project','temp_boq','imp_boq','vend_imp','temp_id'));
+        return view('boq.allBoq', compact('project','temp_boq','imp_boq','vend_imp','temp_id','imp_boqs','temp_id1'));
     }
 
     public function choose_temp($templateid, $id)
@@ -620,5 +621,22 @@ class BoqController extends Controller
                     'temp' => $template_id
                 ]);
             }
-        }
     }
+
+    public function store_cm(Request $request)
+    {
+        // dd($request->temp_remark_id);
+        template_boqs::where('id', $request->temp_remark_id)->update([
+            'remark' => $request->remark,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function show_remark($id)
+    {
+        return response()->json([
+            'remarkShow' => template_boqs::find($id)
+        ]);
+    }
+}

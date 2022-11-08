@@ -16,8 +16,11 @@
                             <input type="hidden" value="{{ $project_id->id }}" name="project_id">
                             {{-- <input type="hidden" value="{{ $template_id->id }}" name="template_id"> --}}
                             <div class="grid grid-cols-12 gap-2">
-                                <div class="col-span-12 xl:col-span-9 input-form mt-3">
+                                <div class="col-span-12 xl:col-span-6 input-form mt-3">
                                     <label for="" style="font-weight: bold;">ชื่อหมวด</label>
+                                </div>
+                                <div class="col-span-12 xl:col-span-3 input-form mt-3">
+                                    <label for="" style="font-weight: bold;">Remark</label>
                                 </div>
                                 <div class="col-span-12 xl:col-span-3 input-form mt-3">
                                     <label for="" style="font-weight: bold;">จำนวนเงิน</label>
@@ -25,20 +28,30 @@
                             </div>
                             <div class="grid grid-cols-12 gap-2">
                                 @foreach ($data_categorys as $key => $cat)
-                                <div class="col-span-12 xl:col-span-9 input-form mt-3">
-                                    <input type="hidden" value="{{ $cat->id }}" name="boq_id[]">
-                                    <input type="text" class="w-full" value="{{ $key + 1 }}. {{ $cat->name }}" readonly >
-                                </div>
-                                <div class="col-span-12 xl:col-span-3 input-form mt-3">
-                                    @foreach ( $cpx as $cx )
-                                    @if ( $cx->boq_id == $cat->id )
-                                    <input type="number" name="total[]" step=".01" class="w-full" value="{{ $cx->total }}" placeholder="0000.00" style="text-align: right;" >
-                                    @endif
+                                    <div class="col-span-12 xl:col-span-6 input-form mt-3">
+                                        <input type="hidden" value="{{ $cat->id }}" name="boq_id[]">
+                                        <input type="text" class="w-full" value="{{ $key + 1 }}. {{ $cat->name }}" readonly >
+                                    </div>
+                                    <div class="col-span-12 xl:col-span-3 input-form mt-3">
+                                    @foreach ( $cpx as $cx1 )
+                                        @if ( $cx1->boq_id == $cat->id )
+                                            <input type="text" name="remark[]" step=".01" class="w-full" value="{{ $cx1->remark }}" style="text-align: left;" >
+                                        @endif
                                     @endforeach
                                     @if ( count($cpx) == 0)
-                                    <input type="number" name="total[]" step=".01" class="w-full" placeholder="0000.00" style="text-align: right;" >
+                                        <input type="text" name="remark" step=".01" class="w-full" style="text-align: left;" >
                                     @endif
-                                </div>
+                                    </div>
+                                    <div class="col-span-12 xl:col-span-3 input-form mt-3">
+                                        @foreach ( $cpx as $cx )
+                                            @if ( $cx->boq_id == $cat->id )
+                                                <input type="number" name="total[]" step=".01" class="w-full" value="{{ $cx->total }}" placeholder="0000.00" style="text-align: right;" >
+                                            @endif
+                                        @endforeach
+                                        @if ( count($cpx) == 0)
+                                            <input type="number" name="total[]" step=".01" class="w-full" placeholder="0000.00" style="text-align: right;" >
+                                        @endif
+                                    </div>
                                 @endforeach
                             </div>
                             {{-- total --}}

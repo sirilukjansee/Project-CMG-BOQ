@@ -39,6 +39,9 @@
         <tr>
             <th style="text-align:center; background-color:gray">รายการ</th>
             <th style="text-align:center; width:700px; background-color:gray">รายระเอียด</th>
+            <th style="text-align:center; background-color:gray">กว้าง</th>
+            <th style="text-align:center; background-color:gray">ยาว</th>
+            <th style="text-align:center; background-color:gray">สูง</th>
             <th style="text-align:center; background-color:gray">จำนวน</th>
             <th style="text-align:center; background-color:gray">หน่วย</th>
             <th style="text-align:center; background-color:gray" colspan="3">ราคาต่อหน่วย</th>
@@ -50,9 +53,12 @@
             <th style="background-color:gray"></th>
             <th style="background-color:gray"></th>
             <th style="background-color:gray"></th>
-            <th style="text-align:center; background-color:gray">ค่าวัสดุ</th>
-            <th style="text-align:center; background-color:gray">ค่าแรง</th>
-            <th style="text-align:center; background-color:gray">รวม</th>
+            <th style="background-color:gray"></th>
+            <th style="background-color:gray"></th>
+            <th style="background-color:gray"></th>
+            <th style="text-align:center; background-color:gray; width: 100px;">ค่าวัสดุ</th>
+            <th style="text-align:center; background-color:gray; width: 100px;">ค่าแรง</th>
+            <th style="text-align:center; background-color:gray; width: 100px;">รวม</th>
             <th style="background-color:gray"></th>
             <th style="background-color:gray"></th>
         </tr>
@@ -76,18 +82,24 @@
                 <td style="height: 30px;"></td>
                 <td style="height: 30px;"></td>
                 <td style="height: 30px;"></td>
+                <td style="height: 30px;"></td>
+                <td style="height: 30px;"></td>
+                <td style="height: 30px;"></td>
             </tr>
             @foreach ( $exp_detail as $keysub => $sub )
                 @if ( $sub->main_id == $cat->id )
                     <tr>
                         <td style="text-align:center;">{{ $key + 1 }}.{{ $number += 1 }}</td>
                         <td>{{ @$sub->cat_sub->name }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->amount }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->unit_u->unit_name }}</td>
-                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->wage_cost, 2) }}</td>
-                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->material_cost, 2) }}</td>
-                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->each_unit, 2) }}</td>
-                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->all_unit, 2) }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->width }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->depth }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->height }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->amount }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->unit_u->unit_name }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format($sub->wage_cost, 2) }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format($sub->material_cost, 2) }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format($sub->each_unit, 2) }}</td>
+                        <td style="text-align:center; height: 30px;">{{ number_format($sub->all_unit, 2) }}</td>
                         <td style="height: 30px;">{{ $sub->desc }}</td>
                     </tr>
                     @php
@@ -101,6 +113,9 @@
             <tr>
                 <td style="background-color:gray"></td>
                 <td style="height: 30px; background-color:gray; text-align:right;"><b>TOTAL {{ $cat->name }} WORK</b></td>
+                <td style="height: 30px; background-color:gray"></td>
+                <td style="height: 30px; background-color:gray"></td>
+                <td style="height: 30px; background-color:gray"></td>
                 <td style="height: 30px; background-color:gray"></td>
                 <td style="height: 30px; background-color:gray"></td>
                 <td style="height: 30px; background-color:gray"></td>

@@ -41,10 +41,10 @@
                             {{-- <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test"> --}}
                             <input type="text" class="w-24" value="{{ @$eb->sub_cata->code }}" disabled>
                             <input type="text" class="w-full" value="{{ $eb->sub_cata->name }}" disabled>
-                            <input type="number" name="width[][{{ $cat->id }}]" class="form-control w-16" placeholder="กว้าง" value="{{ $eb->width }}" disabled>
-                            <input type="number" name="depth[][{{ $cat->id }}]" class="form-control w-16" placeholder="ยาว" value="{{ $eb->depth }}" disabled>
-                            <input type="number" name="height[][{{ $cat->id }}]" class="form-control w-16" placeholder="สูง" value="{{ $eb->height }}" disabled>
-                            <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-16" placeholder="จำนวน" value="{{ $eb->amount }}" disabled>
+                            <input type="number" name="width[][{{ $cat->id }}]" class="form-control w-16" step=".01" placeholder="กว้าง" value="{{ $eb->width }}" disabled>
+                            <input type="number" name="depth[][{{ $cat->id }}]" class="form-control w-16" step=".01" placeholder="ยาว" value="{{ $eb->depth }}" disabled>
+                            <input type="number" name="height[][{{ $cat->id }}]" class="form-control w-16" step=".01" placeholder="สูง" value="{{ $eb->height }}" disabled>
+                            <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-16" step=".01" placeholder="จำนวน" value="{{ $eb->amount }}" disabled>
                             <input type="text" class="w-24" value="{{ @$eb->unit_u->unit_name }}" disabled>
                             <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" value="{{ $eb->desc }}" disabled>
                             @php
@@ -53,10 +53,10 @@
                             ->first();
                             @endphp
                             @if ( $data_chk )
-                            <input type="number" name="material_cost[][{{ $cat->id }}]" class="form-control w-24" value="{{ $eb->material_cost }}" disabled>
-                            <input type="number" name="wage_cost[][{{ $cat->id }}]" class="form-control w-24" value="{{ $eb->wage_cost }}" disabled>
-                            <input type="text" name="each_unit[][{{ $cat->id }}]" class="form-control w-24" value="{{ $eb->each_unit }}" disabled>
-                            <input type="text" name="all_unit[][{{ $cat->id }}]" class="form-control w-24" value="{{ $eb->all_unit }}" disabled>
+                            <input type="number" name="material_cost[][{{ $cat->id }}]" class="form-control w-24" step=".01" value="{{ $eb->material_cost }}" disabled>
+                            <input type="number" name="wage_cost[][{{ $cat->id }}]" class="form-control w-24" step=".01" value="{{ $eb->wage_cost }}" disabled>
+                            <input type="text" name="each_unit[][{{ $cat->id }}]" class="form-control w-24" step=".01" value="{{ $eb->each_unit }}" disabled>
+                            <input type="text" name="all_unit[][{{ $cat->id }}]" class="form-control w-24" step=".01" value="{{ $eb->all_unit }}" disabled>
                             @endif
                         </div>
                     @endif
@@ -71,10 +71,10 @@
                             {{-- <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test"> --}}
                             <input type="text" class="w-24" disabled>
                             <input type="text" class="w-full" disabled>
-                            <input type="number" name="width[][{{ $cat->id }}]" class="form-control w-16" placeholder="กว้าง" disabled>
-                            <input type="number" name="depth[][{{ $cat->id }}]" class="form-control w-16" placeholder="ยาว" disabled>
-                            <input type="number" name="height[][{{ $cat->id }}]" class="form-control w-16" placeholder="สูง" disabled>
-                            <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-16" placeholder="จำนวน" disabled>
+                            <input type="number" name="width[][{{ $cat->id }}]" class="form-control w-16" step=".01" placeholder="กว้าง" disabled>
+                            <input type="number" name="depth[][{{ $cat->id }}]" class="form-control w-16" step=".01" placeholder="ยาว" disabled>
+                            <input type="number" name="height[][{{ $cat->id }}]" class="form-control w-16" step=".01" placeholder="สูง" disabled>
+                            <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-16" step=".01" placeholder="จำนวน" disabled>
                             <input type="text" class="w-24" placeholder="หน่วย" disabled>
                             <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" disabled>
                             @php
@@ -83,10 +83,10 @@
                             ->first();
                             @endphp
                             @if ( $data_chk )
-                            <input type="number" name="material_cost[][{{ $cat->id }}]" class="form-control w-24" placeholder="ค่าวัสดุ" disabled>
-                            <input type="number" name="wage_cost[][{{ $cat->id }}]" class="form-control w-24" placeholder="ค่าแรง" disabled>
-                            <input type="text" name="each_unit[][{{ $cat->id }}]" class="form-control w-24" placeholder="รวม/หน่วย" disabled>
-                            <input type="text" name="all_unit[][{{ $cat->id }}]" class="form-control w-24" placeholder="รวมทั้งหมด" disabled>
+                            <input type="number" name="material_cost[][{{ $cat->id }}]" class="form-control w-24" step=".01" placeholder="ค่าวัสดุ" disabled>
+                            <input type="number" name="wage_cost[][{{ $cat->id }}]" class="form-control w-24" step=".01" placeholder="ค่าแรง" disabled>
+                            <input type="text" name="each_unit[][{{ $cat->id }}]" class="form-control w-24" step=".01" placeholder="รวม/หน่วย" disabled>
+                            <input type="text" name="all_unit[][{{ $cat->id }}]" class="form-control w-24" step=".01" placeholder="รวมทั้งหมด" disabled>
                             @endif
                         </div>
                     @endif

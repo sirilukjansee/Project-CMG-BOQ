@@ -116,7 +116,7 @@
                             <td style="height: 30px;">{{number_format(@$auc->boq_a->template->vender_auc->vender_d->all_unit, 2)}}</td>   {{-- รวม --}}
                             <td style="height: 30px;">{{@$auc->boq_a->template->vender_auc->vender_d->desc}}</td>   {{-- หมายเหตุ --}}
                             <td style="height: 30px; text-align:center;">{{@$auc->temp_a->name}} {{@$auc->temp_a->number_id}}</td>
-                            <td style="height: 30px;">{{@$auc->pro_a->vender_name->name}}</td>
+                            <td style="height: 30px;">{{@$auc->temp_a->vender_auc2->vender_name->name}}</td>
                         </tr>
                         @else
                         <tr>

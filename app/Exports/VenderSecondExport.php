@@ -65,14 +65,14 @@ class VenderSecondExport implements FromView, WithTitle, WithEvents, WithDrawing
         $drawing->setHeight(75);
         $drawing->setCoordinates('A1');
 
-        $drawing2 = new Drawing();
-        $drawing2->setName('watermark');
-        $drawing2->setDescription('This is my watermark');
-        $drawing2->setPath(public_path('/logo/DRAFT.png'));
-        $drawing2->setHeight(750);
-        $drawing2->setCoordinates('A1');
+        // $drawing2 = new Drawing();
+        // $drawing2->setName('watermark');
+        // $drawing2->setDescription('This is my watermark');
+        // $drawing2->setPath(public_path('/logo/DRAFT.png'));
+        // $drawing2->setHeight(750);
+        // $drawing2->setCoordinates('A1');
 
-        return [$drawing, $drawing2];
+        return $drawing;
     }
 
     public function styles(Worksheet $sheet)

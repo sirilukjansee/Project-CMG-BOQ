@@ -20,23 +20,20 @@
             <input type="submit" class="btn btn-success text-white mt-5 gap-2" value="Export to Excel">
         </div>
     </div>
-    @php
+    {{-- @php
         $num = 0;
-    @endphp
+    @endphp --}}
     <ul class="nav nav-tabs" role="tablist">
     @foreach ( $auc_temp as $key => $auc )
+    @php
+        $num = Str::substr($auc->number_id, -2);
+    @endphp
     @foreach ( $auc_ven as $key1 => $avd )
     @if ( $auc->project_id == $id )
     @if ( $avd->template_id == $auc->id )
     <li id="example-{{$key}}-tab" class="nav-item flex-1" role="presentation">
         <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-{{$key}}" type="button" role="tab" aria-controls="example-tab-{{$key}}" value="{{ $auc->id }}" aria-selected="true">
-        {{-- {{ $auc->id }},{{ $avd->id  }} --}}
-        {{-- {{ $auc->name }} --}}
-        @if ( $auc->name == "Additional BOQ" )
-        {{ $auc->name }} {{ $num + 1 }}
-        @else
-        {{ $auc->name }}
-        @endif
+        {{ $auc->name }} {{ $num }}
         </button>
     </li>
     @endif

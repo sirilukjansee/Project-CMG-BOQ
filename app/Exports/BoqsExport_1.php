@@ -74,19 +74,19 @@ class BoqsExport_1 implements FromView, WithTitle, WithEvents, WithStyles, WithD
             ->getProtection()
             ->setLocked(Protection::PROTECTION_UNPROTECTED);
         $sheet->getParent()->getActiveSheet()
-            ->getStyle('E:E')
-            ->getProtection()
-            ->setLocked(Protection::PROTECTION_UNPROTECTED);
-        $sheet->getParent()->getActiveSheet()
-            ->getStyle('F:F')
-            ->getProtection()
-            ->setLocked(Protection::PROTECTION_UNPROTECTED);
-        $sheet->getParent()->getActiveSheet()
-            ->getStyle('G:G')
-            ->getProtection()
-            ->setLocked(Protection::PROTECTION_UNPROTECTED);
-        $sheet->getParent()->getActiveSheet()
             ->getStyle('H:H')
+            ->getProtection()
+            ->setLocked(Protection::PROTECTION_UNPROTECTED);
+        $sheet->getParent()->getActiveSheet()
+            ->getStyle('I:I')
+            ->getProtection()
+            ->setLocked(Protection::PROTECTION_UNPROTECTED);
+        $sheet->getParent()->getActiveSheet()
+            ->getStyle('J:J')
+            ->getProtection()
+            ->setLocked(Protection::PROTECTION_UNPROTECTED);
+        $sheet->getParent()->getActiveSheet()
+            ->getStyle('K:K')
             ->getProtection()
             ->setLocked(Protection::PROTECTION_UNPROTECTED);
 

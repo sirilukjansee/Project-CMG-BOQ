@@ -29,7 +29,7 @@
             <th style="width: 120px;"><b>ชื่อผู้เสนอราคา</b></th>
             <th colspan="3">{{ @$export_boq->vender_name->name }}</th>
             <th style="width: 160px;"><b>OVERHEAD</b></th>
-            <th>{{ number_format(@$export_boq->overhead, 2) }}</th>
+            <th>{{ $export_boq->overhead }}</th>
         </tr>
         <tr>
             <th style="width: 120px;"><b>สถานที่</b></th>
@@ -37,11 +37,14 @@
             <th style="width: 120px;"><b>ขนาดพื้นที่</b></th>
             <th colspan="3">{{ @$export_boq->project->area }} ตร.ม</th>
             <th style="width: 160px;"><b>COMMERCIAL DISCOUNT</b></th>
-            <th>{{ number_format(@$export_boq->discount, 2) }}</th>
+            <th>{{ $export_boq->discount }}</th>
         </tr>
         <tr>
             <th style="text-align:center; background-color:gray">รายการ</th>
             <th style="text-align:center; width:700px; background-color:gray">รายละเอียด</th>
+            <th style="text-align:center; background-color:gray">กว้าง</th>
+            <th style="text-align:center; background-color:gray">ยาว</th>
+            <th style="text-align:center; background-color:gray">สูง</th>
             <th style="text-align:center; background-color:gray">จำนวน</th>
             <th style="text-align:center; background-color:gray">หน่วย</th>
             <th style="text-align:center; background-color:gray" colspan="3">ราคาต่อหน่วย</th>
@@ -53,9 +56,12 @@
             <th style="background-color:gray"></th>
             <th style="background-color:gray"></th>
             <th style="background-color:gray"></th>
-            <th style="text-align:center; background-color:gray">ค่าวัสดุ</th>
-            <th style="text-align:center; background-color:gray">ค่าแรง</th>
-            <th style="text-align:center; background-color:gray">รวม</th>
+            <th style="background-color:gray"></th>
+            <th style="background-color:gray"></th>
+            <th style="background-color:gray"></th>
+            <th style="text-align:center; background-color:gray; width: 100px;">ค่าวัสดุ</th>
+            <th style="text-align:center; background-color:gray; width: 100px;">ค่าแรง</th>
+            <th style="text-align:center; background-color:gray; width: 100px;">รวม</th>
             <th style="background-color:gray"></th>
             <th style="background-color:gray"></th>
         </tr>
@@ -78,18 +84,24 @@
                 <td style="height: 30px;"></td>
                 <td style="height: 30px;"></td>
                 <td style="height: 30px;"></td>
+                <td style="height: 30px;"></td>
+                <td style="height: 30px;"></td>
+                <td style="height: 30px;"></td>
             </tr>
             @foreach ( $export_boq->cat_sub as $keysub => $sub )
                 @if ( $sub->main_id == $cat->id )
                     <tr>
                         <td style="text-align:center;">{{ $key + 1 }}.{{ $number += 1 }}</td>
                         <td>{{ @$sub->sub_cata->name }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->amount }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->unit_u->unit_name }}</td>
-                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->wage_cost, 2) }}</td>
-                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->material_cost, 2) }}</td>
-                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->each_unit, 2) }}</td>
-                        <td style="text-align:center; height: 30px;">{{ number_format(@$sub->all_unit, 2) }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->width }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->depth }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->height }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->amount }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->unit_u->unit_name }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->wage_cost }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->material_cost }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->each_unit }}</td>
+                        <td style="text-align:center; height: 30px;">{{ $sub->all_unit }}</td>
                         <td style="height: 30px;">{{ $sub->desc }}</td>
                     </tr>
                 @endif
@@ -100,6 +112,9 @@
             <tr>
                 <td style="background-color:gray"></td>
                 <td style="height: 30px; background-color:gray; text-align:right;"><b>TOTAL {{ $cat->name }} WORK</b></td>
+                <td style="height: 30px; background-color:gray"></td>
+                <td style="height: 30px; background-color:gray"></td>
+                <td style="height: 30px; background-color:gray"></td>
                 <td style="height: 30px; background-color:gray"></td>
                 <td style="height: 30px; background-color:gray"></td>
                 <td style="height: 30px; background-color:gray"></td>

@@ -283,8 +283,8 @@
                     var mtr = $("#material"+sub_num).val();
                     var amt = $("#amount"+sub_num).val();
                     // var eun = $("#each_unit").val();
-                    var cost1 = parseInt(wge) + parseInt(mtr);
-                    var cost2 = parseInt(amt) * parseInt(cost1);
+                    var cost1 = (parseFloat(wge) + parseFloat(mtr)).toFixed(2);
+                    var cost2 = (parseFloat(amt) * parseFloat(cost1)).toFixed(2);
 
                     console.log(row);
                     $('#each_unit'+sub_num).val(cost1);
@@ -298,8 +298,8 @@
                     var material = $(this).val();
                     var amount = $('#amount'+sub_num).val();
                     var wge = $('#wage'+sub_num).val();
-                    var cost1 = parseInt(wge) + parseInt(material);
-                    var cost2 = parseInt(amount) * parseInt(cost1);
+                    var cost1 = (parseFloat(wge) + parseFloat(material)).toFixed(2);
+                    var cost2 = (parseFloat(amount) * parseFloat(cost1)).toFixed(2);
 
                     console.log('#material'+sub_num);
 
@@ -313,8 +313,8 @@
                     var material = $('#material'+sub_num).val();
                     var amount = $(this).val();
                     var wge = $('#wage'+sub_num).val();
-                    var cost1 = parseInt(wge) + parseInt(material);
-                    var cost2 = parseInt(amount) * parseInt(cost1);
+                    var cost1 = (parseFloat(wge) + parseFloat(material)).toFixed(2);
+                    var cost2 = (parseFloat(amount) * parseFloat(cost1)).toFixed(2);
 
                     console.log('#amount'+sub_num);
 
@@ -596,8 +596,8 @@
                     var material = $('#material2'+row).val();
                     var amount = $('#amount2'+row).val();
                     var wge = $(this).val();
-                    var cost1 = parseInt(wge) + parseInt(material);
-                    var cost2 = parseInt(amount) * parseInt(cost1);
+                    var cost1 = (parseFloat(wge) + parseFloat(material)).toFixed(2);
+                    var cost2 = (parseFloat(amount) * parseFloat(cost1)).toFixed(2);
 
                     // console.log(amount);
 
@@ -611,8 +611,8 @@
                     var material = $(this).val();
                     var amount = $('#amount2'+row).val();
                     var wge = $('#wage2'+row).val();
-                    var cost1 = parseInt(wge) + parseInt(material);
-                    var cost2 = parseInt(amount) * parseInt(cost1);
+                    var cost1 = (parseFloat(wge) + parseFloat(material)).toFixed(2);
+                    var cost2 = (parseFloat(amount) * parseFloat(cost1)).toFixed(2);
 
                     // console.log('#material2'+x);
 
@@ -626,8 +626,8 @@
                     var material = $('#material2'+row).val();
                     var amount = $(this).val();
                     var wge = $('#wage2'+row).val();
-                    var cost1 = parseInt(wge) + parseInt(material);
-                    var cost2 = parseInt(amount) * parseInt(cost1);
+                    var cost1 = (parseFloat(wge) + parseFloat(material)).toFixed(2);
+                    var cost2 = (parseFloat(amount) * parseFloat(cost1)).toFixed(2);
 
                     // console.log('#material2'+x);
 

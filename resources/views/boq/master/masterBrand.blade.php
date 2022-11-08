@@ -286,6 +286,7 @@
             datatype:   "JSON",
             async:  false,
             success: function(data) {
+                console.log(data);
                 // $('#chk_code').val(data.dataChk.code);
                 jQuery.each(data.dataChk, function(key, value){
                     if (value.brand_name.toUpperCase() == datakey.toUpperCase()) {
@@ -295,7 +296,6 @@
                         document.getElementById('btn_save_edit').disabled = true;
                     }
                 });
-
             },
         });
     });

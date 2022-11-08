@@ -10,9 +10,11 @@ use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Vender;
 use App\Models\Import_vender;
+use App\Models\Import_vender_detail;
 use App\Models\template_boqs;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 use App\Exports\AucExport;
 use App\Models\ExportAuc;
 
@@ -104,6 +106,60 @@ class AucController extends Controller
         // dd($temp_id);
         Import_vender::where('id', $id)->update([
             'template_id' => $temp_id,
+        ]);
+
+        $auc_tem = Import_vender::where('id', $id)->first();
+
+        template_boqs::where('id', $temp_id)->update([
+            'vender_id' => $auc_tem->id_vender,
+        ]);
+
+        return back();
+    }
+
+    public function send_ven(Request $request)
+    {
+        // dd($request->width);
+        $store_auc = Import_vender::create([
+            'id_project' => $request->id,
+            'template_id' => $request->boq_id,
+            'id_vender' => $request->id_vender,
+        ])->id;
+
+        $ovh_dis = template_boqs::where('id', $request->boq_id)->first();
+            // dd($ovh_dis);
+        Import_vender::where('id', $store_auc)->update([
+            'overhead' => $ovh_dis->overhead,
+            'discount' => $ovh_dis->discount,
+        ]);
+
+        $data_detail = Boq::where('template_boq_id', $request->boq_id)->get();
+        // $auc_tem_d = Import_vender_detail::where('template_id', $request->boq_id)->first();
+        // echo $data_detail;
+
+        foreach($data_detail as $key => $value)
+        {
+            // dd($value);
+            // echo $value;
+            $boq = new Import_vender_detail;
+            $boq->import_id = $store_auc;
+            $boq->main_id = $value->main_id;
+            $boq->sub_id = $value->sub_id;
+            $boq->width = $value->width;
+            $boq->depth = $value->depth;
+            $boq->height = $value->height;
+            $boq->amount = $value->amount;
+            $boq->unit_id = $value->unit_id;
+            $boq->desc = $value->desc;
+            $boq->wage_cost = $value->wage_cost;
+            $boq->material_cost = $value->material_cost;
+            $boq->each_unit = $value->each_unit;
+            $boq->all_unit = $value->all_unit;
+            $boq->save();
+        }
+
+        template_boqs::where('id', $request->boq_id)->update([
+            'vender_id' => $request->id_vender,
         ]);
 
         return back();

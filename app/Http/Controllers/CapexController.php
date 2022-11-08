@@ -55,12 +55,12 @@ class CapexController extends Controller
             $data = Capex::where('project_id',  $request->project_id)->where('boq_id',  $value)->first();
 
             if ($data) {
-                $cap =Capex::where('id', $data->id)->first();
+                $cap = Capex::where('id', $data->id)->first();
                 $cap->project_id = $request->project_id;
                 $cap->template_id = $request->template_id;
                 $cap->boq_id = ($value);
                 $cap->total = ($request->total[$key]);
-                $cap->remark = $request->remark;
+                $cap->remark = $request->remark[$key];
                 $cap->update_by = Auth::user()->id;
                 $cap->updated_at = Carbon::now();
                 $cap->update();
@@ -70,7 +70,7 @@ class CapexController extends Controller
                 $cap->template_id = $request->template_id;
                 $cap->boq_id = ($value);
                 $cap->total = ($request->total[$key]);
-                $cap->remark = $request->remark;
+                $cap->remark = $request->remark[$key];
                 $cap->create_by = Auth::user()->id;
                 $cap->update_by = Auth::user()->id;
                 $cap->created_at = Carbon::now();

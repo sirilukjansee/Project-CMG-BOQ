@@ -14,6 +14,9 @@ class Import_vender_detail extends Model
         'import_id',
         'main_id',
         'sub_id',
+        'width',
+        'depth',
+        'height',
         'amount',
         'unit_id',
         'desc',
@@ -28,5 +31,8 @@ class Import_vender_detail extends Model
     }
     public function unit_u(){
         return $this->hasOne(Unit::class,'id','unit_id');
+    }
+    public function pro_id(){
+        return $this->hasOne(Import_vender::class,'id','import_id');
     }
 }
