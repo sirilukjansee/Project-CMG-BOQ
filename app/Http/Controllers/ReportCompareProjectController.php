@@ -3,29 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Project;
-use App\Models\template_boqs;
-use App\Models\Import_vender;
 
-class ReportAllController extends Controller
+class ReportCompareProjectController extends Controller
 {
 
     public function index()
     {
-        $data['projects'] = Project::orderBy('id', 'desc')->get();
-
-        $_SESSION["projectID"] = '';
-        return view('boq.Report.reportAll', $data);
+        $_SESSION['projectID'] = '';
+        return view('boq.Report.report-compare-projects');
     }
 
-    public function index_detail($id)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        $data['temp_boq'] = template_boqs::where('project_id', $id)->get();
-
-        $data['imp_boq'] = Import_vender::where('id_project', $id)->get();
-
-        $_SESSION["projectID"] = '';
-        return view('boq.Report.reportAll-detail', $data);
+        //
     }
 
     /**

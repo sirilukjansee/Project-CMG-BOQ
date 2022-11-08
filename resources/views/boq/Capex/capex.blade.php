@@ -5,7 +5,7 @@
                 <h2 class="text-lg font-medium mr-auto mt-5 mb-5">
                     <b>Create Capex of {{ @$project_id->brand_master->brand_name }} at {{ @$project_id->location_master->location_name }}</b>
                 </h2>
-                <a href="{{ url('/capex/export', $project_id->id) }}"
+                <a href="{{ url('capex/export', $project_id->id) }}"
                     class="btn btn-success text-white w-full sm:w-auto mr-2" aria-expanded="false"> Export to Excel </a>
             </div>
             <!-- BEGIN: Validation Form -->

@@ -23,7 +23,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start mb-10">
                         <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto" >
                             <div class="sm:flex items-center sm:mr-4">
-                                <label class="w-full sm:w-32 2xl:w-full mr-2">Job no</label>
+                                <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Job no</label>
                                 <select id="tabulator-html-filter-field" class="form-select w-full sm:w-40 2xl:w-full mt-2 sm:mt-0 sm:w-auto">
                                     <option value="">All</option>
                                     <option value="category">220001</option>
@@ -42,6 +42,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Year</th>
                                 <th scope="col">Job Finished Date</th>
+                                <th scope="col">SQM</th>
                                 <th scope="col">Sum of Value</th>
                                 <th scope="col">Count of Job no</th>
                             </tr>
@@ -51,57 +52,26 @@
                                 <th scope="col" class="filterhead"></th>
                                 <th scope="col" class="filterhead"></th>
                                 <th scope="col" class="filterhead"></th>
+                                <th scope="col" class="filterhead"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- <tr data-href="{{ url('reportAll-detail', 1) }}"> --}}
-                                <tr>
-                                <td>1</td>
-                                <td>2014</td>
-                                <td></td>
-                                <td>xxx,292.22</td>
-                                <td>569.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>2015</td>
-                                <td></td>
-                                <td>xxx,304.51</td>
-                                <td>1029.00</td>
-                            </tr>
-                            {{-- @foreach ($users as $key => $urs)
-                            <tr>
-                                <td class="text-center">{{ $key + 1 }}</td>
-                                <td>{{ $urs->name }}</td>
-                                <td>{{ $urs->email }}</td>
-                                <td>
-                                    @if ($urs->permision == "0")
-                                        User
-                                    @elseif ($urs->permision == "1")
-                                        Manager
-                                    @elseif ($urs->permision == "2")
-                                        Admin
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($urs->status == "1")
-                                        ON
-                                    @else
-                                        OFF
-                                    @endif
-                                </td>
-                                <td class="text-center">
-                                    <!-- BEGIN: Large Modal Toggle -->
-                                    <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal({{$urs->id}})" data-tw-toggle="modal"
-                                        data-tw-target="#large-modal-size-preview_edit"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
-                                    <a href="{{ url('/changeStatus_user', $urs->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
-                                </td>
-                            </tr>
-                            @endforeach --}}
+                            @foreach($dataProjects as $key => $value)
+                                {{-- <tr data-href="{{ url('reportAll-detail', 1) }}"> --}}
+                                    <tr>
+                                        <td>{{ $key + 1}}</td>
+                                        <td>{{ $value->year }}</td>
+                                        <td></td>
+                                        <td>{{ $value->sqm }}</td>
+                                        <td>xxx,292.22</td>
+                                        <td>{{ $value->jobs }}</td>
+                                    </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr style="font-weight:bold;">
                                 <td colspan="2" style="text-align: center;">Grand Total</td>
+                                <td></td>
                                 <td></td>
                                 <td>xxx,807.44</td>
                                 <td>3,160.00</td>
@@ -274,13 +244,12 @@
          "bLengthChange": true,
          "iDisplayLength": 10,
          "ordering": false,
-         "bFilter": false
 	   });
 
     $(".dataTables_length").hide();
 
 
-       jQuery(".filterhead").not(':eq(2), :eq(3), :eq(4)').each( function ( i ) {
+       jQuery(".filterhead").not(':eq(4), :eq(5)').each( function ( i ) {
         var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
             .appendTo( jQuery(this).empty() )
             .on( 'change', function () {

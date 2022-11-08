@@ -20,7 +20,7 @@ class FormboqController extends Controller
         $template_choose = template_boqs::get();
         // $template_boq = template_boqs::where('project_id', $id)->first();
 
-        $catagories = catagory::where('is_active', "1")->get();
+        $catagories = catagory::where('is_active', "1")->orderBy('code', 'asc')->get();
         $brand_master = Brand::where('is_active', "1")->get();
         $catagories2 = Unit::where('is_active', "1")->get();
         $venders = Vender::where('is_active', "1")->get();

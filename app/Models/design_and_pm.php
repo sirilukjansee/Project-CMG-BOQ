@@ -19,4 +19,8 @@ class design_and_pm extends Model
         'create_by',
         'update_by'
     ];
+
+    public function project_pm(){
+        return $this->hasOne(Project::class,'designer_name','id');
+    }
 }

@@ -19,7 +19,7 @@ class MasterController extends Controller
 {
     public function index()
     {
-        $catagories = catagory::all();
+        $catagories = catagory::orderBy('code','asc')->get();
         $_SESSION["projectID"] = '';
 
         return view('boq.master.masterBoq', compact('catagories'));

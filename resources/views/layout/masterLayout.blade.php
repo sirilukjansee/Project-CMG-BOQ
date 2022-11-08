@@ -271,6 +271,12 @@
                                 <div class="top-menu__title"> Task Type (Location) <br> Report </div>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ url('report-compare-project') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> เปรียบเทียบระหว่างโปรเจค</div>
+                            </a>
+                        </li>
             </ul>
         </nav>
         <!-- END: Top Menu -->
