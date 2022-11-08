@@ -11,6 +11,7 @@
         <link type="image/ico" rel="shortcut icon" href="{{asset('public/logo/logo-color1.jpg')}}">
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
         <!-- BEGIN: DataTables -->
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -269,6 +270,12 @@
                             <a href="{{ url('report-task-type-ref-location') }}" class="top-menu">
                                 <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
                                 <div class="top-menu__title"> Task Type (Location) <br> Report </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('report-compare-project') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> เปรียบเทียบระหว่างโปรเจค</div>
                             </a>
                         </li>
             </ul>

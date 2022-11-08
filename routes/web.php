@@ -25,6 +25,8 @@ use App\Http\Controllers\AucController;
 use App\Http\Controllers\ReportAllController;
 use App\Http\Controllers\ReportDesignerController;
 use App\Http\Controllers\ReportYearController;
+use App\Http\Controllers\ReportTaskTypeController;
+use App\Http\Controllers\ReportCompareProjectController;
 // use Illuminate\Support\Facades\DB;
 
 /*
@@ -264,8 +266,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('report-designer-search', [ReportDesignerController::class, 'search']);
 
     Route::get('report-year', [ReportYearController::class, 'index']);
-    Route::get('report-task-type-ref-brand', [ReportYearController::class, 'index_brand']);
-    Route::get('report-task-type-ref-location', [ReportYearController::class, 'index_location']);
+
+    Route::get('report-task-type-ref-brand', [ReportTaskTypeController::class, 'index']);
+    Route::post('report-task-type-ref-brand-search', [ReportTaskTypeController::class, 'search']);
+
+    Route::get('report-task-type-ref-location', [ReportTaskTypeController::class, 'index_location']);
+    Route::post('report-task-type-ref-location-search', [ReportTaskTypeController::class, 'search_location']);
+
+    Route::get('report-compare-project', [ReportCompareProjectController::class, 'index']);
 });
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);

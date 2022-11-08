@@ -21,22 +21,30 @@
                 </div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
                     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start mb-10">
-                        <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto" >
+                        <form action="{{url('report-task-type-ref-brand-search')}}" method="POST" enctype="multipart/form-data" id="tabulator-html-filter-form" class="xl:flex sm:mr-auto" >
+                            @csrf
                             <div class="sm:flex items-center sm:mr-4">
-                                <label class="w-full sm:w-32 2xl:w-full mr-2">Task Type</label>
-                                <select id="tabulator-html-filter-field" class="form-select w-full sm:w-40 2xl:w-full mt-2 sm:mt-0 sm:w-auto">
-                                    <option value="">All</option>
-                                    <option value="category">SIS</option>
-                                    <option value="remaining_stock">Office</option>
+                                <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Task Type</label>
+                                <select id="tabulator-html-filter-field" class="form-select w-full sm:w-40 2xl:w-full mt-2 sm:mt-0 sm:w-auto" name="type_id">
+                                    <option selected value="">All</option>
+                                    @foreach ($task_type as $value)
+                                        <option value="{{$value->id}}">{{$value->task_type_name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="sm:flex items-center sm:mr-4">
-                                <label class="w-full sm:w-32 2xl:w-full mr-2">Job in date (Year)</label>
-                                <select id="tabulator-html-filter-field" class="form-select w-full sm:w-40 2xl:w-full mt-2 sm:mt-0 sm:w-auto">
-                                    <option value="">2559</option>
-                                    <option value="category">2560</option>
-                                    <option value="remaining_stock">2561</option>
+                                <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Job in date (Year)</label>
+                                <select id="tabulator-html-filter-field" class="form-select w-full sm:w-40 2xl:w-full mt-2 sm:mt-0 sm:w-auto" name="year">
+                                    <option value="0">Select</option>
+                                    <?php
+                                        for ($y = 2000; $y <= date('Y'); $y++) { ?>
+                                        <option value ="<?=$y?>"> <?=$y?> </option>
+                                    <?php } ?>
                                 </select>
+                            </div>
+                            <div class="mt-2 xl:mt-0">
+                                <button id="tabulator-html-filter-go" type="submit" class="btn btn-primary w-full sm:w-16" >Go</button>
+                                <button id="tabulator-html-filter-reset" type="button" class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1" >Reset</button>
                             </div>
                         </form>
                         <div class="flex mt-5 sm:mt-0">
@@ -60,179 +68,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- <tr data-href="{{ url('reportAll-detail', 1) }}"> --}}
-                                <tr>
-                                <td>1</td>
-                                <td>Topshop</td>
-                                <td>15</td>
-                                <td>xxx,924.32</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Lee</td>
-                                <td>33</td>
-                                <td>xxx,621.06</td>
-                            </tr>
+                            @foreach ($brands as $key => $value)
+                            @php
+                                $sum = 0;
+                            @endphp
+                                @foreach ($data_projects as $project)
+                                    @if($value->id == $project->brand)
+                                        @php
+                                            $sum += 1;
+                                        @endphp
+                                    @endif
+                                @endforeach
+                                {{-- <tr data-href="{{ url('reportAll-detail', 1) }}"> --}}
+                                    <tr>
+                                        <td>{{ $key + 1}}</td>
+                                        <td>{{ $value->brand_name }}</td>
+                                        <td>{{$sum}}</td>
+                                        <td>xxx,924.32</td>
+                                    </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
-
-                <!-- BEGIN: Large Modal Content -->
-                <div id="large-modal-size-preview_add" class="modal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h2 class="font-medium text-base mr-auto">Add User</h2>
-                            </div> <!-- END: Modal Header -->
-                            <!-- BEGIN: Modal Body -->
-                            <form action="{{ url('/users/add') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-
-                                    <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" autofocus>
-
-                                                @error('name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email">
-
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="radio" class="col-md-4 col-form-label text-md-end">{{ __('สิทธิการใช้งาน') }}</label>
-                                                <div class="flex flex-col sm:flex-row mt-2">
-                                                    <div class="form-check mr-2">
-                                                        <input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0">
-                                                        <label class="form-check-label" for="radio-switch-4">User</label>
-                                                    </div>
-                                                    <div class="form-check mr-2 mt-2 sm:mt-0">
-                                                        <input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1">
-                                                        <label class="form-check-label" for="radio-switch-5">Manager</label>
-                                                    </div>
-                                                    <div class="form-check mr-2 mt-2 sm:mt-0">
-                                                        <input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2">
-                                                        <label class="form-check-label" for="radio-switch-6">Admin</label>
-                                                    </div>
-                                                </div>
-                                        </div>
-
-                                </div>
-                                <!-- BEGIN: Modal Footer -->
-                                <div class="modal-footer">
-                                    <button type="button" data-tw-dismiss="modal"
-                                        class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
-                                </div> <!-- END: Modal Footer -->
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- END: Large Modal Content -->
-
-                <!-- BEGIN: Large Modal Content -->
-                <div id="large-modal-size-preview_edit" class="modal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h2 class="font-medium text-base mr-auto">Edit Brand</h2>
-                            </div> <!-- END: Modal Header -->
-                            <!-- BEGIN: Modal Body -->
-                            <form action="{{ url('/users/update') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="id" id="get_id">
-                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-
-                                    <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" autofocus>
-
-                                                @error('name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email">
-
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="radio" class="col-md-4 col-form-label text-md-end">{{ __('สิทธิการใช้งาน') }}</label>
-                                                <div class="flex flex-col sm:flex-row mt-2" id="permision">
-                                                </div>
-                                        </div>
-
-                                </div>
-                                <!-- BEGIN: Modal Footer -->
-                                <div class="modal-footer">
-                                    <button type="button" data-tw-dismiss="modal"
-                                        class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
-                                </div> <!-- END: Modal Footer -->
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- END: Large Modal Content -->
             </div>
 
 <script type="text/javascript">
@@ -241,7 +98,6 @@
          "bLengthChange": true,
          "iDisplayLength": 10,
          "ordering": false,
-         "bFilter": false
 	   });
 
     $(".dataTables_length").hide();
@@ -259,39 +115,6 @@
         } );
 		} );
     });
-
-    //edit
-    function edit_modal(id){
-
-        jQuery.ajax({
-            type:   "GET",
-            url:    "{!! url('users/edit/"+id+"') !!}",
-            datatype:   "JSON",
-            async:  false,
-            success: function(response) {
-                $('#get_id').val(response.dataEdit.id);
-                $('#name').val(response.dataEdit.name);
-                $('#email').val(response.dataEdit.email);
-                $('#permision').val(response.dataEdit.permision);
-                // $('#update_by').val(data.dataEdit.update_by);
-                jQuery('#permision').children().remove().end();
-                if (response.dataEdit.permision == 0 ) {
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" checked><label class="form-check-label" for="radio-switch-4">User</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1"><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2"><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
-                    }if (response.dataEdit.permision == 1 ) {
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" ><label class="form-check-label" for="radio-switch-4">User</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1" checked><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2"><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
-                    }if (response.dataEdit.permision == 2 ) {
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" ><label class="form-check-label" for="radio-switch-4">User</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1" ><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2" checked><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
-                    }
-
-            }
-        });
-    }
 
     //button href
     document.addEventListener("DOMContentLoaded", () => {

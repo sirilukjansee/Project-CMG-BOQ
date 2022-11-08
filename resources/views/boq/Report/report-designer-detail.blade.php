@@ -107,7 +107,7 @@
          "bLengthChange": true,
          "iDisplayLength": 10,
          "ordering": false,
-         "bFilter": false
+        //  "bFilter": false
 	   });
 
     $(".dataTables_length").hide();

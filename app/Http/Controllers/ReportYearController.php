@@ -2,82 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReportYearController extends Controller
 {
 
     public function index()
     {
+        $data['dataProjects'] = Project::select(DB::raw('YEAR(created_at) as year, count(id) as jobs, sum(area) as sqm'))
+        ->groupBy('year')->get();
         $_SESSION["projectID"] = '';
-        return view('boq.Report.report-year');
-    }
-
-    public function index_brand()
-    {
-        $_SESSION["projectID"] = '';
-        return view('boq.Report.report-task-type');
-    }
-
-    public function index_location()
-    {
-        $_SESSION["projectID"] = '';
-        return view('boq.Report.report-task-type-ref-location');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('boq.Report.report-year', $data);
     }
 }
