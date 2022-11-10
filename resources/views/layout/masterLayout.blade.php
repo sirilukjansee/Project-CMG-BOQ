@@ -148,12 +148,6 @@
                         <div class="top-menu__title"> AUC</div>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ url('feas')}}" class="top-menu {{ (request()->is('feas')) ? 'top-menu--active' : '' }}">
-                        <div class="top-menu__icon"> <i data-lucide="git-pull-request"></i> </div>
-                        <div class="top-menu__title"> Feas</div>
-                    </a>
-                </li>
                 @endif
                 <li>
                     <a href="{{ url('checkBoq')}}" class="top-menu {{ (request()->is('checkBoq')) ? 'top-menu--active' : '' }}">

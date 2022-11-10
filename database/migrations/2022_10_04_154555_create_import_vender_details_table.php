@@ -18,7 +18,7 @@ class CreateImportVenderDetailsTable extends Migration
             $table->foreignId('import_id')->comment('id จาก import ไหน')->nullable();
             $table->foreignId('main_id')->comment('id จาก งานหลัก ไหน')->nullable();
             $table->foreignId('sub_id')->comment('id จาก งานย่อย ไหน')->nullable();
-            $table->integer('amout')->comment('จำนวน')->nullable();
+            $table->integer('amount')->comment('จำนวน')->nullable();
             $table->foreignId('unit_id')->comment('id จาก หน่วย ไหน')->nullable();
             $table->string('desc')->comment('comment')->nullable();
             $table->float('wage_cost', 8, 2)->nullable()->comment('ค่าแรง');
