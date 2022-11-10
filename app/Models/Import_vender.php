@@ -16,6 +16,7 @@ class Import_vender extends Model
         'template_id',
         'remark',
         'overhead',
+        'budget',
         'discount',
         'create_by',
     ];

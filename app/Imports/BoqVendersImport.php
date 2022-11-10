@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Import_vender;
+use App\Models\template_boqs;
 use App\Models\Import_vender_detail;
 use App\Models\catagory;
 use App\Models\catagory_sub;
@@ -45,6 +46,7 @@ class BoqVendersImport implements ToModel
             }
             else{
                 $_SESSION["idimp"] = 1;
+                // $_SESSION["sum_p"] = Import_vender_detail::where('import_id', $_SESSION["idimp"])->sum('all_unit');
             }
             if( $cat )
             {
@@ -67,9 +69,22 @@ class BoqVendersImport implements ToModel
                     'all_unit' => ($row[7] + $row[8]) * $row[5],
                     'desc' => $row[11],
                 ]);
+
+                $id_impvd = Import_vender::orderBy('id', 'desc')->first();
+                $sum_p = Import_vender_detail::where('import_id', $id_impvd->id)->sum('all_unit');
+
+                // $_SESSION["total"] += ($row[7] + $row[8]) * $row[5];
+                // dd($_SESSION["total"]);
+                Import_vender::where('id', $id_impvd->id)->update([
+                    'budget' => $sum_p + $id_impvd->overhead - $id_impvd->discount,
+                    // 'discount' => $row[7],
+                ]);
+
             }
         }
-        // $_SESSION["value"] = 1;
+
+
+        // dd($id_impvd->id);
 
         if( !is_null($row[7]) && $row[6] == "OVERHEAD" )
         {
@@ -88,12 +103,4 @@ class BoqVendersImport implements ToModel
             ]);
         }
     }
-
-    // public function sheets(): array
-    // {
-    //     return[
-    //         new BoqsExport(),
-    //         new SheetsExport()
-    //     ];
-    // }
 }

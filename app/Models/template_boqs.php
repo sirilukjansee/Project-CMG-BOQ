@@ -21,6 +21,7 @@ class template_boqs extends Model
         'comment',
         'overhead',
         'discount',
+        'budget',
         'vender_id',
         'ref_template',
         'approve_by',

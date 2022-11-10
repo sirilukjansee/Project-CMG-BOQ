@@ -53,7 +53,15 @@ class BoqController extends Controller
         $_SESSION["projectID"] = $id;
 
         $vend_imp = Vender::where('is_active', "1")
-        ->get();
+            ->get();
+
+        $sum = Boq::where('template_boq_id', $id)
+            ->where('all_unit',)
+            ->get();
+
+
+
+        // dd($sum1);
 
         return view('boq.allBoq', compact('project','temp_boq','imp_boq','vend_imp','temp_id','imp_boqs','temp_id1'));
     }
@@ -211,7 +219,6 @@ class BoqController extends Controller
                 }
             }
 
-
         return redirect(route('allBoq', ['id' => $request->project_id]))->with('success', '!!! ADD BOQ Complete !!!');
     }
     public function edit($id)
@@ -243,7 +250,7 @@ class BoqController extends Controller
 
         template_boqs::where('id', $request->id)->update([
             'status' => $send_form,
-            'vender_id' => $request->vender_id,
+            // 'vender_id' => $request->vender_id,
             'overhead'  =>  $request->overhead,
             'discount'  =>  $request->discount
         ]);
@@ -337,6 +344,13 @@ class BoqController extends Controller
                         }
                     }
                 }
+
+
+            $sum = Boq::where('template_boq_id', $request->id)->sum('all_unit');
+
+            template_boqs::where('id', $request->id)->update([
+                'budget' => $sum + $request->overhead - $request->discount,
+            ]);
 
         return redirect(route('allBoq', ['id' => $request->project_id]))->with('success', '!!! Edit BOQ Complete !!!');
     }
@@ -438,7 +452,7 @@ class BoqController extends Controller
             {
                 $number_id = str_pad($data + 1, 4, '0', STR_PAD_LEFT);
                 $template = template_boqs::create([
-                    'vender_id' =>  $request->vender_id,
+                    // 'vender_id' =>  $request->vender_id,
                     'number_id' => $data_number->number_id."-".$number_id,
                     'project_id' => $request->project_id,
                     'name'  =>  "Additional BOQ",
@@ -453,7 +467,7 @@ class BoqController extends Controller
             }else{
                 $number_id2 = str_pad(1, 4, '0', STR_PAD_LEFT);
                 $template = template_boqs::create([
-                    'vender_id' =>  $request->vender_id,
+                    // 'vender_id' =>  $request->vender_id,
                     'number_id' => $data_number->number_id."-".$number_id2,
                     'project_id' => $request->project_id,
                     'name'  =>  "Master BOQ",
@@ -469,7 +483,7 @@ class BoqController extends Controller
             $template_id = $template;
         }else{
                 template_boqs::where('id', $chk_temp->id)->update([
-                    'vender_id' =>  $request->vender_id,
+                    // 'vender_id' =>  $request->vender_id,
                     'date'  =>  Carbon::now(),
                     'status'    =>  $send_form,
                     'overhead'  =>  $request->overhead,
@@ -614,6 +628,13 @@ class BoqController extends Controller
                     }
                 }
             }
+
+            $sum = Boq::where('template_boq_id', $template)->sum('all_unit');
+
+            template_boqs::where('id', $template)->update([
+                'budget' => $sum + $request->overhead - $request->discount,
+            ]);
+
             if ($request->btn_send == "btn_send") {
                 return redirect(route('allBoq',$request->project_id));
             }else {

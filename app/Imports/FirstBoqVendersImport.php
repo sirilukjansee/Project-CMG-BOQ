@@ -43,7 +43,6 @@ class FirstBoqVendersImport implements ToModel, WithMappedCells
                 'id_project' => $this->project_id,
                 'id_vender' => $this->vender_id,
             ])->id;
-
         }
     }
 }

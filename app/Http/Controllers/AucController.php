@@ -112,6 +112,7 @@ class AucController extends Controller
 
         template_boqs::where('id', $temp_id)->update([
             'vender_id' => $auc_tem->id_vender,
+            'budget' => $auc_tem->budget,
         ]);
 
         return back();

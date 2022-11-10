@@ -93,8 +93,7 @@
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex items-center justify-center">
-                                {{number_format(@$tb->cat_sub1->sum('all_unit'), 2)}}
-                                {{-- {{@$tb->cat_sub1}} --}}
+                                {{number_format($tb->budget, 2)}}
                             </div>
                         </td>
                         <td class="table-report__action">
@@ -212,6 +211,12 @@
                             <option value="{{ $vd->id }}">{{ $vd->name }}</option>
                             @endforeach
                         </select>
+                        <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+
+                            <div class="col-span-12 sm:col-span-4 input-form mt-3">
+                                <input name="file" type="file" class="form-control"/>
+                            </div>
+                        </div>
                         </div>
                         <!-- BEGIN: Modal Footer -->
                         <div class="modal-footer">
@@ -234,8 +239,8 @@
                             @csrf
                             <div class="p-5 text-center">
                                 <i data-lucide="send" class="w-16 h-16 text-warning mx-auto mt-3"></i>
-                                <div class="text-3xl mt-5">Send to Manager??</div>
-                                <div class="text-slate-500 mt-2">?????????????? <br>???????????.</div>
+                                <div class="text-3xl mt-5">Send to Manager</div>
+                                <div class="text-slate-500 mt-2">!! ตรวจสอบข้อมูลให้เรียบร้อยก่อนส่ง !!<br>หาก BOQ ถูก Approve แล้วจะไม่สามารถแก้ไขได้</div>
                             </div>
                             <input type="hidden" id="boq_id" name="boq_id">
                             <div class="px-5 pb-8 text-center">

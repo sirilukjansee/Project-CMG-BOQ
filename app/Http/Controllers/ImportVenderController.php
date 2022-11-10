@@ -21,14 +21,9 @@ class ImportVenderController extends Controller
 
     public function uploadBoqVender(Request $request)
     {
-        // dd($request);
-        // $imp_vd = new Import_vender;
-        // $imp_vd->id_vender = $request->id_vender;
-        // $imp_vd->save();
-        // $name = "FirstBoqVendersImport";
-        // dd($request->file);
         Excel::import(new FirstBoqVendersImport($request->id,$request->id_vender), $request->file);
         Excel::import(new BoqVendersImport($request->id), $request->file);
+
         return back()->with('success','!!! Import File Complete !!!');
     }
 
@@ -38,7 +33,7 @@ class ImportVenderController extends Controller
             ->first();
         $catagorie = catagory::where('is_active', "1")
             ->get();
-        // $number = 0;
+
         return Excel::download(new MultiVenderExport($export_boq,$catagorie), 'Vender.xlsx');
     }
 }
