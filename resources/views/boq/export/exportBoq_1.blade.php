@@ -97,7 +97,7 @@
                         <td style="text-align:center; height: 30px;">{{ $sub->depth }}</td>
                         <td style="text-align:center; height: 30px;">{{ $sub->height }}</td>
                         <td style="text-align:center; height: 30px;">{{ $sub->amount }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->unit_u->unit_name }}</td>
+                        <td style="text-align:center; height: 30px;">{{ @$sub->unit_u->unit_name }}</td>
                         <td style="text-align:center; height: 30px;">{{ $sub->wage_cost }}</td>
                         <td style="text-align:center; height: 30px;">{{ $sub->material_cost }}</td>
                         <td style="text-align:center; height: 30px;">{{ $sub->each_unit }}</td>

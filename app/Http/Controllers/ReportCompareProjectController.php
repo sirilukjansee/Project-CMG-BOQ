@@ -10,7 +10,8 @@ class ReportCompareProjectController extends Controller
     public function index()
     {
         $_SESSION['projectID'] = '';
-        return view('boq.Report.report-compare-projects');
+        $ss = 6700;
+        return view('boq.Report.report-compare-projects', compact('ss'));
     }
 
     /**
