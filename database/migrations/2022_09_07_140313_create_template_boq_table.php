@@ -19,6 +19,8 @@ class CreateTemplateBoqTable extends Migration
             $table->foreignId('project_id')->comment('รหัสโครงการ');
             $table->string('name');
             $table->date('date')->format('d.m.Y');
+            $table->float('overhead', 8, 2)->default('0')->nullable();
+            $table->float('discount', 8, 2)->default('0')->nullable();
             $table->foreignId('vender_id')->nullable();
             $table->enum('status', ['0', '1','2','3','4'])->default('0')->comment('สถานะของ boq drafted,waiting approval,approval,reject,rework');
             $table->foreignId('create_by');
