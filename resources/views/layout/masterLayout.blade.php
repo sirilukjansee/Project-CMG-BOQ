@@ -7,11 +7,12 @@
         <meta name="description" content="Icewall admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
         <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="LEFT4CODE">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>CMG-BOQ</title>
         <link type="image/ico" rel="shortcut icon" href="{{asset('public/logo/logo-color1.jpg')}}">
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <!-- BEGIN: DataTables -->
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -20,6 +21,9 @@
 
         <link href="{{ asset('public/select2/select2.min.css') }}" rel="stylesheet" />
         <script src="{{ asset('public/select2/select2.min.js') }}"></script>
+
+        <!-- Chart -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('public/dist/css/_app.css') }}">
