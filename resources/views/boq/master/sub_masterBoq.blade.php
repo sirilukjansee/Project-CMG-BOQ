@@ -117,15 +117,26 @@
                                 <div class="col-span-12 sm:col-span-12 input-form mt-3">
                                     <input type="text" class="form-control" name="name" placeholder="{{ $catagories->name }}" disabled>
                                 </div>
-                                <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control chk_code" name="code1" minlength="2" maxlength="2" placeholder="Ex: GG" required>
+                                <div class="col-span-12 sm:col-span-12 input-form">
+                                    <select class="form-select sm:mr-2" aria-label="Default select example" name="criteria" id="criteria">
+                                        <option value="">Select Code Criteria</option>
+                                        <option value="8">8</option>
+                                        <option value="14">14</option>
+                                        <option value="24">24</option>
+                                    </select>
+                                </div>
+                                <div class="col-span-12 sm:col-span-6">
+                                    <span id="code_criteria8"></span>
+                                </div>
+                                <div class="col-span-12 sm:col-span-6">
+                                    <span id="code_criteria8_1"></span>
+                                </div>
+                                <div class="col-span-12 sm:col-span-6">
+                                    <span id="code_criteria8_2"></span>
                                     <p class="text-danger" id="comment"></p>
                                 </div>
-                                <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control chk_code2" name="code2" minlength="3" maxlength="3" placeholder="Ex: 001" required>
-                                </div>
-                                <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control chk_code3" name="code3" minlength="2" maxlength="2" placeholder="- -">
+                                <div class="col-span-12 sm:col-span-6">
+                                    <span id="code_criteria8_3"></span>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12">
                                     <input type="text" class="form-control chk_name" name="name" placeholder="Name">
@@ -166,15 +177,26 @@
                                 <div class="col-span-12 sm:col-span-12 input-form mt-3">
                                     <input type="text" class="form-control" id="name" name="name" placeholder="{{ $catagories->name }}" disabled>
                                 </div>
-                                <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" required>
+                                <div class="col-span-12 sm:col-span-12 input-form">
+                                    <select class="form-select sm:mr-2" aria-label="Default select example" name="criteria" id="">
+                                        <option>Select Code Criteria</option>
+                                        <option value="8">8</option>
+                                        <option value="14">14</option>
+                                        <option value="24">24</option>
+                                    </select>
+                                </div>
+                                <div class="col-span-12 sm:col-span-6">
+                                    <span id="code_criteria_edit"></span>
                                     <p class="text-danger" id="edit_comment"></p>
                                 </div>
-                                <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="3" maxlength="3" required>
+                                <div class="col-span-12 sm:col-span-6">
+                                    <span id="code_criteria_edit2"></span>
                                 </div>
-                                <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control chk_code_edit3" id="get_code3" placeholder="- -" name="code3" minlength="2" maxlength="2">
+                                <div class="col-span-12 sm:col-span-6">
+                                    <span id="code_criteria_edit3"></span>
+                                </div>
+                                <div class="col-span-12 sm:col-span-6">
+                                    <span id="code_criteria_edit4"></span>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12">
                                     <input type="text" class="form-control chk_name_edit" id="sub_name" name="name">
@@ -182,9 +204,6 @@
                                 </div>
                                 <div class="col-span-12 sm:col-span-12 input-form">
                                     <select id="get_brand_edit" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand">
-                                        {{-- @foreach ($data_brand as $value)
-                                            <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
-                                        @endforeach --}}
                                     </select>
                                 </div>
                                 <input type="hidden" name="id" id="id">
@@ -232,6 +251,61 @@
 
 <!-- BEGIN: JS Assets-->
 <script type="text/javascript">
+
+    // Code Criteria
+    $('#criteria').on('change', function()
+     {
+        //  console.log($(this).val());
+        jQuery('#code_criteria8').children().remove().end();
+        jQuery('#code_criteria8_1').children().remove().end();
+        jQuery('#code_criteria8_2').children().remove().end();
+        jQuery('#code_criteria8_3').children().remove().end();
+
+        if ($(this).val() == "8") {
+            $('#code_criteria8').append('<input type="text" class="form-control chk_code" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
+            $('#code_criteria8_1').append('<input type="text" class="form-control chk_code1" name="code1_1" minlength="2" maxlength="2" placeholder="Category" required>');
+            $('#code_criteria8_2').append('<input type="text" class="form-control chk_code2" name="code2" minlength="2" maxlength="2" placeholder="Numbers, Letters (2)" required>');
+            $('#code_criteria8_3').append('<input type="text" class="form-control chk_code3" name="code3" minlength="2" maxlength="2" placeholder="Year Concept" required>');
+        }else if ($(this).val() == "14") {
+            $('#code_criteria8').append('<input type="text" class="form-control chk_code" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
+            $('#code_criteria8_1').append('<input type="text" class="form-control chk_code1" name="code1_1" minlength="2" maxlength="2" placeholder="Category" required>');
+            $('#code_criteria8_2').append('<input type="text" class="form-control chk_code2" name="code2" minlength="8" maxlength="8" placeholder="Numbers, Letters (8)" required>');
+            $('#code_criteria8_3').append('<input type="text" class="form-control chk_code3" name="code3" minlength="2" maxlength="2" placeholder="Year Concept" required>');
+        }else if ($(this).val() == "24") {
+            $('#code_criteria8').append('<input type="text" class="form-control chk_code" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
+            $('#code_criteria8_1').append('<input type="text" class="form-control chk_code1" name="code1_1" minlength="2" maxlength="2" placeholder="Category" required>');
+            $('#code_criteria8_2').append('<input type="text" class="form-control chk_code2" name="code2" minlength="16" maxlength="16" placeholder="Numbers, Letters (16)" required>');
+            $('#code_criteria8_3').append('<input type="text" class="form-control chk_code3" name="code3" minlength="2" maxlength="2" placeholder="Year Concept" required>');
+        }
+
+    });
+
+    $('#criteria_edit').on('change', function()
+     {
+        // console.log($(this).val());
+        jQuery('#code_criteria_edit').children().remove().end();
+        jQuery('#code_criteria_edit2').children().remove().end();
+        jQuery('#code_criteria_edit3').children().remove().end();
+        jQuery('#code_criteria_edit4').children().remove().end();
+
+        if ($(this).val() == "8") {
+            $('#code_criteria_edit').append('<input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
+            $('#code_criteria_edit2').append('<input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="2" maxlength="2" placeholder="Category" required>');
+            $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code3" minlength="2" maxlength="2" placeholder="Numbers, Letters (2)" required>');
+            $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" placeholder="Year Concept" required>');
+        }else if ($(this).val() == "14") {
+            $('#code_criteria_edit').append('<input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
+            $('#code_criteria_edit2').append('<input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="2" maxlength="2" placeholder="Category" required>');
+            $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code3" minlength="8" maxlength="8" placeholder="Numbers, Letters (8)" required>');
+            $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" placeholder="Year Concept" required>');
+        }else if ($(this).val() == "24") {
+            $('#code_criteria_edit').append('<input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
+            $('#code_criteria_edit2').append('<input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="2" maxlength="2" placeholder="Category" required>');
+            $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code3" minlength="16" maxlength="16" placeholder="Numbers, Letters (16)" required>');
+            $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" placeholder="Year Concept" required>');
+        }
+
+    });
 
     // Change Status
     $('.status').on('click', function() {
@@ -302,15 +376,51 @@
             datatype:   "JSON",
             async:  false,
             success: function(data) {
+                jQuery('#code_criteria_edit').children().remove().end();
+                jQuery('#code_criteria_edit2').children().remove().end();
+                jQuery('#code_criteria_edit3').children().remove().end();
+                jQuery('#code_criteria_edit4').children().remove().end();
+                // $('#criteria_edit').val();
                 $('#id').val(data.dataEdit.id);
+                $('#criteria_edit').val(data.dataEdit.code_criteria);
                 var text = data.dataEdit.code;
-                var result1 = text.substring(0, 2);
-                var result2 = text.substring(2, 5);
-                var result3 = text.substring(5, 7);
-                $('#get_code1').val(result1);
-                $('#get_code2').val(result2);
-                if (result3 != '') {
-                    $('#get_code3').val(result3);
+
+                if (data.dataEdit.code_criteria == "8") {
+                    var result1 = text.substring(0, 2);
+                    var result2 = text.substring(2, 4);
+                    var result3 = text.substring(4, 6);
+                    var result4 = text.substring(6, 8);
+
+                    $('#code_criteria_edit').append('<input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" value="'+result1+'" required>');
+                    $('#code_criteria_edit2').append('<input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="2" maxlength="2" value="'+result2+'" required>');
+                    // if (result3 != '') {
+                        $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code1" minlength="2" maxlength="2" value="'+result3+'" required>');
+                    // }
+                    $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" value="'+result4+'" required>');
+                }else if (data.dataEdit.code_criteria == "14") {
+                    var result1 = text.substring(0, 2);
+                    var result2 = text.substring(2, 4);
+                    var result3 = text.substring(4, 12);
+                    var result4 = text.substring(12, 16);
+
+                    $('#code_criteria_edit').append('<input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" value="'+result1+'" required>');
+                    $('#code_criteria_edit2').append('<input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="2" maxlength="2" value="'+result2+'" required>');
+                    // if (result3 != '') {
+                        $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code3" minlength="8" maxlength="8" value="'+result3+'" required>');
+                    // }
+                    $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" value="'+result4+'" required>');
+                }else if (data.dataEdit.code_criteria == "24") {
+                    var result1 = text.substring(0, 2);
+                    var result2 = text.substring(2, 4);
+                    var result3 = text.substring(4, 14);
+                    var result4 = text.substring(14, 16);
+
+                    $('#code_criteria_edit').append('<input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" value="'+result1+'" required>');
+                    $('#code_criteria_edit2').append('<input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="2" maxlength="2" value="'+result2+'" required>');
+                    // if (result3 != '') {
+                        $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code3" minlength="16" maxlength="16" value="'+result3+'" required>');
+                    // }
+                    $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" value="'+result4+'" required>');
                 }
 
                 $('#sub_name').val(data.dataEdit.name);
@@ -334,7 +444,6 @@
                         // jQuery.each(rows_tags, function(tkey, tvalue){
                         // if(rows_tags[key]){
                             if(value.id != rows_tags[x]){
-                                console.log(rows_tags[x]);
                                 x++;
                             // console.log(key+'.'+value.id);
                             $('#get_brand_edit').append('<option value='+value.id+'>'+value.brand_name+'</option>');
@@ -354,8 +463,9 @@
 
     //เช็คข้อมูลซ้ำ
     $('.chk_name').on('click', function() {
-            var datakey = $('.chk_code').val() + $('.chk_code2').val() + $('.chk_code3').val();
+            var datakey = $('.chk_code').val() + $('.chk_code1').val() + $('.chk_code2').val() + $('.chk_code3').val();
             $('#comment').text('');
+            // console.log(datakey);
             document.getElementById('btn_save').disabled = false;
             jQuery.ajax({
                 type:   "GET",
@@ -377,7 +487,7 @@
     });
 
     $('.chk_code_edit').on('keyup', function() {
-            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
             $('#edit_comment').text('');
             document.getElementById('btn_save_edit').disabled = false;
             jQuery.ajax({
@@ -399,7 +509,7 @@
     });
 
     $('.chk_code_edit2').on('keyup', function() {
-            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
             $('#edit_comment').text('');
             document.getElementById('btn_save_edit').disabled = false;
             jQuery.ajax({
@@ -421,7 +531,30 @@
     });
 
     $('.chk_code_edit3').on('keyup', function() {
-            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
+            $('#edit_comment').text('');
+            // console.log(datakey);
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
+
+    $('.chk_code_edit4').on('keyup', function() {
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
             $('#edit_comment').text('');
             document.getElementById('btn_save_edit').disabled = false;
             jQuery.ajax({
@@ -445,7 +578,6 @@
     $('.chk_name').on('keyup', function() {
             var datakey = $(this).val();
             $('#comment2').text('');
-            // console.log($('#comment').text());
             if ($('#comment').text()) {
                 document.getElementById('btn_save').disabled = true;
             }else{
