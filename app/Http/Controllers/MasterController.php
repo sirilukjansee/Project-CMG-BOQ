@@ -39,30 +39,18 @@ class MasterController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'unique:catagories'
-        // ],
-        // [
-        //     'name.unique' => "error"
-        // ]);
-
         // dd($request);
         $data = array();
         $data['code'] = $request->code;
         $data['name'] = $request->name;
-        $data['create_by'] = 1;
-        $data['update_by'] = 1;
+        $data['create_by'] = Auth::user()->id;
+        $data['update_by'] = Auth::user()->id;
         $data['is_active'] = "1";
 
         DB::table('catagories')->insert($data);
 
         return redirect()->back()->with('success', '!!! ADD Complete !!!');
     }
-
-    // public function edit($id){
-    //     $catagory = catagory::find($id);
-    //     return response()->json([$catagory]);
-    // }
 
     public function edit($id)
     {
@@ -85,7 +73,7 @@ class MasterController extends Controller
         $update = DB::table('catagories')->where('id', $request->id)->update([
             'code' => $request->code,
             'name' => $request->name,
-            'update_by' => 1,
+            'update_by' => Auth::user()->id,
         ]);
 
         return back()->with('success', '!!! Edit Complete !!!');
@@ -105,20 +93,20 @@ class MasterController extends Controller
         if ($data->is_active == "1") {
             catagory::where('id',$data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
             catagory_sub::where('catagory_id', $data->id)->update([
                 'is_active' => "0",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }else {
             catagory::where('id',$data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
             catagory_sub::where('catagory_id', $data->id)->update([
                 'is_active' => "1",
-                'update_by' => 1
+                'update_by' => Auth::user()->id
             ]);
         }
         return response()->json();
@@ -128,10 +116,11 @@ class MasterController extends Controller
     {
         // dd($request);
        $catagory_sub = new catagory_sub;
-       $catagory_sub->code = $request->code1.$request->code2.$request->code3;
+       $catagory_sub->code = $request->code1.$request->code1_1.$request->code2.$request->code3;
        $catagory_sub->catagory_id = $request->catagory_id;
        $catagory_sub->name = $request->name;
        $catagory_sub->code_cat = $request->catagory_code;
+       $catagory_sub->code_criteria = $request->criteria;
        $catagory_sub->create_by = Auth::user()->id;
        $catagory_sub->update_by = Auth::user()->id;
        $catagory_sub->is_active = "1";
@@ -159,20 +148,23 @@ class MasterController extends Controller
 
     public function update_sub(Request $request)
     {
+        // dd($request);
         if ($request->brand_id) {
             $update_sub = catagory_sub::find($request->id)->update([
-                'code' => $request->code1.$request->code2.$request->code3,
+                'code' => $request->code1.$request->code2.$request->code3.$request->code4,
                 'name' => $request->name,
                 'brand_id' => implode( ',', $request->brand_id),
                 'code_cat' => $request->catagory_code,
-                'update_by' => 1
+                'code_criteria' => $request->criteria,
+                'update_by' => Auth::user()->id
             ]);
         }else{
         $update_sub = catagory_sub::find($request->id)->update([
-            'code' => $request->code1.$request->code2.$request->code3,
+            'code' => $request->code1.$request->code2.$request->code3.$request->code4,
             'name' => $request->name,
             'code_cat' => $request->catagory_code,
-            'update_by' => 1
+            'code_criteria' => $request->criteria,
+            'update_by' => Auth::user()->id
         ]);
     }
         return back()->with('success', '!!! Edit_SUB Complete !!!');

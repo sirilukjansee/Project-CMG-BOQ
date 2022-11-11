@@ -27,6 +27,8 @@
                                 <th class="whitespace-nowrap">ID</th>
                                 <th class="whitespace-nowrap">BOQ_name</th>
                                 <th class="text-center whitespace-nowrap">Date</th>
+                                <th class="text-center whitespace-nowrap">Vendor</th>
+                                <th class="text-center whitespace-nowrap">Budget</th>
                                 <th class="text-center whitespace-nowrap">Status</th>
                                 <th class="text-center whitespace-nowrap"></th>
                             </tr>
@@ -44,6 +46,12 @@
                             </td>
                             <td class="table-report__action w">
                                 <div class="flex items-center justify-center">{{ Carbon\Carbon::parse($tb->date)->format('d-m-Y') }}</div>
+                            </td>
+                            <td class="table-report__action w-56">
+                                <div class="flex items-center justify-center"> {{ @$tb->vender_name->name }}</div>
+                            </td>
+                            <td class="table-report__action w-56">
+                                <div class="flex items-center justify-center"> {{number_format($tb->budget, 2)}} </div>
                             </td>
                             <td class="table-report__action w-56">
                                 <div class="flex items-center justify-center">

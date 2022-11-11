@@ -16,6 +16,7 @@ class CreateColumnImportVendersAdd1 extends Migration
         Schema::table('import_venders', function (Blueprint $table) {
             $table->float('overhead', 8, 2)->after('remark')->nullable()->comment('บวกเพิ่ม');
             $table->float('discount', 8, 2)->after('overhead')->nullable()->comment('ส่วนลด');
+            $table->float('budget', 8, 2)->after('discount')->nullable()->comment('ราคารวม');
         });
     }
 
@@ -27,7 +28,7 @@ class CreateColumnImportVendersAdd1 extends Migration
     public function down()
     {
         Schema::table('import_venders', function (Blueprint $table) {
-            $table->dropColumn('overhead','discount');
+            $table->dropColumn('overhead','discount', 'budget');
         });
     }
 }

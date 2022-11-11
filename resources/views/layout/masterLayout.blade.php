@@ -136,24 +136,18 @@
                     $id = "allBoq/".$_SESSION["projectID"];
                 @endphp
                 @if (request()->is($id))
-                    <li>
-                        <a href="{{ url('capex', $_SESSION["projectID"])}}" class="top-menu {{ (request()->is('capex')) ? 'top-menu--active' : '' }}">
-                            <div class="top-menu__icon"> <i data-lucide="file-minus"></i> </div>
-                            <div class="top-menu__title">Capex</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('auc', $_SESSION["projectID"])}}" class="top-menu {{ (request()->is('auc')) ? 'top-menu--active' : '' }}">
-                            <div class="top-menu__icon"> <i data-lucide="list"></i> </div>
-                            <div class="top-menu__title"> AUC</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('feas')}}" class="top-menu {{ (request()->is('feas')) ? 'top-menu--active' : '' }}">
-                            <div class="top-menu__icon"> <i data-lucide="git-pull-request"></i> </div>
-                            <div class="top-menu__title"> Feas</div>
-                        </a>
-                    </li>
+                <li>
+                    <a href="{{ url('capex', $_SESSION["projectID"])}}" class="top-menu {{ (request()->is('capex')) ? 'top-menu--active' : '' }}">
+                        <div class="top-menu__icon"> <i data-lucide="file-minus"></i> </div>
+                        <div class="top-menu__title">Capex</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('auc', $_SESSION["projectID"])}}" class="top-menu {{ (request()->is('auc')) ? 'top-menu--active' : '' }}">
+                        <div class="top-menu__icon"> <i data-lucide="list"></i> </div>
+                        <div class="top-menu__title"> AUC</div>
+                    </a>
+                </li>
                 @endif
                 <li>
                     <a href="{{ url('checkBoq')}}" class="top-menu {{ (request()->is('checkBoq')) ? 'top-menu--active' : '' }}">

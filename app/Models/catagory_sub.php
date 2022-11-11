@@ -14,6 +14,7 @@ class catagory_sub extends Model
 
     protected $fillable = [
         'code',
+        'code_criteria',
         'catagory_id',
         'name',
         'brand_id',

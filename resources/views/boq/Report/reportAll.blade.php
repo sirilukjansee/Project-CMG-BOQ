@@ -97,7 +97,7 @@
                                                 @endif
                                             @endif
                                         </td>
-                                        <td>{{ $value->costSqm }}</td>
+                                        <td>{{ number_format( $value->project_id1->budget / $value->area, 2) }}</td>
                                     </tr>
                                     @endforeach
                             </tbody>

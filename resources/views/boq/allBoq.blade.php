@@ -129,6 +129,14 @@
                                     @endif
                                 @endif
 
+                                @if ($tb->name != 'Master BOQ')
+                                <button type="button" id="change_status_boq" value="{{ $tb->id }}"
+                                    class="btn btn-outline-secondary w-full sm:w-auto mr-2"
+                                    aria-expanded="false" data-tw-toggle="modal"
+                                    data-tw-target="#vendor-modal-preview">
+                                    <i data-lucide="user" class="w-4 h-4 mr-2"></i> Vendor </button>
+                                @endif
+
                                 @if ($tb->status == '3')
                                     <button class="btn btn-outline-secondary w-full sm:w-auto mr-2"
                                         aria-expanded="false"> <i data-lucide="corner-right-up"
@@ -141,13 +149,6 @@
                                 <a href="{{ url('projects/export_no', $tb->id) }}"
                                     class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false">
                                 <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
-                                @endif
-                                @if ($tb->name != 'Master BOQ')
-                                <button type="button" id="change_status_boq" value="{{ $tb->id }}"
-                                    class="btn btn-outline-secondary w-full sm:w-auto mr-2"
-                                    aria-expanded="false" data-tw-toggle="modal"
-                                    data-tw-target="#vendor-modal-preview">
-                                     Vendor </button>
                                 @endif
                             </div>
                         </td>
