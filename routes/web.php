@@ -27,6 +27,7 @@ use App\Http\Controllers\ReportDesignerController;
 use App\Http\Controllers\ReportYearController;
 use App\Http\Controllers\ReportTaskTypeController;
 use App\Http\Controllers\ReportCompareProjectController;
+use App\Http\Controllers\LogController;
 // use Illuminate\Support\Facades\DB;
 
 /*
@@ -278,6 +279,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('report-task-type-ref-location-search', [ReportTaskTypeController::class, 'search_location']);
 
     Route::get('report-compare-project', [ReportCompareProjectController::class, 'index']);
+
+    //remark
+    Route::get('/log_remark', [LogController::class, 'index'])->name('log_remark');
+    Route::get('/log_detail/{id}', [LogController::class, 'show'])->name('log_detail');
+
 });
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);

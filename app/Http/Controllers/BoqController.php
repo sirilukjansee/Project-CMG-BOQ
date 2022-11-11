@@ -12,6 +12,7 @@ use App\Models\Brand;
 use App\Models\Vender;
 use App\Models\Import_vender;
 use App\Models\Import_vender_detail;
+use App\Models\Log_remark;
 use Carbon\Carbon;
 use App\Exports\BoqsExport;
 use App\Exports\SheetsExport;
@@ -358,13 +359,23 @@ class BoqController extends Controller
     public function change_status_boq(Request $request)
     {
         $data = template_boqs::find($request->boq_id);
-        // dd($request);
+        // dd($data->project_id);
+
         template_boqs::where('id', $request->boq_id)->update([
             'status' => "1"
         ]);
 
         Project::where('id', $data->project_id)->update([
             'updated_at'  =>  Carbon::now()
+        ]);
+
+        $log = Log_remark::create([
+            'project_id' => $data->project_id,
+            'template_id' => $request->boq_id,
+            'status' => 2,
+            'create_by' => Auth::user()->id,
+            // 'approve_by' => 1,
+            'date'  =>  Carbon::now(),
         ]);
 
         return back()->with('Yay');

@@ -101,6 +101,7 @@
             </table>
         </div>
     </div>
+
     <!-- END: HTML Table Data -->
 
     <!-- BEGIN: Modal Content -->

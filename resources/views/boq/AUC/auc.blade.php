@@ -25,25 +25,25 @@
     @endphp --}}
     <ul class="nav nav-tabs" role="tablist">
     @foreach ( $auc_temp as $key => $auc )
-    @php
-        $num = Str::substr($auc->number_id, -2);
-    @endphp
-    @foreach ( $auc_ven as $key1 => $avd )
-    @if ( $auc->project_id == $id )
-    @if ( $avd->template_id == $auc->id )
-    <li id="example-{{$key}}-tab" class="nav-item flex-1" role="presentation">
-        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-{{$key}}" type="button" role="tab" aria-controls="example-tab-{{$key}}" value="{{ $auc->id }}" aria-selected="true">
-        {{ $auc->name }} {{ $num }}
-        </button>
-    </li>
-    @endif
-    @endif
-    @endforeach
+        @php
+            $num = Str::substr($auc->number_id, -2);
+        @endphp
+        @foreach ( $auc_ven as $key1 => $avd )
+            @if ( $auc->project_id == $id )
+                @if ( $avd->template_id == $auc->id )
+                    <li id="example-{{$key}}-tab" class="nav-item flex-1" role="presentation">
+                        <button class="nav-link w-full py-2" data-tw-toggle="pill" data-tw-target="#example-tab-{{$key}}" type="button" role="tab" aria-controls="example-tab-{{$key}}" value="{{ $auc->id }}" aria-selected="true">
+                        {{ $auc->name }} {{ $num }}
+                        </button>
+                    </li>
+                @endif
+            @endif
+        @endforeach
     @endforeach
     </ul>
     <div class="tab-content border-l border-r border-b">
-        @if ( $auc->project_id == $id )
         @foreach ( $auc_temp as $key => $auc )
+        @if ( $auc->project_id == $id )
         <div id="example-tab-{{$key}}" class="tab-pane leading-relaxed p-5 box" role="tabpanel" aria-labelledby="example-{{$key}}-tab">
             <div class="group_wrapper">
                 <div class="intro-y input-form p-3">
@@ -64,7 +64,7 @@
                             <div class="input-form">
                                 @foreach ( $auc->cat_sub as $ac )
                                 @if ( $ac->main_id == $cat->id )
-                                    <input type="hidden" name="project_id[][{{ $edit_dis->template_boq_id }}]">
+                                    <input type="hidden" name="project_id[][{{ @$edit_dis->template_boq_id }}]">
                                     <div id="addsub" class="flex flex-row gap-2 mb-2 ml-3">
                                         {{-- <input type="text" value="{{$cat->id}}"> --}}
                                         <input class="form-check-input chk{{$cat->id}}{{$auc->id}}" type="checkbox" name="chk_s[{{$auc->id}}][]" value="{{$ac->id}}">  <!-- เก็บ id ของ boq -->
@@ -89,10 +89,11 @@
                                 @endforeach
                                 @php
                                 $data_chk = App\Models\Boq::where('main_id', $cat->id)
-                                    ->where('template_boq_id', $project_id->id)
+                                    ->where('template_boq_id', $project_id)
+                                    // ->where('template_boq_id', $project_id->id)
                                     ->first();
                                 @endphp
-                                @if ( $data_chk == '')
+                                @if ( $data_chk == null)
                                     <div id="addsub" class="flex flex-row gap-2 mb-2 ml-3">
                                         {{-- <input type="text" value="{{$cat->id}}"> --}}
                                         <input id="checkbox-switch-emt" class="form-check-input" type="checkbox" name="chk">
@@ -117,8 +118,8 @@
                 </div>
             </div>
         </div>
-        @endforeach
         @endif
+        @endforeach
     </div>
 </form>
 <!-- Start: JS Assets-->

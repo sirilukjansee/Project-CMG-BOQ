@@ -101,12 +101,9 @@
                                 <a href="{{ url('/viewBoq', $tb->id) }}"
                                     class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i
                                         data-lucide="eye" class="w-4 h-4"></i></a>
-                                {{-- <a href="javascript:;{{$tb->id}}" data-tw-toggle="modal" data-tw-target="#remark-modal-size-import"
-                                    class="btn btn-outline-secondary w-full sm:w-auto mr-2 id_template" aria-expanded="false"> <i
-                                        data-lucide="pen-tool" class="w-4 h-4" ></i></a> --}}
+                                {{-- remark --}}
                                 <button data-tw-toggle="modal" value="{{$tb->id}}" onclick="showremark({{$tb->id}})" data-tw-target="#remark-modal-size-import" class="btn btn-outline-secondary w-full sm:w-auto mr-2 id_template" aria-expanded="false"> <i
                                     data-lucide="pen-tool" class="w-4 h-4" ></i></button>
-
                                 @if ($tb->status == '1' || $tb->status == '2' || $tb->status == '3')
                                     <button class="btn btn-outline-secondary w-full sm:w-auto mr-2" disabled><i
                                             data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </button>

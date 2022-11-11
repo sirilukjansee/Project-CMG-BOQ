@@ -7,6 +7,8 @@ use App\Models\template_boqs;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use App\Models\Log_remark;
 
 class ManagerController extends Controller
 {
@@ -23,7 +25,7 @@ class ManagerController extends Controller
 
     public function store(Request $request)
     {
-
+        // dd($request);
         $data = template_boqs::find($request->boq_id);
         // return $data->project_id;
         // dd($request);
@@ -36,6 +38,16 @@ class ManagerController extends Controller
 
         Project::where('id', $data->project_id)->update([
             'updated_at'  =>  Carbon::now()
+        ]);
+
+        $log = Log_remark::create([
+            'project_id' => $data->project_id,
+            'template_id' => $request->boq_id,
+            'status' => $request->status,
+            // 'create_by' => Auth::user()->id,
+            'approve_by' => Auth::user()->id,
+            'date'  =>  Carbon::now(),
+            'comment'   =>  $request->comment,
         ]);
 
         return back()->with("Yay");

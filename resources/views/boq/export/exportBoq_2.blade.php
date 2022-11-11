@@ -94,7 +94,6 @@
                             @endif
                         @endif
                     @endif
-
                 @endforeach
         @endforeach
         <tr>

@@ -139,7 +139,7 @@
                         ->where('name', "Master BOQ")
                         ->first();
                         @endphp
-                        @if ( $project_id->overhead > 0 )
+                        @if ( $project_id->name == "Additional BOQ" )
                         <div class="grid grid-cols-3 gap-2">
                             <div class="input-form mt-3">
                                 <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">

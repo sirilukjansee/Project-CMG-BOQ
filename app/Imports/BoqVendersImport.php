@@ -74,7 +74,7 @@ class BoqVendersImport implements ToModel
                 $sum_p = Import_vender_detail::where('import_id', $id_impvd->id)->sum('all_unit');
 
                 // $_SESSION["total"] += ($row[7] + $row[8]) * $row[5];
-                // dd($_SESSION["total"]);
+                // dd($sum_p);
                 Import_vender::where('id', $id_impvd->id)->update([
                     'budget' => $sum_p + $id_impvd->overhead - $id_impvd->discount,
                     // 'discount' => $row[7],

@@ -34,6 +34,7 @@ class AucController extends Controller
         $auc_ven = Import_vender::where('id_project', $id)->get();
         $_SESSION["projectID"] = $id;
 
+        // dd($edit_dis);
         return view('boq.AUC.auc', compact('editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis','auc_temp','auc_pro','auc_ven'));
     }
 
