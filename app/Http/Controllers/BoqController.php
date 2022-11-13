@@ -91,6 +91,14 @@ class BoqController extends Controller
         if( $request->btn_send == "btn_send" )
         {
             $send_form = "1";
+            $log_a = Log_remark::create([
+                'project_id' => $request->project_id,
+                'template_id' => $request->temp_id,
+                'status' => 2,
+                'create_by' => Auth::user()->id,
+                // 'approve_by' => 1,
+                'date'  =>  Carbon::now(),
+            ]);
         }else
         {
             $send_form = "0";
@@ -442,6 +450,14 @@ class BoqController extends Controller
         if( $request->btn_send == "btn_send" )
         {
             $send_form = "1";
+            $log_a = Log_remark::create([
+                'project_id' => $request->project_id,
+                'template_id' => $request->temp_id,
+                'status' => 2,
+                'create_by' => Auth::user()->id,
+                // 'approve_by' => 1,
+                'date'  =>  Carbon::now(),
+            ]);
         }else
         {
             $send_form = "0";
@@ -456,6 +472,9 @@ class BoqController extends Controller
             ->count();
 
         $chk_temp = template_boqs::find($request->temp_id);
+        // dd($request->temp_id);
+
+
 
         if( $chk_temp == '' )
         {
