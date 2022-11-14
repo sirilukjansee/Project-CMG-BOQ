@@ -65,7 +65,7 @@
                                         Admin
                                     @endif
                                 </td>
-                                <td>{{ @$urs->approver }}</td>
+                                <td>{{ @$urs->nameApp->name }}</td>
                                 <td>
                                     @if ($urs->status == "1")
                                         ON
