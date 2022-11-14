@@ -36,6 +36,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">E-amil</th>
                                 <th scope="col">สิทธิ์การใช้งาน</th>
+                                <th scope="col">ผู้อนุมัติ</th>
                                 <th scope="col">Status</th>
                                 <th scope="col" style="text-align: center;">Active</th>
                             </tr>
@@ -44,6 +45,7 @@
                                 <th scope="col" class="filterhead">Name</th>
                                 <th scope="col" class="filterhead">E-mail</th>
                                 <th scope="col" class="filterhead">สิทธิ์การใช้งาน</th>
+                                <th scope="col" class="filterhead">ผู้อนุมัติ</th>
                                 <th scope="col" class="filterhead">Status</th>
                                 <th scope="col" class="filterhead" style="text-align: center;"></th>
                             </tr>
@@ -63,6 +65,7 @@
                                         Admin
                                     @endif
                                 </td>
+                                <td>{{ @$urs->approver }}</td>
                                 <td>
                                     @if ($urs->status == "1")
                                         ON
@@ -137,22 +140,32 @@
 
                                         <div class="col-span-12 sm:col-span-12 input-form mt-3">
                                             <label for="radio" class="col-md-4 col-form-label text-md-end">{{ __('สิทธิการใช้งาน') }}</label>
-                                                <div class="flex flex-col sm:flex-row mt-2">
-                                                    <div class="form-check mr-2">
-                                                        <input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0">
-                                                        <label class="form-check-label" for="radio-switch-4">User</label>
-                                                    </div>
-                                                    <div class="form-check mr-2 mt-2 sm:mt-0">
-                                                        <input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1">
-                                                        <label class="form-check-label" for="radio-switch-5">Manager</label>
-                                                    </div>
-                                                    <div class="form-check mr-2 mt-2 sm:mt-0">
-                                                        <input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2">
-                                                        <label class="form-check-label" for="radio-switch-6">Admin</label>
-                                                    </div>
+                                            <div class="flex flex-col sm:flex-row mt-2">
+                                                <div class="form-check mr-2">
+                                                    <input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0">
+                                                    <label class="form-check-label" for="radio-switch-4">User</label>
                                                 </div>
+                                                <div class="form-check mr-2 mt-2 sm:mt-0">
+                                                    <input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1">
+                                                    <label class="form-check-label" for="radio-switch-5">Manager</label>
+                                                </div>
+                                                <div class="form-check mr-2 mt-2 sm:mt-0">
+                                                    <input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2">
+                                                    <label class="form-check-label" for="radio-switch-6">Admin</label>
+                                                </div>
+                                            </div>
                                         </div>
-
+                                        <div class="col-span-12 sm:col-span-12 input-form mt-3">
+                                            <label for="radio" class="col-md-4 col-form-label text-md-end">{{ __('ผู้อนุมัติ') }}</label>
+                                            <div class="flex flex-col sm:flex-row mt-2">
+                                                <select name="approver" id="approver" class="tom-select form-control w-full">
+                                                    <option value="" selected></option>
+                                                    @foreach ( $users as $ur )
+                                                    <option value="{{ $ur->id }}">{{ $ur->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                 </div>
                                 <!-- BEGIN: Modal Footer -->
                                 <div class="modal-footer">
@@ -226,6 +239,16 @@
                                                 </div>
                                         </div>
 
+                                        <div class="col-span-12 sm:col-span-12 input-form mt-3">
+                                            <label for="select" class="col-md-4 col-form-label text-md-end">{{ __('ผู้อนุมัติ') }}</label>
+                                            <select name="approver" id="approver" class="tom-select form-control w-full">
+                                                <option value="" selected></option>
+                                                @foreach ( $users as $ur )
+                                                <option value="{{ $ur->id }}">{{ $ur->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
                                 </div>
                                 <!-- BEGIN: Modal Footer -->
                                 <div class="modal-footer">
@@ -274,7 +297,7 @@
                 $('#name').val(response.dataEdit.name);
                 $('#email').val(response.dataEdit.email);
                 $('#permision').val(response.dataEdit.permision);
-                // $('#update_by').val(data.dataEdit.update_by);
+                // $('#approver').val(response.dataEdit.approver);
                 jQuery('#permision').children().remove().end();
                 if (response.dataEdit.permision == 0 ) {
                         $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" checked><label class="form-check-label" for="radio-switch-4">User</label></div>');

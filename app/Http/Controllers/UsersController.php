@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\design_and_pm;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,8 +14,9 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
+        $dns = design_and_pm::where('is_active', "1")->get();
         $_SESSION["projectID"] = '';
-        return view('boq.users.users', compact('users'));
+        return view('boq.users.users', compact('users','dns'));
     }
 
 
@@ -60,6 +62,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->permision = $request->permision;
+        $user->approver = $request->approver;
         $user->save();
 
         return back()->with('success', '!!! ADD User Complete !!!');
@@ -124,6 +127,7 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'permision' => $request->permision,
+            'approver' => $request->approver,
         ]);
         return back()->with('success', '!!! Edit User Complete !!!');
     }
