@@ -264,7 +264,7 @@
         if ($(this).val() == "8") {
             $('#code_criteria8').append('<input type="text" class="form-control chk_code" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
             $('#code_criteria8_1').append('<input type="text" class="form-control chk_code1" name="code1_1" minlength="2" maxlength="2" placeholder="Category" required>');
-            $('#code_criteria8_2').append('<input type="text" class="form-control chk_code2" name="code2" minlength="'+$(this).val()+'" maxlength="'+$(this).val()+'" placeholder="Numbers, Letters ('+$(this).val()+')" required>');
+            $('#code_criteria8_2').append('<input type="text" class="form-control chk_code2" name="code2" minlength="2" maxlength="2" placeholder="Numbers, Letters (2)" required>');
             $('#code_criteria8_3').append('<input type="text" class="form-control chk_code3" name="code3" minlength="2" maxlength="2" placeholder="Year Concept" required>');
         }else if ($(this).val() == "14") {
             $('#code_criteria8').append('<input type="text" class="form-control chk_code" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
