@@ -118,11 +118,11 @@
                                     <input type="text" class="form-control" name="name" placeholder="{{ $catagories->name }}" disabled>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12 input-form">
-                                    <select class="form-select sm:mr-2" aria-label="Default select example" name="criteria" id="criteria">
+                                    <select class="form-select sm:mr-2 criteria" aria-label="Default select example" name="criteria" id="criteria" required>
                                         <option value="">Select Code Criteria</option>
                                         <option value="8">8</option>
                                         <option value="14">14</option>
-                                        <option value="24">24</option>
+                                        {{-- <option value="24">24</option> --}}
                                     </select>
                                 </div>
                                 <div class="col-span-12 sm:col-span-6">
@@ -178,22 +178,22 @@
                                     <input type="text" class="form-control" id="name" name="name" placeholder="{{ $catagories->name }}" disabled>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12 input-form">
-                                    <select class="form-select sm:mr-2" aria-label="Default select example" name="criteria" id="">
+                                    <select class="form-select sm:mr-2 criteria" aria-label="Default select example" name="criteria" id="criteria_edit" required>
                                         <option>Select Code Criteria</option>
                                         <option value="8">8</option>
                                         <option value="14">14</option>
-                                        <option value="24">24</option>
+                                        {{-- <option value="24">24</option> --}}
                                     </select>
                                 </div>
                                 <div class="col-span-12 sm:col-span-6">
                                     <span id="code_criteria_edit"></span>
-                                    <p class="text-danger" id="edit_comment"></p>
                                 </div>
                                 <div class="col-span-12 sm:col-span-6">
                                     <span id="code_criteria_edit2"></span>
                                 </div>
                                 <div class="col-span-12 sm:col-span-6">
                                     <span id="code_criteria_edit3"></span>
+                                    <p class="text-danger" id="edit_comment"></p>
                                 </div>
                                 <div class="col-span-12 sm:col-span-6">
                                     <span id="code_criteria_edit4"></span>
@@ -264,19 +264,20 @@
         if ($(this).val() == "8") {
             $('#code_criteria8').append('<input type="text" class="form-control chk_code" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
             $('#code_criteria8_1').append('<input type="text" class="form-control chk_code1" name="code1_1" minlength="2" maxlength="2" placeholder="Category" required>');
-            $('#code_criteria8_2').append('<input type="text" class="form-control chk_code2" name="code2" minlength="2" maxlength="2" placeholder="Numbers, Letters (2)" required>');
+            $('#code_criteria8_2').append('<input type="text" class="form-control chk_code2" name="code2" minlength="'+$(this).val()+'" maxlength="'+$(this).val()+'" placeholder="Numbers, Letters ('+$(this).val()+')" required>');
             $('#code_criteria8_3').append('<input type="text" class="form-control chk_code3" name="code3" minlength="2" maxlength="2" placeholder="Year Concept" required>');
         }else if ($(this).val() == "14") {
             $('#code_criteria8').append('<input type="text" class="form-control chk_code" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
             $('#code_criteria8_1').append('<input type="text" class="form-control chk_code1" name="code1_1" minlength="2" maxlength="2" placeholder="Category" required>');
             $('#code_criteria8_2').append('<input type="text" class="form-control chk_code2" name="code2" minlength="8" maxlength="8" placeholder="Numbers, Letters (8)" required>');
             $('#code_criteria8_3').append('<input type="text" class="form-control chk_code3" name="code3" minlength="2" maxlength="2" placeholder="Year Concept" required>');
-        }else if ($(this).val() == "24") {
-            $('#code_criteria8').append('<input type="text" class="form-control chk_code" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
-            $('#code_criteria8_1').append('<input type="text" class="form-control chk_code1" name="code1_1" minlength="2" maxlength="2" placeholder="Category" required>');
-            $('#code_criteria8_2').append('<input type="text" class="form-control chk_code2" name="code2" minlength="16" maxlength="16" placeholder="Numbers, Letters (16)" required>');
-            $('#code_criteria8_3').append('<input type="text" class="form-control chk_code3" name="code3" minlength="2" maxlength="2" placeholder="Year Concept" required>');
         }
+        // else if ($(this).val() == "24") {
+        //     $('#code_criteria8').append('<input type="text" class="form-control chk_code" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
+        //     $('#code_criteria8_1').append('<input type="text" class="form-control chk_code1" name="code1_1" minlength="2" maxlength="2" placeholder="Category" required>');
+        //     $('#code_criteria8_2').append('<input type="text" class="form-control chk_code2" name="code2" minlength="16" maxlength="16" placeholder="Numbers, Letters (16)" required>');
+        //     $('#code_criteria8_3').append('<input type="text" class="form-control chk_code3" name="code3" minlength="2" maxlength="2" placeholder="Year Concept" required>');
+        // }
 
     });
 
@@ -298,12 +299,13 @@
             $('#code_criteria_edit2').append('<input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="2" maxlength="2" placeholder="Category" required>');
             $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code3" minlength="8" maxlength="8" placeholder="Numbers, Letters (8)" required>');
             $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" placeholder="Year Concept" required>');
-        }else if ($(this).val() == "24") {
-            $('#code_criteria_edit').append('<input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
-            $('#code_criteria_edit2').append('<input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="2" maxlength="2" placeholder="Category" required>');
-            $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code3" minlength="16" maxlength="16" placeholder="Numbers, Letters (16)" required>');
-            $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" placeholder="Year Concept" required>');
         }
+        // else if ($(this).val() == "24") {
+        //     $('#code_criteria_edit').append('<input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" placeholder="Code Brand" required>');
+        //     $('#code_criteria_edit2').append('<input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="2" maxlength="2" placeholder="Category" required>');
+        //     $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code3" minlength="16" maxlength="16" placeholder="Numbers, Letters (16)" required>');
+        //     $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" placeholder="Year Concept" required>');
+        // }
 
     });
 
@@ -409,19 +411,20 @@
                         $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code3" minlength="8" maxlength="8" value="'+result3+'" required>');
                     // }
                     $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" value="'+result4+'" required>');
-                }else if (data.dataEdit.code_criteria == "24") {
-                    var result1 = text.substring(0, 2);
-                    var result2 = text.substring(2, 4);
-                    var result3 = text.substring(4, 14);
-                    var result4 = text.substring(14, 16);
-
-                    $('#code_criteria_edit').append('<input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" value="'+result1+'" required>');
-                    $('#code_criteria_edit2').append('<input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="2" maxlength="2" value="'+result2+'" required>');
-                    // if (result3 != '') {
-                        $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code3" minlength="16" maxlength="16" value="'+result3+'" required>');
-                    // }
-                    $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" value="'+result4+'" required>');
                 }
+                // else if (data.dataEdit.code_criteria == "24") {
+                //     var result1 = text.substring(0, 2);
+                //     var result2 = text.substring(2, 4);
+                //     var result3 = text.substring(4, 14);
+                //     var result4 = text.substring(14, 16);
+
+                //     $('#code_criteria_edit').append('<input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" value="'+result1+'" required>');
+                //     $('#code_criteria_edit2').append('<input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="2" maxlength="2" value="'+result2+'" required>');
+                //     // if (result3 != '') {
+                //         $('#code_criteria_edit3').append('<input type="text" class="form-control chk_code_edit3" id="get_code3" name="code3" minlength="16" maxlength="16" value="'+result3+'" required>');
+                //     // }
+                //     $('#code_criteria_edit4').append('<input type="text" class="form-control chk_code_edit4" id="get_code4" name="code4" minlength="2" maxlength="2" value="'+result4+'" required>');
+                // }
 
                 $('#sub_name').val(data.dataEdit.name);
                 $('#update_by').val(data.dataEdit.update_by);
@@ -486,9 +489,10 @@
             });
     });
 
-    $('.chk_code_edit').on('keyup', function() {
+    $('.chk_name_edit').on('click', function() {
             var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
             $('#edit_comment').text('');
+            console.log(datakey);
             document.getElementById('btn_save_edit').disabled = false;
             jQuery.ajax({
                 type:   "GET",
@@ -498,76 +502,10 @@
                 success: function(data) {
                     // $('#chk_code').val(data.dataChk.code);
                     jQuery.each(data.dataChk, function(key, value){
-                        if (value.code == datakey) {
+                        if (value.code.toUpperCase() == datakey.toUpperCase()) {
                             $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
                             document.getElementById('btn_save_edit').disabled = true;
-                        }
-                    });
 
-                },
-            });
-    });
-
-    $('.chk_code_edit2').on('keyup', function() {
-            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
-            $('#edit_comment').text('');
-            document.getElementById('btn_save_edit').disabled = false;
-            jQuery.ajax({
-                type:   "GET",
-                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
-                datatype:   "JSON",
-                async:  false,
-                success: function(data) {
-                    // $('#chk_code').val(data.dataChk.code);
-                    jQuery.each(data.dataChk, function(key, value){
-                        if (value.code == datakey) {
-                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
-                            document.getElementById('btn_save_edit').disabled = true;
-                        }
-                    });
-
-                },
-            });
-    });
-
-    $('.chk_code_edit3').on('keyup', function() {
-            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
-            $('#edit_comment').text('');
-            // console.log(datakey);
-            document.getElementById('btn_save_edit').disabled = false;
-            jQuery.ajax({
-                type:   "GET",
-                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
-                datatype:   "JSON",
-                async:  false,
-                success: function(data) {
-                    // $('#chk_code').val(data.dataChk.code);
-                    jQuery.each(data.dataChk, function(key, value){
-                        if (value.code == datakey) {
-                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
-                            document.getElementById('btn_save_edit').disabled = true;
-                        }
-                    });
-
-                },
-            });
-    });
-
-    $('.chk_code_edit4').on('keyup', function() {
-            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
-            $('#edit_comment').text('');
-            document.getElementById('btn_save_edit').disabled = false;
-            jQuery.ajax({
-                type:   "GET",
-                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
-                datatype:   "JSON",
-                async:  false,
-                success: function(data) {
-                    // $('#chk_code').val(data.dataChk.code);
-                    jQuery.each(data.dataChk, function(key, value){
-                        if (value.code == datakey) {
-                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
-                            document.getElementById('btn_save_edit').disabled = true;
                         }
                     });
 
@@ -623,6 +561,190 @@
 
             },
         });
+    });
+
+    // เช็ค Code ซ้ำ
+    $('#code_criteria8').on('keyup', function() {
+            var datakey = $('.chk_code').val() + $('.chk_code1').val() + $('.chk_code2').val() + $('.chk_code3').val();
+            $('#comment').text('');
+            console.log(datakey);
+            document.getElementById('btn_save').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
+
+    $('#code_criteria8_1').on('keyup', function() {
+        var datakey = $('.chk_code').val() + $('.chk_code1').val() + $('.chk_code2').val() + $('.chk_code3').val();
+        $('#comment').text('');
+        document.getElementById('btn_save').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
+
+    $('#code_criteria8_2').on('keyup', function() {
+        var datakey = $('.chk_code').val() + $('.chk_code1').val() + $('.chk_code2').val() + $('.chk_code3').val();
+        $('#comment').text('');
+        document.getElementById('btn_save').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
+
+    $('#code_criteria8_3').on('keyup', function() {
+        var datakey = $('.chk_code').val() + $('.chk_code1').val() + $('.chk_code2').val() + $('.chk_code3').val();
+        $('#comment').text('');
+        document.getElementById('btn_save').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
+
+
+    // ------------------------------------------------------------------------------------------------- //
+
+
+    $('#code_criteria_edit').on('keyup', function() {
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
+            $('#edit_comment').text('');
+            console.log(datakey);
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
+
+    $('#code_criteria_edit2').on('keyup', function() {
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
+            $('#edit_comment').text('');
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
+
+    $('#code_criteria_edit3').on('keyup', function() {
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
+            $('#edit_comment').text('');
+            // console.log(datakey);
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
+
+    $('#code_criteria_edit4').on('keyup', function() {
+            var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val() + $('.chk_code_edit4').val();
+            $('#edit_comment').text('');
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
+
+                },
+            });
     });
 
 </script>
