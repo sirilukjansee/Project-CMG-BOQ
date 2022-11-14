@@ -14,9 +14,9 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        $dns = design_and_pm::where('is_active', "1")->get();
+        $managers = User::where('permision', "1")->get();
         $_SESSION["projectID"] = '';
-        return view('boq.users.users', compact('users','dns'));
+        return view('boq.users.users', compact('users', 'managers'));
     }
 
 
@@ -87,8 +87,10 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        $data = DB::table('users')->where('id', $id)->first();
         return response()->json([
-            'dataEdit' => DB::table('users')->where('id', $id)->first()
+            'dataEdit' => $data,
+            'dataName' => DB::table('users')->where('id', $data->approver)->select('name as nameApprove')->first()
         ]);
     }
 

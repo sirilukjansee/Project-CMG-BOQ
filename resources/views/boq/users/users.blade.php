@@ -158,9 +158,9 @@
                                         <div class="col-span-12 sm:col-span-12 input-form mt-3">
                                             <label for="radio" class="col-md-4 col-form-label text-md-end">{{ __('ผู้อนุมัติ') }}</label>
                                             <div class="flex flex-col sm:flex-row mt-2">
-                                                <select name="approver" id="approver" class="tom-select form-control w-full">
+                                                <select name="approver" id="approver_name_add" class="form-control w-full">
                                                     <option value="" selected></option>
-                                                    @foreach ( $users as $ur )
+                                                    @foreach ( $managers as $ur )
                                                     <option value="{{ $ur->id }}">{{ $ur->name }}</option>
                                                     @endforeach
                                                 </select>
@@ -184,12 +184,12 @@
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h2 class="font-medium text-base mr-auto">Edit Brand</h2>
+                                <h2 class="font-medium text-base mr-auto">Edit User</h2>
                             </div> <!-- END: Modal Header -->
                             <!-- BEGIN: Modal Body -->
                             <form action="{{ url('/users/update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <input type="text" name="id" id="get_id">
+                                <input type="hidden" name="id" id="get_id">
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
 
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
@@ -223,7 +223,7 @@
                                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                                             <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
 
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
@@ -241,7 +241,7 @@
 
                                         <div class="col-span-12 sm:col-span-12 input-form mt-3">
                                             <label for="select" class="col-md-4 col-form-label text-md-end">{{ __('ผู้อนุมัติ') }}</label>
-                                            <div id="approver">
+                                            <div id="approver_edit">
                                             </div>
                                             {{-- <select name="approver" id="approver" class="tom-select form-control w-full">
                                                 <option value="" selected></option>
@@ -286,6 +286,8 @@
 		} );
     });
 
+    jQuery('#approver_name_add').select2();
+
     //edit
     function edit_modal(id){
 
@@ -299,10 +301,9 @@
                 $('#name').val(response.dataEdit.name);
                 $('#email').val(response.dataEdit.email);
                 $('#permision').val(response.dataEdit.permision);
-                $('#approver').val(response.dataEdit.approver);
-                var x =0;
 
-                console.log($('#approver').val());
+                // console.log(response.dataName.nameApprove);
+                jQuery('#approver_edit').children().remove().end();
                 jQuery('#permision').children().remove().end();
                 if (response.dataEdit.permision == 0 ) {
                     $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" checked><label class="form-check-label" for="radio-switch-4">User</label></div>');
@@ -317,18 +318,23 @@
                     $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1" ><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
                     $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2" checked><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
                 }
-                jQuery('#approver').children().remove().end();
-                $('#approver').append('<select name="approver" class="tom-select form-control w-full"><option value="'+response.dataEdit.approver+'" selected></option>@foreach($users as $ur)<option value="{{$ur->id}}">{{$ur->name}}</option>@endforeach</select>');
+                if (response.dataEdit.approver) {
 
-                let option = {
-                    plugins: {
-                        dropdown_input: {},
-                    },
-                };
-                new TomSelect("#approver"+x, option);
-                x++;
+                    $('#approver_edit').append('<select name="approver" id="approver_name" class="form-control w-full"><option value="'+response.dataEdit.approver+'" selected>'+response.dataName.nameApprove+'</option>@foreach($managers as $ur)<option value="{{$ur->id}}">{{$ur->name}}</option>@endforeach</select>');
+
+                }else{
+                    $('#approver_edit').append('<select name="approver" id="approver_name" class="form-control w-full"><option value="" selected></option>@foreach($managers as $ur)<option value="{{$ur->id}}">{{$ur->name}}</option>@endforeach</select>');
+                }
+                // let option = {
+                //     plugins: {
+                //         dropdown_input: {},
+                //     },
+                // };
+                // new TomSelect("#approver", option);
+                jQuery('#approver_name').select2();
             }
         });
+
     }
 
 </script>
