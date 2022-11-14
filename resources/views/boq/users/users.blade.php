@@ -65,7 +65,7 @@
                                         Admin
                                     @endif
                                 </td>
-                                <td>{{ @$urs->approver }}</td>
+                                <td>{{ @$urs->nameApp->name }}</td>
                                 <td>
                                     @if ($urs->status == "1")
                                         ON
@@ -189,7 +189,7 @@
                             <!-- BEGIN: Modal Body -->
                             <form action="{{ url('/users/update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="id" id="get_id">
+                                <input type="text" name="id" id="get_id">
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
 
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
@@ -241,12 +241,14 @@
 
                                         <div class="col-span-12 sm:col-span-12 input-form mt-3">
                                             <label for="select" class="col-md-4 col-form-label text-md-end">{{ __('ผู้อนุมัติ') }}</label>
-                                            <select name="approver" id="approver" class="tom-select form-control w-full">
+                                            <div id="approver">
+                                            </div>
+                                            {{-- <select name="approver" id="approver" class="tom-select form-control w-full">
                                                 <option value="" selected></option>
                                                 @foreach ( $users as $ur )
                                                 <option value="{{ $ur->id }}">{{ $ur->name }}</option>
                                                 @endforeach
-                                            </select>
+                                            </select> --}}
                                         </div>
 
                                 </div>
@@ -297,22 +299,34 @@
                 $('#name').val(response.dataEdit.name);
                 $('#email').val(response.dataEdit.email);
                 $('#permision').val(response.dataEdit.permision);
-                // $('#approver').val(response.dataEdit.approver);
+                $('#approver').val(response.dataEdit.approver);
+                var x =0;
+
+                console.log($('#approver').val());
                 jQuery('#permision').children().remove().end();
                 if (response.dataEdit.permision == 0 ) {
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" checked><label class="form-check-label" for="radio-switch-4">User</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1"><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2"><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
-                    }if (response.dataEdit.permision == 1 ) {
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" ><label class="form-check-label" for="radio-switch-4">User</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1" checked><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2"><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
-                    }if (response.dataEdit.permision == 2 ) {
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" ><label class="form-check-label" for="radio-switch-4">User</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1" ><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
-                        $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2" checked><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
-                    }
+                    $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" checked><label class="form-check-label" for="radio-switch-4">User</label></div>');
+                    $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1"><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
+                    $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2"><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
+                }if (response.dataEdit.permision == 1 ) {
+                    $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" ><label class="form-check-label" for="radio-switch-4">User</label></div>');
+                    $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1" checked><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
+                    $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2"><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
+                }if (response.dataEdit.permision == 2 ) {
+                    $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0" ><label class="form-check-label" for="radio-switch-4">User</label></div>');
+                    $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1" ><label class="form-check-label" for="radio-switch-4">Manager</label></div>');
+                    $('#permision').append('<div class="form-check mr-2"><input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2" checked><label class="form-check-label" for="radio-switch-4">Admin</label></div>');
+                }
+                jQuery('#approver').children().remove().end();
+                $('#approver').append('<select name="approver" class="tom-select form-control w-full"><option value="'+response.dataEdit.approver+'" selected></option>@foreach($users as $ur)<option value="{{$ur->id}}">{{$ur->name}}</option>@endforeach</select>');
 
+                let option = {
+                    plugins: {
+                        dropdown_input: {},
+                    },
+                };
+                new TomSelect("#approver"+x, option);
+                x++;
             }
         });
     }
