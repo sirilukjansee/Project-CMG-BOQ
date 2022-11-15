@@ -158,14 +158,20 @@
                 </div>
                 <input type="hidden" id="is_btn" name="btn_send">
                 <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
-                @if ($data_chk)
-                    @if ($data_chk->status != "2")
-                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()">
+                @if (Auth::user()->permision == "2")
+                    @if ($data_chk)
+                        @if ($data_chk->status != "2")
+                        <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()">
+                        @endif
+                        @else
+                        <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()">
                     @endif
-                    @else
-                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" onclick="myFunction()">
                 @endif
+                {{-- @if ( Auth::user()->permision == "1" )
+                    <a href="{{ url('/checkBoq') }}" class="btn btn-secondary mt-5">Back</a>
+                @else --}}
                 <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">Back</a>
+                {{-- @endif --}}
             </form>
         </div>
         </div>

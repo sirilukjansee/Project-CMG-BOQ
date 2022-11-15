@@ -13,6 +13,7 @@
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th scope="col">User_name</th>
             <th scope="col">Designer</th>
             <th scope="col">Status</th>
             <th scope="col">Comment</th>
@@ -23,6 +24,12 @@
         @foreach ( $log as $key => $lg )
           <tr>
             <th scope="row">{{ $key + 1 }}</th>
+            <th>
+                {{-- approve_by --}}
+                {{ @$lg->user_n->name }}
+                {{-- create_by --}}
+                {{ @$lg->user_n_u->name }}
+            </th>
             <td>{{@$lg->pro_log->designer_master->name}}</td>
             <td>
                 @if (@$lg->status == '0')

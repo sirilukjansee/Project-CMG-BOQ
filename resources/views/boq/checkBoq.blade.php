@@ -80,16 +80,19 @@
                                     <a href="{{ url('/viewBoq', $bchk->id) }}"
                                         class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i
                                             data-lucide="eye" class="w-4 h-4"></i></a>
+                                        <a href="{{ url('/editFormBoq/edit', $bchk->id) }}"
+                                            class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false">
+                                            <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </a>
                                     <!-- BEGIN: Modal Toggle -->
                                     <div class="text-center">
                                         @if ($bchk->status == '2')
                                             <button id="btn_approve" value="{{ $bchk->id }}" data-tw-toggle="modal"
-                                                data-tw-target="#large-modal-size-preview" class="btn btn-secondary"
-                                                disabled><i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit</button>
+                                                data-tw-target="#large-modal-size-preview" class="btn btn-secondary"disabled>
+                                                <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Status</button>
                                         @else
                                             <button id="btn_approve" value="{{ $bchk->id }}" data-tw-toggle="modal"
-                                                data-tw-target="#large-modal-size-preview" class="btn btn-secondary"><i
-                                                    data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit</button>
+                                                data-tw-target="#large-modal-size-preview" class="btn btn-secondary">
+                                                <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Status</button>
                                         @endif
                                     </div>
                                     <!-- END: Modal Toggle -->

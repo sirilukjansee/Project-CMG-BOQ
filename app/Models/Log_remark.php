@@ -22,4 +22,10 @@ class Log_remark extends Model
     public function pro_log(){
         return $this->hasOne(Project::class,'id','project_id');
     }
+    public function user_n(){
+        return $this->hasOne(User::class,'id','approve_by');
+    }
+    public function user_n_u(){
+        return $this->hasOne(User::class,'id','create_by');
+    }
 }
