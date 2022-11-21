@@ -138,7 +138,7 @@
                         $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
                         ->where('name', "Master BOQ")
                         ->first();
-                        @endphp
+                    @endphp
                         @if ( $project_id->name == "Additional BOQ" )
                         <div class="grid grid-cols-3 gap-2">
                             <div class="input-form mt-3">

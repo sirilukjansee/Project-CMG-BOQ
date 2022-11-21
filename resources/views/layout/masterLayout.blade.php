@@ -9,6 +9,7 @@
         <meta name="author" content="LEFT4CODE">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>CMG-BOQ</title>
+        <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.5.3/dist/cleave.min.js"></script>
         <link type="image/ico" rel="shortcut icon" href="{{asset('public/logo/logo-color1.jpg')}}">
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

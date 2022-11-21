@@ -51,6 +51,7 @@
                         <th class="text-center whitespace-nowrap">Status</th>
                         <th class="text-center whitespace-nowrap">Vendor</th>
                         <th class="text-center whitespace-nowrap">Budget</th>
+                        <th class="text-center whitespace-nowrap">Remark</th>
                         <th class="text-center whitespace-nowrap"></th>
                     </tr>
                 </thead>
@@ -94,6 +95,11 @@
                         <td class="table-report__action w-56">
                             <div class="flex items-center justify-center">
                                 {{number_format($tb->budget, 2)}}
+                            </div>
+                        </td>
+                        <td class="table-report__action w-56">
+                            <div class="flex items-center justify-center">
+                                {{$tb->remark}}
                             </div>
                         </td>
                         <td class="table-report__action">
@@ -156,6 +162,22 @@
                     {{-- @endif --}}
                     {{-- @endforeach --}}
                     @endforeach
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="table-report__action w-56">
+                        <div class="flex items-center justify-center">
+                            Total
+                        </div>
+                    </td>
+                    <td class="table-report__action w-56">
+                        <div class="flex items-center justify-center">
+                            {{number_format($temp_boq->sum('budget'), 2)}}
+                        </div>
+                    </td>
+                    <td></td>
+                    <td></td>
                 </tbody>
             </table>
         </div>
@@ -307,6 +329,7 @@
                         <th class="whitespace-nowrap">Vendor</th>
                         <th class="text-center whitespace-nowrap">Date</th>
                         <th class="text-center whitespace-nowrap"></th>
+                        <th class="text-center whitespace-nowrap">Budget</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -342,6 +365,7 @@
                                     <div class="dropdown-menu w-40">
                                         <ul class="dropdown-content">
                                             @foreach ( $temp_boq as $key => $tbp )
+                                            @if ($tbp->name == "Master BOQ")
                                             <li>
                                                 <a href="{{ url('/select-to-auc', [$ib->id, $tbp->id] ) }}" class="dropdown-item">{{ $tbp->number_id }}
                                                 @if( $tbp->name == "Master BOQ" )
@@ -351,12 +375,18 @@
                                                 @endif
                                                 </a>
                                             </li>
+                                            @endif
                                             @endforeach
                                         </ul>
                                     </div>
                                 </div>
                                 <a href="{{ url('/export-vender', $ib->id) }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false">
                                 <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
+                            </div>
+                        </td>
+                        <td class="table-report__action">
+                            <div class="btn-group text-center flex justify-center">
+                                {{number_format($ib->budget, 2)}}
                             </div>
                         </td>
                     </tr>
@@ -383,6 +413,7 @@
         function showremark(id)
         {
             jQuery(document).ready(function() {
+
                 jQuery.ajax({
                     type:   "GET",
                     url:    "{!! url('/show_remark/"+id+"') !!}",

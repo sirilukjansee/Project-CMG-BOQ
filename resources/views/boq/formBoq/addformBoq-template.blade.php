@@ -4,11 +4,11 @@
     <div class="intro-y flex sm:flex-row items-center mt-3">
         <h2 class="text-lg font-medium mr-auto">
             <b>Choose Template BOQ of {{ @$project_id->project->brand_master->brand_name }} at {{ @$project_id->project->location_master->location_name }}
-            @if ( $project_id->name == 'Master BOQ' )
+            {{-- @if ( $project_id->name == 'Master BOQ' )
                 [Master BOQ]
                 @else
                 [Additional BOQ]
-            @endif</b>
+            @endif</b> --}}
         </h2>
     </div>
     <!-- BEGIN: Validation Form -->
@@ -16,7 +16,7 @@
             <div class="intro-y input-form box p-5 mt-3">
             <form action="{{ route('add_Boq') }}" method="post" id="form1" enctype="multipart/form-data">
                 @csrf
-                <div class="form-inline mb-3 mt-10">
+                {{-- <div class="form-inline mb-3 mt-10">
                     <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
                     <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
                         <option selected value="{{ $project_id->vender_id }}">{{ @$project_id->vender_name->name }}</option>
@@ -24,7 +24,7 @@
                         <option value="{{ $vd->id }}">{{ $vd->name }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
                 <input type="hidden" value="{{ $project_id->id }}" name="ref_template">
                 <input type="hidden" value="{{ @$project_id->project->brand_master->id }}" name="brand_id" id="b_id">
                 <input type="hidden" value="{{ $id }}" name="project_id" id="p_id">
@@ -50,6 +50,9 @@
                                         <option value="{{$cat_s->id}}">{{@$cat_s->name}}</option>
                                         @endforeach
                                     </select>
+                                    <input type="number" name="width[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="กว้าง" value="{{ $eb->width }}">
+                                    <input type="number" name="depth[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="ยาว" value="{{ $eb->depth }}">
+                                    <input type="number" name="height[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="สูง" value="{{ $eb->height }}">
                                     <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" min="0" step=".01" value="{{ $eb->amount }}">
                                     <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
                                         <option selected value="{{ $eb->unit_id }}">{{ @$eb->unit_u->unit_name }}</option>
@@ -92,6 +95,9 @@
                                     </select> --}}
                                     <span id="select_sub_id{{$key + 1}}"></span>
                                     {{-- <span class="sub_selected{{ $cat->id }}"></span> --}}
+                                    <input type="number" name="width[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="กว้าง">
+                                    <input type="number" name="depth[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="ยาว">
+                                    <input type="number" name="height[][{{ $cat->id }}]" class="form-control w-16" min="0" step=".01" placeholder="สูง">
                                     <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
                                     <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
                                         <option selected value=""></option>
@@ -126,7 +132,7 @@
                         $data_chk = App\Models\template_boqs::where('id', $templateid)
                         ->first();
                         @endphp
-                        @if ($data_chk->overhead > 0 )
+                        @if ($data_chk->overhead == "" || $data_chk->overhead == null)
                             <div class="grid grid-cols-3 gap-2">
                                 <div class="input-form mt-3">
                                     <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
@@ -148,10 +154,10 @@
                 {{-- @if ($data_chk) --}}
                     @if ($data_chk->status != "2")
                     <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
-                    {{-- @endif --}}
                     @else
                     <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
                     @endif
+                {{-- @endif --}}
                 {{-- <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview"> --}}
                 <a href="{{ url('allBoq', $id) }}" class="btn btn-secondary mt-5">Back</a>
             </form>
