@@ -29,7 +29,7 @@
             <th style="width: 120px;"><b>ชื่อผู้เสนอราคา</b></th>
             <th style="text-align:right; background-color:burlywood" colspan="3"></th>
             <th style="width: 160px;"><b>OVERHEAD</b></th>
-            <th>{{ $export_boq->overhead }}</th>
+            <th style="background-color:burlywood">{{ $export_boq->overhead }}</th>
         </tr>
         <tr>
             <th style="width: 120px;"><b>สถานที่</b></th>
@@ -37,7 +37,7 @@
             <th style="width: 120px;"><b>ขนาดพื้นที่</b></th>
             <th colspan="3">{{ @$export_boq->project->area }} ตร.ม</th>
             <th style="width: 160px;"><b>COMMERCIAL DISCOUNT</b></th>
-            <th>{{ $export_boq->discount }}</th>
+            <th style="background-color:burlywood">{{ $export_boq->discount }}</th>
         </tr>
         <tr>
             <th style="text-align:center; background-color:gray">รายการ</th>
