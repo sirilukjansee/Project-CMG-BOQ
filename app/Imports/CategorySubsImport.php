@@ -18,37 +18,48 @@ class CategorySubsImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        $chk = catagory_sub::where('code', 'LIKE', $row['code'])->first();
-        $chk_brand = Brand::where('brand_name', $row['brand'])->first();
-        if ($chk) {
-            catagory_sub::where('id', $chk->id)->update([
-                'code_cat' => $row['code_cat'],
-                'code' => $row['code'],
-                // 'catagory_id' => $chk->id,
-                'name' => $row['name'],
-                'brand_id' => $chk_brand->id,
-                'is_active' => "1",
-                // 'create_by' => Auth::user()->id,
-                'update_by' => Auth::user()->id,
-            ]);
+        $chk = catagory_sub::where('code', $row['code'])->first();
+        if (strtoupper($row['brand']) == "COMMON") {
+            $chk_brand = '';
         }else{
-            $chk2 = catagory::where('code', 'LIKE', $row['code_cat'])->first();
-            $chk_brand2 = Brand::where('brand_name', $row['brand'])->first();
-            if ($chk_brand2) {
-                $brand = $chk_brand2->id;
-            }else {
-                $brand = "";
-            }
-            return new catagory_sub([
-                'code_cat' => $row['code_cat'],
-                'code' => $row['code'],
-                'catagory_id' => $chk2->id,
-                'name' => $row['name'],
-                'brand_id' => $brand,
-                'is_active' => "1",
-                'create_by' => Auth::user()->id,
-                'update_by' => Auth::user()->id,
-            ]);
+            $chk_brand = Brand::where('brand_name', $row['brand'])->select('id')->first();
+        }
+
+        if ($row['name']) {
+            if ($chk) {
+                // dd($chk->code);
+
+                    catagory_sub::where('id', $chk->id)->update([
+                        'code_cat' => $row['code_cat'],
+                        'code' => $row['code'],
+                        // 'catagory_id' => $chk->id,
+                        'name' => $row['name'],
+                        'brand_id' => $chk_brand,
+                        'is_active' => "1",
+                        'code_criteria' => $row['code_criteria'],
+                        'update_by' => Auth::user()->id,
+                    ]);
+                }else{
+                    $chk2 = catagory::where('code', $row['code_cat'])->first();
+                    $chk_brand2 = Brand::where('brand_name', $row['brand'])->first();
+                    if ($chk_brand2) {
+                        $brand = $chk_brand2->id;
+                    }else {
+                        $brand = "";
+                    }
+                    // dd($row['name']);
+                    return new catagory_sub([
+                        'code_cat' => $row['code_cat'],
+                        'code' => $row['code'],
+                        'code_criteria' => $row['code_criteria'],
+                        'catagory_id' => $chk2->id,
+                        'name' => $row['name'],
+                        'brand_id' => $brand,
+                        'is_active' => "1",
+                        'create_by' => Auth::user()->id,
+                        'update_by' => Auth::user()->id,
+                    ]);
+                }
         }
     }
 }
