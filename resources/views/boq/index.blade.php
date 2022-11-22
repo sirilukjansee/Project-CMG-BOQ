@@ -113,11 +113,11 @@
                         var term = $(this).val();
                         table.column(i).search(term, false, false).draw();
                     });
-                table.column(i).data().unique().each(function(d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>')
+                    table.column(i).data().unique().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
                 });
             });
-        });
 
         //row button
         document.addEventListener("DOMContentLoaded", () => {

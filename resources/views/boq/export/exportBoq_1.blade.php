@@ -27,7 +27,7 @@
             <th style="width: 120px;"><b>โครงการ</b></th>
             <th colspan="1">{{ @$export_boq->project->brand_master->brand_name }}</th>
             <th style="width: 120px;"><b>ชื่อผู้เสนอราคา</b></th>
-            <th colspan="3">{{ @$export_boq->vender_name->name }}</th>
+            <th style="text-align:right; background-color:burlywood" colspan="3"></th>
             <th style="width: 160px;"><b>OVERHEAD</b></th>
             <th>{{ $export_boq->overhead }}</th>
         </tr>
@@ -98,10 +98,10 @@
                         <td style="text-align:center; height: 30px;">{{ $sub->height }}</td>
                         <td style="text-align:center; height: 30px;">{{ $sub->amount }}</td>
                         <td style="text-align:center; height: 30px;">{{ @$sub->unit_u->unit_name }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->wage_cost }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->material_cost }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->each_unit }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->all_unit }}</td>
+                        <td style="text-align:center; height: 30px; background-color:burlywood">{{ $sub->wage_cost }}</td>
+                        <td style="text-align:center; height: 30px; background-color:burlywood">{{ $sub->material_cost }}</td>
+                        <td style="text-align:center; height: 30px; background-color:burlywood">{{ $sub->each_unit }}</td>
+                        <td style="text-align:center; height: 30px; background-color:burlywood">{{ $sub->all_unit }}</td>
                         <td style="height: 30px;">{{ $sub->desc }}</td>
                     </tr>
                 @endif

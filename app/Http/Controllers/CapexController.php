@@ -27,8 +27,9 @@ class CapexController extends Controller
         // $template_id = template_boqs::where('project_id', $id)->first();
         $cpx = Capex::where('project_id', $id)->get();
         $_SESSION["projectID"] = $id;
+        $tot = Capex::where('project_id', $id)->sum('total');
 
-            return view('boq.Capex.capex', compact('data_categorys','project_id', 'cpx'));
+        return view('boq.Capex.capex', compact('data_categorys','project_id','cpx','tot'));
     }
 
     /**

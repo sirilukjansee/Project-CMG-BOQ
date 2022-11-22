@@ -58,15 +58,6 @@
                     <form action="{{ route('add_Boq1') }}" method="post" id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data">
                         {{-- <form id="form1" name="form1" onsubmit="return validateForm()" enctype="multipart/form-data"> --}}
                         @csrf
-                        {{-- <div class="form-inline mb-3 mt-10">
-                            <label for="horizontal-form-1" class="form-label ml-4"><b> Vender </b><span style="color: red">*</span> : </label>
-                            <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender...">
-                                <option selected value=""></option>
-                                @foreach ( $venders as $vd )
-                                <option value="{{ $vd->id }}">{{ $vd->name }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
                         <input type="hidden" value="{{ $template_id }}" name="temp_id" id="temp_id">
                         <input type="hidden" value="{{ $project->id }}" name="project_id" id="p_id">
                         <input type="hidden" value="{{ $project->brand }}" name="brand_id" id="b_id"> {{-- ID brand จาก project--}}

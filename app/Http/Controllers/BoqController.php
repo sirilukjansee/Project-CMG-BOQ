@@ -252,10 +252,20 @@ class BoqController extends Controller
         if( $request->btn_send == "btn_send" )
         {
             $send_form = "1";
-        }else
-        {
+            $log_a = Log_remark::create([
+                'project_id' => $request->project_id,
+                'template_id' => $request->temp_id,
+                'status' => 2,
+                'create_by' => Auth::user()->id,
+                // 'approve_by' => 1,
+                'date'  =>  Carbon::now(),
+            ]);
+        }elseif(Auth::user()->permision == "1"){
+            $send_form = "1";
+        }else{
             $send_form = "0";
         }
+        // if(Auth::user()->permision == "1")
 
         template_boqs::where('id', $request->id)->update([
             'status' => $send_form,
@@ -361,7 +371,12 @@ class BoqController extends Controller
                 'budget' => $sum + $request->overhead - $request->discount,
             ]);
 
-        return redirect(route('allBoq', ['id' => $request->project_id]))->with('success', '!!! Edit BOQ Complete !!!');
+        if(Auth::user()->permision == "1")
+        {
+            return redirect(url('/checkBoq'))->with('success', '!!! Edit BOQ Complete !!!');
+        }else{
+            return redirect(route('allBoq', ['id' => $request->project_id]))->with('success', '!!! Edit BOQ Complete !!!');
+        }
     }
 
     public function change_status_boq(Request $request)

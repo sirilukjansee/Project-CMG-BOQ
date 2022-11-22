@@ -52,7 +52,8 @@ class BoqVendersImport implements ToModel
             {
                 $_SESSION["cat"] = $cat->id;
             }
-            if( $row[2] != null && $cat_s != null )
+            // if( $row[2] != null && $cat_s != null )
+            if($cat_s != null)
             {
                 $chk = Import_vender_detail::create([
                     'import_id' => $_SESSION["idimp"],
