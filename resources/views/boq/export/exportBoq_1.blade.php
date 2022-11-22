@@ -109,8 +109,8 @@
                         <td style="text-align:center; height: 30px;">{{ @$sub->unit_u->unit_name }}</td>
                         <td style="text-align:center; height: 30px; background-color:burlywood">{{ $sub->wage_cost }}</td>
                         <td style="text-align:center; height: 30px; background-color:burlywood">{{ $sub->material_cost }}</td>
-                        <td style="text-align:center; height: 30px; background-color:burlywood">=H{{$c}}+I{{$c}}</td>
-                        <td style="text-align:center; height: 30px; background-color:burlywood">{{ $sub->all_unit }}</td>
+                        <td style="text-align:center; height: 30px;">=H{{$c}}+I{{$c}}</td>
+                        <td style="text-align:center; height: 30px">=J{{$c}}*F{{$c}}</td>
                         <td style="height: 30px;">{{ $sub->desc }}</td>
                     </tr>
                     @php

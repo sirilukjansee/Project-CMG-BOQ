@@ -105,9 +105,22 @@ class AucController extends Controller
     public function select_auc($id, $temp_id)
     {
         // dd($temp_id);
-        Import_vender::where('id', $id)->update([
-            'template_id' => $temp_id,
-        ]);
+        $chk = Import_vender::where('template_id', $temp_id)->first();
+
+        if ($chk) {
+            Import_vender::where('id', $chk->id)->update([
+                'template_id' => NULL,
+            ]);
+
+            Import_vender::where('id', $id)->update([
+                'template_id' => $temp_id,
+            ]);
+        }else{
+            Import_vender::where('id', $id)->update([
+                'template_id' => $temp_id,
+            ]);
+        }
+
 
         $auc_tem = Import_vender::where('id', $id)->first();
 
