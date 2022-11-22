@@ -67,11 +67,11 @@
         </tr>
     </thead>
     <tbody>
-
         @foreach ( $catagorie as $key => $cat )
-        @php
-            $number = 0;
-        @endphp
+            @php
+                $number = 0;
+                dd($export_boq);
+            @endphp
             <tr>
                 <td style="height: 30px; text-align:center;">{{ $key + 1 }}</td>
                 <td style="height: 30px;"><b>{{ $cat->name }}</b></td>
@@ -89,22 +89,24 @@
                 <td style="height: 30px;"></td>
             </tr>
             @foreach ( $export_boq->cat_sub as $keysub => $sub )
-                @if ( $sub->main_id == $cat->id )
-                    <tr>
-                        <td style="text-align:center;">{{ $key + 1 }}.{{ $number += 1 }}</td>
-                        <td>{{ @$sub->sub_cata->name }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->width }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->depth }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->height }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->amount }}</td>
-                        <td style="text-align:center; height: 30px;">{{ @$sub->unit_u->unit_name }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->wage_cost }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->material_cost }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->each_unit }}</td>
-                        <td style="text-align:center; height: 30px;">{{ $sub->all_unit }}</td>
-                        <td style="height: 30px;">{{ $sub->desc }}</td>
-                    </tr>
-                @endif
+                {{-- @if ( $sub != "" && $sub != null ) --}}
+                    @if ( $sub->main_id == $cat->id )
+                        <tr>
+                            <td style="text-align:center;">{{ $key + 1 }}.{{ $number += 1 }}</td>
+                            <td>{{ @$sub->sub_cata->name }}</td>
+                            <td style="text-align:center; height: 30px;">{{ $sub->width }}</td>
+                            <td style="text-align:center; height: 30px;">{{ $sub->depth }}</td>
+                            <td style="text-align:center; height: 30px;">{{ $sub->height }}</td>
+                            <td style="text-align:center; height: 30px;">{{ $sub->amount }}</td>
+                            <td style="text-align:center; height: 30px;">{{ @$sub->unit_u->unit_name }}</td>
+                            <td style="text-align:center; height: 30px;">{{ $sub->wage_cost }}</td>
+                            <td style="text-align:center; height: 30px;">{{ $sub->material_cost }}</td>
+                            <td style="text-align:center; height: 30px;">{{ $sub->each_unit }}</td>
+                            <td style="text-align:center; height: 30px;">{{ $sub->all_unit }}</td>
+                            <td style="height: 30px;">{{ $sub->desc }}</td>
+                        </tr>
+                    @endif
+                {{-- @endif --}}
             @endforeach
             <tr>
                 <td colspan="9"></td>

@@ -67,11 +67,13 @@
         </tr>
     </thead>
     <tbody>
-
-        @foreach ( $catagorie as $key => $cat )
         @php
             $number = 0;
+            $chk_em = App\Models\Boq::where('template_boq_id', $export_boq->id)->get();
+            $bq = App\Models\template_boqs::where('id', $export_boq->id)->get();
+            // dd($bq);
         @endphp
+        @foreach ( $catagorie  as $key => $cat )
             <tr>
                 <td style="height: 30px; text-align:center;">{{ $key + 1 }}</td>
                 <td style="height: 30px;"><b>{{ $cat->name }}</b></td>
@@ -88,7 +90,7 @@
                 <td style="height: 30px;"></td>
                 <td style="height: 30px;"></td>
             </tr>
-            @foreach ( $export_boq->cat_sub as $keysub => $sub )
+            @foreach ( $chk_em as $keysub => $sub )
                 @if ( $sub->main_id == $cat->id )
                     <tr>
                         <td style="text-align:center;">{{ $key + 1 }}.{{ $number += 1 }}</td>

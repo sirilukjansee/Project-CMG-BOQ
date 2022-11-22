@@ -28,6 +28,7 @@ use App\Http\Controllers\ReportYearController;
 use App\Http\Controllers\ReportTaskTypeController;
 use App\Http\Controllers\ReportCompareProjectController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\AuctualController;
 // use Illuminate\Support\Facades\DB;
 
 /*
@@ -261,6 +262,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/export-auc', [AucController::class, 'export']);
     Route::get('/export-auc/{id}', [AucController::class, 'send_chhk']);
     Route::get('/capex/export/{id}', [CapexController::class, 'export']);
+    Route::get('/auctual/export/{id}', [AuctualController::class, 'export']);
 
     // Report
     Route::get('reportAll', [ReportAllController::class, 'index']);
@@ -283,6 +285,10 @@ Route::middleware(['auth'])->group(function () {
     //remark
     Route::get('/log_remark', [LogController::class, 'index'])->name('log_remark');
     Route::get('/log_detail/{id}', [LogController::class, 'show'])->name('log_detail');
+
+    //auctual
+    Route::get('auctual/{id}', [AuctualController::class, 'index']);
+    Route::post('/auctual/add', [AuctualController::class, 'store'])->name('addauctual');
 
 });
 
