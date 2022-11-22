@@ -74,6 +74,10 @@
             // dd($bq);
         @endphp
         @foreach ( $catagorie  as $key => $cat )
+            @php
+                $chk_main = App\Models\Boq::where('main_id', $cat->id)->first();
+            @endphp
+            @if ($chk_main)
             <tr>
                 <td style="height: 30px; text-align:center;">{{ $key + 1 }}</td>
                 <td style="height: 30px;"><b>{{ $cat->name }}</b></td>
@@ -90,6 +94,9 @@
                 <td style="height: 30px;"></td>
                 <td style="height: 30px;"></td>
             </tr>
+                @php
+                    $c = 12;
+                @endphp
             @foreach ( $chk_em as $keysub => $sub )
                 @if ( $sub->main_id == $cat->id )
                     <tr>
@@ -102,10 +109,13 @@
                         <td style="text-align:center; height: 30px;">{{ @$sub->unit_u->unit_name }}</td>
                         <td style="text-align:center; height: 30px; background-color:burlywood">{{ $sub->wage_cost }}</td>
                         <td style="text-align:center; height: 30px; background-color:burlywood">{{ $sub->material_cost }}</td>
-                        <td style="text-align:center; height: 30px; background-color:burlywood">{{ $sub->each_unit }}</td>
+                        <td style="text-align:center; height: 30px; background-color:burlywood">=H{{$c}}+I{{$c}}</td>
                         <td style="text-align:center; height: 30px; background-color:burlywood">{{ $sub->all_unit }}</td>
                         <td style="height: 30px;">{{ $sub->desc }}</td>
                     </tr>
+                    @php
+                        $c++;
+                    @endphp
                 @endif
             @endforeach
             <tr>
@@ -128,6 +138,7 @@
             <tr>
                 <td colspan="9"></td>
             </tr>
+            @endif
         @endforeach
     </tbody>
 </table>

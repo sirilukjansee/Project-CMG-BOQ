@@ -317,7 +317,7 @@
                                         }
                                 });
                                 }else{
-                                    if( value3.brand_id == null ){
+                                    if( value3.brand_id == "" || !value3.brand_id ){
                                         if(value3.catagory_id == value.id){
                                             html += '<option value="'+value3.id+'">'+value3.code+'</option>';
                                         }
@@ -372,7 +372,7 @@
                                         }
                                     });
                                 }else{
-                                    if( value2.brand_id == null ){
+                                    if( value2.brand_id == "" || !value2.brand_id ){
                                             if(value2.catagory_id == value.id){
                                                 html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
                                             }
@@ -408,7 +408,7 @@
 
                                     });
                                 }else{
-                                    if( value2.brand_id == null ){
+                                    if( value2.brand_id == "" || !value2.brand_id ){
                                             if(value2.catagory_id == value.id){
                                                 html += '<option value="'+value2.id+'">'+value2.name+'</option>';
                                             }
@@ -446,7 +446,7 @@
                                         }
                                     });
                                 }else{
-                                    if( value3.brand_id == null ){
+                                    if( value3.brand_id == "" || !value3.brand_id ){
                                             if(value3.catagory_id == value.id){
                                                 html += '<option value="'+value3.id+'">'+value3.code+'</option>';
                                             }
@@ -509,7 +509,7 @@
                                         }
                                     });
                             }else{
-                                if( value3.brand_id == null ){
+                                if( value3.brand_id == "" || !value3.brand_id ){
                                             if(value3.catagory_id == value.id){
                                                 html += '<option value="'+value3.id+'">'+value3.code+'</option>';
                                             }
@@ -535,7 +535,7 @@
                                         }
                                     });
                                 }else{
-                                    if( value2.brand_id == null ){
+                                    if( value2.brand_id == "" || !value2.brand_id ){
                                             if(value2.catagory_id == value.id){
                                                 html += '<option value="'+value2.id+'">'+value2.name+'</option>';
                                             }
