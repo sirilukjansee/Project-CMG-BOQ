@@ -38,7 +38,7 @@ class FirstBoqVendersImport implements ToModel, WithMappedCells
 
             if( $row['row5'] != null )
         {
-                // dd($_SESSION["vds"]);
+
             $_SESSION["imp"] = Import_vender::create([
                 'id_project' => $this->project_id,
                 'id_vender' => $this->vender_id,

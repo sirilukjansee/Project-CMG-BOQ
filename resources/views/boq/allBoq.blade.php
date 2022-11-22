@@ -225,12 +225,13 @@
                         <input type="hidden" name="id" value="{{ $project->id }}">
                         <label for="horizontal-form-1" class="form-label ml-4 mt-3"><b> Vendor </b><span style="color: red">*</span> : </label>
                         <div class="ml-4">
-                        <select id="id_vender" name="id_vender" class="tom-select w-72" placeholder="Select Vender...">
+                        <select id="id_vender" name="id_vender" class="tom-select w-72" placeholder="Select Vender..." required>
                             <option selected value=""></option>
                             @foreach ( $vend_imp as $vd )
                             <option value="{{ $vd->id }}">{{ $vd->name }}</option>
                             @endforeach
                         </select>
+                        <span style="color:darkgrey">กรุณาเลือก Vender </span>
                         <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
 
                             <div class="col-span-12 sm:col-span-4 input-form mt-3">
