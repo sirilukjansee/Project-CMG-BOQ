@@ -23,14 +23,6 @@ class BoqVendersImport implements ToModel
         $this->project_id = $project_id;
     }
 
-    // public function mapping(): array
-    // {
-    //     return [
-    //         'OVERHEAD'  => 'H7',
-    //         'DISCOUNT' => 'H8',
-    //     ];
-    // }
-
     public function model(array $row)
     {
         $cat_s = catagory_sub::where('name', $row[1])->first();
@@ -46,13 +38,11 @@ class BoqVendersImport implements ToModel
             }
             else{
                 $_SESSION["idimp"] = 1;
-                // $_SESSION["sum_p"] = Import_vender_detail::where('import_id', $_SESSION["idimp"])->sum('all_unit');
             }
             if( $cat )
             {
                 $_SESSION["cat"] = $cat->id;
             }
-            // if( $row[2] != null && $cat_s != null )
             if($cat_s != null)
             {
                 $chk = Import_vender_detail::create([
@@ -74,32 +64,26 @@ class BoqVendersImport implements ToModel
                 $id_impvd = Import_vender::orderBy('id', 'desc')->first();
                 $sum_p = Import_vender_detail::where('import_id', $id_impvd->id)->sum('all_unit');
 
-                // $_SESSION["total"] += ($row[7] + $row[8]) * $row[5];
-                // dd($sum_p);
                 Import_vender::where('id', $id_impvd->id)->update([
                     'budget' => $sum_p + $id_impvd->overhead - $id_impvd->discount,
-                    // 'discount' => $row[7],
                 ]);
 
             }
         }
 
 
-        // dd($id_impvd->id);
 
         if( !is_null($row[7]) && $row[6] == "OVERHEAD" )
         {
             $impvd1 = Import_vender::orderBy('id', 'desc')->first();
             Import_vender::where('id', $impvd1->id)->update([
                 'overhead' => $row[7],
-                // 'discount' => $row[7],
             ]);
         }
         if( !is_null($row[7]) && $row[6] == "COMMERCIAL DISCOUNT" )
         {
             $impvd1 = Import_vender::orderBy('id', 'desc')->first();
             Import_vender::where('id', $impvd1->id)->update([
-                // 'overhead' => $row[7],
                 'discount' => $row[7],
             ]);
         }

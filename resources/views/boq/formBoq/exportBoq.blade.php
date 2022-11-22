@@ -70,7 +70,7 @@
         @foreach ( $catagorie as $key => $cat )
             @php
                 $number = 0;
-                dd($export_boq);
+                // dd($export_boq);
             @endphp
             <tr>
                 <td style="height: 30px; text-align:center;">{{ $key + 1 }}</td>
