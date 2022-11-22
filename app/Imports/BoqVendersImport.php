@@ -25,7 +25,7 @@ class BoqVendersImport implements ToModel
 
     public function model(array $row)
     {
-        $cat_s = catagory_sub::where('name', $row[1])->first();
+            $cat_s = catagory_sub::where('name', $row[1])->first();
 
         if( is_numeric($row[0]) || floor($row[0]) == 1 )
         {
@@ -87,5 +87,6 @@ class BoqVendersImport implements ToModel
                 'discount' => $row[7],
             ]);
         }
+
     }
 }

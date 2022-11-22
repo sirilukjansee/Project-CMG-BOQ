@@ -184,6 +184,8 @@
 
 <script type="text/javascript">
 
+
+
     //table
     jQuery(document).ready(function() {
         var table = jQuery('.allWork').DataTable({
@@ -333,7 +335,7 @@
                             }
                         });
                         }else{
-                            if( value3.brand_id == null ){
+                            if( value3.brand_id == "" || !value3.brand_id){
                                 if(value3.catagory_id == value.id){
                                     html += '<option value="'+value3.id+'">'+value3.code+'</option>';
                                 }
@@ -366,7 +368,7 @@
 
                             });
                         }else{
-                                if( value2.brand_id == null ){
+                                if( value2.brand_id == "" || !value2.brand_id){
                                     if(value2.catagory_id == value.id){
                                         html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
                                     }
@@ -405,7 +407,7 @@
 
                             });
                         }else{
-                                if( value2.brand_id == null ){
+                                if( value2.brand_id == "" || !value2.brand_id){
                                     if(value2.catagory_id == value.id){
                                         html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
                                     }
@@ -451,7 +453,7 @@
 
                             });
                         }else{
-                                if( value3.brand_id == null ){
+                                if( value3.brand_id == "" || !value3.brand_id ){
                                     if(value3.catagory_id == value.id){
                                         html += '<option value="'+value3.id+'">'+value3.code+'</option>';
                                     }
@@ -469,16 +471,16 @@
 
                 //----------------------------------------------------------------------------------------------------//
                 // คลิกที่ งานย่อย แล้ว link code
-                jQuery(document).on('change', "#sub_a"+sub_num, function(){
+                jQuery(document).on('change', "#sub_a"+x, function(){
                     // alert("#sub1 option[value='2']");
-                    console.log($(this).val());
-                    console.log($(this).attr('id'));
-                    console.log("#code_id_a"+sub_num);
+                    // console.log(x);
+                    console.log($(this).attr('rel'));
+                    // console.log("#code_id_a"+sub_num);
 
-                    $("#code_id_a"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
+                    $("#code_id_a"+$(this).attr('rel')+" option[value='"+$(this).val()+"']").attr("selected","selected");
 
                     jQuery('.selectDropdown_2').select2();
-                    jQuery('#sub_a'+sub_num).select2();
+                    jQuery('#sub_a'+$(this).attr('rel')).select2();
                 });
 
                 jQuery(document).on('change', "#code_id_a"+sub_num, function(){
@@ -498,7 +500,7 @@
 
 
                 $("#btnAddsub" + sub_num).on('click', function(){
-
+                    // console.log(x);
                     var html = '';
                     html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
                     html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
@@ -513,14 +515,13 @@
                                 if( rows_tags[rkey] == $('#b_id').val() )
                                         {
                                     if(value3.catagory_id == value.id){
-
                                         html += '<option value="'+value3.id+'">'+value3.code+'</option>';
                                     }
                             }
 
                             });
                             }else{
-                                if( value3.brand_id == null ){
+                                if( value3.brand_id == "" || !value3.brand_id){
                                     if(value3.catagory_id == value.id){
                                         html += '<option value="'+value3.id+'">'+value3.code+'</option>';
                                     }
@@ -529,7 +530,7 @@
                     });
 
                     html += '</select>';
-                    html += '<select id="sub_a'+x+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub ats" placeholder="Please Select...">';
+                    html += '<select id="sub_a'+x+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 sub ats" placeholder="Please Select..." rel="'+x+'">';
                     html += '<option selected value=""></option>';
                     jQuery.each(response.dataSub, function(key, value2){
                         if( value2.brand_id ){
@@ -547,7 +548,7 @@
 
                             });
                         }else{
-                                if( value2.brand_id == null ){
+                                if( value2.brand_id == "" || !value2.brand_id ){
                                     if(value2.catagory_id == value.id){
                                         html += '<option value="'+value2.id+'">'+value2.name+'</option>';
                                     }
