@@ -26,6 +26,11 @@
                 @endif|New
             </td>
         </tr>
+            @if (Carbon\Carbon::parse($exp->IO_update_at)->format('d-m-Y') == Carbon\Carbon::today()->format('d-m-Y'))
+                <tr>
+                    <td>{{ $exp->IO_old }}|-|-|-|-|-|-|-|-</td>
+                </tr>
+            @endif
         @elseif ( Carbon\Carbon::parse($exp->updated_at)->format('d-m-Y') == Carbon\Carbon::today()->format('d-m-Y') )
         <tr>
             <td>{{ $exp->io }}|{{ @$exp->task_type_master->task_type_name }}|
@@ -46,6 +51,11 @@
                 @endif|Update
             </td>
         </tr>
+            @if (Carbon\Carbon::parse($exp->IO_update_at)->format('d-m-Y') == Carbon\Carbon::today()->format('d-m-Y') && $exp->IO_update_a != '')
+                <tr>
+                    <td>{{ $exp->IO_old }}|-|-|-|-|-|-|-|-</td>
+                </tr>
+            @endif
         @endif
         @endforeach
     </tbody>

@@ -18,22 +18,12 @@
                             Brand
                         </label>
                         <input id="validation-form-1" type="text" name="brand" class="form-control" value="{{ @$project->brand_master->brand_name }}" readonly>
-                        {{-- <select name="brand" id="validation-form-1"  data-placeholder="Select a brand..." class="tom-select form-control w-full">
-                            <option selected value="{{ $project->brand_master->id }}">{{ $project->brand_master->brand_name }}</option>
-                            @foreach ($project1 as $pro1)
-                            <option value="{{ $pro1->id }}">{{ $pro1->brand_name }}</option>
-                            @endforeach
-                        </select> --}}
+
                         @error('brand')
                                 <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    {{-- <div class="input-form mt-3">
-                        <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
-                            Concept
-                        </label>
-                        <input id="concept" type="text" name="concept" class="form-control" value="{{ @$project->concept_master->name }}">
-                    </div> --}}
+
                     <div class="input-form mt-3">
                         <label for="concept" class="form-label w-full flex flex-col sm:flex-row">
                             Concept
@@ -79,6 +69,7 @@
                                 IO number
                             </label>
                             <input id="validation-form-4" type="text" name="io" maxlength="8" class="form-control" value="{{ $project->io }}">
+                            <input type="hidden" name="io_old" value="{{ $project->io }}">
                             <p id="comment" class="text-danger mt-2"></p>
                         </div>
                     </div>

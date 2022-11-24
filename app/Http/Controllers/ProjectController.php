@@ -141,21 +141,42 @@ class ProjectController extends Controller
     public function update(Request $request)
     {
         // dd($request);
-        $pro_data = Project::where('id', $request->id)->update([
-            // 'brand' => $request->brand,
-            // 'location' => $request->location,
-            'concept' => $request->concept,
-            'area' => $request->area,
-            'unit' => $request->unit,
-            'io' => $request->io,
-            'task' => $request->task,
-            'task_n' => $request->task_n,
-            'start_date' => $request->startDate,
-            'finish_date' => $request->finishDate,
-            'all_date' => $request->alldate,
-            'open_date' => $request->openDate,
-            'designer_name' => $request->ds_name,
-        ]);
+
+        $pro_data = Project::where('id', $request->id)->first();
+
+        if ($pro_data->id == $request->io) {
+            Project::where('id', $request->id)->update([
+                'concept' => $request->concept,
+                'area' => $request->area,
+                'unit' => $request->unit,
+                'io' => $request->io,
+                'task' => $request->task,
+                'task_n' => $request->task_n,
+                'start_date' => $request->startDate,
+                'finish_date' => $request->finishDate,
+                'all_date' => $request->alldate,
+                'open_date' => $request->openDate,
+                'designer_name' => $request->ds_name,
+            ]);
+        }else{
+            Project::where('id', $request->id)->update([
+                'concept' => $request->concept,
+                'area' => $request->area,
+                'unit' => $request->unit,
+                'io' => $request->io,
+                'task' => $request->task,
+                'task_n' => $request->task_n,
+                'start_date' => $request->startDate,
+                'finish_date' => $request->finishDate,
+                'all_date' => $request->alldate,
+                'open_date' => $request->openDate,
+                'designer_name' => $request->ds_name,
+                'IO_old' => $request->io_old,
+                'IO_update_at' => Carbon::now()
+            ]);
+
+        }
+
 
         return redirect(route('allBoq', ['id' => $request->id]))->with('success', '!!! Add Project Complete !!!');
     }
