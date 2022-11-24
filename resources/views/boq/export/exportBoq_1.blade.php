@@ -70,12 +70,12 @@
         @php
             $number = 0;
             $chk_em = App\Models\Boq::where('template_boq_id', $export_boq->id)->get();
-            $bq = App\Models\template_boqs::where('id', $export_boq->id)->get();
+            // $bq = App\Models\template_boqs::where('id', $export_boq->id)->get();
             // dd($bq);
         @endphp
         @foreach ( $catagorie  as $key => $cat )
             @php
-                $chk_main = App\Models\Boq::where('main_id', $cat->id)->first();
+                $chk_main = App\Models\Boq::where('main_id', $cat->id)->where('template_boq_id', $export_boq->id)->first();
             @endphp
             @if ($chk_main)
             <tr>

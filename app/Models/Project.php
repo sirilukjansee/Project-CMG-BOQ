@@ -29,7 +29,9 @@ class Project extends Model
         'designer_name',
         'project_manager',
         'total',
+        'IO_old',
         'create_by',
+        'IO_update_at'
     ];
 
     public function template_boqs(){
