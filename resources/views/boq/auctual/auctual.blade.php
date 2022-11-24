@@ -30,6 +30,7 @@
                                 @foreach ($data_categories as $key => $cat)
                                     <div class="col-span-12 xl:col-span-6 input-form mt-3">
                                         <input type="hidden" value="{{ $cat->id }}" name="boq_id[]">
+                                        <input type="hidden" value="{{ $cat->code }}" name="code_cat[]">
                                         <input type="text" class="w-full" value="{{ $key + 1 }}. {{ $cat->name }}" readonly >
                                     </div>
                                     <div class="col-span-12 xl:col-span-3 input-form mt-3">

@@ -31,8 +31,9 @@ class AuctualController extends Controller
         $aut = Auctual::where('project_id', $id)->get();
         $tot = Auctual::where('project_id', $id)->sum('total');
         $tot1 = Auctual::where('project_id', $id)
-                ->whereIn('boq_id', ['1','7']) // id ของ catagory
-                ->sum('total');
+                    ->whereIn('code_cat', ['Cat01','Cat02','Cat03','Cat04','Cat05','Cat06','Cat07','Cat08','Cat09','Cat10',
+                                           'Cat11','Cat12','Cat13','Cat14','Cat15','Cat16','Cat17','Cat18','Cat20','Cat21']) // code ของ catagory
+                    ->sum('total');
 
         $_SESSION["projectID"] = $id;
 
@@ -68,6 +69,7 @@ class AuctualController extends Controller
                 $cap->project_id = $request->project_id;
                 $cap->template_id = $request->template_id;
                 $cap->boq_id = ($value);
+                $cap->code_cat = ($request->code_cat[$key]);
                 $cap->total = ($request->total[$key]);
                 $cap->remark = $request->remark[$key];
                 $cap->update_by = Auth::user()->id;
@@ -78,6 +80,7 @@ class AuctualController extends Controller
                 $cap->project_id = $request->project_id;
                 $cap->template_id = $request->template_id;
                 $cap->boq_id = ($value);
+                $cap->code_cat = ($request->code_cat[$key]);
                 $cap->total = ($request->total[$key]);
                 $cap->remark = $request->remark[$key];
                 $cap->create_by = Auth::user()->id;

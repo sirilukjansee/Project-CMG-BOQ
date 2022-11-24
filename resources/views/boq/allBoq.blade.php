@@ -231,11 +231,11 @@
                             <option value="{{ $vd->id }}">{{ $vd->name }}</option>
                             @endforeach
                         </select>
-                        <span style="color:darkgrey">กรุณาเลือก Vender </span>
+                        <span style="color:red">กรุณาเลือก Vender </span>
                         <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
 
                             <div class="col-span-12 sm:col-span-4 input-form mt-3">
-                                <input name="file" type="file" class="form-control"/>
+                                <input name="file" type="file" class="form-control" required />
                             </div>
                         </div>
                         </div>

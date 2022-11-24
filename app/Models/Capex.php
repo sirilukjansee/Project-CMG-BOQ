@@ -14,6 +14,7 @@ class Capex extends Model
         'project_id',
         'template_id',
         'boq_id',
+        'code_cat',
         'total',
         'remark',
         'create_by',
