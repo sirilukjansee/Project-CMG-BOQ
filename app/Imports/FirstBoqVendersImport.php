@@ -29,22 +29,22 @@ class FirstBoqVendersImport implements ToModel, WithMappedCells
     public function mapping(): array
     {
         return [
-            'row5' => 'D7',
+            'row2' => 'C7',
         ];
     }
 
     public function model(array $row)
     {
 
-            if( $row['row5'] != null )
+            if( $row['row2'] == "ชื่อผู้เสนอราคา" )
         {
 
             $_SESSION["imp"] = Import_vender::create([
                 'id_project' => $this->project_id,
                 'id_vender' => $this->vender_id,
             ])->id;
-        }else{
-            // return back()->with('error', "eee");
+        // }else{
+        //     // return back()->with('error', "eee");
         }
 
 
