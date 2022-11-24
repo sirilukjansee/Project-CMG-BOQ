@@ -70,9 +70,14 @@ class MasterController extends Controller
         //     'name.unique' => "error"
         // ]);
 
-        $update = DB::table('catagories')->where('id', $request->id)->update([
+        DB::table('catagories')->where('id', $request->id)->update([
             'code' => $request->code,
             'name' => $request->name,
+            'update_by' => Auth::user()->id,
+        ]);
+
+        DB::table('catagory_subs')->where('catagory_id', $request->id)->update([
+            'code_cat' => $request->code,
             'update_by' => Auth::user()->id,
         ]);
 
