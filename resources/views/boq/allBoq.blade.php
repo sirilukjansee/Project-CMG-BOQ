@@ -151,6 +151,10 @@
                                     <a href="{{ url('projects/export', $tb->id) }}"
                                         class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false">
                                     <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
+                                @elseif ($tb->name == "Additional BOQ" && $tb->status != "2")
+                                    <a href="{{ url('projects/export', $tb->id) }}"
+                                        class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false">
+                                    <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
                                 @else
                                 <a href="{{ url('projects/export_no', $tb->id) }}"
                                     class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false">

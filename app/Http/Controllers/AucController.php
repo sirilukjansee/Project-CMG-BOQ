@@ -40,6 +40,7 @@ class AucController extends Controller
 
     public function export(Request $request)
     {
+        $pro = Project::where('id', $request->project_id)->first();
         ExportAuc::where('project_id', $request->project_id)->delete();
 
         if( isset($request->chk_m) )
@@ -71,7 +72,7 @@ class AucController extends Controller
                 }
             }
 
-            return Excel::download(new AucExport($request->project_id), 'AUC.xlsx');
+            return Excel::download(new AucExport($request->project_id), 'AUC'.($pro->brand_master->brand_name).'-'.(@$pro->location_master->location_name).'.xlsx');
         }elseif ( isset($request->chk_s) ){
             foreach ( $request->chk_s as $key => $cks )
             {
@@ -86,7 +87,7 @@ class AucController extends Controller
                 }
             }
 
-            return Excel::download(new AucExport($request->project_id), 'AUC.xlsx');
+            return Excel::download(new AucExport($request->project_id), 'AUC-'.(@$pro->brand_master->brand_name).'-'.(@$pro->location_master->location_name).'.xlsx');
         }else{
             return back()->with('success', '!!! Please Check Some Box !!!');
         }

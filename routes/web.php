@@ -253,7 +253,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/export-category', [MasterController::class, 'export']);
     Route::get('/export-category_sub/{id}', [MasterController::class, 'export_sub']);
     Route::get('/export-designer', [DesignerPMController::class, 'export']);
-    Route::get('/export-vender', [VenderController::class, 'export']);
+    Route::get('/export-vender/{id}', [VenderController::class, 'export'])->name('export-vender');
+    Route::get('/export-vender', [VenderController::class, 'export_master']);
     Route::get('/export-task-name', [TaskNameController::class, 'export']);
     Route::get('/export-task-type', [TaskTypeController::class, 'export']);
     Route::get('/export-unit', [UnitController::class, 'export']);

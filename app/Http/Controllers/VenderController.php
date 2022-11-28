@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Exports\VendersExport;
+use App\Exports\MultiVenderExport;
 use App\Imports\VendersImport;
 use Illuminate\Http\Request;
 use App\Models\Vender;
+use App\Models\Project;
+use App\Models\Import_vender;
+use App\Models\template_boqs;
+use App\Models\catagory;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
+
 
 class VenderController extends Controller
 {
@@ -88,9 +95,22 @@ class VenderController extends Controller
         return back()->with('success','!!! Import File Complete !!!');
     }
 
-    public function export()
+    public function export($id)
     {
-        return Excel::download(new VendersExport, 'vender.xlsx');
+        $pro = Project::where('id', $id)->first();
+        $im_v = Import_vender::where('id', $id)->first();
+        $export_boq = template_boqs::where('id', $id)
+            ->first();
+        $catagorie = catagory::where('is_active', "1")
+            ->get();
+        // dd($im_v);
+        return Excel::download(new MultiVenderExport($export_boq,$catagorie), ''.(@$im_v->vender_name->name).'-'.(@$im_v->project->brand_master->brand_name).'-'.(@$im_v->project->location_master->location_name).'.xlsx');
+    }
+
+    public function export_master()
+    {
+
+        return Excel::download(new VendersExport(), 'Vendor.xlsx');
     }
 
     public function venderChk($data)

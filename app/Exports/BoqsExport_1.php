@@ -16,10 +16,12 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithDrawings;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 
-class BoqsExport_1 implements FromView, WithTitle, WithEvents, WithStyles, WithDrawings
+class BoqsExport_1 implements FromView, WithTitle, WithEvents, WithStyles, WithDrawings, WithColumnFormatting
 {
     protected $export_boq;
     protected $catagorie;
@@ -52,6 +54,16 @@ class BoqsExport_1 implements FromView, WithTitle, WithEvents, WithStyles, WithD
 
         return $drawing;
     }
+
+    public function columnFormats(): array
+        {
+            return [
+                'H' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'I' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'J' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'K' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+            ];
+        }
 
     public function registerEvents(): array
     {

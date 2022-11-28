@@ -162,7 +162,8 @@
                     }
                 }
                 $total_p += $total;
-
+                $over = App\Models\Import_vender::where('id_project', $export_boq->id)->get();
+                // dd($over);
             @endphp
                 <tr>
                     <td style="height: 30px; text-align:center;">{{ $key + 1 }}</td>
@@ -201,17 +202,17 @@
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>OVER HEAD</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format(@$export_boq->overhead, 2) }}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format(@$export_boq->vender_auc->overhead, 2) }}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>COMMERCIAL DISCOUNT</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format(@$export_boq->discount, 2) }}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format(@$export_boq->vender_auc->discount, 2) }}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>
             <td style="text-align:right; height: 30px;" colspan="3"><b>SUB TOTAL</b></td>
-            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format($sub_t = $total_p + $export_boq->overhead - $export_boq->discount, 2)}}</td>
+            <td style="text-align:center; height: 30px;" colspan="3">{{ number_format($sub_t = $total_p + $export_boq->vender_auc->overhead - $export_boq->vender_auc->discount, 2)}}</td>
         </tr>
         <tr>
             <td style="height: 30px;"></td>

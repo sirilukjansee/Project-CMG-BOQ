@@ -25,10 +25,10 @@
     <thead>
         <tr>
             <th style="width: 120px;"><b>โครงการ</b></th>
-            <th colspan="3">{{ @$export_boq->project->brand_master->brand_name }}</th>
+            <th>{{ @$export_boq->project->brand_master->brand_name }}</th>
             <th></th>
             <th></th>
-            <th style="width: 120px;"><b>Vender</b></th>
+            <th style="width: 120px;"><b>Vendor</b></th>
             <th style="width: 120px;">{{ @$export_boq->vender_name->name }}</th>
             <th></th>
             <th></th>

@@ -45,7 +45,7 @@
                 @endif
             </td>
             <td>{{@$lg->comment}}</td>
-            <td>{{ Carbon\Carbon::parse($lg->date)->format('d M y H:i') }}</td>
+            <td>{{ Carbon\Carbon::parse($lg->date)->format('d M y H:i:s') }}</td>
           </tr>
         @endforeach
         </tbody>

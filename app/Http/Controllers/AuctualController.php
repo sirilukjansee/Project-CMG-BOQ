@@ -142,7 +142,9 @@ class AuctualController extends Controller
 
     public function export($id)
     {
+        $pro = Project::where('id', $id)->first();
+        // dd($pro);
 
-        return Excel::download(new AuctualExport($id), 'Auctual.xlsx');
+        return Excel::download(new AuctualExport($id), 'Auctual-'.(@$pro->brand_master->brand_name).'-'.(@$pro->location_master->location_name).'.xlsx');
     }
 }

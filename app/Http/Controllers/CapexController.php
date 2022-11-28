@@ -30,7 +30,7 @@ class CapexController extends Controller
                 ->whereIn('code_cat', ['Cat01','Cat02','Cat03','Cat04','Cat05','Cat06','Cat07','Cat08','Cat09','Cat10',
                                        'Cat11','Cat12','Cat13','Cat14','Cat15','Cat16','Cat17','Cat18','Cat20','Cat21']) // code ของ catagory
                 ->sum('total');
-
+        // dd($tot);
         $_SESSION["projectID"] = $id;
 
         return view('boq.Capex.capex', compact('data_categorys','project_id','cpx','tot','tot1'));
@@ -136,9 +136,9 @@ class CapexController extends Controller
 
     public function export($id)
     {
+        $pro = Project::where('id', $id)->first();
         // dd($id);
-        // $cpx = Project::where('id', $id)->first();
 
-        return Excel::download(new CapexExport($id), 'Capex.xlsx');
+        return Excel::download(new CapexExport($id), 'Capex-'.(@$pro->brand_master->brand_name).'-'.(@$pro->location_master->location_name).'.xlsx');
     }
 }

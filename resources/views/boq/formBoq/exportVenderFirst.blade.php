@@ -69,7 +69,12 @@
             @php
                 $number = 0;
                 $total = 0;
+                $chk_main = App\Models\Import_vender_detail::where('main_id', $cat->id)
+                        ->where('import_id', $export_boq->id)
+                        ->first();
+                        // dd($export_boq->id);
             @endphp
+            @if ($chk_main)
             <tr>
                 <td style="height: 30px; text-align:center;">{{ $key + 1 }}</td>
                 <td style="height: 30px;"><b>{{ $cat->name }}</b></td>
@@ -127,6 +132,7 @@
             <tr>
                 <td colspan="9"></td>
             </tr>
+            @endif
         @endforeach
     </tbody>
 </table>

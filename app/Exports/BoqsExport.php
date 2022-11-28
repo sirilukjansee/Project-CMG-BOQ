@@ -80,22 +80,22 @@ class BoqsExport implements FromView, WithTitle, WithEvents, WithStyles, WithDra
             ->getStyle('D7')
             ->getProtection()
             ->setLocked(Protection::PROTECTION_UNPROTECTED);
-        $sheet->getParent()->getActiveSheet()
-            ->getStyle('H:H')
-            ->getProtection()
-            ->setLocked(Protection::PROTECTION_UNPROTECTED);
-        $sheet->getParent()->getActiveSheet()
-            ->getStyle('I:I')
-            ->getProtection()
-            ->setLocked(Protection::PROTECTION_UNPROTECTED);
-        $sheet->getParent()->getActiveSheet()
-            ->getStyle('J:J')
-            ->getProtection()
-            ->setLocked(Protection::PROTECTION_UNPROTECTED);
-        $sheet->getParent()->getActiveSheet()
-            ->getStyle('K:K')
-            ->getProtection()
-            ->setLocked(Protection::PROTECTION_UNPROTECTED);
+        // $sheet->getParent()->getActiveSheet()
+        //     ->getStyle('H:H')
+        //     ->getProtection()
+        //     ->setLocked(Protection::PROTECTION_UNPROTECTED);
+        // $sheet->getParent()->getActiveSheet()
+        //     ->getStyle('I:I')
+        //     ->getProtection()
+        //     ->setLocked(Protection::PROTECTION_UNPROTECTED);
+        // $sheet->getParent()->getActiveSheet()
+        //     ->getStyle('J:J')
+        //     ->getProtection()
+        //     ->setLocked(Protection::PROTECTION_UNPROTECTED);
+        // $sheet->getParent()->getActiveSheet()
+        //     ->getStyle('K:K')
+        //     ->getProtection()
+        //     ->setLocked(Protection::PROTECTION_UNPROTECTED);
 
 
         // styling first row

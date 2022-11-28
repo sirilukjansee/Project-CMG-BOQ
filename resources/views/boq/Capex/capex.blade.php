@@ -60,13 +60,36 @@
                                 $tt = $cpx->sum('total')
                             @endphp
                             {{-- {{dd( $project_id->area  )}} --}}
+                            {{-- <div class="grid grid-cols-12 gap-2">
+                                <div class="col-span-12 xl:col-span-9 input-form mt-3">
+                                    <input type="text" class="text-right w-full" value="Contruction" readonly style="background-color: rgb(190, 188, 189);" >
+                                </div>
+                                <div class="col-span-12 xl:col-span-3 input-form mt-3">
+                                    <input type="text" class="text-right w-full" readonly style="background-color: rgb(190, 188, 189);" >
+                                </div>
+                            </div> --}}
+                            <div class="grid grid-cols-12 gap-2">
+                                <div class="col-span-12 xl:col-span-9 input-form mt-3">
+                                    <input type="text" class="text-right w-full" value="Total Construction" readonly style="background-color: rgb(255, 255, 255);" >
+                                </div>
+                                <div class="col-span-12 xl:col-span-3 input-form mt-3">
+                                    <input type="text" name="total_sqm"  class="w-full total" value="{{ number_format($tot1,2) }}" placeholder="0000.00" style="text-align: right; background-color: rgb(255, 255, 255);" readonly>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-12 gap-2">
+                                <div class="col-span-12 xl:col-span-9 input-form mt-3">
+                                    <input type="text" class="text-right w-full" value="Total Cost/Sq.m" readonly style="background-color: rgb(255, 255, 255);" >
+                                </div>
+                                <div class="col-span-12 xl:col-span-3 input-form mt-3">
+                                    <input type="text" name="total_sqm"  class="w-full total" value="{{ number_format($tot1 /$project_id->area, 2) }}" placeholder="0000.00" style="text-align: right; background-color: rgb(255, 255, 255);" readonly>
+                                </div>
+                            </div>
                             <div class="grid grid-cols-12 gap-2">
                                 <div class="col-span-12 xl:col-span-9 input-form mt-3">
                                     <input type="text" class="text-right w-full" value="Total Investment" readonly style="background-color: rgb(190, 188, 189);" >
                                 </div>
                                 <div class="col-span-12 xl:col-span-3 input-form mt-3">
                                     <input type="text" name="total_sum"  class="w-full total" value="{{number_format($tt,2)}}" placeholder="0000.00" style="text-align: right; background-color: rgb(190, 188, 189);" readonly>
-                                    {{-- <div class="w-full h-full text-center" style="background-color: rgb(190, 188, 189);">{{number_format($tt, 2)}}</div> --}}
                                 </div>
                             </div>
                             <div class="grid grid-cols-12 gap-2">
@@ -75,7 +98,6 @@
                                 </div>
                                 <div class="col-span-12 xl:col-span-3 input-form mt-3">
                                     <input type="text" name="total_sqm"  class="w-full total" value="{{ number_format($tt /$project_id->area, 2) }}" placeholder="0000.00" style="text-align: right; background-color: rgb(190, 188, 189);" readonly>
-                                    {{-- <div class="w-full h-full text-center" style="background-color: rgb(190, 188, 189);">{{number_format($tt, 2)}}</div> --}}
                                 </div>
                             </div>
                             <div class="grid grid-cols-12 gap-2">
@@ -84,35 +106,9 @@
                                 </div>
                                 <div class="col-span-12 xl:col-span-3 input-form mt-3">
                                     <input type="text" name="total_vat"  class="w-full total" value="{{ number_format(($tt *7/100) + $tt, 2) }}" placeholder="0000.00" style="text-align: right; background-color: rgb(190, 188, 189);" readonly>
-                                    {{-- <div class="w-full h-full text-center" style="background-color: rgb(190, 188, 189);">{{number_format($tt, 2)}}</div> --}}
                                 </div>
                             </div>
-                            <div class="grid grid-cols-12 gap-2">
-                                <div class="col-span-12 xl:col-span-9 input-form mt-3">
-                                    <input type="text" class="text-right w-full" value="Contruction" readonly style="background-color: rgb(190, 188, 189);" >
-                                </div>
-                                <div class="col-span-12 xl:col-span-3 input-form mt-3">
-                                    <input type="text" class="text-right w-full" readonly style="background-color: rgb(190, 188, 189);" >
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-12 gap-2">
-                                <div class="col-span-12 xl:col-span-9 input-form mt-3">
-                                    <input type="text" class="text-right w-full" value="Total Contruction" readonly style="background-color: rgb(190, 188, 189);" >
-                                </div>
-                                <div class="col-span-12 xl:col-span-3 input-form mt-3">
-                                    <input type="text" name="total_sqm"  class="w-full total" value="{{number_format($tot1,2)}}" placeholder="0000.00" style="text-align: right; background-color: rgb(190, 188, 189);" readonly>
-                                    {{-- <div class="w-full h-full text-center" style="background-color: rgb(190, 188, 189);">{{number_format($tt, 2)}}</div> --}}
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-12 gap-2">
-                                <div class="col-span-12 xl:col-span-9 input-form mt-3">
-                                    <input type="text" class="text-right w-full" value="Total Cost/Sq.m" readonly style="background-color: rgb(190, 188, 189);" >
-                                </div>
-                                <div class="col-span-12 xl:col-span-3 input-form mt-3">
-                                    <input type="text" name="total_sqm"  class="w-full total" value="{{ number_format($tot1 /$project_id->area, 2) }}" placeholder="0000.00" style="text-align: right; background-color: rgb(190, 188, 189);" readonly>
-                                    {{-- <div class="w-full h-full text-center" style="background-color: rgb(190, 188, 189);">{{number_format($tt, 2)}}</div> --}}
-                                </div>
-                            </div>
+
                             {{-- end-total --}}
                             <input type="submit" value="Save" class="btn btn-primary mt-5">
                             <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">Back</a>
@@ -123,15 +119,7 @@
 
 
 <script type="text/javascript">
-    // $(".total").on('keyup', function(){
-    //     var n = parseInt($(this).val().replace(/[\D\s\._\-]+/g, ""));
-    //     n = n ? parseInt( n, 10 ) : 0;
-    //     $(this).val(n.toLocaleString());
-    // });
-    // document.querySelectorAll('.total').forEach(inp => new Cleave(inp, {
-    //     numeral: true,
-    //     numeralThousandsGroupStyle: 'thousand'
-    // }));
+
 </script>
 <!-- END: JS Assets-->
 @endsection

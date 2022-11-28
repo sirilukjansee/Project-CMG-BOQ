@@ -36,10 +36,24 @@
         $tt = $cpx->sum('total');
 
         $tot1 = App\Models\Capex::where('project_id', $id)
-                ->whereIn('boq_id', ['7','1']) // id ของ catagory
+                ->whereIn('code_cat', ['Cat01','Cat02','Cat03','Cat04','Cat05','Cat06','Cat07','Cat08','Cat09','Cat10',
+                                       'Cat11','Cat12','Cat13','Cat14','Cat15','Cat16','Cat17','Cat18','Cat20','Cat21']) // code ของ catagory
                 ->sum('total');
+
         // dd($tt);
     @endphp
+        <tr>
+            <td></td>
+            <td colspan="12" style="height: 30px; text-align:right;"><b>Total Construction</b></td>
+            <td colspan="3" style="height: 30px; text-align: right;">{{ number_format($tot1, 2) }}</td>
+            <td colspan="3" style="height: 30px; text-align:right;"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="12" style="height: 30px; text-align:right;"><b>Total Cost/Sq.m</b></td>
+            <td colspan="3" style="height: 30px; text-align: right;">{{ number_format($tot1 /$pro_a->area, 2) }}</td>
+            <td colspan="3" style="height: 30px; text-align:right;"></td>
+        </tr>
         <tr>
             <td></td>
             <td colspan="12" style="height: 30px; text-align:right;"><b>Total Investment</b></td>
@@ -56,24 +70,6 @@
             <td></td>
             <td colspan="12" style="height: 30px; text-align:right;"><b>Total Investment Including VAT 7%</b></td>
             <td colspan="3" style="height: 30px; text-align: right;">{{ number_format(($tt *7/100) + $tt, 2) }}</td>
-            <td colspan="3" style="height: 30px; text-align:right;"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td colspan="12" style="height: 30px; text-align:right;"><b>Contruction</b></td>
-            <td colspan="3" style="height: 30px; text-align:right;"></td>
-            <td colspan="3" style="height: 30px; text-align:right;"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td colspan="12" style="height: 30px; text-align:right;"><b>Total Contruction</b></td>
-            <td colspan="3" style="height: 30px; text-align: right;">{{ number_format($tot1, 2) }}</td>
-            <td colspan="3" style="height: 30px; text-align:right;"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td colspan="12" style="height: 30px; text-align:right;"><b>Total Cost/Sq.m</b></td>
-            <td colspan="3" style="height: 30px; text-align: right;">{{ number_format($tot1 /$pro_a->area, 2) }}</td>
             <td colspan="3" style="height: 30px; text-align:right;"></td>
         </tr>
     </tbody>
