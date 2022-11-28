@@ -70,12 +70,14 @@
                         <tbody>
                             @foreach ($brands as $key => $value)
                             @php
+                                $total_cost = 0;
                                 $sum = 0;
                             @endphp
                                 @foreach ($data_projects as $project)
                                     @if($value->id == $project->brand)
                                         @php
-                                            $sum += 1;
+                                        $total_cost = App\Models\template_boqs::where('project_id', $project->id)->sum('budget');
+                                        $sum += 1;
                                         @endphp
                                     @endif
                                 @endforeach
@@ -83,8 +85,8 @@
                                     <tr>
                                         <td>{{ $key + 1}}</td>
                                         <td>{{ $value->brand_name }}</td>
-                                        <td>{{$sum}}</td>
-                                        <td>xxx,924.32</td>
+                                        <td>{{ number_format( $sum) }}</td>
+                                        <td>{{ number_format( $total_cost, 2) }}</td>
                                     </tr>
                             @endforeach
                         </tbody>

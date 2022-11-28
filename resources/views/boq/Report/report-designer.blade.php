@@ -37,7 +37,7 @@
                                 <select id="tabulator-html-filter-field" class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto" name="year">
                                     <option value="0">Select</option>
                                     <?php
-                                        for ($y = 2000; $y <= date('Y'); $y++) { ?>
+                                        for ($y = 2000; $y <= date('Y')+1; $y++) { ?>
                                         <option value ="<?=$y?>"> <?=$y?> </option>
                                     <?php } ?>
                                 </select>
@@ -108,46 +108,46 @@
                                     $month11 = 0;
                                     $month12 = 0;
 
-                                    if ($year == '') {
+                                    if ($year == '' || $year == 0) {
                                         $year = Carbon\Carbon::today()->format('Y');
                                     }
-                                    $projects = App\Models\Project::where('designer_name', $value->id)->get();
+                                    $projects = App\Models\Project::where('designer_name', $value->id)->whereYear('open_date', $year)->get();
 
                                     foreach ($projects as $p) {
-                                        if (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 1 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        if (Carbon\Carbon::parse(@$p->open_date)->format('m') == 1 && Carbon\Carbon::parse(@$p->open_date)->format('Y') == $year)
                                         {
                                             $month1 += 1;
-                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 2 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        }elseif (Carbon\Carbon::parse(@$p->open_date)->format('m') == 2 && Carbon\Carbon::parse(@$p->open_date)->format('Y') == $year)
                                         {
                                             $month2 += 1;
-                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 3 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        }elseif (Carbon\Carbon::parse(@$p->open_date)->format('m') == 3 && Carbon\Carbon::parse(@$p->open_date)->format('Y') == $year)
                                         {
                                             $month3 += 1;
-                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 4 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        }elseif (Carbon\Carbon::parse(@$p->open_date)->format('m') == 4 && Carbon\Carbon::parse(@$p->open_date)->format('Y') == $year)
                                         {
                                             $month4 += 1;
-                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 5 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        }elseif (Carbon\Carbon::parse(@$p->open_date)->format('m') == 5 && Carbon\Carbon::parse(@$p->open_date)->format('Y') == $year)
                                         {
                                             $month5 += 1;
-                                        } elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 6 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        } elseif (Carbon\Carbon::parse(@$p->open_date)->format('m') == 6 && Carbon\Carbon::parse(@$p->open_date)->format('Y') == $year)
                                         {
                                             $month6 += 1;
-                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 7 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        }elseif (Carbon\Carbon::parse(@$p->open_date)->format('m') == 7 && Carbon\Carbon::parse(@$p->open_date)->format('Y') == $year)
                                         {
                                             $month7 += 1;
-                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 8 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        }elseif (Carbon\Carbon::parse(@$p->open_date)->format('m') == 8 && Carbon\Carbon::parse(@$p->open_date)->format('Y') == $year)
                                         {
                                             $month8 += 1;
-                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 9 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        }elseif (Carbon\Carbon::parse(@$p->open_date)->format('m') == 9 && Carbon\Carbon::parse(@$p->open_date)->format('Y') == $year)
                                         {
                                             $month9 += 1;
-                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 10 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        }elseif (Carbon\Carbon::parse(@$p->open_date)->format('m') == 10 && Carbon\Carbon::parse(@$p->open_date)->format('Y') == $year)
                                         {
                                             $month10 += 1;
-                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 11 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        }elseif (Carbon\Carbon::parse($p->open_date)->format('m') == 11 && Carbon\Carbon::parse($p->open_date)->format('Y') == $year)
                                         {
                                             $month11 += 1;
-                                        }elseif (Carbon\Carbon::parse(@$value->project_pm->created_at)->format('m') == 12 && Carbon\Carbon::parse(@$value->project_pm->created_at)->format('Y') == $year)
+                                        }elseif (Carbon\Carbon::parse($p->open_date)->format('m') == 12 && Carbon\Carbon::parse($p->open_date)->format('Y') == $year)
                                         {
                                             $month12 += 1;
                                         }
@@ -156,19 +156,19 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $value->name }}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 1]) }}">{{$month1}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 2]) }}">{{$month2}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 3]) }}">{{$month3}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 4]) }}">{{$month4}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 5]) }}">{{$month5}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 6]) }}">{{$month6}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 7]) }}">{{$month7}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 8]) }}">{{$month8}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 9]) }}">{{$month9}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 10]) }}">{{$month10}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 11]) }}">{{$month11}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 12]) }}">{{$month12}}</td>
-                                <td data-href="{{ url('report-designer-detail', [$value->id, 13]) }}">{{ count($projects) }}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 1, $year]) }}">{{$month1}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 2, $year]) }}">{{$month2}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 3, $year]) }}">{{$month3}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 4, $year]) }}">{{$month4}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 5, $year]) }}">{{$month5}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 6, $year]) }}">{{$month6}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 7, $year]) }}">{{$month7}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 8, $year]) }}">{{$month8}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 9, $year]) }}">{{$month9}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 10, $year]) }}">{{$month10}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 11, $year]) }}">{{$month11}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 12, $year]) }}">{{$month12}}</td>
+                                <td data-href="{{ url('report-designer-detail', [$value->id, 13, $year]) }}">{{ count($projects) }}</td>
                             </tr>
 
                             @php

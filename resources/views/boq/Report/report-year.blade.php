@@ -56,14 +56,23 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $grand_total = 0;
+                                $jobs = 0;
+                            @endphp
                             @foreach($dataProjects as $key => $value)
+                                @php
+                                    $total_cost = App\Models\template_boqs::whereYear('created_at', $value->year)->sum('budget');
+                                    $grand_total += $total_cost;
+                                    $jobs += $value->jobs;
+                                @endphp
                                 {{-- <tr data-href="{{ url('reportAll-detail', 1) }}"> --}}
                                     <tr>
                                         <td>{{ $key + 1}}</td>
                                         <td>{{ $value->year }}</td>
                                         <td></td>
                                         <td>{{ $value->sqm }}</td>
-                                        <td>xxx,292.22</td>
+                                        <td>{{ number_format( @$total_cost, 2) }}</td>
                                         <td>{{ $value->jobs }}</td>
                                     </tr>
                             @endforeach
@@ -73,169 +82,12 @@
                                 <td colspan="2" style="text-align: center;">Grand Total</td>
                                 <td></td>
                                 <td></td>
-                                <td>xxx,807.44</td>
-                                <td>3,160.00</td>
+                                <td>{{ number_format( $grand_total, 2) }}</td>
+                                <td>{{ number_format( $jobs) }}</td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
-
-                <!-- BEGIN: Large Modal Content -->
-                <div id="large-modal-size-preview_add" class="modal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h2 class="font-medium text-base mr-auto">Add User</h2>
-                            </div> <!-- END: Modal Header -->
-                            <!-- BEGIN: Modal Body -->
-                            <form action="{{ url('/users/add') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-
-                                    <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" autofocus>
-
-                                                @error('name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email">
-
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="radio" class="col-md-4 col-form-label text-md-end">{{ __('สิทธิการใช้งาน') }}</label>
-                                                <div class="flex flex-col sm:flex-row mt-2">
-                                                    <div class="form-check mr-2">
-                                                        <input id="radio-switch-4" class="form-check-input" type="radio" name="permision" value="0">
-                                                        <label class="form-check-label" for="radio-switch-4">User</label>
-                                                    </div>
-                                                    <div class="form-check mr-2 mt-2 sm:mt-0">
-                                                        <input id="radio-switch-5" class="form-check-input" type="radio" name="permision" value="1">
-                                                        <label class="form-check-label" for="radio-switch-5">Manager</label>
-                                                    </div>
-                                                    <div class="form-check mr-2 mt-2 sm:mt-0">
-                                                        <input id="radio-switch-6" class="form-check-input" type="radio" name="permision" value="2">
-                                                        <label class="form-check-label" for="radio-switch-6">Admin</label>
-                                                    </div>
-                                                </div>
-                                        </div>
-
-                                </div>
-                                <!-- BEGIN: Modal Footer -->
-                                <div class="modal-footer">
-                                    <button type="button" data-tw-dismiss="modal"
-                                        class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
-                                </div> <!-- END: Modal Footer -->
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- END: Large Modal Content -->
-
-                <!-- BEGIN: Large Modal Content -->
-                <div id="large-modal-size-preview_edit" class="modal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h2 class="font-medium text-base mr-auto">Edit Brand</h2>
-                            </div> <!-- END: Modal Header -->
-                            <!-- BEGIN: Modal Body -->
-                            <form action="{{ url('/users/update') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="id" id="get_id">
-                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-
-                                    <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" autofocus>
-
-                                                @error('name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email">
-
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                            <label for="radio" class="col-md-4 col-form-label text-md-end">{{ __('สิทธิการใช้งาน') }}</label>
-                                                <div class="flex flex-col sm:flex-row mt-2" id="permision">
-                                                </div>
-                                        </div>
-
-                                </div>
-                                <!-- BEGIN: Modal Footer -->
-                                <div class="modal-footer">
-                                    <button type="button" data-tw-dismiss="modal"
-                                        class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
-                                </div> <!-- END: Modal Footer -->
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- END: Large Modal Content -->
             </div>
 
 <script type="text/javascript">

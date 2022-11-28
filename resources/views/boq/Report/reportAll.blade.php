@@ -42,10 +42,10 @@
                                     <th scope="col">Job Finished Date</th>
                                     <th scope="col">Job in date</th>
                                     <th scope="col">Designer</th>
-                                    {{-- <th scope="col">Vender</th> --}}
+                                    <th scope="col">Vendor</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Total Cost</th>
                                     <th scope="col">Cost Sqm</th>
-                                    {{-- <th scope="col" style="text-align: center;">Active</th> --}}
                                 </tr>
                                 <tr>
                                     <th scope="col" class="filterhead">Job no</th>
@@ -59,8 +59,9 @@
                                     <th scope="col" class="filterhead">Job Finished Date</th>
                                     <th scope="col" class="filterhead">Job in date</th>
                                     <th scope="col" class="filterhead">Designer</th>
-                                    {{-- <th scope="col" class="filterhead">Vender</th> --}}
+                                    <th scope="col" class="filterhead">Vendor</th>
                                     <th scope="col" class="filterhead">Status</th>
+                                    <th scope="col" class="filterhead">Total Cost</th>
                                     <th scope="col" class="filterhead">Cost Sqm</th>
                                 </tr>
                             </thead>
@@ -68,6 +69,7 @@
                                     @foreach ($projects as $value)
                                     @php
                                         $budgets = App\Models\Capex::where('project_id', $value->id)->sum('total');
+                                        $total_cost = App\Models\template_boqs::where('project_id', $value->id)->sum('budget');
                                     @endphp
                                     <tr data-href="{{ url('reportAll-detail', $value->id) }}">
                                         <td>{{ $value->number_id }}</td>
@@ -81,7 +83,7 @@
                                         <td>{{ Carbon\Carbon::parse($value->finish_date)->format('d/m/Y') }}</td>
                                         <td>{{ Carbon\Carbon::parse($value->open_date)->format('d/m/Y') }}</td>
                                         <td>{{ @$value->designer_master->name }}</td>
-                                        {{-- <td>{{ @$value->template_boqs->vender_name->name }}</td> --}}
+                                        <td>{{ @$value->template_boqs->vender_name->name }}</td>
                                         <td>
                                             @if (@$value->project_id1->name == 'Master BOQ')
                                                 @if (@$value->project_id1->status == '0')
@@ -97,7 +99,8 @@
                                                 @endif
                                             @endif
                                         </td>
-                                        <td>{{ number_format( @$value->project_id1->budget / $value->area, 2) }}</td>
+                                        <td>{{ number_format( @$total_cost, 2) }}</td>
+                                        <td>{{ number_format( @$total_cost / $value->area, 2) }}</td>
                                     </tr>
                                     @endforeach
                             </tbody>

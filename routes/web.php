@@ -270,7 +270,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('reportAll-detail/{id}', [ReportAllController::class, 'index_detail']);
 
     Route::get('report-designer', [ReportDesignerController::class, 'index']);
-    Route::get('report-designer-detail/{id}/{month}', [ReportDesignerController::class, 'index_detail']);
+    Route::get('report-designer-detail/{id}/{month}/{year}', [ReportDesignerController::class, 'index_detail']);
     Route::post('report-designer-search', [ReportDesignerController::class, 'search']);
 
     Route::get('report-year', [ReportYearController::class, 'index']);
