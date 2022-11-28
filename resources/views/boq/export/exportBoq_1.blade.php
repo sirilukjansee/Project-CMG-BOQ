@@ -115,12 +115,7 @@
                     @php
                         $c++;
                     @endphp
-                    {{-- @else
-                    @php
-                $c++;
-            @endphp --}}
                 @endif
-
             @endforeach
             <tr>
                 <td colspan="9"></td>
@@ -143,8 +138,8 @@
                 <td colspan="9"></td>
             </tr>
             @php
-                        $c+=4;
-                    @endphp
+                $c+=4;
+            @endphp
             @endif
         @endforeach
     </tbody>
