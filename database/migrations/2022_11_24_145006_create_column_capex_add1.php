@@ -14,7 +14,7 @@ class CreateColumnCapexAdd1 extends Migration
     public function up()
     {
         Schema::table('capexes', function (Blueprint $table) {
-            $table->string('code_cat')->after('boq_id')->comment('code ของแต่ละหมวด');
+            $table->string('code_cat')->after('boq_id')->nullable()->comment('code ของแต่ละหมวด');
         });
     }
 
