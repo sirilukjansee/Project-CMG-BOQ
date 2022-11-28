@@ -29,6 +29,7 @@
                                 <th class="text-center whitespace-nowrap">Date</th>
                                 <th class="text-center whitespace-nowrap">Vendor</th>
                                 <th class="text-center whitespace-nowrap">Budget</th>
+                                <th class="text-center whitespace-nowrap">Remark</th>
                                 <th class="text-center whitespace-nowrap">Status</th>
                                 <th class="text-center whitespace-nowrap"></th>
                             </tr>
@@ -52,6 +53,9 @@
                             </td>
                             <td class="table-report__action w-56">
                                 <div class="flex items-center justify-center"> {{number_format($tb->budget, 2)}} </div>
+                            </td>
+                            <td class="table-report__action w-56">
+                                <div class="flex items-center justify-center"> {{$tb->remark}} </div>
                             </td>
                             <td class="table-report__action w-56">
                                 <div class="flex items-center justify-center">
@@ -100,6 +104,7 @@
                                 <th class="whitespace-nowrap">ID_BOQ</th>
                                 <th class="whitespace-nowrap">Vender</th>
                                 <th class="text-center whitespace-nowrap">Date</th>
+                                <th class="text-center whitespace-nowrap">Budget</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -124,6 +129,11 @@
                                 </td>
                                 <td class="table-report__action w">
                                     <div class="flex items-center justify-center">{{ Carbon\Carbon::parse(@$ib->created_at)->format('d-m-Y') }}</div>
+                                </td>
+                                <td class="table-report__action">
+                                    <div class="btn-group text-center flex justify-center">
+                                        {{number_format($ib->budget, 2)}}
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
