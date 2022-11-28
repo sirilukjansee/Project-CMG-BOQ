@@ -3,7 +3,7 @@
 @section('content-data')
             <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
                 <h2 class="text-lg font-medium mr-auto">
-                   Task Type (Location) Report {{Carbon\Carbon::today()->toDateString()}}
+                   Task Type (Location) Report
                 </h2>
                 <div class="w-full sm:w-auto flex mt-4 sm:mt-0"></div>
             </div>
@@ -70,11 +70,13 @@
                         <tbody>
                             @foreach ($locations as $key => $value)
                             @php
+                                $total_cost = 0;
                                 $sum = 0;
                             @endphp
                                 @foreach ($data_projects as $project)
                                     @if($value->id == $project->location)
                                         @php
+                                            $total_cost = App\Models\template_boqs::where('project_id', $project->id)->sum('budget');
                                             $sum += 1;
                                         @endphp
                                     @endif
@@ -83,8 +85,8 @@
                                     <tr>
                                         <td>{{ $key + 1}}</td>
                                         <td>{{ $value->location_name }}</td>
-                                        <td>{{$sum}}</td>
-                                        <td>xxx,924.32</td>
+                                        <td>{{ number_format( $sum) }}</td>
+                                        <td>{{ number_format( $total_cost, 2) }}</td>
                                     </tr>
                             @endforeach
                         </tbody>

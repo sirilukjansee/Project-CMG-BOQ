@@ -20,11 +20,11 @@ class ReportDesignerController extends Controller
         return view('boq.Report.report-designer', $data);
     }
 
-    public function index_detail($id, $month)
+    public function index_detail($id, $month, $year)
     {
         $data['designers'] = design_and_pm::where('id', $id)->first();
 
-        $data['projects'] = Project::whereMonth('open_date', $month)->where('designer_name', $id)->get();
+        $data['projects'] = Project::whereMonth('open_date', $month)->whereYear('open_date', $year)->where('designer_name', $id)->get();
 
         switch ($month)
         {

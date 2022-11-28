@@ -68,6 +68,7 @@
     </thead>
     <tbody>
         @php
+            $c = 12;
             $number = 0;
             $chk_em = App\Models\Boq::where('template_boq_id', $export_boq->id)->get();
             // $bq = App\Models\template_boqs::where('id', $export_boq->id)->get();
@@ -94,9 +95,7 @@
                 <td style="height: 30px;"></td>
                 <td style="height: 30px;"></td>
             </tr>
-                @php
-                    $c = 12;
-                @endphp
+
             @foreach ( $chk_em as $keysub => $sub )
                 @if ( $sub->main_id == $cat->id )
                     <tr>
@@ -116,7 +115,12 @@
                     @php
                         $c++;
                     @endphp
+                    {{-- @else
+                    @php
+                $c++;
+            @endphp --}}
                 @endif
+
             @endforeach
             <tr>
                 <td colspan="9"></td>
@@ -138,6 +142,9 @@
             <tr>
                 <td colspan="9"></td>
             </tr>
+            @php
+                        $c+=4;
+                    @endphp
             @endif
         @endforeach
     </tbody>
