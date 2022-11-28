@@ -23,13 +23,8 @@ class ReportDesignerController extends Controller
     public function index_detail($id, $month)
     {
         $data['designers'] = design_and_pm::where('id', $id)->first();
-        $chk = Project::whereMonth('created_at', $month)->first();
 
-        if ($chk) {
-            $data['projects'] = Project::whereMonth('created_at', $month)->get();
-        }else{
-            $data['projects'] = Project::where('designer_name', $id)->get();
-        }
+        $data['projects'] = Project::whereMonth('open_date', $month)->where('designer_name', $id)->get();
 
         switch ($month)
         {
@@ -62,7 +57,7 @@ class ReportDesignerController extends Controller
             ->select('design_and_pms.*')->distinct()->get();
         }elseif ($request->year) {
             $data['designers'] = design_and_pm::leftjoin('projects', 'design_and_pms.id', 'projects.designer_name')
-            ->whereYear('projects.created_at', $request->year)
+            ->whereYear('projects.open_date', $request->year)
             ->select('design_and_pms.*')->distinct()->get();
         }elseif ($request->name) {
             $data['designers'] = design_and_pm::leftjoin('projects', 'design_and_pms.id', 'projects.designer_name')
@@ -73,7 +68,7 @@ class ReportDesignerController extends Controller
         }
 
         $data['brands'] = Brand::get();
-        $data['year'] = '';
+        $data['year'] = $request->year;
 
         $_SESSION["projectID"] = '';
         return view('boq.Report.report-designer', $data);
